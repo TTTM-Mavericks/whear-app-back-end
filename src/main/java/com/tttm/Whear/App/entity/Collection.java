@@ -36,7 +36,7 @@ public class Collection {
     @JsonBackReference
     private User userCollection;
 
-    @OneToMany(mappedBy = "collections", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "collectionClothesKey.collections", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<CollectionClothes> collectionClothesList;
 }

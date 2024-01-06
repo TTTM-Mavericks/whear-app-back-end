@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,17 +16,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "follower")
 public class Follower {
-    @Id
-    @Column(name = "followerID", unique = true, nullable = false)
-    private Integer followerID;
+    @EmbeddedId
+    private FollowerKey followerKey;
 
-    @ManyToOne
-    @JoinColumn(name = "followerUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-    @JsonBackReference
-    private User followerUserID;
+    @Embeddable
+    public class FollowerKey implements Serializable
+    {
+        @ManyToOne
+        @JoinColumn(name = "followerUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
+        @JsonBackReference
+        private User followerUserID;
 
-    @ManyToOne
-    @JoinColumn(name = "followingUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-    @JsonBackReference
-    private User followingUserID;
+        @ManyToOne
+        @JoinColumn(name = "followingUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
+        @JsonBackReference
+        private User followingUserID;
+    }
 }

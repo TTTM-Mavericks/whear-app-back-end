@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,19 +16,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "collection_clothes")
 public class CollectionClothes {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "collectionClothesID", unique = true, nullable = false)
-    private Integer collectionClothesID;
 
-    @ManyToOne
-    @JoinColumn(name = "collectionID", referencedColumnName = "collectionID", nullable = false, insertable = false, updatable = false)
-    @JsonBackReference
-    private Collection collections;
+    @EmbeddedId
+    private CollectionClothesKey collectionClothesKey;
 
-    @ManyToOne
-    @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
-    @JsonBackReference
-    private Clothes clothes;
+    @Embeddable
+    public class CollectionClothesKey implements Serializable {
+        @ManyToOne
+        @JoinColumn(name = "collectionID", referencedColumnName = "collectionID", nullable = false, insertable = false, updatable = false)
+        @JsonBackReference
+        private Collection collections;
 
+        @ManyToOne
+        @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
+        @JsonBackReference
+        private Clothes clothes;
+    }
 }

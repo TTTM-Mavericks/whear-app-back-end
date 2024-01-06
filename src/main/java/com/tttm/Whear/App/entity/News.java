@@ -2,8 +2,8 @@ package com.tttm.Whear.App.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.tttm.Whear.App.Enums.StatusGeneral;
-import com.tttm.Whear.App.Enums.TypeOfNews;
+import com.tttm.Whear.App.enums.StatusGeneral;
+import com.tttm.Whear.App.enums.TypeOfNews;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -23,7 +23,7 @@ public class ClothesImage {
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "clothID", referencedColumnName = "clothesID", nullable = false)
+    @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false)
     @JsonBackReference
     private Clothes images;
 }

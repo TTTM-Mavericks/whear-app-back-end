@@ -1,7 +1,7 @@
 package com.tttm.Whear.App.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.tttm.Whear.App.Enums.SubRole;
+import com.tttm.Whear.App.enums.SubRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +22,7 @@ public class Customer {
     private String customerID;
 
     @OneToOne
+    @MapsId
     @JoinColumn(name = "customerID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
     private User user;
 
@@ -34,4 +35,8 @@ public class Customer {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<History> historyList;
+
+    @OneToMany(mappedBy = "customerPayment", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Payment> paymentList;
 }

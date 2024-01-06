@@ -1,7 +1,7 @@
 package com.tttm.Whear.App.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.tttm.Whear.App.Enums.TokenType;
+import com.tttm.Whear.App.enums.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

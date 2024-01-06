@@ -2,8 +2,8 @@ package com.tttm.Whear.App.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.tttm.Whear.App.Enums.StatusGeneral;
-import com.tttm.Whear.App.Enums.TypeOfPosts;
+import com.tttm.Whear.App.enums.StatusGeneral;
+import com.tttm.Whear.App.enums.TypeOfPosts;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,12 +37,6 @@ public class Posts {
     @Column(name = "hashtag", unique = false, nullable = false)
     private String hashtag;
 
-    @Column(name = "comments", unique = false, nullable = true)
-    private String comments;
-
-    @Column(name = "react", unique = false, nullable = true)
-    private String react;
-
     @Column(name = "date", unique = false, nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -53,4 +47,12 @@ public class Posts {
     @OneToMany(mappedBy = "images", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<PostImages> postImagesList;
+
+    @OneToMany(mappedBy = "userPostReactKey.postReact", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<React> postReact;
+
+    @OneToMany(mappedBy = "postComments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Comments> postComments;
 }

@@ -1,4 +1,4 @@
-package com.tttm.Whear.App.Enums;
+package com.tttm.Whear.App.enums;
 
 public enum SeasonType {
     SPRING,

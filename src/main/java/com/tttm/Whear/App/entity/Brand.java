@@ -21,8 +21,9 @@ public class Brand {
     private String brandID;
 
     @OneToOne
-    @JoinColumn(name = "customerID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-    private User user;
+    @MapsId
+    @JoinColumn(name = "brandID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
+    private Customer customer;
 
     @Column(name = "description", unique = false, nullable = false)
     private String description;

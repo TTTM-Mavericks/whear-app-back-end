@@ -1,8 +1,9 @@
 package com.tttm.Whear.App.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.tttm.Whear.App.Enums.StatusGeneral;
-import com.tttm.Whear.App.Enums.ERole;
+import com.tttm.Whear.App.enums.Language;
+import com.tttm.Whear.App.enums.StatusGeneral;
+import com.tttm.Whear.App.enums.ERole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,13 +52,14 @@ public class User {
     private StatusGeneral status;
 
     @Column(name = "language", unique = false, nullable = false)
-    private String language;
+    @Enumerated(EnumType.STRING)
+    private Language language;
 
-    @OneToMany(mappedBy = "followingUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "followerKey.followerUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Follower> followList;
 
-    @OneToMany(mappedBy = "followerUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "followerKey.followingUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Follower> followingList;
 
@@ -72,4 +74,13 @@ public class User {
     @OneToMany(mappedBy = "userCollection", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Collection> userCollectionList;
+
+    @OneToMany(mappedBy = "userPostReactKey.userReact", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<React> userReact;
+
+    @OneToMany(mappedBy = "userComments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Comments> userComments;
+
 }
