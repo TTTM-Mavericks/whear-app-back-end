@@ -13,5 +13,7 @@ public class APIConstant {
      */
     public static final String COLLECTION = APIConstant.API+"/collection";
     public static final String GET_ALL_COLLECTION_BY_USER_ID = "/get-all-by-userid";
+    public static final String GET_COLLECTION_BY_ID = "/get-collection-by-id";
+    public static final String UPDATE_COLLECTION_BY_ID = "update-collection-by-id";
   }
 }

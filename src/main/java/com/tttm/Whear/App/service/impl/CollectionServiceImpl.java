@@ -33,4 +33,42 @@ public class CollectionServiceImpl implements CollectionService {
     }
     return responseList;
   }
+
+  @Override
+  public CollectionResponse getCollectionByCollectionID(Integer collectionID) {
+    CollectionResponse collectionResponse = null;
+    try {
+      Collection collection = collectionRepository.findByCollectionID(collectionID);
+      if(collection != null){
+        collectionResponse = CollectionResponse.builder()
+            .collectionID(collection.getCollectionID())
+            .nameOfCollection(collection.getNameOfCollection())
+            .typeOfCollection(collection.getTypeOfCollection())
+            .numberOfClothes(collection.getNumberOfClothes())
+            .build();
+      }
+      return collectionResponse;
+    } catch (Exception ex){
+      throw ex;
+    }
+  }
+
+//  @Override
+//  public CollectionResponse updateCollectionByID(Integer collectionID, Collection collection) {
+//    CollectionResponse collectionResponse = null;
+//    try {
+//      Collection newCollection = collectionRepository.updateCollectionByCollectionID(collectionID, collection);
+//      if(collection != null){
+//        collectionResponse = CollectionResponse.builder()
+//            .collectionID(collection.getCollectionID())
+//            .nameOfCollection(collection.getNameOfCollection())
+//            .typeOfCollection(collection.getTypeOfCollection())
+//            .numberOfClothes(collection.getNumberOfClothes())
+//            .build();
+//      }
+//      return collectionResponse;
+//    } catch (Exception ex){
+//      throw ex;
+//    }
+//  }
 }
