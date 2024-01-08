@@ -9,7 +9,7 @@
     <version>3.2.1</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>com.whear-app</groupId>
+  <groupId>com.tttm.Whear.App</groupId>
   <artifactId>whear-app-back-end</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>whear-app-back-end</name>
