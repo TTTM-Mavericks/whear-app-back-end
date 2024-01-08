@@ -30,7 +30,7 @@ public class APIConstant {
     public static final String UPDATE_STATUS_USER = "/update-status-user";
   }
 
-  public class PostAPI{
+  public class PostAPI {
     /**
      * Post API
      */
@@ -43,6 +43,23 @@ public class APIConstant {
     public static final String GET_POST_IN_RANGE = APIConstant.API + "/get-post-in-range";
     public static final String DELETE_POST_BY_POSTID = APIConstant.API + "/delete-by-postid";
     public static final String UPDATE_POST = APIConstant.API + "/update-post";
+  }
+  public class FollowAPI
+  {
+    /**
+     * Follow API
+     */
+    public static final String FOLLOW = APIConstant.API + "/follow";
+    public static final String USER_FOLLOW_ANOTHER_USER = "/user-follow-another-user";
+    public static final String GET_ALL_FOLLOWER_USER = "/get-all-follower-user";
+    public static final String GET_ALL_FOLLOWING_USER = "/get-all-following-user";
+  }
 
+  public class CustomerAPI
+  {
+    /**
+     * Customer API
+     */
+    public static final String FOLLOW = APIConstant.API + "/customer";
   }
 }

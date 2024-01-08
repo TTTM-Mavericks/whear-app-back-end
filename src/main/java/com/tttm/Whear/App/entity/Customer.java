@@ -22,7 +22,6 @@ public class Customer {
     private String customerID;
 
     @OneToOne
-    @MapsId
     @JoinColumn(name = "customerID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
     private User user;
 
@@ -39,4 +38,5 @@ public class Customer {
     @OneToMany(mappedBy = "customerPayment", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Payment> paymentList;
+
 }
