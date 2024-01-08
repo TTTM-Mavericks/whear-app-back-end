@@ -173,6 +173,21 @@ public class UserServiceImpl implements UserService {
         return convertToUserResponse(user);
     }
 
+    @Override
+    public User getUserEntityByUsername(String username) throws CustomException {
+        if(username.isBlank() || username.isEmpty())
+        {
+            logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+            throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+        }
+        User user = userRepository.getUserByUsername(username);
+        if(user == null){
+            logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
+            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
+        }
+        return user;
+    }
+
     private UserResponse convertToUserResponse(User user)
     {
         return UserResponse

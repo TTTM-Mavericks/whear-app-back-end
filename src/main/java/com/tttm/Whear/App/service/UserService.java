@@ -14,4 +14,5 @@ public interface UserService {
     UserResponse getUserByUsernameAndPassword(String username, String password) throws CustomException;
     UserResponse updateUserByUsername(UserRequest userRequest) throws CustomException;
     UserResponse updateStatusUser(String username) throws CustomException;
+    User getUserEntityByUsername(String username) throws CustomException;
 }

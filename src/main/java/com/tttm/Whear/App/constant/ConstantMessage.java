@@ -13,8 +13,8 @@ public enum ConstantMessage {
     EMAIL_IS_EXIST("Email has existed already"),
     INVALID_ARGUMENT("Invalid argument"),
     MISSING_ARGUMENT("Some Arguments are missing or empty"),
-    FORBIDDEN("Customer do not have role to access the page");
-
+    FORBIDDEN("Customer do not have role to access the page"),
+    RESOUCE_NOT_FOUND("Resource not found");
     private final String message;
     ConstantMessage(String message)
     {
