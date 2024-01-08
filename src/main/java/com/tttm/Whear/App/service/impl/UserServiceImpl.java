@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -79,16 +80,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse getUserbyUsername(String username) throws CustomException {
-        if(username.isBlank() || username.isEmpty())
-        {
-            logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-            throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-        }
-        User user = userRepository.getUserByUsername(username);
-        if(user == null){
-            logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-        }
+        Optional.of(username)
+                .filter(userID -> !userID.isEmpty() && !userID.isBlank())
+                .orElseThrow(() -> handleInvalidUsername(username));
+
+        User user = Optional.ofNullable(userRepository.getUserByUsername(username))
+                .orElseThrow(() -> handleUserNotFound(username));
+
         return convertToUserResponse(user);
     }
 
@@ -108,35 +106,43 @@ public class UserServiceImpl implements UserService {
             logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
             throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
         }
-        User user = userRepository.getUserByUsernameAndPassword(username, password);
-        if(user == null)
-        {
-            logger.error(ConstantMessage.INVALID_USERNAME_OR_PASSWORD.getMessage());
-            throw new CustomException(ConstantMessage.INVALID_USERNAME_OR_PASSWORD.getMessage());
-        }
+
+        User user = Optional.ofNullable(userRepository.getUserByUsernameAndPassword(username, password))
+                .orElseThrow(() -> new CustomException(ConstantMessage.INVALID_USERNAME_OR_PASSWORD.getMessage()));
+
         return convertToUserResponse(user);
     }
 
     @Override
     public UserResponse updateUserByUsername(UserRequest userRequest) throws CustomException {
-        if(userRequest.getUsername().isBlank() || userRequest.getUsername().isEmpty())
-        {
-            logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-            throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-        }
+        Optional.of(userRequest.getUsername())
+                .filter(userID -> !userID.isEmpty() && !userID.isBlank())
+                .orElseThrow(() -> handleInvalidUsername(userRequest.getUsername()));
+
         if(!checkValidArguement(userRequest))
         {
             logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
             throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
         }
-        User user = userRepository.getUserByUsername(userRequest.getUsername());
-        if(user == null){
-            logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
+
+        User user = Optional.ofNullable(userRepository.getUserByUsername(userRequest.getUsername()))
+                .orElseThrow(() -> handleUserNotFound(userRequest.getUsername()));
+
+        if(userRepository.getUserByEmail(userRequest.getEmail()) != null && userRepository.getUserByEmail(userRequest.getEmail()) != user)
+        {
+            logger.error(ConstantMessage.EMAIL_IS_EXIST.getMessage());
+            throw new CustomException(ConstantMessage.EMAIL_IS_EXIST.getMessage());
         }
+
+        if(userRepository.getUserByPhone(userRequest.getPhone()) != null && userRepository.getUserByPhone(userRequest.getPhone()) != user)
+        {
+            logger.error(ConstantMessage.PHONE_IS_EXIST.getMessage());
+            throw new CustomException(ConstantMessage.PHONE_IS_EXIST.getMessage());
+        }
+
         User updateUser = User
                 .builder()
-                .username(userRequest.getUsername())
+                .username(user.getUsername())
                 .password(userRequest.getPassword())
                 .dateOfBirth(userRequest.getDateOfBirth())
                 .phone(userRequest.getPhone())
@@ -161,16 +167,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse updateStatusUser(String username) throws CustomException {
-        if(username.isBlank() || username.isEmpty())
-        {
-            logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-            throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-        }
-        User user = userRepository.getUserByUsername(username);
-        if(user == null){
-            logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-        }
+        Optional.of(username)
+                .filter(userID -> !userID.isEmpty() && !userID.isBlank())
+                .orElseThrow(() -> handleInvalidUsername(username));
+
+        User user = Optional.ofNullable(userRepository.getUserByUsername(username))
+                .orElseThrow(() -> handleUserNotFound(username));
+
         if(user.getStatus().equals(StatusGeneral.ACTIVE))
         {
             user.setStatus(StatusGeneral.INACTIVE);
@@ -183,17 +186,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserEntityByUsername(String username) throws CustomException {
-        if(username.isBlank() || username.isEmpty())
-        {
-            logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-            throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-        }
-        User user = userRepository.getUserByUsername(username);
-        if(user == null){
-            logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-        }
+        Optional.of(username)
+                .filter(userID -> !userID.isEmpty() && !userID.isBlank())
+                .orElseThrow(() -> handleInvalidUsername(username));
+
+        User user = Optional.ofNullable(userRepository.getUserByUsername(username))
+                .orElseThrow(() -> handleUserNotFound(username));
+
         return user;
+    }
+    private CustomException handleInvalidUsername(String username)
+    {
+        logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+        return new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+    }
+
+    private CustomException handleUserNotFound(String username)
+    {
+        logger.error(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
+        return new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
     }
 
     @Override
