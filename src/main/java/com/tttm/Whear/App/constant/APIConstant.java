@@ -29,4 +29,20 @@ public class APIConstant {
     public static final String CREATE_NEW_USER = "/create-new-user";
     public static final String UPDATE_STATUS_USER = "/update-status-user";
   }
+
+  public class PostAPI{
+    /**
+     * Post API
+     */
+    public static final String POST = APIConstant.API + "/post";
+    public static final String CREATE_POST = APIConstant.API + "/create-post";
+    public static final String GET_POST_BY_POST_ID = APIConstant.API + "/get-post-by-postid";
+    public static final String GET_ALL_POST = APIConstant.API + "/get-all-post";
+    public static final String GET_POST_BY_TYPE_OF_POST = APIConstant.API + "/get-post-by-type-of-post";
+    public static final String GET_POST_BY_HASHTAG = APIConstant.API + "/get-post-by-hashtag";
+    public static final String GET_POST_IN_RANGE = APIConstant.API + "/get-post-in-range";
+    public static final String DELETE_POST_BY_POSTID = APIConstant.API + "/delete-by-postid";
+    public static final String UPDATE_POST = APIConstant.API + "/update-post";
+
+  }
 }
