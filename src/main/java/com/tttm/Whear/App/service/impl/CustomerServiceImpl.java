@@ -13,16 +13,18 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
-    private final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
-    private final CustomerRepository customerRepository;
-    @Override
-    public Customer createNewCustomers(User user) {
-        return customerRepository.save(Customer
-                .builder()
-                .customerID(user.getUsername())
-                .isFirstLogin(true)
-                .subRole(SubRole.LV1)
-                .build());
-    }
+  private final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+
+  private final CustomerRepository customerRepository;
+
+  @Override
+  public Customer createNewCustomers(User user) {
+    return customerRepository.save(Customer
+        .builder()
+        .customerID(user.getUsername())
+        .isFirstLogin(true)
+        .subRole(SubRole.LV1)
+        .build());
+  }
 }

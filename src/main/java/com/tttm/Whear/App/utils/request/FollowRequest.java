@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FollowRequest {
-    private String firstUsername;
-    private String secondUsername;
+
+  private String firstUsername;
+  private String secondUsername;
 }

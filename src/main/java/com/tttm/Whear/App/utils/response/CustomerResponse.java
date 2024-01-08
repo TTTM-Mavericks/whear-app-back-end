@@ -4,39 +4,39 @@ import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.Language;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.SubRole;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerResponse {
-    private String username;
 
-    private String password;
+  private String username;
 
-    private Date dateOfBirth;
+  private String password;
 
-    private String phone;
+  private Date dateOfBirth;
 
-    private String email;
+  private String phone;
 
-    private Boolean gender;
+  private String email;
 
-    private ERole role;
+  private Boolean gender;
 
-    private String imgUrl;
+  private ERole role;
 
-    private StatusGeneral status;
+  private String imgUrl;
 
-    private Language language;
+  private StatusGeneral status;
 
-    private Boolean isFirstLogin;
+  private Language language;
 
-    private SubRole subRole;
+  private Boolean isFirstLogin;
+
+  private SubRole subRole;
 }

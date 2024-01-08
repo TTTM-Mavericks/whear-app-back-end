@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReactRepository extends JpaRepository<React, React.UserPostReactKey> {
+
 }

@@ -1,18 +1,26 @@
 package com.tttm.Whear.App.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.Language;
 import com.tttm.Whear.App.enums.StatusGeneral;
-import com.tttm.Whear.App.enums.ERole;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,67 +29,68 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
 
-    @Column(name = "password", unique = false, nullable = false)
-    private String password;
+  @Id
+  @Column(name = "username", unique = true, nullable = false)
+  private String username;
 
-    @Column(name = "dateOfBirth", unique = false, nullable = true)
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
+  @Column(name = "password", unique = false, nullable = false)
+  private String password;
 
-    @Column(name = "phone", unique = true, nullable = false)
-    private String phone;
+  @Column(name = "dateOfBirth", unique = false, nullable = true)
+  @Temporal(TemporalType.DATE)
+  private Date dateOfBirth;
 
-    @Column(name = "email", unique = true, nullable = false)
-    private String email;
+  @Column(name = "phone", unique = true, nullable = false)
+  private String phone;
 
-    @Column(name = "gender", unique = false, nullable = true)
-    private Boolean gender;
+  @Column(name = "email", unique = true, nullable = false)
+  private String email;
 
-    @Column(name = "role", unique = false, nullable = true)
-    @Enumerated(EnumType.STRING)
-    private ERole role;
+  @Column(name = "gender", unique = false, nullable = true)
+  private Boolean gender;
 
-    @Column(name = "imgUrl", unique = false, nullable = true)
-    private String imgUrl;
+  @Column(name = "role", unique = false, nullable = true)
+  @Enumerated(EnumType.STRING)
+  private ERole role;
 
-    @Column(name = "status", unique = false, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private StatusGeneral status;
+  @Column(name = "imgUrl", unique = false, nullable = true)
+  private String imgUrl;
 
-    @Column(name = "language", unique = false, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Language language;
+  @Column(name = "status", unique = false, nullable = false)
+  @Enumerated(EnumType.STRING)
+  private StatusGeneral status;
 
-    @OneToMany(mappedBy = "followerKey.followerUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Follower> followList;
+  @Column(name = "language", unique = false, nullable = false)
+  @Enumerated(EnumType.STRING)
+  private Language language;
 
-    @OneToMany(mappedBy = "followerKey.followingUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Follower> followingList;
+  @OneToMany(mappedBy = "followerKey.followerUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonManagedReference
+  private List<Follower> followList;
 
-    @OneToMany(mappedBy = "userToken", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Token> tokenList;
+  @OneToMany(mappedBy = "followerKey.followingUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonManagedReference
+  private List<Follower> followingList;
 
-    @OneToMany(mappedBy = "userPost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Posts> userPostList;
+  @OneToMany(mappedBy = "userToken", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonManagedReference
+  private List<Token> tokenList;
 
-    @OneToMany(mappedBy = "userCollection", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Collection> userCollectionList;
+  @OneToMany(mappedBy = "userPost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonManagedReference
+  private List<Posts> userPostList;
 
-    @OneToMany(mappedBy = "userPostReactKey.userReact", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<React> userReact;
+  @OneToMany(mappedBy = "userCollection", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonManagedReference
+  private List<Collection> userCollectionList;
 
-    @OneToMany(mappedBy = "userComments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Comments> userComments;
+  @OneToMany(mappedBy = "userPostReactKey.userReact", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonManagedReference
+  private List<React> userReact;
+
+  @OneToMany(mappedBy = "userComments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonManagedReference
+  private List<Comments> userComments;
 
 }

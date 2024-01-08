@@ -8,8 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CollectionRepository extends JpaRepository<Collection, Integer> {
+
   @Query(nativeQuery = true, value = "select * from collection where collection.userID = ?1")
   public List<Collection> getAllByUserID(String userID);
+
   public Collection findByCollectionID(Integer collectionID);
-//  public Collection updateCollectionByCollectionID(Integer collectionID, Collection collection);
 }
