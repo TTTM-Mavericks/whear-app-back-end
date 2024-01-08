@@ -18,18 +18,4 @@ import java.io.Serializable;
 public class Follower {
     @EmbeddedId
     private FollowerKey followerKey;
-
-    @Embeddable
-    public class FollowerKey implements Serializable
-    {
-        @ManyToOne
-        @JoinColumn(name = "followerUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-        @JsonBackReference
-        private User followerUserID;
-
-        @ManyToOne
-        @JoinColumn(name = "followingUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-        @JsonBackReference
-        private User followingUserID;
-    }
 }
