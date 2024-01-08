@@ -1,30 +1,31 @@
 package com.tttm.Whear.App.utils.request;
 
-import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.Language;
-import com.tttm.Whear.App.enums.StatusGeneral;
-import lombok.*;
-
 import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class UserRequest {
-    private String username;
 
-    private String password;
+  private String username;
 
-    private Date dateOfBirth;
+  private String password;
 
-    private String phone;
+  private Date dateOfBirth;
 
-    private String email;
+  private String phone;
 
-    private Boolean gender;
+  private String email;
 
-    private String imgUrl;
+  private Boolean gender;
 
-    private Language language;
+  private String imgUrl;
+
+  private Language language;
 }

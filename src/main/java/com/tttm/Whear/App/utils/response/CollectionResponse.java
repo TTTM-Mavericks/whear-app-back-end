@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 @Data
 public class CollectionResponse implements Serializable {
+
   private Integer collectionID;
   private String nameOfCollection;
   private Integer numberOfClothes;

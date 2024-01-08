@@ -23,24 +23,26 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
+
   private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
   private final PostRepository postRepository;
   private final UserService userService;
-  private boolean checkValidArguement(PostRequest postRequest)
-  {
+
+  private boolean checkValidArguement(PostRequest postRequest) {
     return !postRequest.getUserID().isEmpty() && !postRequest.getUserID().isBlank() &&
-        !postRequest.getTypeOfPosts().toString().isEmpty() && !postRequest.getTypeOfPosts().toString().isBlank() &&
+        !postRequest.getTypeOfPosts().toString().isEmpty() && !postRequest.getTypeOfPosts()
+        .toString().isBlank() &&
         !postRequest.getHashtag().isEmpty() && !postRequest.getHashtag().isBlank();
   }
+
   @Override
   public PostResponse createPost(PostRequest postRequest) throws CustomException {
-    if(!checkValidArguement(postRequest))
-    {
+    if (!checkValidArguement(postRequest)) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
     UserResponse userResponse = userService.getUserbyUsername(postRequest.getUserID());
-    if(userResponse == null){
+    if (userResponse == null) {
       logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
       throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
     }
@@ -59,15 +61,14 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public PostResponse getPostByPostID(Integer postID) throws CustomException {
-    if(postID == null)
-    {
+    if (postID == null) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
     Posts post = postRepository.getReferenceById(postID);
-    if(post == null){
-      logger.warn(ConstantMessage.RESOUCE_NOT_FOUND.getMessage());
-      throw new CustomException(ConstantMessage.RESOUCE_NOT_FOUND.getMessage());
+    if (post == null) {
+      logger.warn(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
     }
     return convertToPostResponse(post);
   }
@@ -86,7 +87,8 @@ public class PostServiceImpl implements PostService {
     return postRepository.findAll()
         .stream()
         .map(this::convertToPostResponse)
-        .filter(c -> c.getTypeOfPosts().toString().trim().toLowerCase().contains(typeOfPosts.toString().trim().toLowerCase()))
+        .filter(c -> c.getTypeOfPosts().toString().trim().toLowerCase()
+            .contains(typeOfPosts.toString().trim().toLowerCase()))
         .toList();
   }
 
@@ -110,41 +112,40 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public Boolean deletePostByPostID(Integer postID) throws CustomException {
-    if(postID == null){
+    if (postID == null) {
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
     Posts post = postRepository.getPostsByPostID(postID);
-    if(post == null){
-      throw new CustomException(ConstantMessage.RESOUCE_NOT_FOUND.getMessage());
+    if (post == null) {
+      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
     }
-    try{
+    try {
       return postRepository.deleteByPostID(postID);
-    }catch (Exception ex){
+    } catch (Exception ex) {
       throw ex;
     }
   }
 
   @Override
   public PostResponse updatePost(PostRequest postRequest) throws CustomException {
-    if(postRequest.getPostID().toString().isBlank() || postRequest.getPostID().toString().isEmpty())
-    {
-      logger.error(ConstantMessage.RESOUCE_NOT_FOUND.getMessage());
-      throw new CustomException(ConstantMessage.RESOUCE_NOT_FOUND.getMessage());
+    if (postRequest.getPostID().toString().isBlank() || postRequest.getPostID().toString()
+        .isEmpty()) {
+      logger.error(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
     }
-    if(!checkValidArguement(postRequest))
-    {
+    if (!checkValidArguement(postRequest)) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
     User user = userService.getUserEntityByUsername(postRequest.getUserID());
-    if(user == null){
+    if (user == null) {
       logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
     }
     Posts post = postRepository.getPostsByPostID(postRequest.getPostID());
-    if(post == null){
-      logger.warn(ConstantMessage.RESOUCE_NOT_FOUND.getMessage());
-      throw new CustomException(ConstantMessage.RESOUCE_NOT_FOUND.getMessage());
+    if (post == null) {
+      logger.warn(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
     }
     Posts updatePost = Posts
         .builder()
@@ -163,8 +164,7 @@ public class PostServiceImpl implements PostService {
     return convertToPostResponse(updatePost);
   }
 
-  private PostResponse convertToPostResponse(Posts post)
-  {
+  private PostResponse convertToPostResponse(Posts post) {
     return PostResponse
         .builder()
         .typeOfPosts(post.getTypeOfPosts())
