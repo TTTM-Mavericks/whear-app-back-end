@@ -138,7 +138,7 @@ public class CollectionController {
       CollectionResponse collectionResponse = collectionService.createCollection(collection);
       if (collectionResponse != null) {
         response.put("success", 200);
-        response.put("message", "Collection is deleted!");
+        response.put("message", "Collection is created!");
         response.set("data", objectMapper.createObjectNode()
             .put("ID", collectionResponse.getCollectionID())
             .put("NAME", collectionResponse.getNameOfCollection())

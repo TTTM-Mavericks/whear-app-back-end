@@ -2,6 +2,7 @@ package com.tttm.Whear.App.entity;
 
 import com.tttm.Whear.App.enums.SizeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -20,16 +21,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "clothes_color")
 public class ClothesColor {
+  @EmbeddedId
+  ClothesColorKey clothesColorKey;
+//  @Id
+//  @Column(name = "clothesID", unique = true, nullable = false)
+//  private Integer clothesID;
 
-  @Id
-  @Column(name = "clothesID", unique = true, nullable = false)
-  private Integer clothesID;
-
-  @ManyToOne
-  @MapsId
-  @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
-  private Clothes clothesColor;
-
-  @Column(name = "sizeType", unique = false, nullable = true)
-  private SizeType sizeType;
+//  @ManyToOne
+//  @MapsId
+//  @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
+//  private Clothes clothesColor;
+//
+//  @Column(name = "sizeType", unique = false, nullable = true)
+//  private SizeType sizeType;
 }

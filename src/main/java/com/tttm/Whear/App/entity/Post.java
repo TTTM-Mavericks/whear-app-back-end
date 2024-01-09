@@ -1,15 +1,12 @@
 package com.tttm.Whear.App.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,7 +29,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "posts")
-public class Posts {
+public class Post {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +45,10 @@ public class Posts {
   @Enumerated(EnumType.STRING)
   private TypeOfPosts typeOfPosts;
 
-  @Column(name = "hashtag", unique = false, nullable = false)
-  private String hashtag;
+//  @Column(name = "hashtag", unique = false, nullable = false)
+//  private List<String> hashtag;
+  @OneToMany
+  private List<Hashtag> hashtag;
 
   @Column(name = "date", unique = false, nullable = false)
   @Temporal(TemporalType.DATE)
@@ -58,15 +57,15 @@ public class Posts {
   @Column(name = "status", unique = false, nullable = false)
   private StatusGeneral status;
 
-  @OneToMany(mappedBy = "images", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<PostImages> postImagesList;
-
-  @OneToMany(mappedBy = "userPostReactKey.postReact", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<React> postReact;
-
-  @OneToMany(mappedBy = "postComments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<Comments> postComments;
+//  @OneToMany(mappedBy = "images", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<PostImages> postImagesList;
+//
+//  @OneToMany(mappedBy = "userPostReactKey.postReact", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<React> postReact;
+//
+//  @OneToMany(mappedBy = "postComments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<Comments> postComments;
 }

@@ -150,13 +150,13 @@ public class UserServiceImpl implements UserService {
         .imgUrl(userRequest.getImgUrl())
         .status(user.getStatus())
         .language(userRequest.getLanguage())
-        .followList(user.getFollowList())
-        .followingList(user.getFollowingList())
-        .tokenList(user.getTokenList())
-        .userPostList(user.getUserPostList())
         .userCollectionList(user.getUserCollectionList())
-        .userReact(user.getUserReact())
-        .userComments(user.getUserComments())
+//        .followList(user.getFollowList())
+//        .followingList(user.getFollowingList())
+//        .tokenList(user.getTokenList())
+//        .userPostList(user.getUserPostList())
+//        .userReact(user.getUserReact())
+//        .userComments(user.getUserComments())
         .build();
     userRepository.save(updateUser);
     logger.info("Update User Information Successfully");
@@ -223,11 +223,12 @@ public class UserServiceImpl implements UserService {
       logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
     }
-    List<Collection> userCollection = user.getUserCollectionList();
-    if (userCollection == null) {
-      return 0;
-    }
-    return userCollection.size();
+//    List<Collection> userCollection = user.getUserCollectionList();
+//    if (userCollection == null) {
+//      return 0;
+//    }
+//    return userCollection.size();
+    return 1;
   }
 
   public UserResponse convertToUserResponse(User user) {
@@ -261,7 +262,7 @@ public class UserServiceImpl implements UserService {
         .status(user.getStatus())
         .language(user.getLanguage())
         .isFirstLogin(customer.getIsFirstLogin())
-        .subRole(customer.getSubRole())
+//        .subRole(customer.getSubRole())
         .build();
   }
 }

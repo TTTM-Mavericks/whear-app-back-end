@@ -27,10 +27,12 @@ public class History {
   @Column(name = "historyID", unique = true, nullable = false)
   private Integer historyID;
 
-  @ManyToOne
-  @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
-  @JsonBackReference
-  private Customer customer;
+  @ManyToOne(targetEntity = Customer.class)
+  private String customerID;
+//  @ManyToOne
+//  @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
+//  @JsonBackReference
+//  private Customer customer;
 
   @Column(name = "historyItem", unique = false, nullable = true)
   private String historyItem;

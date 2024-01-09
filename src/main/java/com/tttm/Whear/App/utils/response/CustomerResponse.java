@@ -3,7 +3,7 @@ package com.tttm.Whear.App.utils.response;
 import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.Language;
 import com.tttm.Whear.App.enums.StatusGeneral;
-import com.tttm.Whear.App.enums.SubRole;
+import com.tttm.Whear.App.enums.ESubRole;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,5 +38,5 @@ public class CustomerResponse {
 
   private Boolean isFirstLogin;
 
-  private SubRole subRole;
+  private ESubRole subRole;
 }

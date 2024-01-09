@@ -2,6 +2,7 @@ package com.tttm.Whear.App.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.tttm.Whear.App.enums.StatusCollection;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,12 +42,16 @@ public class Collection {
   @Column(name = "typeOfCollection", unique = false, nullable = false)
   private String typeOfCollection;
 
+  @Column(name = "collectionStatus")
+  private StatusCollection collectionStatus;
+
+  private String userID;
   @ManyToOne
   @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
   @JsonBackReference
   private User userCollection;
-
-  @OneToMany(mappedBy = "collectionClothesKey.collections", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<CollectionClothes> collectionClothesList;
+//
+//  @OneToMany(mappedBy = "collectionClothesKey.collections", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<CollectionClothes> collectionClothesList;
 }

@@ -27,14 +27,18 @@ public class CollectionClothes {
   @Embeddable
   public class CollectionClothesKey implements Serializable {
 
-    @ManyToOne
-    @JoinColumn(name = "collectionID", referencedColumnName = "collectionID", nullable = false, insertable = false, updatable = false)
-    @JsonBackReference
-    private Collection collections;
-
-    @ManyToOne
-    @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
-    @JsonBackReference
-    private Clothes clothes;
+    @ManyToOne(targetEntity = Collection.class)
+    private Integer collectionID;
+    @ManyToOne(targetEntity = Clothes.class)
+    private Integer clothesID;
+//    @ManyToOne
+//    @JoinColumn(name = "collectionID", referencedColumnName = "collectionID", nullable = false, insertable = false, updatable = false)
+//    @JsonBackReference
+//    private Collection collections;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
+//    @JsonBackReference
+//    private Clothes clothes;
   }
 }

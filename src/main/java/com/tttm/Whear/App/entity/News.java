@@ -36,10 +36,12 @@ public class News {
   @Column(name = "newsID", unique = true, nullable = false)
   private Integer newsID;
 
-  @ManyToOne
-  @JoinColumn(name = "brandID", referencedColumnName = "brandID", nullable = false, insertable = false, updatable = false)
-  @JsonBackReference
-  private Brand brand;
+  @ManyToOne(targetEntity = Brand.class)
+  private String brandID;
+//  @ManyToOne
+//  @JoinColumn(name = "brandID", referencedColumnName = "brandID", nullable = false, insertable = false, updatable = false)
+//  @JsonBackReference
+//  private Brand brand;
 
   @Column(name = "title", unique = false, nullable = false)
   private String title;
@@ -54,7 +56,7 @@ public class News {
   @Column(name = "status", unique = false, nullable = false)
   private StatusGeneral status;
 
-  @OneToMany(mappedBy = "images", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<NewsImages> newsImageList;
+//  @OneToMany(mappedBy = "images", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<NewsImages> newsImageList;
 }

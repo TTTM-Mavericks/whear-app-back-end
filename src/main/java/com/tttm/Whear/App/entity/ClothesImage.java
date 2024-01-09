@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "clothes_image")
 public class ClothesImage {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "imgID", unique = true, nullable = false)
@@ -30,8 +29,11 @@ public class ClothesImage {
   @Column(name = "imageUrl", unique = false, nullable = false)
   private String imageUrl;
 
-  @ManyToOne
-  @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false)
-  @JsonBackReference
-  private Clothes images;
+  @ManyToOne(targetEntity = Clothes.class)
+  @JoinColumn(name = "clothesID")
+  private Integer clothesID;
+//  @ManyToOne
+//  @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false)
+//  @JsonBackReference
+//  private Clothes images;
 }

@@ -1,11 +1,9 @@
 package com.tttm.Whear.App.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
@@ -30,15 +28,18 @@ public class React {
 
   @Embeddable
   public class UserPostReactKey implements Serializable {
+    @ManyToOne(targetEntity = User.class)
+    private String userID;
+//    @ManyToOne
+//    @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
+//    @JsonBackReference
+//    private User userReact;
 
-    @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-    @JsonBackReference
-    private User userReact;
-
-    @ManyToOne
-    @JoinColumn(name = "postID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
-    @JsonBackReference
-    private Posts postReact;
+    @ManyToOne(targetEntity = Post.class)
+    private Integer postID;
+//    @ManyToOne
+//    @JoinColumn(name = "postID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
+//    @JsonBackReference
+//    private Posts postReact;
   }
 }

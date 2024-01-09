@@ -1,7 +1,7 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
-import com.tttm.Whear.App.entity.Posts;
+import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
@@ -46,11 +46,11 @@ public class PostServiceImpl implements PostService {
       logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
       throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
     }
-    Posts post = Posts
+    Post post = Post
         .builder()
         .userPost(userService.getUserEntityByUsername(postRequest.getUserID()))
         .typeOfPosts(postRequest.getTypeOfPosts())
-        .hashtag(postRequest.getHashtag())
+//        .hashtag(postRequest.getHashtag())
         .status(StatusGeneral.ACTIVE)
         .date(new Date())
         .build();
@@ -65,7 +65,7 @@ public class PostServiceImpl implements PostService {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
-    Posts post = postRepository.getReferenceById(postID);
+    Post post = postRepository.getReferenceById(postID);
     if (post == null) {
       logger.warn(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
       throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
@@ -115,7 +115,7 @@ public class PostServiceImpl implements PostService {
     if (postID == null) {
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
-    Posts post = postRepository.getPostsByPostID(postID);
+    Post post = postRepository.getPostsByPostID(postID);
     if (post == null) {
       throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
     }
@@ -142,12 +142,12 @@ public class PostServiceImpl implements PostService {
       logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
     }
-    Posts post = postRepository.getPostsByPostID(postRequest.getPostID());
+    Post post = postRepository.getPostsByPostID(postRequest.getPostID());
     if (post == null) {
       logger.warn(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
       throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
     }
-    Posts updatePost = Posts
+    Post updatePost = Post
         .builder()
         .postID(post.getPostID())
         .userPost(user)
@@ -155,22 +155,22 @@ public class PostServiceImpl implements PostService {
         .hashtag(post.getHashtag())
         .date(post.getDate())
         .status(post.getStatus())
-        .postImagesList(post.getPostImagesList())
-        .postReact(post.getPostReact())
-        .postComments(post.getPostComments())
+//        .postImagesList(post.getPostImagesList())
+//        .postReact(post.getPostReact())
+//        .postComments(post.getPostComments())
         .build();
     postRepository.save(updatePost);
     logger.info("Update Post Information Successfully");
     return convertToPostResponse(updatePost);
   }
 
-  private PostResponse convertToPostResponse(Posts post) {
+  private PostResponse convertToPostResponse(Post post) {
     return PostResponse
         .builder()
         .typeOfPosts(post.getTypeOfPosts())
         .postID(post.getPostID())
         .date(post.getDate())
-        .hashtag(post.getHashtag())
+//        .hashtag(post.getHashtag())
         .userID(post.getUserPost().getUsername())
         .status(post.getStatus())
         .build();

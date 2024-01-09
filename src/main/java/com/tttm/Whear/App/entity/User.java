@@ -65,32 +65,32 @@ public class User {
   @Enumerated(EnumType.STRING)
   private Language language;
 
-  @OneToMany(mappedBy = "followerKey.followerUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<Follower> followList;
-
-  @OneToMany(mappedBy = "followerKey.followingUserID", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<Follower> followingList;
-
-  @OneToMany(mappedBy = "userToken", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<Token> tokenList;
-
-  @OneToMany(mappedBy = "userPost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<Posts> userPostList;
-
   @OneToMany(mappedBy = "userCollection", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonManagedReference
   private List<Collection> userCollectionList;
+//  @OneToMany(mappedBy = "followerKey.followerUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<Follower> followList;
+//
+//  @OneToMany(mappedBy = "followerKey.followingUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<Follower> followingList;
+//
+//  @OneToMany(mappedBy = "userToken", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<Token> tokenList;
+//
+//  @OneToMany(mappedBy = "userPost", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<Posts> userPostList;
+//
 
-  @OneToMany(mappedBy = "userPostReactKey.userReact", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<React> userReact;
-
-  @OneToMany(mappedBy = "userComments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<Comments> userComments;
-
+//
+//  @OneToMany(mappedBy = "userPostReactKey.userReact", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<React> userReact;
+//
+//  @OneToMany(mappedBy = "userComments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//  @JsonManagedReference
+//  private List<Comments> userComments;
 }

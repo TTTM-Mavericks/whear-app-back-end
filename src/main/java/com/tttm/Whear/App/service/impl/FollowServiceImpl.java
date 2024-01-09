@@ -50,14 +50,16 @@ public class FollowServiceImpl implements FollowService {
 
     FollowerKey followerKey = Optional.of(FollowerKey
             .builder()
-            .followerUserID(firstUser)
-            .followingUserID(secondUser)
+            .follower_userid(firstUser.getUsername())
+//            .followerUser(userService.getUserEntityByUsername(firstUser.getUsername()))
+            .following_userid(secondUser.getUsername())
+//            .followingUser(userService.getUserEntityByUsername(secondUser.getUsername()))
             .build())
-        .filter(key -> !Objects.equals(key.getFollowerUserID(), key.getFollowingUserID()))
+        .filter(key -> !Objects.equals(key.getFollower_userid(), key.getFollowing_userid()))
         .orElseThrow(() -> new RuntimeException(
             "Failed to create FollowerKey. Because Two Username are the same"));
     if (followerRepository.findFollowerByFollowerIdAndFollowingId(followRequest.getFirstUsername(),
-        followRequest.getSecondUsername()) != null) {
+        followRequest.getSecondUsername()).size() > 0) {
       logger.error(
           ConstantMessage.USERNAME_IS_EXIST.getMessage() + ": " + followRequest.getFirstUsername()
               + " and " + followRequest.getSecondUsername());
@@ -65,9 +67,13 @@ public class FollowServiceImpl implements FollowService {
           ConstantMessage.USERNAME_IS_EXIST.getMessage() + " : " + followRequest.getFirstUsername()
               + " and " + followRequest.getSecondUsername());
     }
-    Follower follower = new Follower();
-    follower.setFollowerKey(followerKey);
-    followerRepository.save(follower);
+//    Follower follower = new Follower();
+//    follower.setFollowerKey(followerKey);
+    followerRepository.insertFollower(followRequest.getFirstUsername(),
+        followRequest.getSecondUsername());
+//    Follower follower = followerRepository.findFollowerByFollowerIdAndFollowingId(
+//        followRequest.getFirstUsername(), followRequest.getSecondUsername());
+//    followerRepository.save(follower);
     return new FollowResponse(userService.convertToUserResponse(firstUser),
         userService.convertToUserResponse(secondUser));
   }
@@ -83,13 +89,14 @@ public class FollowServiceImpl implements FollowService {
     User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
         .orElseThrow(() -> handleUserNotFound(username));
 
-    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUsername(
-            username)
-        .stream()
-        .map(following -> userService.convertToUserResponse(
-            following.getFollowerKey().getFollowerUserID()))
-        .toList();
-    return userResponseList;
+//    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUsername(
+//            username)
+//        .stream()
+//        .map(following -> userService.convertToUserResponse(
+//            following.getFollowerKey().getFollowerUserID()))
+//        .toList();
+//    return userResponseList;
+    return null;
   }
 
   @Override
@@ -103,12 +110,13 @@ public class FollowServiceImpl implements FollowService {
     User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
         .orElseThrow(() -> handleUserNotFound(username));
 
-    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUsername(username)
-        .stream()
-        .map(follower -> userService.convertToUserResponse(
-            follower.getFollowerKey().getFollowingUserID()))
-        .toList();
-    return userResponseList;
+//    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUsername(username)
+//        .stream()
+//        .map(follower -> userService.convertToUserResponse(
+//            follower.getFollowerKey().getFollowingUserID()))
+//        .toList();
+//    return userResponseList;
+    return null;
   }
 
   private CustomException handleInvalidUsername(String username) {

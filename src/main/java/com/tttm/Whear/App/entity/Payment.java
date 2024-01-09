@@ -33,10 +33,12 @@ public class Payment {
   @Column(name = "paymentID", unique = true, nullable = false)
   private Integer paymentID;
 
-  @ManyToOne
-  @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
-  @JsonBackReference
-  private Customer customerPayment;
+//  @ManyToOne
+//  @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
+//  @JsonBackReference
+//  private Customer customerPayment;
+  @ManyToOne(targetEntity = Customer.class)
+  private String customerID;
 
   @Column(name = "createTime", unique = false, nullable = true)
   @Temporal(TemporalType.DATE)
