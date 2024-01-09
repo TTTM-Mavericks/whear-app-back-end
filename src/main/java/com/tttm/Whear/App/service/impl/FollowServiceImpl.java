@@ -49,9 +49,9 @@ public class FollowServiceImpl implements FollowService {
 
     FollowerKey followerKey = Optional.of(FollowerKey
             .builder()
-            .follower_userid(firstUser.getUsername())
+            .follower_userid(firstUser)
 //            .followerUser(userService.getUserEntityByUsername(firstUser.getUsername()))
-            .following_userid(secondUser.getUsername())
+            .following_userid(secondUser)
 //            .followingUser(userService.getUserEntityByUsername(secondUser.getUsername()))
             .build())
         .filter(key -> !Objects.equals(key.getFollower_userid(), key.getFollowing_userid()))
@@ -95,7 +95,7 @@ public class FollowServiceImpl implements FollowService {
           try {
             return userService.convertToUserResponse(
                 userService.getUserEntityByUsername(
-                    following.getFollowerKey().getFollower_userid()));
+                    following.getFollowerKey().getFollower_userid().getUsername()));
           } catch (CustomException e) {
             throw new RuntimeException(e);
           }
@@ -121,7 +121,7 @@ public class FollowServiceImpl implements FollowService {
               try {
                 return userService.convertToUserResponse(
                         userService.getUserEntityByUsername(
-                            follower.getFollowerKey().getFollowing_userid()
+                            follower.getFollowerKey().getFollowing_userid().getUsername()
                         )
                     );
               } catch (CustomException e) {
