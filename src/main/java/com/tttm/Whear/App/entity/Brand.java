@@ -42,8 +42,4 @@ public class Brand {
 
   @Column(name = "link", unique = false, nullable = false)
   private String link;
-
-  @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
-  private List<News> BrandPublishNews; // brand publish news about their product
 }

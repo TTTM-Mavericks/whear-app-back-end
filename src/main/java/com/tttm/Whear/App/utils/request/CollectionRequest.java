@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.utils.request;
 
+import com.tttm.Whear.App.enums.StatusCollection;
 import lombok.Data;
 
 @Data
@@ -10,4 +11,5 @@ public class CollectionRequest {
   private String nameOfCollection;
   private String typeOfCollection;
   private Integer numberOfClothes;
+  private StatusCollection collectionStatus;
 }

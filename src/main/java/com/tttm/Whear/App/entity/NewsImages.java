@@ -30,9 +30,10 @@ public class NewsImages {
   @Column(name = "imageUrl", unique = false, nullable = false)
   private String imageUrl;
 
+  @Column(name = "newsID", unique = true, nullable = false)
+  private Integer newsID;
   @ManyToOne
-  @JoinColumn(name = "newsID", referencedColumnName = "newsID", nullable = false)
-  @JsonBackReference
-  private News images;
+  @JoinColumn(name = "newsID", referencedColumnName = "newsID", nullable = false, insertable = false, updatable = false)
+  private News news;
 
 }

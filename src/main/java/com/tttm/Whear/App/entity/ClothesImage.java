@@ -1,6 +1,5 @@
 package com.tttm.Whear.App.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +20,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "clothes_image")
 public class ClothesImage {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "imgID", unique = true, nullable = false)
@@ -30,8 +28,9 @@ public class ClothesImage {
   @Column(name = "imageUrl", unique = false, nullable = false)
   private String imageUrl;
 
+  @Column(name = "clothesID", unique = true, nullable = false)
+  private Integer clothesID;
   @ManyToOne
-  @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false)
-  @JsonBackReference
-  private Clothes images;
+  @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
+  private Clothes clothes;
 }

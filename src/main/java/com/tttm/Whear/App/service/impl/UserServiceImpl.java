@@ -1,12 +1,12 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
-import com.tttm.Whear.App.entity.Collection;
 import com.tttm.Whear.App.entity.Customer;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.repository.SubRoleRepository;
 import com.tttm.Whear.App.repository.UserRepository;
 import com.tttm.Whear.App.service.CustomerService;
 import com.tttm.Whear.App.service.UserService;
@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
 
   private final CustomerService customerService;
+  private final SubRoleRepository subRoleRepository;
 
   private boolean checkValidArguement(UserRequest userRequest) {
     return !userRequest.getUsername().isEmpty() && !userRequest.getUsername().isBlank() &&
@@ -150,13 +151,13 @@ public class UserServiceImpl implements UserService {
         .imgUrl(userRequest.getImgUrl())
         .status(user.getStatus())
         .language(userRequest.getLanguage())
-        .followList(user.getFollowList())
-        .followingList(user.getFollowingList())
-        .tokenList(user.getTokenList())
-        .userPostList(user.getUserPostList())
-        .userCollectionList(user.getUserCollectionList())
-        .userReact(user.getUserReact())
-        .userComments(user.getUserComments())
+//        .userCollectionList(user.getUserCollectionList())
+//        .followList(user.getFollowList())
+//        .followingList(user.getFollowingList())
+//        .tokenList(user.getTokenList())
+//        .userPostList(user.getUserPostList())
+//        .userReact(user.getUserReact())
+//        .userComments(user.getUserComments())
         .build();
     userRepository.save(updateUser);
     logger.info("Update User Information Successfully");
@@ -172,11 +173,11 @@ public class UserServiceImpl implements UserService {
     User user = Optional.ofNullable(userRepository.getUserByUsername(username))
         .orElseThrow(() -> handleUserNotFound(username));
 
-      if (user.getStatus().equals(StatusGeneral.ACTIVE)) {
-          user.setStatus(StatusGeneral.INACTIVE);
-      } else {
-          user.setStatus(StatusGeneral.ACTIVE);
-      }
+    if (user.getStatus().equals(StatusGeneral.ACTIVE)) {
+      user.setStatus(StatusGeneral.INACTIVE);
+    } else {
+      user.setStatus(StatusGeneral.ACTIVE);
+    }
     userRepository.save(user);
     logger.info("Change Status User Successfully");
     return convertToUserResponse(user);
@@ -212,24 +213,6 @@ public class UserServiceImpl implements UserService {
         .toList();
   }
 
-  @Override
-  public Integer getNumberOfCollectionByUsername(String username) throws CustomException {
-    if (username.isBlank() || username.isEmpty()) {
-      logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-      throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-    }
-    User user = userRepository.getUserByUsername(username);
-    if (user == null) {
-      logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-    }
-    List<Collection> userCollection = user.getUserCollectionList();
-    if (userCollection == null) {
-      return 0;
-    }
-    return userCollection.size();
-  }
-
   public UserResponse convertToUserResponse(User user) {
     return UserResponse
         .builder()
@@ -261,7 +244,7 @@ public class UserServiceImpl implements UserService {
         .status(user.getStatus())
         .language(user.getLanguage())
         .isFirstLogin(customer.getIsFirstLogin())
-        .subRole(customer.getSubRole())
+        .subRole(subRoleRepository.getSubRolesBySubRoleID(customer.getSubRoleID()).getSubRoleName())
         .build();
   }
 }

@@ -1,7 +1,6 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
-import com.tttm.Whear.App.entity.Follower;
 import com.tttm.Whear.App.entity.FollowerKey;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.exception.CustomException;
@@ -12,7 +11,6 @@ import com.tttm.Whear.App.utils.request.FollowRequest;
 import com.tttm.Whear.App.utils.response.FollowResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -50,14 +48,16 @@ public class FollowServiceImpl implements FollowService {
 
     FollowerKey followerKey = Optional.of(FollowerKey
             .builder()
-            .followerUserID(firstUser)
-            .followingUserID(secondUser)
+//            .follower_userid(firstUser)
+//            .followerUser(userService.getUserEntityByUsername(firstUser.getUsername()))
+//            .following_userid(secondUser)
+//            .followingUser(userService.getUserEntityByUsername(secondUser.getUsername()))
             .build())
-        .filter(key -> !Objects.equals(key.getFollowerUserID(), key.getFollowingUserID()))
+//        .filter(key -> !Objects.equals(key.getFollower_userid(), key.getFollowing_userid()))
         .orElseThrow(() -> new RuntimeException(
             "Failed to create FollowerKey. Because Two Username are the same"));
     if (followerRepository.findFollowerByFollowerIdAndFollowingId(followRequest.getFirstUsername(),
-        followRequest.getSecondUsername()) != null) {
+        followRequest.getSecondUsername()).size() > 0) {
       logger.error(
           ConstantMessage.USERNAME_IS_EXIST.getMessage() + ": " + followRequest.getFirstUsername()
               + " and " + followRequest.getSecondUsername());
@@ -65,9 +65,13 @@ public class FollowServiceImpl implements FollowService {
           ConstantMessage.USERNAME_IS_EXIST.getMessage() + " : " + followRequest.getFirstUsername()
               + " and " + followRequest.getSecondUsername());
     }
-    Follower follower = new Follower();
-    follower.setFollowerKey(followerKey);
-    followerRepository.save(follower);
+//    Follower follower = new Follower();
+//    follower.setFollowerKey(followerKey);
+    followerRepository.insertFollower(followRequest.getFirstUsername(),
+        followRequest.getSecondUsername());
+//    Follower follower = followerRepository.findFollowerByFollowerIdAndFollowingId(
+//        followRequest.getFirstUsername(), followRequest.getSecondUsername());
+//    followerRepository.save(follower);
     return new FollowResponse(userService.convertToUserResponse(firstUser),
         userService.convertToUserResponse(secondUser));
   }
@@ -83,13 +87,21 @@ public class FollowServiceImpl implements FollowService {
     User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
         .orElseThrow(() -> handleUserNotFound(username));
 
-    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUsername(
-            username)
-        .stream()
-        .map(following -> userService.convertToUserResponse(
-            following.getFollowerKey().getFollowerUserID()))
-        .toList();
-    return userResponseList;
+//    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUsername(
+//            username);
+//        .stream()
+//        .map(following -> {
+//          try {
+//            return userService.convertToUserResponse(
+//                userService.getUserEntityByUsername(
+//                    following.getFollowerKey().getFollower_userid().getUsername()));
+//          } catch (CustomException e) {
+//            throw new RuntimeException(e);
+//          }
+//        })
+//        .toList();
+//    return userResponseList;
+    return null;
   }
 
   @Override
@@ -103,12 +115,23 @@ public class FollowServiceImpl implements FollowService {
     User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
         .orElseThrow(() -> handleUserNotFound(username));
 
-    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUsername(username)
-        .stream()
-        .map(follower -> userService.convertToUserResponse(
-            follower.getFollowerKey().getFollowingUserID()))
-        .toList();
-    return userResponseList;
+//    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUsername(username)
+//        .stream()
+//        .map(follower -> {
+//              try {
+//                return userService.convertToUserResponse(
+//                    userService.getUserEntityByUsername(
+//                        follower.getFollowerKey().getFollowing_userid().getUsername()
+//                    )
+//                );
+//              } catch (CustomException e) {
+//                throw new RuntimeException(e);
+//              }
+//            }
+//        )
+//        .toList();
+//    return userResponseList;
+    return null;
   }
 
   private CustomException handleInvalidUsername(String username) {

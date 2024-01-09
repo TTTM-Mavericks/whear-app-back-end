@@ -1,6 +1,5 @@
 package com.tttm.Whear.App.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,15 +26,17 @@ public class Comments {
   @Column(name = "commentID", unique = true, nullable = false)
   private Integer commentID;
 
+  @Column(name = "userID", unique = true, nullable = false)
+  private String userID;
   @ManyToOne
   @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-  @JsonBackReference
-  private User userComments;
+  private User user;
 
+  @Column(name = "postID", unique = true, nullable = false)
+  private Integer postID;
   @ManyToOne
   @JoinColumn(name = "postID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
-  @JsonBackReference
-  private Posts postComments;
+  private Post post;
 
   @Column(name = "content", unique = false, nullable = false)
   private String content;

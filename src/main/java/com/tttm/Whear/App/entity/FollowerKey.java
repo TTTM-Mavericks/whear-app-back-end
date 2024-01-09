@@ -1,9 +1,8 @@
 package com.tttm.Whear.App.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,14 +15,15 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class FollowerKey implements Serializable {
-
+  @Column(name = "followerUserID", unique = true, nullable = false)
+  private String followerUserID;
   @ManyToOne
   @JoinColumn(name = "followerUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-  @JsonBackReference
-  private User followerUserID;
+  private User followerUser;
 
+  @Column(name = "followingUserID", unique = true, nullable = false)
+  private String followingUserID;
   @ManyToOne
   @JoinColumn(name = "followingUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-  @JsonBackReference
-  private User followingUserID;
+  private User followingUser;
 }
