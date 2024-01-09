@@ -1,7 +1,6 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
-import com.tttm.Whear.App.entity.Follower;
 import com.tttm.Whear.App.entity.FollowerKey;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.exception.CustomException;
@@ -89,14 +88,20 @@ public class FollowServiceImpl implements FollowService {
     User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
         .orElseThrow(() -> handleUserNotFound(username));
 
-//    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUsername(
-//            username)
-//        .stream()
-//        .map(following -> userService.convertToUserResponse(
-//            following.getFollowerKey().getFollowerUserID()))
-//        .toList();
-//    return userResponseList;
-    return null;
+    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUsername(
+            username)
+        .stream()
+        .map(following -> {
+          try {
+            return userService.convertToUserResponse(
+                userService.getUserEntityByUsername(
+                    following.getFollowerKey().getFollower_userid()));
+          } catch (CustomException e) {
+            throw new RuntimeException(e);
+          }
+        })
+        .toList();
+    return userResponseList;
   }
 
   @Override
@@ -110,13 +115,23 @@ public class FollowServiceImpl implements FollowService {
     User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
         .orElseThrow(() -> handleUserNotFound(username));
 
-//    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUsername(username)
-//        .stream()
-//        .map(follower -> userService.convertToUserResponse(
-//            follower.getFollowerKey().getFollowingUserID()))
-//        .toList();
-//    return userResponseList;
-    return null;
+    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUsername(username)
+        .stream()
+        .map(follower -> {
+              try {
+                return userService.convertToUserResponse(
+                        userService.getUserEntityByUsername(
+                            follower.getFollowerKey().getFollowing_userid()
+                        )
+                    );
+              } catch (CustomException e) {
+                throw new RuntimeException(e);
+              }
+            }
+        )
+        .toList();
+    return userResponseList;
+//    return null;
   }
 
   private CustomException handleInvalidUsername(String username) {
