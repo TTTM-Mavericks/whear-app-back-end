@@ -14,4 +14,5 @@ public class CollectionResponse implements Serializable {
   private Integer numberOfClothes;
   private String typeOfCollection;
   private StatusCollection collectionStatus;
+  private String imgUrl;
 }

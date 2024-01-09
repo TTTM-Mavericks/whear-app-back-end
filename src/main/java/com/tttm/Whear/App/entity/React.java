@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
@@ -28,18 +29,17 @@ public class React {
 
   @Embeddable
   public class UserPostReactKey implements Serializable {
-    @ManyToOne(targetEntity = User.class)
-    private String userID;
-//    @ManyToOne
-//    @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-//    @JsonBackReference
-//    private User userReact;
 
-    @ManyToOne(targetEntity = Post.class)
+    @Column(name = "userID", unique = true, nullable = false)
+    private String userID;
+    @ManyToOne
+    @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
+    private User user;
+
+    @Column(name = "postID", unique = true, nullable = false)
     private Integer postID;
-//    @ManyToOne
-//    @JoinColumn(name = "postID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
-//    @JsonBackReference
-//    private Posts postReact;
+    @ManyToOne
+    @JoinColumn(name = "postID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
+    private Post post;
   }
 }

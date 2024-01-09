@@ -40,12 +40,4 @@ public class Customer {
   @PrimaryKeyJoinColumn()
   private Integer subRoleID;
 
-//  @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<History> historyList;
-//
-//  @OneToMany(mappedBy = "customerPayment", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<Payment> paymentList;
-
 }

@@ -11,7 +11,6 @@ import com.tttm.Whear.App.utils.request.FollowRequest;
 import com.tttm.Whear.App.utils.response.FollowResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -49,12 +48,12 @@ public class FollowServiceImpl implements FollowService {
 
     FollowerKey followerKey = Optional.of(FollowerKey
             .builder()
-            .follower_userid(firstUser)
+//            .follower_userid(firstUser)
 //            .followerUser(userService.getUserEntityByUsername(firstUser.getUsername()))
-            .following_userid(secondUser)
+//            .following_userid(secondUser)
 //            .followingUser(userService.getUserEntityByUsername(secondUser.getUsername()))
             .build())
-        .filter(key -> !Objects.equals(key.getFollower_userid(), key.getFollowing_userid()))
+//        .filter(key -> !Objects.equals(key.getFollower_userid(), key.getFollowing_userid()))
         .orElseThrow(() -> new RuntimeException(
             "Failed to create FollowerKey. Because Two Username are the same"));
     if (followerRepository.findFollowerByFollowerIdAndFollowingId(followRequest.getFirstUsername(),
@@ -88,20 +87,21 @@ public class FollowServiceImpl implements FollowService {
     User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
         .orElseThrow(() -> handleUserNotFound(username));
 
-    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUsername(
-            username)
-        .stream()
-        .map(following -> {
-          try {
-            return userService.convertToUserResponse(
-                userService.getUserEntityByUsername(
-                    following.getFollowerKey().getFollower_userid().getUsername()));
-          } catch (CustomException e) {
-            throw new RuntimeException(e);
-          }
-        })
-        .toList();
-    return userResponseList;
+//    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUsername(
+//            username);
+//        .stream()
+//        .map(following -> {
+//          try {
+//            return userService.convertToUserResponse(
+//                userService.getUserEntityByUsername(
+//                    following.getFollowerKey().getFollower_userid().getUsername()));
+//          } catch (CustomException e) {
+//            throw new RuntimeException(e);
+//          }
+//        })
+//        .toList();
+//    return userResponseList;
+    return null;
   }
 
   @Override
@@ -115,23 +115,23 @@ public class FollowServiceImpl implements FollowService {
     User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
         .orElseThrow(() -> handleUserNotFound(username));
 
-    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUsername(username)
-        .stream()
-        .map(follower -> {
-              try {
-                return userService.convertToUserResponse(
-                        userService.getUserEntityByUsername(
-                            follower.getFollowerKey().getFollowing_userid().getUsername()
-                        )
-                    );
-              } catch (CustomException e) {
-                throw new RuntimeException(e);
-              }
-            }
-        )
-        .toList();
-    return userResponseList;
-//    return null;
+//    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUsername(username)
+//        .stream()
+//        .map(follower -> {
+//              try {
+//                return userService.convertToUserResponse(
+//                    userService.getUserEntityByUsername(
+//                        follower.getFollowerKey().getFollowing_userid().getUsername()
+//                    )
+//                );
+//              } catch (CustomException e) {
+//                throw new RuntimeException(e);
+//              }
+//            }
+//        )
+//        .toList();
+//    return userResponseList;
+    return null;
   }
 
   private CustomException handleInvalidUsername(String username) {

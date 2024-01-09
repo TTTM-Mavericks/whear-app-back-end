@@ -48,7 +48,7 @@ public class PostServiceImpl implements PostService {
     }
     Post post = Post
         .builder()
-        .userPost(userService.getUserEntityByUsername(postRequest.getUserID()))
+//        .userPost(userService.getUserEntityByUsername(postRequest.getUserID()))
         .typeOfPosts(postRequest.getTypeOfPosts())
 //        .hashtag(postRequest.getHashtag())
         .status(StatusGeneral.ACTIVE)
@@ -150,7 +150,7 @@ public class PostServiceImpl implements PostService {
     Post updatePost = Post
         .builder()
         .postID(post.getPostID())
-        .userPost(user)
+//        .userPost(user)
         .typeOfPosts(post.getTypeOfPosts())
         .hashtag(post.getHashtag())
         .date(post.getDate())
@@ -171,7 +171,7 @@ public class PostServiceImpl implements PostService {
         .postID(post.getPostID())
         .date(post.getDate())
 //        .hashtag(post.getHashtag())
-        .userID(post.getUserPost().getUsername())
+//        .userID(post.getUserPost().getUsername())
         .status(post.getStatus())
         .build();
   }

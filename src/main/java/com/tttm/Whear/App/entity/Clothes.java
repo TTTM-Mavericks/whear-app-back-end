@@ -56,20 +56,4 @@ public class Clothes {
 
   @Column(name = "materials", unique = false, nullable = false)
   private String materials;
-
-//  @OneToMany(mappedBy = "images", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<ClothesImage> clothesImagesList;
-//
-//  @OneToMany(mappedBy = "collectionClothesKey.clothes", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<CollectionClothes> clothesCollectionList;
-//
-//  @OneToMany(mappedBy = "clothesSize", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<ClothesSize> clothesSizeList;
-//
-//  @OneToMany(mappedBy = "clothesColor", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<ClothesColor> clothesColorList;
 }

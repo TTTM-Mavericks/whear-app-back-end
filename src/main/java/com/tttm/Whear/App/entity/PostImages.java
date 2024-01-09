@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -28,10 +29,9 @@ public class PostImages {
   @Column(name = "imageUrl", unique = false, nullable = false)
   private String imageUrl;
 
-  @ManyToOne(targetEntity = Post.class)
+  @Column(name = "postID", unique = true, nullable = false)
   private Integer postID;
-//  @ManyToOne
-//  @JoinColumn(name = "postID", referencedColumnName = "postID", nullable = false)
-//  @JsonBackReference
-//  private Posts images;
+  @ManyToOne
+  @JoinColumn(name = "postID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
+  private Post post;
 }

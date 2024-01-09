@@ -92,10 +92,11 @@ public class CollectionController {
         response.put("success", 200);
         response.put("message", "Collection is updated!");
         response.set("data", objectMapper.createObjectNode()
-            .put("ID", collectionResponse.getCollectionID())
-            .put("NAME", collectionResponse.getNameOfCollection())
-            .put("TYPE", collectionResponse.getTypeOfCollection())
-            .put("NUMBER OF CLOTHES", collectionResponse.getNumberOfClothes())
+            .put("id", collectionResponse.getCollectionID())
+            .put("name", collectionResponse.getNameOfCollection())
+            .put("type", collectionResponse.getTypeOfCollection())
+            .put("numberOfClothes", collectionResponse.getNumberOfClothes())
+            .put("collectionStatus", collectionResponse.getCollectionStatus().toString())
         );
       }
       return response;
@@ -140,10 +141,11 @@ public class CollectionController {
         response.put("success", 200);
         response.put("message", "Collection is created!");
         response.set("data", objectMapper.createObjectNode()
-            .put("ID", collectionResponse.getCollectionID())
-            .put("NAME", collectionResponse.getNameOfCollection())
-            .put("TYPE", collectionResponse.getTypeOfCollection())
-            .put("NUMBER OF CLOTHES", collectionResponse.getNumberOfClothes())
+            .put("id", collectionResponse.getCollectionID())
+            .put("name", collectionResponse.getNameOfCollection())
+            .put("type", collectionResponse.getTypeOfCollection())
+            .put("numberOfClothes", collectionResponse.getNumberOfClothes())
+            .put("collectionStatus", collectionResponse.getCollectionStatus().toString())
         );
       }
       return response;

@@ -3,10 +3,12 @@ package com.tttm.Whear.App.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,18 +38,17 @@ public class Post {
   @Column(name = "postID", unique = true, nullable = false)
   private Integer postID;
 
+  @Column(name = "userID", unique = true, nullable = false)
+  private String userID;
   @ManyToOne
   @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-  @JsonBackReference
-  private User userPost;
+  private User user;
 
   @Column(name = "typeOfPost", unique = false, nullable = false)
   @Enumerated(EnumType.STRING)
   private TypeOfPosts typeOfPosts;
 
-//  @Column(name = "hashtag", unique = false, nullable = false)
-//  private List<String> hashtag;
-  @OneToMany
+  @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Hashtag> hashtag;
 
   @Column(name = "date", unique = false, nullable = false)
@@ -56,16 +57,4 @@ public class Post {
 
   @Column(name = "status", unique = false, nullable = false)
   private StatusGeneral status;
-
-//  @OneToMany(mappedBy = "images", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<PostImages> postImagesList;
-//
-//  @OneToMany(mappedBy = "userPostReactKey.postReact", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<React> postReact;
-//
-//  @OneToMany(mappedBy = "postComments", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<Comments> postComments;
 }

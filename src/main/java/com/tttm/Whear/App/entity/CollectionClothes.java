@@ -1,6 +1,6 @@
 package com.tttm.Whear.App.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -26,19 +26,15 @@ public class CollectionClothes {
 
   @Embeddable
   public class CollectionClothesKey implements Serializable {
-
-    @ManyToOne(targetEntity = Collection.class)
-    private Integer collectionID;
-    @ManyToOne(targetEntity = Clothes.class)
+    @Column(name = "clothesID", unique = true, nullable = false)
     private Integer clothesID;
-//    @ManyToOne
-//    @JoinColumn(name = "collectionID", referencedColumnName = "collectionID", nullable = false, insertable = false, updatable = false)
-//    @JsonBackReference
-//    private Collection collections;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
-//    @JsonBackReference
-//    private Clothes clothes;
+    @ManyToOne
+    @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
+    private Clothes clothes;
+    @Column(name = "collectionID", unique = true, nullable = false)
+    private Integer collectionID;
+    @ManyToOne
+    @JoinColumn(name = "collectionID", referencedColumnName = "collectionID", nullable = false, insertable = false, updatable = false)
+    private Collection collection;
   }
 }

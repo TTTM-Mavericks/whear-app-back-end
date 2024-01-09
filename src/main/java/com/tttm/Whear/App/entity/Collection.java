@@ -45,13 +45,9 @@ public class Collection {
   @Column(name = "collectionStatus")
   private StatusCollection collectionStatus;
 
+  @Column(name = "userID", unique = true, nullable = false)
   private String userID;
   @ManyToOne
   @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
-  @JsonBackReference
-  private User userCollection;
-//
-//  @OneToMany(mappedBy = "collectionClothesKey.collections", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//  @JsonManagedReference
-//  private List<CollectionClothes> collectionClothesList;
+  private User user;
 }

@@ -23,15 +23,4 @@ import lombok.NoArgsConstructor;
 public class ClothesColor {
   @EmbeddedId
   ClothesColorKey clothesColorKey;
-//  @Id
-//  @Column(name = "clothesID", unique = true, nullable = false)
-//  private Integer clothesID;
-
-//  @ManyToOne
-//  @MapsId
-//  @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)
-//  private Clothes clothesColor;
-//
-//  @Column(name = "sizeType", unique = false, nullable = true)
-//  private SizeType sizeType;
 }

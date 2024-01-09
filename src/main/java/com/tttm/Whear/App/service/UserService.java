@@ -30,6 +30,4 @@ public interface UserService {
   UserResponse convertToUserResponse(User user);
 
   CustomerResponse convertToCustomerResponse(User user, Customer customer);
-
-  Integer getNumberOfCollectionByUsername(String username) throws CustomException;
 }

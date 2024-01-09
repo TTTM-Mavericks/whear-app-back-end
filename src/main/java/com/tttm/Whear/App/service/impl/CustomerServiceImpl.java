@@ -24,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
         .builder()
         .customerID(user.getUsername())
         .isFirstLogin(true)
-        .subRoleID(subRoleRepository.getSubRolesBySubRoleName(ESubRole.LV1.name()).getSubRoleID())
+        .subRoleID(subRoleRepository.getSubRolesBySubRoleName(ESubRole.LV1).getSubRoleID())
         .build());
   }
 
