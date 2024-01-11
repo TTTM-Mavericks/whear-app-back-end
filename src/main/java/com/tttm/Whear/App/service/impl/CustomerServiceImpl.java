@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
   public Customer createNewCustomers(User user) {
     return customerRepository.save(Customer
         .builder()
-        .customerID(user.getUsername())
+        .customerID(user.getUserID())
         .isFirstLogin(true)
         .subRoleID(subRoleRepository.getSubRolesBySubRoleName(ESubRole.LV1).getSubRoleID())
         .build());

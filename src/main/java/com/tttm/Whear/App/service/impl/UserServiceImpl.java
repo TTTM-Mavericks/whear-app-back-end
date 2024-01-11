@@ -57,9 +57,10 @@ public class UserServiceImpl implements UserService {
       logger.error(ConstantMessage.PHONE_IS_EXIST.getMessage());
       throw new CustomException(ConstantMessage.PHONE_IS_EXIST.getMessage());
     }
-
+    String userID = String.valueOf(userRepository.count()+1);
     User savedUser = userRepository.save(User
         .builder()
+        .userID(userID)
         .username(userRequest.getUsername())
         .password(userRequest.getPassword())
         .dateOfBirth(userRequest.getDateOfBirth())
@@ -141,6 +142,7 @@ public class UserServiceImpl implements UserService {
 
     User updateUser = User
         .builder()
+        .userID(user.getUserID())
         .username(user.getUsername())
         .password(userRequest.getPassword())
         .dateOfBirth(userRequest.getDateOfBirth())
@@ -216,6 +218,7 @@ public class UserServiceImpl implements UserService {
   public UserResponse convertToUserResponse(User user) {
     return UserResponse
         .builder()
+        .userID(user.getUserID())
         .username(user.getUsername())
         .password(user.getPassword())
         .dateOfBirth(user.getDateOfBirth())
@@ -233,6 +236,7 @@ public class UserServiceImpl implements UserService {
   public CustomerResponse convertToCustomerResponse(User user, Customer customer) {
     return CustomerResponse
         .builder()
+        .userID(user.getUserID())
         .username(user.getUsername())
         .password(user.getPassword())
         .dateOfBirth(user.getDateOfBirth())

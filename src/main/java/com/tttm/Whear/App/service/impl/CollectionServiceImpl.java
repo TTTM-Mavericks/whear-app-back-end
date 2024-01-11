@@ -35,23 +35,38 @@ public class CollectionServiceImpl implements CollectionService {
   private final SubRoleRepository subRoleRepository;
 
   @Override
-  public List<CollectionResponse> getCollectionsOfUser(String userID) {
-    List<Collection> collectionList = collectionRepository.getAllByUserID(userID);
-    List<CollectionResponse> responseList = null;
-    for (Collection col : collectionList) {
-      if (responseList == null) {
-        responseList = new ArrayList<>();
+  public List<CollectionResponse> getCollectionsOfUser(String username) throws CustomException {
+    try {
+      if (username.isBlank() || username.isEmpty()) {
+        logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+        throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
       }
-      responseList.add(CollectionResponse.builder()
-          .collectionID(col.getCollectionID())
-          .nameOfCollection(col.getNameOfCollection())
-          .typeOfCollection(col.getTypeOfCollection())
-          .numberOfClothes(col.getNumberOfClothes())
-          .collectionStatus(col.getCollectionStatus())
-          .build()
-      );
+      UserResponse user = userService.getUserbyUsername(username);
+      if (user == null) {
+        logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
+        throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
+      }
+      String userID = user.getUserID();
+      List<Collection> collectionList = collectionRepository.getAllByUserID(userID);
+      List<CollectionResponse> responseList = null;
+      for (Collection col : collectionList) {
+        if (responseList == null) {
+          responseList = new ArrayList<>();
+        }
+        responseList.add(CollectionResponse.builder()
+            .collectionID(col.getCollectionID())
+            .nameOfCollection(col.getNameOfCollection())
+            .typeOfCollection(col.getTypeOfCollection())
+            .numberOfClothes(col.getNumberOfClothes())
+            .collectionStatus(col.getCollectionStatus())
+            .imgUrl(col.getImgUrl())
+            .build()
+        );
+      }
+      return responseList;
+    } catch (Exception ex) {
+      throw ex;
     }
-    return responseList;
   }
 
   @Override
@@ -65,6 +80,7 @@ public class CollectionServiceImpl implements CollectionService {
             .nameOfCollection(collection.getNameOfCollection())
             .typeOfCollection(collection.getTypeOfCollection())
             .numberOfClothes(collection.getNumberOfClothes())
+            .imgUrl(collection.getImgUrl())
             .build();
       }
       return collectionResponse;
@@ -94,6 +110,8 @@ public class CollectionServiceImpl implements CollectionService {
             .nameOfCollection(newCollection.getNameOfCollection())
             .typeOfCollection(newCollection.getTypeOfCollection())
             .numberOfClothes(newCollection.getNumberOfClothes())
+            .collectionStatus(newCollection.getCollectionStatus())
+            .imgUrl(newCollection.getImgUrl())
             .build();
       }
       return collectionResponse;
@@ -127,10 +145,11 @@ public class CollectionServiceImpl implements CollectionService {
         logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
         throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
       }
+      String userID = user.getUserID();
       if (user.getRole().equals(ERole.CUSTOMER)) {
-        Customer customer = customerService.getCustomerByID(username);
+        Customer customer = customerService.getCustomerByID(userID);
         SubRole subRole = subRoleRepository.getSubRolesBySubRoleID(customer.getSubRoleID());
-        if (collectionRepository.getAllByUserID(username).size() + 1
+        if (collectionRepository.getAllByUserID(userID).size() + 1
             > subRole.getNumberOfCollection()) {
           logger.error(ConstantMessage.REACH_MAXIMUM_COLLECTION.getMessage());
           throw new CustomException(ConstantMessage.REACH_MAXIMUM_COLLECTION.getMessage());
@@ -143,7 +162,8 @@ public class CollectionServiceImpl implements CollectionService {
           .nameOfCollection(collection.getNameOfCollection())
           .numberOfClothes(collection.getNumberOfClothes())
           .collectionStatus(collection.getCollectionStatus())
-          .userID(username)
+          .userID(userID)
+          .imgUrl(collection.getImgUrl())
           .build();
       Collection newCollection = collectionRepository.save(col);
 
@@ -153,6 +173,7 @@ public class CollectionServiceImpl implements CollectionService {
           .typeOfCollection(newCollection.getTypeOfCollection())
           .numberOfClothes(newCollection.getNumberOfClothes())
           .collectionStatus(newCollection.getCollectionStatus())
+          .imgUrl(newCollection.getImgUrl())
           .build();
       return response;
     } catch (Exception ex) {

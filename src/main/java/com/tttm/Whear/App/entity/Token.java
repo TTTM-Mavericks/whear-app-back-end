@@ -44,7 +44,7 @@ public class Token {
   private boolean revoked;
 
   @ManyToOne
-  @JoinColumn(name = "userID", referencedColumnName = "username")
+  @JoinColumn(name = "userID", referencedColumnName = "userID")
   @JsonBackReference
   private User userToken;
 }

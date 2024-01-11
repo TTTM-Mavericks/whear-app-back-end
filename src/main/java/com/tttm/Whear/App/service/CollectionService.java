@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CollectionService {
 
-  public List<CollectionResponse> getCollectionsOfUser(String userID);
+  public List<CollectionResponse> getCollectionsOfUser(String userID) throws CustomException;
 
   public CollectionResponse getCollectionByCollectionID(Integer collectionID);
 

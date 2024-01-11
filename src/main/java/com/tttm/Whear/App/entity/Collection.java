@@ -39,15 +39,18 @@ public class Collection {
   @Column(name = "numberOfClothes", unique = false, nullable = false)
   private Integer numberOfClothes;
 
-  @Column(name = "typeOfCollection", unique = false, nullable = false)
+  @Column(name = "typeOfCollection")
   private String typeOfCollection;
 
   @Column(name = "collectionStatus")
   private StatusCollection collectionStatus;
 
-  @Column(name = "userID", unique = true, nullable = false)
+  @Column(name = "userID", nullable = false)
   private String userID;
   @ManyToOne
-  @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
+  @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
   private User user;
+
+  @Column(name = "imgUrl")
+  private String imgUrl;
 }

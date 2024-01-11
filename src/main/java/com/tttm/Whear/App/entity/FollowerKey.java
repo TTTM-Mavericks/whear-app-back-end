@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class FollowerKey implements Serializable {
-  @Column(name = "followerUserID", unique = true, nullable = false)
+  @Column(name = "followerUserID", nullable = false)
   private String followerUserID;
   @ManyToOne
-  @JoinColumn(name = "followerUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
+  @JoinColumn(name = "followerUserID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
   private User followerUser;
 
-  @Column(name = "followingUserID", unique = true, nullable = false)
+  @Column(name = "followingUserID", nullable = false)
   private String followingUserID;
   @ManyToOne
-  @JoinColumn(name = "followingUserID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
+  @JoinColumn(name = "followingUserID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
   private User followingUser;
 }
