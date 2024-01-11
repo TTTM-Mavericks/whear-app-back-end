@@ -12,4 +12,5 @@ public class CollectionRequest {
   private String typeOfCollection;
   private Integer numberOfClothes;
   private StatusCollection collectionStatus;
+  private String imgUrl;
 }

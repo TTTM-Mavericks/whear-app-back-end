@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CustomerResponse {
 
+  private String userID;
+
   private String username;
 
   private String password;

@@ -30,7 +30,7 @@ public class Customer {
   private String customerID;
 
   @OneToOne
-  @PrimaryKeyJoinColumn(name = "customerID", referencedColumnName = "username")
+  @PrimaryKeyJoinColumn(name = "customerID", referencedColumnName = "userID")
   private User user;
 
   @Column(name = "isFirstLogin", unique = false, nullable = false)

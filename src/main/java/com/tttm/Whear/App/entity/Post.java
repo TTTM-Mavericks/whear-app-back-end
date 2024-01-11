@@ -41,7 +41,7 @@ public class Post {
   @Column(name = "userID", unique = true, nullable = false)
   private String userID;
   @ManyToOne
-  @JoinColumn(name = "userID", referencedColumnName = "username", nullable = false, insertable = false, updatable = false)
+  @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
   private User user;
 
   @Column(name = "typeOfPost", unique = false, nullable = false)

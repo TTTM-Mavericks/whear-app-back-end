@@ -70,6 +70,7 @@ public class CollectionController {
             .put("NAME", collectionResponse.getNameOfCollection())
             .put("TYPE", collectionResponse.getTypeOfCollection())
             .put("NUMBER OF CLOTHES", collectionResponse.getNumberOfClothes())
+            .put("imgUrl", collectionResponse.getImgUrl())
         );
       }
       return response;
@@ -97,6 +98,7 @@ public class CollectionController {
             .put("type", collectionResponse.getTypeOfCollection())
             .put("numberOfClothes", collectionResponse.getNumberOfClothes())
             .put("collectionStatus", collectionResponse.getCollectionStatus().toString())
+            .put("imgUrl", collectionResponse.getImgUrl())
         );
       }
       return response;
@@ -146,6 +148,7 @@ public class CollectionController {
             .put("type", collectionResponse.getTypeOfCollection())
             .put("numberOfClothes", collectionResponse.getNumberOfClothes())
             .put("collectionStatus", collectionResponse.getCollectionStatus().toString())
+            .put("imgUrl", collectionResponse.getImgUrl())
         );
       }
       return response;
