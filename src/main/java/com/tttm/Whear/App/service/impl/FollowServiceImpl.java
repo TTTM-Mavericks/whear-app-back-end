@@ -63,12 +63,8 @@ public class FollowServiceImpl implements FollowService {
             "Failed to create FollowerKey. Because Two Username are the same"));
     if (followerRepository.findFollowerByFollowerIdAndFollowingId(firstUser.getUserID(),
         secondUser.getUserID()).size() > 0) {
-      logger.error(
-          ConstantMessage.USERNAME_IS_EXIST.getMessage() + ": " + followRequest.getFirstUsername()
-              + " and " + followRequest.getSecondUsername());
-      throw new CustomException(
-          ConstantMessage.USERNAME_IS_EXIST.getMessage() + " : " + followRequest.getFirstUsername()
-              + " and " + followRequest.getSecondUsername());
+        followerRepository.deleteFollowerByFollowerIDandFollowingID(firstUser.getUserID(),  secondUser.getUserID());
+        return new FollowResponse();
     }
     followerRepository.insertFollower(firstUser.getUserID(),
         secondUser.getUserID());

@@ -57,7 +57,7 @@ public class APIConstant {
      * Follow API
      */
     public static final String FOLLOW = APIConstant.API + "/follow";
-    public static final String USER_FOLLOW_ANOTHER_USER = "/user-follow-another-user";
+    public static final String USER_FOLLOW_OR_UNFOLLOW_ANOTHER_USER = "/user-follow-or-unfollow-another-user";
     public static final String GET_ALL_FOLLOWER_USER = "/get-all-follower-user";
     public static final String GET_ALL_FOLLOWING_USER = "/get-all-following-user";
   }

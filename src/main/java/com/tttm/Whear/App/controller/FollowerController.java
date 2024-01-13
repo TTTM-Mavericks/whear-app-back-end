@@ -6,6 +6,7 @@ import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.FollowService;
 import com.tttm.Whear.App.utils.request.FollowRequest;
+import com.tttm.Whear.App.utils.response.FollowResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,16 +22,24 @@ public class FollowerController {
 
   private final FollowService followService;
 
-  @PostMapping(APIConstant.FollowAPI.USER_FOLLOW_ANOTHER_USER)
-  public ObjectNode userFollowAnotherUser(@RequestBody FollowRequest followRequest)
+  @PostMapping(APIConstant.FollowAPI.USER_FOLLOW_OR_UNFOLLOW_ANOTHER_USER)
+  public ObjectNode userFollowOrUnfollowAnotherUser(@RequestBody FollowRequest followRequest)
       throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       ObjectNode respon = objectMapper.createObjectNode();
-      respon.put("success", 200);
-      respon.put("message", "User Follow Another User Successfully");
-      respon.set("data",
-          objectMapper.valueToTree(followService.userFollowAnotherUser(followRequest)));
+      FollowResponse followResponse = followService.userFollowAnotherUser(followRequest);
+      if(followResponse.getFollowerUser() != null && followResponse.getFollowingUser() != null)
+      {
+        respon.put("success", 200);
+        respon.put("message", "User " + followRequest.getFirstUsername() + " Follow " + followRequest.getSecondUsername() + " Successfully");
+        respon.set("data", objectMapper.valueToTree(followResponse));
+      }
+      else{
+        respon.put("success", 200);
+        respon.put("message", "User " + followRequest.getFirstUsername() + " Unfollow " + followRequest.getSecondUsername() + " Successfully");
+        respon.set("data", objectMapper.valueToTree(followResponse));
+      }
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
