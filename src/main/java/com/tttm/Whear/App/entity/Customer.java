@@ -11,6 +11,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+
+import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "customer")
-public class Customer {
+public class Customer implements Serializable {
 
   @Id
   @Column(name = "customerID", unique = true, nullable = false)

@@ -13,13 +13,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "post_image")
-public class PostImages {
+public class PostImages implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "react")
-public class React {
+public class React implements Serializable{
 
   @EmbeddedId
   private UserPostReactKey userPostReactKey;

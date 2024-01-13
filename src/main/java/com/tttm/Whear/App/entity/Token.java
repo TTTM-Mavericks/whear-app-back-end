@@ -17,13 +17,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "token")
-public class Token {
+public class Token implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

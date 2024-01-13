@@ -15,13 +15,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "clothes")
-public class Clothes {
+public class Clothes implements Serializable {
 
   @Id
   @Column(name = "clothesID", unique = true, nullable = false)

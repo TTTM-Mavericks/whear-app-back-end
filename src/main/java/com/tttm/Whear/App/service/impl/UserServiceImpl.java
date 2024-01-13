@@ -19,6 +19,10 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,7 +43,12 @@ public class UserServiceImpl implements UserService {
         !userRequest.getPhone().isEmpty() && !userRequest.getPhone().isBlank();
   }
 
+
   @Override
+  @Caching(
+          evict = @CacheEvict(cacheNames = "users", allEntries = true),
+          cacheable = @Cacheable(cacheNames = "user", key = "#userRequest.username", unless = "#result == null")
+  )
   public CustomerResponse createNewUsers(UserRequest userRequest) throws CustomException {
     if (!checkValidArguement(userRequest)) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
@@ -79,6 +88,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Cacheable(cacheNames = "user", key = "#username", condition = "#username != null", unless = "#result == null")
   public UserResponse getUserbyUsername(String username) throws CustomException {
     Optional.of(username)
         .filter(userID -> !userID.isEmpty() && !userID.isBlank())
@@ -90,7 +100,9 @@ public class UserServiceImpl implements UserService {
     return convertToUserResponse(user);
   }
 
+
   @Override
+  @Cacheable(cacheNames = "users")
   public List<UserResponse> getAllUser() throws CustomException {
     return userRepository.findAll()
         .stream()
@@ -115,6 +127,10 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Caching(
+          evict = @CacheEvict(cacheNames = "users", allEntries = true),
+          put = @CachePut(cacheNames = "user", key = "#userRequest.username", unless = "#result == null")
+  )
   public UserResponse updateUserByUsername(UserRequest userRequest) throws CustomException {
     Optional.of(userRequest.getUsername())
         .filter(userID -> !userID.isEmpty() && !userID.isBlank())
@@ -153,13 +169,6 @@ public class UserServiceImpl implements UserService {
         .imgUrl(userRequest.getImgUrl())
         .status(user.getStatus())
         .language(userRequest.getLanguage())
-//        .userCollectionList(user.getUserCollectionList())
-//        .followList(user.getFollowList())
-//        .followingList(user.getFollowingList())
-//        .tokenList(user.getTokenList())
-//        .userPostList(user.getUserPostList())
-//        .userReact(user.getUserReact())
-//        .userComments(user.getUserComments())
         .build();
     userRepository.save(updateUser);
     logger.info("Update User Information Successfully");
@@ -167,6 +176,10 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Caching(
+          evict = @CacheEvict(cacheNames = "users", allEntries = true),
+          put = @CachePut(cacheNames = "user", key = "#username", unless = "#result == null")
+  )
   public UserResponse updateStatusUser(String username) throws CustomException {
     Optional.of(username)
         .filter(userID -> !userID.isEmpty() && !userID.isBlank())
@@ -221,7 +234,7 @@ public class UserServiceImpl implements UserService {
         .userID(user.getUserID())
         .username(user.getUsername())
         .password(user.getPassword())
-        .dateOfBirth(user.getDateOfBirth())
+        .dateOfBirth(user.getDateOfBirth().toString())
         .phone(user.getPhone())
         .email(user.getEmail())
         .gender(user.getGender())
@@ -239,7 +252,7 @@ public class UserServiceImpl implements UserService {
         .userID(user.getUserID())
         .username(user.getUsername())
         .password(user.getPassword())
-        .dateOfBirth(user.getDateOfBirth())
+        .dateOfBirth(user.getDateOfBirth().toString())
         .phone(user.getPhone())
         .email(user.getEmail())
         .gender(user.getGender())

@@ -16,6 +16,9 @@ import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +31,9 @@ public class FollowServiceImpl implements FollowService {
 
   private final FollowerRepository followerRepository;
 
+
   @Override
+  @CacheEvict(cacheNames = {"follower", "following"}, allEntries = true)
   public FollowResponse userFollowAnotherUser(FollowRequest followRequest) throws CustomException {
 
     Optional.of(followRequest.getFirstUsername())
@@ -72,6 +77,7 @@ public class FollowServiceImpl implements FollowService {
   }
 
   @Override
+  @Cacheable(cacheNames = "follower", key = "#username", condition = "#username != null", unless = "#result == null")
   public List<UserResponse> getAllFollowerUser(String username)
       throws CustomException // List All User Follower the User
   {
@@ -99,6 +105,7 @@ public class FollowServiceImpl implements FollowService {
   }
 
   @Override
+  @Cacheable(cacheNames = "following", key = "#username", condition = "#username != null", unless = "#result == null")
   public List<UserResponse> getAllFollowingUser(String username)
       throws CustomException // List All User, User Following
   {

@@ -8,13 +8,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "follower")
-public class Follower {
+public class Follower implements Serializable {
 
   @EmbeddedId
   private FollowerKey followerKey;

@@ -8,13 +8,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "clothes_size")
-public class ClothesSize {
+public class ClothesSize implements Serializable {
   @EmbeddedId
   ClothesSizeKey clothesSizeKey;
 }

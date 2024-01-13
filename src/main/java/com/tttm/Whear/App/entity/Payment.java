@@ -14,6 +14,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+
+import java.io.Serializable;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "payment")
-public class Payment {
+public class Payment implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

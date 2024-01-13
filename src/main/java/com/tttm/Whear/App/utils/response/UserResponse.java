@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.utils.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.Language;
 import com.tttm.Whear.App.enums.StatusGeneral;
@@ -20,7 +21,7 @@ public class UserResponse {
 
   private String password;
 
-  private Date dateOfBirth;
+  private String dateOfBirth;
 
   private String phone;
 
@@ -35,5 +36,4 @@ public class UserResponse {
   private StatusGeneral status;
 
   private Language language;
-
 }
