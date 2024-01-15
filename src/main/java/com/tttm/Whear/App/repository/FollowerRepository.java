@@ -25,4 +25,9 @@ public interface FollowerRepository extends JpaRepository<Follower, FollowerKey>
   @Transactional
   @Query(value = "insert into follower (follower_userid,following_userid) values (?1, ?2)", nativeQuery = true)
   void insertFollower(String followerUserID, String followingUserID);
+
+   @Modifying
+   @Transactional
+   @Query(value = "delete from follower where follower_userid = ?1 and following_userid = ?2", nativeQuery = true)
+   void deleteFollowerByFollowerIDandFollowingID(String followerUserID, String followingUserID);
 }
