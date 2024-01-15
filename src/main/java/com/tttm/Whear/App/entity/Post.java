@@ -18,6 +18,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -31,7 +33,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "posts")
-public class Post {
+public class Post implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

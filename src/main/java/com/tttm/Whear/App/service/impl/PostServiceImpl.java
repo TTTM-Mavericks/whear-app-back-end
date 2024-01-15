@@ -18,6 +18,10 @@ import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,6 +40,10 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  @Caching(
+          evict = @CacheEvict(cacheNames = "posts", allEntries = true),
+          cacheable = @Cacheable(cacheNames = "post", key = "#postRequest.postID", condition = "#postRequest.postID > 0", unless = "#result == null")
+  )
   public PostResponse createPost(PostRequest postRequest) throws CustomException {
     if (!checkValidArguement(postRequest)) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
@@ -60,6 +68,7 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  @Cacheable(cacheNames = "post", key = "#postID", condition = "#postID > 0",  unless = "#result == null")
   public PostResponse getPostByPostID(Integer postID) throws CustomException {
     if (postID == null) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
@@ -74,6 +83,7 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  @Cacheable(cacheNames = "posts")
   public List<PostResponse> getAllPost() throws CustomException {
     return postRepository.findAll()
         .stream()
@@ -111,6 +121,12 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  @Caching(
+          evict = {
+                  @CacheEvict(cacheNames = "posts", allEntries = true),
+                  @CacheEvict(cacheNames = "post", key = "#postID")
+          }
+  )
   public Boolean deletePostByPostID(Integer postID) throws CustomException {
     if (postID == null) {
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
@@ -127,6 +143,10 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  @Caching(
+          evict = @CacheEvict(cacheNames = "posts", allEntries = true),
+          put =  @CachePut(cacheNames = "post", key = "#postRequest.postID", unless = "#result == null")
+  )
   public PostResponse updatePost(PostRequest postRequest) throws CustomException {
     if (postRequest.getPostID().toString().isBlank() || postRequest.getPostID().toString()
         .isEmpty()) {

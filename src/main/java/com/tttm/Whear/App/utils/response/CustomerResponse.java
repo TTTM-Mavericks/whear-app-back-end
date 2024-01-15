@@ -22,7 +22,7 @@ public class CustomerResponse {
 
   private String password;
 
-  private Date dateOfBirth;
+  private String dateOfBirth;
 
   private String phone;
 

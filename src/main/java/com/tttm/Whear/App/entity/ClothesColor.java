@@ -14,13 +14,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "clothes_color")
-public class ClothesColor {
+public class ClothesColor implements Serializable {
   @EmbeddedId
   ClothesColorKey clothesColorKey;
 }

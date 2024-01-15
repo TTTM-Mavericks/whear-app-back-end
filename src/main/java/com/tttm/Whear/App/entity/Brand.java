@@ -11,6 +11,8 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
+import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "brand")
-public class Brand {
+public class Brand implements Serializable {
 
   @Id
   @Column(name = "brandID", unique = true, nullable = false)
