@@ -11,14 +11,9 @@ import com.tttm.Whear.App.utils.request.FollowRequest;
 import com.tttm.Whear.App.utils.response.FollowResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,38 +28,46 @@ public class FollowServiceImpl implements FollowService {
 
 
   @Override
-  @CacheEvict(cacheNames = {"follower", "following"}, allEntries = true)
+//  @CacheEvict(cacheNames = {"follower", "following"}, allEntries = true)
   public FollowResponse userFollowAnotherUser(FollowRequest followRequest) throws CustomException {
+    if (followRequest.getBaseUserID() == null
+        || followRequest.getBaseUserID().isBlank()
+        || followRequest.getBaseUserID().isEmpty()
 
-    Optional.of(followRequest.getFirstUsername())
-        .filter(username -> !username.isEmpty() && !username.isBlank())
-        .orElseThrow(() -> handleInvalidUsername(followRequest.getFirstUsername()));
+        || followRequest.getTargetUserID() == null
+        || followRequest.getTargetUserID().isBlank()
+        || followRequest.getTargetUserID().isEmpty()
+    ) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
 
-    Optional.of(followRequest.getSecondUsername())
-        .filter(username -> !username.isBlank() && !username.isEmpty())
-        .orElseThrow(() -> handleInvalidUsername(followRequest.getSecondUsername()));
+    User firstUser = userService.getUserEntityByUserID(followRequest.getBaseUserID());
+    if (firstUser == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
+          + followRequest.getBaseUserID());
+    }
 
-    User firstUser = Optional.ofNullable(
-            userService.getUserEntityByUsername(followRequest.getFirstUsername()))
-        .orElseThrow(() -> handleUserNotFound(followRequest.getFirstUsername()));
+    User secondUser = userService.getUserEntityByUserID(followRequest.getTargetUserID());
+    if (secondUser == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
+          + followRequest.getTargetUserID());
+    }
 
-    User secondUser = Optional.ofNullable(
-            userService.getUserEntityByUsername(followRequest.getSecondUsername()))
-        .orElseThrow(() -> handleUserNotFound(followRequest.getSecondUsername()));
+    FollowerKey followerKey = FollowerKey
+        .builder()
+        .followerUser(firstUser)
+        .followingUser(secondUser)
+        .build();
 
-    FollowerKey followerKey = Optional.of(FollowerKey
-            .builder()
-            .followerUser(userService.getUserEntityByUsername(firstUser.getUsername()))
-            .followingUser(userService.getUserEntityByUsername(secondUser.getUsername()))
-            .build())
-        .filter(key -> !Objects.equals(key.getFollowerUser().getUserID(),
-            key.getFollowingUser().getUserID()))
-        .orElseThrow(() -> new RuntimeException(
-            "Failed to create FollowerKey. Because Two Username are the same"));
+    if (followRequest.getBaseUserID().equals(followRequest.getTargetUserID())) {
+      throw new CustomException("Failed to create FollowerKey. Because Two Username are the same");
+    }
+
     if (followerRepository.findFollowerByFollowerIdAndFollowingId(firstUser.getUserID(),
         secondUser.getUserID()).size() > 0) {
-        followerRepository.deleteFollowerByFollowerIDandFollowingID(firstUser.getUserID(),  secondUser.getUserID());
-        return new FollowResponse();
+      followerRepository.deleteFollowerByFollowerIDandFollowingID(firstUser.getUserID(),
+          secondUser.getUserID());
+      return new FollowResponse();
     }
     followerRepository.insertFollower(firstUser.getUserID(),
         secondUser.getUserID());
@@ -73,25 +76,27 @@ public class FollowServiceImpl implements FollowService {
   }
 
   @Override
-  @Cacheable(cacheNames = "follower", key = "#username", condition = "#username != null", unless = "#result == null")
-  public List<UserResponse> getAllFollowerUser(String username)
+//  @Cacheable(cacheNames = "follower", key = "#username", condition = "#username != null", unless = "#result == null")
+  public List<UserResponse> getAllFollowerUser(String userid)
       throws CustomException // List All User Follower the User
   {
-    Optional.of(username)
-        .filter(userId -> !userId.isEmpty() && !userId.isBlank())
-        .orElseThrow(() -> handleInvalidUsername(username));
+    if (userid == null || userid.isBlank() || userid.isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
 
-    User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
-        .orElseThrow(() -> handleUserNotFound(username));
+    User user = userService.getUserEntityByUserID(userid);
+    if (user == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
 
-    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUsername(
+    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUserID(
             user.getUserID())
         .stream()
         .map(following -> {
           try {
             return userService.convertToUserResponse(
-                userService.getUserEntityByUsername(
-                    following.getFollowerKey().getFollowerUser().getUsername()));
+                userService.getUserEntityByUserID(
+                    following.getFollowerKey().getFollowerUser().getUserID()));
           } catch (CustomException e) {
             throw new RuntimeException(e);
           }
@@ -101,25 +106,27 @@ public class FollowServiceImpl implements FollowService {
   }
 
   @Override
-  @Cacheable(cacheNames = "following", key = "#username", condition = "#username != null", unless = "#result == null")
-  public List<UserResponse> getAllFollowingUser(String username)
+//  @Cacheable(cacheNames = "following", key = "#username", condition = "#username != null", unless = "#result == null")
+  public List<UserResponse> getAllFollowingUser(String userid)
       throws CustomException // List All User, User Following
   {
-    Optional.of(username)
-        .filter(userId -> !userId.isEmpty() && !userId.isBlank())
-        .orElseThrow(() -> handleInvalidUsername(username));
+    if (userid == null || userid.isBlank() || userid.isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
 
-    User user = Optional.ofNullable(userService.getUserEntityByUsername(username))
-        .orElseThrow(() -> handleUserNotFound(username));
+    User user = userService.getUserEntityByUserID(userid);
+    if (user == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
 
-    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUsername(
+    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserByUserID(
             user.getUserID())
         .stream()
         .map(follower -> {
               try {
                 return userService.convertToUserResponse(
-                    userService.getUserEntityByUsername(
-                        follower.getFollowerKey().getFollowingUser().getUsername()
+                    userService.getUserEntityByUserID(
+                        follower.getFollowerKey().getFollowingUser().getUserID()
                     )
                 );
               } catch (CustomException e) {
@@ -132,8 +139,8 @@ public class FollowServiceImpl implements FollowService {
   }
 
   private CustomException handleInvalidUsername(String username) {
-    logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-    return new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+    logger.error(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
+    return new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
   }
 
   private CustomException handleUserNotFound(String username) {

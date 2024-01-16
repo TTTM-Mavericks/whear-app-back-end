@@ -1,27 +1,26 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
+import com.tttm.Whear.App.entity.Hashtag;
 import com.tttm.Whear.App.entity.Post;
+import com.tttm.Whear.App.entity.PostHashtag;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.enums.StatusGeneral;
-import com.tttm.Whear.App.enums.TypeOfPosts;
 import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.repository.PostHashtagRepository;
 import com.tttm.Whear.App.repository.PostRepository;
+import com.tttm.Whear.App.service.HashtagService;
 import com.tttm.Whear.App.service.PostService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.PostRequest;
 import com.tttm.Whear.App.utils.response.PostResponse;
-import com.tttm.Whear.App.utils.response.UserResponse;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,44 +30,71 @@ public class PostServiceImpl implements PostService {
   private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
   private final PostRepository postRepository;
   private final UserService userService;
+  private final HashtagService hashtagService;
+  private final PostHashtagRepository postHashtagRepository;
 
   private boolean checkValidArguement(PostRequest postRequest) {
-    return !postRequest.getUserID().isEmpty() && !postRequest.getUserID().isBlank() &&
-        !postRequest.getTypeOfPosts().toString().isEmpty() && !postRequest.getTypeOfPosts()
-        .toString().isBlank() &&
-        !postRequest.getHashtag().isEmpty() && !postRequest.getHashtag().isBlank();
+    return postRequest.getPostID() != null && postRequest.getUserID() != null &&
+        !postRequest.getUserID().isEmpty() && !postRequest.getUserID().isBlank() &&
+        !postRequest.getPostID().toString().isEmpty() && !postRequest.getPostID().toString()
+        .isBlank();
   }
 
   @Override
-  @Caching(
-          evict = @CacheEvict(cacheNames = "posts", allEntries = true),
-          cacheable = @Cacheable(cacheNames = "post", key = "#postRequest.postID", condition = "#postRequest.postID > 0", unless = "#result == null")
-  )
+//  @Caching(
+//          evict = @CacheEvict(cacheNames = "posts", allEntries = true),
+//          cacheable = @Cacheable(cacheNames = "post", key = "#postRequest.postID", condition = "#postRequest.postID > 0", unless = "#result == null")
+//  )
   public PostResponse createPost(PostRequest postRequest) throws CustomException {
-    if (!checkValidArguement(postRequest)) {
+    if (postRequest.getUserID().isEmpty() || postRequest.getUserID().isBlank()) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
-    UserResponse userResponse = userService.getUserbyUsername(postRequest.getUserID());
-    if (userResponse == null) {
-      logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-      throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+    User user = userService.getUserEntityByUserID(postRequest.getUserID());
+    if (user == null) {
+      logger.error(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
+
+    List<Hashtag> hashtagList = null;
+    List<String> hashtags = postRequest.getHashtag();
+    if (hashtags != null && !hashtags.isEmpty() && hashtags.size() > 0) {
+      for (String ht : hashtags) {
+        Hashtag finded = hashtagService.findByName(ht);
+        Hashtag importedHastag = null;
+        if (finded == null) {
+          importedHastag = hashtagService.createHashtag(ht);
+        } else {
+          importedHastag = finded;
+        }
+
+        if (hashtagList == null) {
+          hashtagList = new ArrayList<>();
+        }
+        hashtagList.add(importedHastag);
+      }
+    }
+
     Post post = Post
         .builder()
-//        .userPost(userService.getUserEntityByUsername(postRequest.getUserID()))
-        .typeOfPosts(postRequest.getTypeOfPosts())
-//        .hashtag(postRequest.getHashtag())
+        .postID(Integer.valueOf(String.valueOf(postRepository.count() + 1)))
+        .userID(postRequest.getUserID())
+        .typeOfPosts(postRequest.getTypeOfPosts() != null ? postRequest.getTypeOfPosts() : null)
         .status(StatusGeneral.ACTIVE)
         .date(new Date())
         .build();
     post = postRepository.save(post);
+
+    for (Hashtag ht : hashtagList) {
+      postHashtagRepository.insertPostHashtag(ht.getHashtagID(), post.getPostID());
+    }
+
     logger.info(ConstantMessage.CREATE_SUCCESS.getMessage());
     return convertToPostResponse(post);
   }
 
   @Override
-  @Cacheable(cacheNames = "post", key = "#postID", condition = "#postID > 0",  unless = "#result == null")
+//  @Cacheable(cacheNames = "post", key = "#postID", condition = "#postID > 0", unless = "#result == null")
   public PostResponse getPostByPostID(Integer postID) throws CustomException {
     if (postID == null) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
@@ -83,8 +109,8 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  @Cacheable(cacheNames = "posts")
-  public List<PostResponse> getAllPost() throws CustomException {
+//  @Cacheable(cacheNames = "posts")
+  public List<PostResponse> getAllPost() {
     return postRepository.findAll()
         .stream()
         .map(this::convertToPostResponse)
@@ -93,40 +119,56 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public List<PostResponse> getAllPostByTypeOfPost(TypeOfPosts typeOfPosts) throws CustomException {
+  public List<PostResponse> getAllPostByTypeOfPost(String typeOfPosts) throws CustomException {
     return postRepository.findAll()
         .stream()
         .map(this::convertToPostResponse)
         .filter(c -> c.getTypeOfPosts().toString().trim().toLowerCase()
-            .contains(typeOfPosts.toString().trim().toLowerCase()))
+            .contains(typeOfPosts.trim().toLowerCase()))
         .toList();
   }
 
   @Override
   public List<PostResponse> getAllPostByHashtag(String hashtag) throws CustomException {
-    return postRepository.findAll()
+    List<PostResponse> postList = null;
+    List<PostHashtag> postHashtagList = postHashtagRepository.findAll()
         .stream()
-        .map(this::convertToPostResponse)
-        .filter(c -> c.getHashtag().trim().toLowerCase().contains(hashtag.trim().toLowerCase()))
+        .filter(postHashtag -> {
+          return hashtagService.getByHashtagID(postHashtag.getPostHashtagKey().getHashtagID())
+              .getHashtag()
+              .equals(hashtag);
+        })
         .toList();
+    for (PostHashtag pht : postHashtagList) {
+      if (postList == null) {
+        postList = new ArrayList<>();
+      }
+      postList.add(convertToPostResponse(
+          postRepository.getPostsByPostID(
+              pht.getPostHashtagKey()
+                  .getPostID()
+          )
+      ));
+    }
+    return postList;
   }
 
   @Override
   public List<PostResponse> getAllPostInRange(Date startDate, Date endDate) throws CustomException {
     return postRepository.findAll()
         .stream()
-        .map(this::convertToPostResponse)
         .filter(c -> c.getDate().after(startDate) && c.getDate().before(endDate))
+        .map(this::convertToPostResponse)
         .toList();
   }
 
   @Override
-  @Caching(
-          evict = {
-                  @CacheEvict(cacheNames = "posts", allEntries = true),
-                  @CacheEvict(cacheNames = "post", key = "#postID")
-          }
-  )
+//  @Caching(
+//      evict = {
+//          @CacheEvict(cacheNames = "posts", allEntries = true),
+//          @CacheEvict(cacheNames = "post", key = "#postID")
+//      }
+//  )
   public Boolean deletePostByPostID(Integer postID) throws CustomException {
     if (postID == null) {
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
@@ -135,18 +177,32 @@ public class PostServiceImpl implements PostService {
     if (post == null) {
       throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
     }
+
+    List<PostHashtag> postHashtagList = postHashtagRepository.findAll()
+        .stream()
+        .filter(postHashtag -> {
+          return postRepository.getPostsByPostID(postHashtag.getPostHashtagKey().getPostID())
+              != null;
+        })
+        .toList();
+    for (PostHashtag pth : postHashtagList) {
+      postHashtagRepository.deletePostHashtag(
+          pth.getPostHashtagKey().getHashtagID(),
+          pth.getPostHashtagKey().getPostID()
+      );
+    }
     try {
-      return postRepository.deleteByPostID(postID);
+      return postRepository.deleteByPostID(postID) > 0;
     } catch (Exception ex) {
       throw ex;
     }
   }
 
   @Override
-  @Caching(
-          evict = @CacheEvict(cacheNames = "posts", allEntries = true),
-          put =  @CachePut(cacheNames = "post", key = "#postRequest.postID", unless = "#result == null")
-  )
+//  @Caching(
+//      evict = @CacheEvict(cacheNames = "posts", allEntries = true),
+//      put = @CachePut(cacheNames = "post", key = "#postRequest.postID", unless = "#result == null")
+//  )
   public PostResponse updatePost(PostRequest postRequest) throws CustomException {
     if (postRequest.getPostID().toString().isBlank() || postRequest.getPostID().toString()
         .isEmpty()) {
@@ -157,27 +213,44 @@ public class PostServiceImpl implements PostService {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
-    User user = userService.getUserEntityByUsername(postRequest.getUserID());
+    User user = userService.getUserEntityByUserID(postRequest.getUserID());
     if (user == null) {
-      logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
+      logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
     Post post = postRepository.getPostsByPostID(postRequest.getPostID());
     if (post == null) {
       logger.warn(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
       throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
     }
+
+    List<Hashtag> hashtagList = null;
+    List<String> hashtags = postRequest.getHashtag();
+    if (hashtags != null && !hashtags.isEmpty() && hashtags.size() > 0) {
+      for (String ht : hashtags) {
+        Hashtag finded = hashtagService.findByName(ht);
+        Hashtag importedHastag = null;
+        if (finded == null) {
+          importedHastag = hashtagService.createHashtag(ht);
+        } else {
+          importedHastag = finded;
+        }
+
+        if (hashtagList == null) {
+          hashtagList = new ArrayList<>();
+        }
+        hashtagList.add(importedHastag);
+      }
+    }
+
     Post updatePost = Post
         .builder()
         .postID(post.getPostID())
-//        .userPost(user)
-        .typeOfPosts(post.getTypeOfPosts())
-        .hashtag(post.getHashtag())
-        .date(post.getDate())
-        .status(post.getStatus())
-//        .postImagesList(post.getPostImagesList())
-//        .postReact(post.getPostReact())
-//        .postComments(post.getPostComments())
+        .userID(post.getUserID())
+        .typeOfPosts(postRequest.getTypeOfPosts() != null ? postRequest.getTypeOfPosts()
+            : post.getTypeOfPosts())
+        .date(postRequest.getDate() != null ? postRequest.getDate() : post.getDate())
+        .status(postRequest.getStatus() != null ? postRequest.getStatus() : post.getStatus())
         .build();
     postRepository.save(updatePost);
     logger.info("Update Post Information Successfully");
@@ -189,9 +262,11 @@ public class PostServiceImpl implements PostService {
         .builder()
         .typeOfPosts(post.getTypeOfPosts())
         .postID(post.getPostID())
-        .date(post.getDate())
-//        .hashtag(post.getHashtag())
-//        .userID(post.getUserPost().getUsername())
+        .date(post.getDate().toString())
+        .hashtag(
+            hashtagService.getAllHashtagOfPost(post.getPostID())
+        )
+        .userID(post.getUserID())
         .status(post.getStatus())
         .build();
   }

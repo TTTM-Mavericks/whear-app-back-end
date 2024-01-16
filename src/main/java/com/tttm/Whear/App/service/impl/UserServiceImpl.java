@@ -13,6 +13,7 @@ import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.UserRequest;
 import com.tttm.Whear.App.utils.response.CustomerResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -37,26 +38,31 @@ public class UserServiceImpl implements UserService {
   private final SubRoleRepository subRoleRepository;
 
   private boolean checkValidArguement(UserRequest userRequest) {
-    return !userRequest.getUsername().isEmpty() && !userRequest.getUsername().isBlank() &&
+
+    return
+        userRequest != null &&
+
+        userRequest.getUserID() != null &&
+        userRequest.getEmail() != null &&
+        userRequest.getPhone() != null &&
+
+        !userRequest.getUserID().isEmpty() && !userRequest.getUserID().isBlank() &&
         !userRequest.getEmail().isEmpty() && !userRequest.getEmail().isBlank() &&
-        !userRequest.getPassword().isEmpty() && !userRequest.getPassword().isBlank() &&
         !userRequest.getPhone().isEmpty() && !userRequest.getPhone().isBlank();
   }
 
 
   @Override
-  @Caching(
-          evict = @CacheEvict(cacheNames = "users", allEntries = true),
-          cacheable = @Cacheable(cacheNames = "user", key = "#userRequest.username", unless = "#result == null")
-  )
+//  @Caching(
+//          evict = @CacheEvict(cacheNames = "users", allEntries = true),
+//          cacheable = @Cacheable(cacheNames = "user", key = "#userRequest.username", unless = "#result == null")
+//  )
   public CustomerResponse createNewUsers(UserRequest userRequest) throws CustomException {
-    if (!checkValidArguement(userRequest)) {
+    if (!(!userRequest.getEmail().isEmpty() && !userRequest.getEmail().isBlank() &&
+        !userRequest.getPassword().isEmpty() && !userRequest.getPassword().isBlank() &&
+        !userRequest.getPhone().isEmpty() && !userRequest.getPhone().isBlank())) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
-    }
-    if (userRepository.getUserByUsername(userRequest.getUsername()) != null) {
-      logger.error(ConstantMessage.USERNAME_IS_EXIST.getMessage());
-      throw new CustomException(ConstantMessage.USERNAME_IS_EXIST.getMessage());
     }
     if (userRepository.getUserByEmail(userRequest.getEmail()) != null) {
       logger.error(ConstantMessage.EMAIL_IS_EXIST.getMessage());
@@ -88,21 +94,24 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  @Cacheable(cacheNames = "user", key = "#username", condition = "#username != null", unless = "#result == null")
-  public UserResponse getUserbyUsername(String username) throws CustomException {
-    Optional.of(username)
-        .filter(userID -> !userID.isEmpty() && !userID.isBlank())
-        .orElseThrow(() -> handleInvalidUsername(username));
-
-    User user = Optional.ofNullable(userRepository.getUserByUsername(username))
-        .orElseThrow(() -> handleUserNotFound(username));
-
-    return convertToUserResponse(user);
+//  @Cacheable(cacheNames = "user", key = "#username", condition = "#username != null", unless = "#result == null")
+  public List<UserResponse> getUserbyUsername(String username) throws CustomException {
+    List<UserResponse> resultList = null;
+    List<User> listUser = userRepository.findAll();
+    for(User u : listUser){
+      if(u.getUsername().toLowerCase().trim().contains(username.toLowerCase().trim())){
+        if(resultList == null){
+          resultList = new ArrayList<>();
+        }
+        resultList.add(convertToUserResponse(u));
+      }
+    }
+    return resultList;
   }
 
 
   @Override
-  @Cacheable(cacheNames = "users")
+//  @Cacheable(cacheNames = "users")
   public List<UserResponse> getAllUser() throws CustomException {
     return userRepository.findAll()
         .stream()
@@ -112,14 +121,14 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserResponse getUserByUsernameAndPassword(String username, String password)
+  public UserResponse getUserByUserEmailAndPassword(String email, String password)
       throws CustomException {
-    if (username.isBlank() || username.isEmpty() || password.isEmpty() || password.isBlank()) {
+    if (email.isBlank() || email.isEmpty() || password.isEmpty() || password.isBlank()) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
 
-    User user = Optional.ofNullable(userRepository.getUserByUsernameAndPassword(username, password))
+    User user = Optional.ofNullable(userRepository.getUserByEmailAndPassword(email, password))
         .orElseThrow(
             () -> new CustomException(ConstantMessage.INVALID_USERNAME_OR_PASSWORD.getMessage()));
 
@@ -127,22 +136,20 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  @Caching(
-          evict = @CacheEvict(cacheNames = "users", allEntries = true),
-          put = @CachePut(cacheNames = "user", key = "#userRequest.username", unless = "#result == null")
-  )
-  public UserResponse updateUserByUsername(UserRequest userRequest) throws CustomException {
-    Optional.of(userRequest.getUsername())
-        .filter(userID -> !userID.isEmpty() && !userID.isBlank())
-        .orElseThrow(() -> handleInvalidUsername(userRequest.getUsername()));
-
+//  @Caching(
+//          evict = @CacheEvict(cacheNames = "users", allEntries = true),
+//          put = @CachePut(cacheNames = "user", key = "#userRequest.username", unless = "#result == null")
+//  )
+  public UserResponse updateUserByUserID(UserRequest userRequest) throws CustomException {
     if (!checkValidArguement(userRequest)) {
       logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
 
-    User user = Optional.ofNullable(userRepository.getUserByUsername(userRequest.getUsername()))
-        .orElseThrow(() -> handleUserNotFound(userRequest.getUsername()));
+    User user = userRepository.getUserByUserID(userRequest.getUserID());
+    if(user == null){
+      throw new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
+    }
 
     if (userRepository.getUserByEmail(userRequest.getEmail()) != null
         && userRepository.getUserByEmail(userRequest.getEmail()) != user) {
@@ -176,17 +183,17 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  @Caching(
-          evict = @CacheEvict(cacheNames = "users", allEntries = true),
-          put = @CachePut(cacheNames = "user", key = "#username", unless = "#result == null")
-  )
-  public UserResponse updateStatusUser(String username) throws CustomException {
-    Optional.of(username)
-        .filter(userID -> !userID.isEmpty() && !userID.isBlank())
-        .orElseThrow(() -> handleInvalidUsername(username));
+//  @Caching(
+//          evict = @CacheEvict(cacheNames = "users", allEntries = true),
+//          put = @CachePut(cacheNames = "user", key = "#username", unless = "#result == null")
+//  )
+  public UserResponse updateStatusUser(String userID) throws CustomException {
+    Optional.of(userID)
+        .filter(id -> !id.isEmpty() && !id.isBlank())
+        .orElseThrow(() -> handleInvalidUserID(userID));
 
-    User user = Optional.ofNullable(userRepository.getUserByUsername(username))
-        .orElseThrow(() -> handleUserNotFound(username));
+    User user = Optional.ofNullable(userRepository.getUserByUserID(userID))
+        .orElseThrow(() -> handleUserNotFound(userID));
 
     if (user.getStatus().equals(StatusGeneral.ACTIVE)) {
       user.setStatus(StatusGeneral.INACTIVE);
@@ -199,20 +206,20 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User getUserEntityByUsername(String username) throws CustomException {
-    Optional.of(username)
-        .filter(userID -> !userID.isEmpty() && !userID.isBlank())
-        .orElseThrow(() -> handleInvalidUsername(username));
+  public User getUserEntityByUserID(String userID) throws CustomException {
+    Optional.of(userID)
+        .filter(id -> !id.isEmpty() && !id.isBlank())
+        .orElseThrow(() -> handleInvalidUserID(userID));
 
-    User user = Optional.ofNullable(userRepository.getUserByUsername(username))
-        .orElseThrow(() -> handleUserNotFound(username));
+    User user = Optional.ofNullable(userRepository.getUserByUserID(userID))
+        .orElseThrow(() -> handleUserNotFound(userID));
 
     return user;
   }
 
-  private CustomException handleInvalidUsername(String username) {
-    logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-    return new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+  private CustomException handleInvalidUserID(String username) {
+    logger.error(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
+    return new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
   }
 
   private CustomException handleUserNotFound(String username) {

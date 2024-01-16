@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.UserService;
+import com.tttm.Whear.App.utils.request.LoginRequest;
 import com.tttm.Whear.App.utils.request.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,7 +78,7 @@ public class UserController {
     }
   }
 
-  @PutMapping(APIConstant.UserAPI.UPDATE_USER_BY_USERNAME)
+  @PutMapping(APIConstant.UserAPI.UPDATE_USER_BY_USERID)
   public ObjectNode updateUserByUsername(@RequestBody UserRequest userRequest)
       throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
@@ -85,7 +86,7 @@ public class UserController {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Update User Information Successfully");
-      respon.set("data", objectMapper.valueToTree(userService.updateUserByUsername(userRequest)));
+      respon.set("data", objectMapper.valueToTree(userService.updateUserByUserID(userRequest)));
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
@@ -97,14 +98,14 @@ public class UserController {
   }
 
   @PutMapping(APIConstant.UserAPI.UPDATE_STATUS_USER)
-  public ObjectNode updateStatusUser(@RequestParam("username") String username)
+  public ObjectNode updateStatusUser(@RequestParam("userid") String userid)
       throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Change Status User Successfully");
-      respon.set("data", objectMapper.valueToTree(userService.updateStatusUser(username)));
+      respon.set("data", objectMapper.valueToTree(userService.updateStatusUser(userid)));
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
@@ -115,16 +116,18 @@ public class UserController {
     }
   }
 
-  @GetMapping(APIConstant.UserAPI.GET_USER_BY_USERNAME_AND_PASSWORD)
-  public ObjectNode getUserByUsername(@RequestParam("username") String username,
-      @RequestParam("password") String password) throws CustomException {
+  @PostMapping(APIConstant.UserAPI.GET_USER_BY_EMAIL_AND_PASSWORD)
+  public ObjectNode getUserByUsername(@RequestBody LoginRequest loginRequest)
+      throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Get User by Username and Password Successfully");
       respon.set("data",
-          objectMapper.valueToTree(userService.getUserByUsernameAndPassword(username, password)));
+          objectMapper.valueToTree(
+              userService.getUserByUserEmailAndPassword(loginRequest.getEmail(),
+                  loginRequest.getPassword())));
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();

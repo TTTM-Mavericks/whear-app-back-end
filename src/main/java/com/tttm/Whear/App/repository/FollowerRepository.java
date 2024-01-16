@@ -13,10 +13,10 @@ import org.springframework.stereotype.Repository;
 public interface FollowerRepository extends JpaRepository<Follower, FollowerKey> {
 
   @Query(value = "Select f.* from Follower f where f.follower_userid = ?1", nativeQuery = true)
-  List<Follower> findAllFollowerUserByUsername(String username);
+  List<Follower> findAllFollowerUserByUserID(String userid);
 
   @Query(value = "Select f.* from Follower f where f.following_userid = ?1", nativeQuery = true)
-  List<Follower> findAllFollowingUserByUsername(String username);
+  List<Follower> findAllFollowingUserByUserID(String userID);
   @Modifying
   @Transactional
   @Query(value = "Select f.* from Follower f where f.follower_userid = ?1 and f.following_userid = ?2", nativeQuery = true)

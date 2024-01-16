@@ -82,7 +82,7 @@ public class PostController {
   }
 
   @GetMapping(PostAPI.GET_POST_BY_TYPE_OF_POST)
-  public ObjectNode getPostByTypeOfPost(@RequestParam("type_of_post") TypeOfPosts typeOfPosts)
+  public ObjectNode getPostByTypeOfPost(@RequestParam("type_of_post") String typeOfPosts)
       throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {

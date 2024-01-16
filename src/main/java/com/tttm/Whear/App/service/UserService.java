@@ -12,18 +12,18 @@ public interface UserService {
 
   CustomerResponse createNewUsers(UserRequest userRequest) throws CustomException;
 
-  UserResponse getUserbyUsername(String username) throws CustomException;
+  List<UserResponse> getUserbyUsername(String username) throws CustomException;
 
   List<UserResponse> getAllUser() throws CustomException;
 
-  UserResponse getUserByUsernameAndPassword(String username, String password)
+  UserResponse getUserByUserEmailAndPassword(String email, String password)
       throws CustomException;
 
-  UserResponse updateUserByUsername(UserRequest userRequest) throws CustomException;
+  UserResponse updateUserByUserID(UserRequest userRequest) throws CustomException;
 
-  UserResponse updateStatusUser(String username) throws CustomException;
+  UserResponse updateStatusUser(String userID) throws CustomException;
 
-  User getUserEntityByUsername(String username) throws CustomException;
+  User getUserEntityByUserID(String userID) throws CustomException;
 
   List<User> getAllUserEntity() throws CustomException;
 

@@ -29,15 +29,17 @@ public class FollowerController {
     try {
       ObjectNode respon = objectMapper.createObjectNode();
       FollowResponse followResponse = followService.userFollowAnotherUser(followRequest);
-      if(followResponse.getFollowerUser() != null && followResponse.getFollowingUser() != null)
-      {
+      if (followResponse.getFollowerUser() != null && followResponse.getFollowingUser() != null) {
         respon.put("success", 200);
-        respon.put("message", "User " + followRequest.getFirstUsername() + " Follow " + followRequest.getSecondUsername() + " Successfully");
+        respon.put("message",
+            "User " + followRequest.getBaseUserID() + " Follow " + followRequest.getTargetUserID()
+                + " Successfully");
         respon.set("data", objectMapper.valueToTree(followResponse));
-      }
-      else{
+      } else {
         respon.put("success", 200);
-        respon.put("message", "User " + followRequest.getFirstUsername() + " Unfollow " + followRequest.getSecondUsername() + " Successfully");
+        respon.put("message",
+            "User " + followRequest.getBaseUserID() + " Unfollow " + followRequest.getTargetUserID()
+                + " Successfully");
         respon.set("data", objectMapper.valueToTree(followResponse));
       }
       return respon;
@@ -51,14 +53,14 @@ public class FollowerController {
   }
 
   @GetMapping(APIConstant.FollowAPI.GET_ALL_FOLLOWER_USER)
-  public ObjectNode getAllFollowerUser(@RequestParam("username") String username)
+  public ObjectNode getAllFollowerUser(@RequestParam("userid") String userid)
       throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Get All Follower Users Successfully");
-      respon.set("data", objectMapper.valueToTree(followService.getAllFollowerUser(username)));
+      respon.set("data", objectMapper.valueToTree(followService.getAllFollowerUser(userid)));
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
@@ -70,14 +72,14 @@ public class FollowerController {
   }
 
   @GetMapping(APIConstant.FollowAPI.GET_ALL_FOLLOWING_USER)
-  public ObjectNode getAllFollowingUser(@RequestParam("username") String username)
+  public ObjectNode getAllFollowingUser(@RequestParam("userid") String userid)
       throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Get All Following Users Successfully");
-      respon.set("data", objectMapper.valueToTree(followService.getAllFollowingUser(username)));
+      respon.set("data", objectMapper.valueToTree(followService.getAllFollowingUser(userid)));
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();

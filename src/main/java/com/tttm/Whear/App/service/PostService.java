@@ -15,7 +15,7 @@ public interface PostService {
 
   public List<PostResponse> getAllPost() throws CustomException;
 
-  public List<PostResponse> getAllPostByTypeOfPost(TypeOfPosts typeOfPosts) throws CustomException;
+  public List<PostResponse> getAllPostByTypeOfPost(String typeOfPosts) throws CustomException;
 
   public List<PostResponse> getAllPostByHashtag(String hashtag) throws CustomException;
 

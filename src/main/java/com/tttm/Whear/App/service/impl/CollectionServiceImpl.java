@@ -16,15 +16,10 @@ import com.tttm.Whear.App.utils.response.CollectionResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -40,14 +35,14 @@ public class CollectionServiceImpl implements CollectionService {
   private final SubRoleRepository subRoleRepository;
 
   @Override
-  @Cacheable(cacheNames = "collections", key = "#username", unless = "#result == null")
+//  @Cacheable(cacheNames = "collections", key = "#username", unless = "#result == null")
   public List<CollectionResponse> getCollectionsOfUser(String username) throws CustomException {
     try {
       if (username.isBlank() || username.isEmpty()) {
-        logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-        throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+        logger.error(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
+        throw new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
       }
-      UserResponse user = userService.getUserbyUsername(username);
+      UserResponse user = userService.convertToUserResponse(userService.getUserEntityByUserID(username));
       if (user == null) {
         logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
         throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
@@ -76,7 +71,7 @@ public class CollectionServiceImpl implements CollectionService {
   }
 
   @Override
-  @Cacheable(cacheNames = "collection", key = "#collectionID", unless = "#result == null")
+//  @Cacheable(cacheNames = "collection", key = "#collectionID", unless = "#result == null")
   public CollectionResponse getCollectionByCollectionID(Integer collectionID) {
     CollectionResponse collectionResponse = null;
     try {
@@ -97,10 +92,10 @@ public class CollectionServiceImpl implements CollectionService {
   }
 
   @Override
-  @Caching(
-          evict = @CacheEvict(cacheNames = "collections", key = "#collection.userID"),
-          put = @CachePut(cacheNames = "collection", key = "#collection.collectionID", unless = "#result == null")
-  )
+//  @Caching(
+//          evict = @CacheEvict(cacheNames = "collections", key = "#collection.userID"),
+//          put = @CachePut(cacheNames = "collection", key = "#collection.collectionID", unless = "#result == null")
+//  )
   public CollectionResponse updateCollectionByID(CollectionRequest collection) {
     CollectionResponse collectionResponse = null;
     try {
@@ -132,12 +127,12 @@ public class CollectionServiceImpl implements CollectionService {
   }
 
   @Override
-  @Caching(
-          evict = {
-                  @CacheEvict(cacheNames = "collections", allEntries = true),
-                  @CacheEvict(cacheNames = "collection", key = "#collection.collectionID")
-          }
-  )
+//  @Caching(
+//          evict = {
+//                  @CacheEvict(cacheNames = "collections", allEntries = true),
+//                  @CacheEvict(cacheNames = "collection", key = "#collection.collectionID")
+//          }
+//  )
   public void deleteCollectionByID(Integer collectionID) {
     try {
       Collection collection = collectionRepository.findByCollectionID(collectionID);
@@ -150,21 +145,21 @@ public class CollectionServiceImpl implements CollectionService {
   }
 
   @Override
-  @Caching(
-          evict = @CacheEvict(cacheNames = "collections", key = "#collection.userID", allEntries = true),
-          cacheable = @Cacheable(cacheNames = "collection", key = "#collection.collectionID", unless = "#result == null")
-  )
+//  @Caching(
+//          evict = @CacheEvict(cacheNames = "collections", key = "#collection.userID", allEntries = true),
+//          cacheable = @Cacheable(cacheNames = "collection", key = "#collection.collectionID", unless = "#result == null")
+//  )
   public CollectionResponse createCollection(CollectionRequest collection) throws CustomException {
     try {
       String username = collection.getUserID();
       if (username.isBlank() || username.isEmpty()) {
-        logger.error(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
-        throw new CustomException(ConstantMessage.USERNAME_IS_EMPTY_OR_NOT_EXIST.getMessage());
+        logger.error(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
+        throw new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
       }
-      UserResponse user = userService.getUserbyUsername(username);
+      UserResponse user = userService.convertToUserResponse(userService.getUserEntityByUserID(username));
       if (user == null) {
-        logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
-        throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
+        logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+        throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
       }
       String userID = user.getUserID();
       if (user.getRole().equals(ERole.CUSTOMER)) {

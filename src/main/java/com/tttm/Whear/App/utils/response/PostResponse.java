@@ -1,8 +1,9 @@
 package com.tttm.Whear.App.utils.response;
 
+import com.tttm.Whear.App.entity.Hashtag;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
-import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ public class PostResponse {
   private Integer postID;
   private String userID;
   private TypeOfPosts typeOfPosts;
-  private String hashtag;
-  private Date date;
+  private List<Hashtag> hashtag;
+  private String date;
   private StatusGeneral status;
 }

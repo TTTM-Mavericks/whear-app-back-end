@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FollowRequest {
 
-  private String firstUsername;
-  private String secondUsername;
+  private String baseUserID;
+  private String targetUserID;
 }
