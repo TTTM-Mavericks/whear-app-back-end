@@ -5,12 +5,17 @@ import com.tttm.Whear.App.entity.ClothesImage;
 import com.tttm.Whear.App.entity.ClothesSize;
 import com.tttm.Whear.App.enums.SeasonType;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class ClothesResponse {
+
   private Integer clothesID;
   private String nameOfProduct;
   private String typeOfClothes;

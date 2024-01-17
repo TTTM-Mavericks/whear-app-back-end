@@ -1,6 +1,5 @@
 package com.tttm.Whear.App.utils.request;
 
-import com.tttm.Whear.App.entity.Hashtag;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
 import java.util.Date;

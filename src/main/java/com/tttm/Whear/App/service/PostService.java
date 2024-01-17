@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.service;
 
+import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.enums.TypeOfPosts;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.utils.request.PostRequest;
@@ -24,4 +25,6 @@ public interface PostService {
   public Boolean deletePostByPostID(Integer postID) throws CustomException;
 
   public PostResponse updatePost(PostRequest postRequest) throws CustomException;
+
+  public Post getPostEntityByPostID(Integer postID) throws CustomException;
 }
