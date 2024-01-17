@@ -257,6 +257,20 @@ public class PostServiceImpl implements PostService {
     return convertToPostResponse(updatePost);
   }
 
+  @Override
+  public Post getPostEntityByPostID(Integer postID) throws CustomException {
+    if (postID == null) {
+      logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+    Post post = postRepository.getReferenceById(postID);
+    if (post == null) {
+      logger.warn(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+    }
+    return post;
+  }
+
   private PostResponse convertToPostResponse(Post post) {
     return PostResponse
         .builder()

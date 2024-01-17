@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum ConstantMessage {
   CREATE_SUCCESS("Create Success"),
+  CREATE_FAIL("Create Fail"),
   INVALID_USERNAME_OR_PASSWORD("Invalid Username or Password"),
   CANNOT_FIND_USER_BY_USERNAME("Can not find User by Username"),
   CANNOT_FIND_USER_BY_USERID("Can not find User by UserID"),

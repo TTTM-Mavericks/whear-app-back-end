@@ -68,4 +68,15 @@ public class APIConstant {
      */
     public static final String FOLLOW = APIConstant.API + "/customer";
   }
+
+  public class ClothesAPI {
+
+    /**
+     * Clothes API
+     */
+    public static final String CLOTHES = APIConstant.API + "/clothes";
+    public static final String CREATE_CLOTHES = "/create-clothes";
+    public static final String GET_ALL_CLOTHES = "/get-all-clothes";
+    public static final String GET_CLOTHES_BY_ID = "/get-clothes-by-id";
+  }
 }

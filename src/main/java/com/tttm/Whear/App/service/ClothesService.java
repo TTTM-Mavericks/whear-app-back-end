@@ -1,5 +1,12 @@
 package com.tttm.Whear.App.service;
 
-public interface ClothesService {
+import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.utils.request.ClothesRequest;
+import com.tttm.Whear.App.utils.response.ClothesResponse;
+import java.util.List;
 
+public interface ClothesService {
+  public ClothesResponse createClothes(ClothesRequest clothesRequest) throws CustomException;
+  public List<ClothesResponse> getAllClothes();
+  public ClothesResponse getClothesByID(Integer clothesID) throws CustomException;
 }

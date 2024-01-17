@@ -5,9 +5,12 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
+import lombok.Data;
 
+@Data
 @Embeddable
 public class ClothesColorKey implements Serializable {
+
   @Column(name = "clothesID", unique = true, nullable = false)
   private Integer clothesID;
   @ManyToOne
