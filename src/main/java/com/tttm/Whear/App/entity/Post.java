@@ -35,23 +35,23 @@ public class Post implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "postID", unique = true, nullable = false)
+  @Column(name = "postID")
   private Integer postID;
 
-  @Column(name = "userID", unique = false, nullable = false)
+  @Column(name = "userID")
   private String userID;
   @ManyToOne
   @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
   private User user;
 
-  @Column(name = "typeOfPost", unique = false, nullable = false)
+  @Column(name = "typeOfPost")
   @Enumerated(EnumType.STRING)
   private TypeOfPosts typeOfPosts;
 
-  @Column(name = "date", unique = false, nullable = false)
+  @Column(name = "date")
   @Temporal(TemporalType.DATE)
   private Date date;
 
-  @Column(name = "status", unique = false, nullable = false)
+  @Column(name = "status")
   private StatusGeneral status;
 }

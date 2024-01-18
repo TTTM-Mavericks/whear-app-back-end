@@ -22,12 +22,10 @@ public interface ClothesSizeRepository extends JpaRepository<ClothesSize, Clothe
   @Query(value = "delete from clothes_size where clothes_size.clothesid = ?1 and clothes_size.size = ?2", nativeQuery = true)
   void deleteClothesSize(Integer clothesid, String size);
 
-  @Modifying
   @Transactional
   @Query(value = "select * from clothes_size where clothes_size.clothesid = ?1 and clothes_size.size = ?2", nativeQuery = true)
   ClothesSize findByName(Integer clothesid, String size);
 
-  @Modifying
   @Transactional
   @Query(value = "select * from clothes_size where clothes_size.clothesid = ?1", nativeQuery = true)
   List<ClothesSize> getAllSizeOfClothes(Integer clothesid);

@@ -29,25 +29,25 @@ public class News implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "newsID", unique = true, nullable = false)
+  @Column(name = "newsID")
   private Integer newsID;
 
-  @Column(name = "brandID", unique = true, nullable = false)
+  @Column(name = "brandID")
   private String brandID;
   @ManyToOne
   @JoinColumn(name = "brandID", referencedColumnName = "brandID", nullable = false, insertable = false, updatable = false)
   private Brand brand;
 
-  @Column(name = "title", unique = false, nullable = false)
+  @Column(name = "title")
   private String title;
 
-  @Column(name = "content", unique = false, nullable = false)
+  @Column(name = "content")
   private String content;
 
-  @Column(name = "typeOfNews", unique = false, nullable = false)
+  @Column(name = "typeOfNews")
   @Enumerated(EnumType.STRING)
   private TypeOfNews typeOfNews;
 
-  @Column(name = "status", unique = false, nullable = false)
+  @Column(name = "status")
   private StatusGeneral status;
 }

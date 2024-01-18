@@ -32,10 +32,10 @@ public class Payment implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "paymentID", unique = true, nullable = false)
+  @Column(name = "paymentID")
   private Integer paymentID;
 
-  @Column(name = "customerID", unique = true, nullable = false)
+  @Column(name = "customerID")
   private String customerID;
   @ManyToOne
   @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
@@ -48,7 +48,7 @@ public class Payment implements Serializable {
   @Column(name = "value", unique = false, nullable = true)
   private Double value;
 
-  @Column(name = "status", unique = false, nullable = false)
+  @Column(name = "status")
   @Enumerated(EnumType.STRING)
   private StatusGeneral status;
 }

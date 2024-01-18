@@ -12,6 +12,7 @@ import com.tttm.Whear.App.utils.response.ClothesResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,7 +53,7 @@ public class ClothesController {
     }
   }
 
-  @GetMapping(ClothesAPI.CREATE_CLOTHES)
+  @PostMapping(ClothesAPI.CREATE_CLOTHES)
   public ObjectNode createClothes(@RequestBody ClothesRequest clothesRequest) throws CustomException{
     ObjectMapper objectMapper = new ObjectMapper();
     try {

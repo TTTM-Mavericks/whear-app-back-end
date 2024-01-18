@@ -28,17 +28,17 @@ import lombok.NoArgsConstructor;
 public class Customer implements Serializable {
 
   @Id
-  @Column(name = "customerID", unique = true, nullable = false)
+  @Column(name = "customerID")
   private String customerID;
 
   @OneToOne
   @PrimaryKeyJoinColumn(name = "customerID", referencedColumnName = "userID")
   private User user;
 
-  @Column(name = "isFirstLogin", unique = false, nullable = false)
+  @Column(name = "isFirstLogin")
   private Boolean isFirstLogin;
 
-  @Column(name = "subRoleID", unique = false, nullable = false)
+  @Column(name = "subRoleID")
   @PrimaryKeyJoinColumn()
   private Integer subRoleID;
 

@@ -30,13 +30,13 @@ public class React implements Serializable{
   @Embeddable
   public class UserPostReactKey implements Serializable {
 
-    @Column(name = "userID", unique = true, nullable = false)
+    @Column(name = "userID")
     private String userID;
     @ManyToOne
     @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
     private User user;
 
-    @Column(name = "postID", unique = true, nullable = false)
+    @Column(name = "postID")
     private Integer postID;
     @ManyToOne
     @JoinColumn(name = "postID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
