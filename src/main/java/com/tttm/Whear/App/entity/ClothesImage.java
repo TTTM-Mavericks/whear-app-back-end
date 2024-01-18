@@ -24,13 +24,13 @@ import java.io.Serializable;
 public class ClothesImage implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "imgID", unique = true, nullable = false)
+  @Column(name = "imgID")
   private Integer imgID;
 
-  @Column(name = "imageUrl", unique = false, nullable = false)
+  @Column(name = "imageUrl")
   private String imageUrl;
 
-  @Column(name = "clothesID", unique = true, nullable = false)
+  @Column(name = "clothesID")
   private Integer clothesID;
   @ManyToOne
   @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)

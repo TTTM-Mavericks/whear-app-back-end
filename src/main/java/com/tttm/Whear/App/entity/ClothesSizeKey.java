@@ -11,7 +11,7 @@ import lombok.Data;
 @Embeddable
 public class ClothesSizeKey implements Serializable {
 
-  @Column(name = "clothesID", unique = true, nullable = false)
+  @Column(name = "clothesID")
   private Integer clothesID;
   @ManyToOne
   @JoinColumn(name = "clothesID", referencedColumnName = "clothesID", nullable = false, insertable = false, updatable = false)

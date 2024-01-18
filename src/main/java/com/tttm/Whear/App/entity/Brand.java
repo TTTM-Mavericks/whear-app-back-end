@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 public class Brand implements Serializable {
 
   @Id
-  @Column(name = "brandID", unique = true, nullable = false)
+  @Column(name = "brandID")
   private String brandID;
 
   @OneToOne
@@ -36,12 +36,12 @@ public class Brand implements Serializable {
   @JoinColumn(name = "brandID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
   private Customer customer;
 
-  @Column(name = "description", unique = false, nullable = false)
+  @Column(name = "description")
   private String description;
 
-  @Column(name = "address", unique = false, nullable = false)
+  @Column(name = "address")
   private String address;
 
-  @Column(name = "link", unique = false, nullable = false)
+  @Column(name = "link")
   private String link;
 }

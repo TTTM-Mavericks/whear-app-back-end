@@ -26,10 +26,10 @@ public class History implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "historyID", unique = true, nullable = false)
+  @Column(name = "historyID")
   private Integer historyID;
 
-  @Column(name = "customerID", unique = true, nullable = false)
+  @Column(name = "customerID")
   private String customerID;
   @ManyToOne
   @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)

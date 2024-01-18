@@ -26,7 +26,7 @@ import java.io.Serializable;
 public class Clothes implements Serializable {
 
   @Id
-  @Column(name = "clothesID", unique = true, nullable = false)
+  @Column(name = "clothesID")
   private Integer clothesID;
 
   @OneToOne
@@ -34,28 +34,28 @@ public class Clothes implements Serializable {
   @JoinColumn(name = "clothesID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
   private Post posts;
 
-  @Column(name = "nameOfProduct", unique = false, nullable = false)
+  @Column(name = "nameOfProduct")
   private String nameOfProduct;
 
-  @Column(name = "typeOfClothes", unique = false, nullable = false)
+  @Column(name = "typeOfClothes")
   private String typeOfClothes;
 
-  @Column(name = "shape", unique = false, nullable = false)
+  @Column(name = "shape")
   private String shape;
 
-  @Column(name = "seasons", unique = false, nullable = false)
+  @Column(name = "seasons")
   @Enumerated(EnumType.STRING)
   private SeasonType seasons;
 
-  @Column(name = "description", unique = false, nullable = false)
+  @Column(name = "description")
   private String description;
 
-  @Column(name = "link", unique = false, nullable = false)
+  @Column(name = "link")
   private String link;
 
-  @Column(name = "rating", unique = false, nullable = false)
+  @Column(name = "rating")
   private Integer rating;
 
-  @Column(name = "materials", unique = false, nullable = false)
+  @Column(name = "materials")
   private String materials;
 }

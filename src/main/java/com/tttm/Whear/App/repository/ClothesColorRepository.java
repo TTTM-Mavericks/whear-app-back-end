@@ -21,12 +21,10 @@ public interface ClothesColorRepository extends JpaRepository<ClothesColor, Clot
   @Query(value = "delete from clothes_color where clothes_color.clothesid = ?1 and clothes_color.color = ?2", nativeQuery = true)
   void deleteClothesColor(Integer clothesid, String color);
 
-  @Modifying
   @Transactional
   @Query(value = "select * from clothes_color where clothes_color.clothesid = ?1 and clothes_color.color = ?2", nativeQuery = true)
   ClothesColor findByName(Integer clothesid, String color);
 
-  @Modifying
   @Transactional
   @Query(value = "select * from clothes_color where clothes_color.clothesid = ?1", nativeQuery = true)
   List<ClothesColor> getAllColorOfClothes(Integer clothesid);

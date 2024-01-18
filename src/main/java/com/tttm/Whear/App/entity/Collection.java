@@ -32,13 +32,13 @@ public class Collection implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "collectionID", unique = true, nullable = false)
+  @Column(name = "collectionID")
   private Integer collectionID;
 
-  @Column(name = "nameOfCollection", unique = false, nullable = false)
+  @Column(name = "nameOfCollection")
   private String nameOfCollection;
 
-  @Column(name = "numberOfClothes", unique = false, nullable = false)
+  @Column(name = "numberOfClothes")
   private Integer numberOfClothes;
 
   @Column(name = "typeOfCollection")

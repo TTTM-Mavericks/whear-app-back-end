@@ -27,23 +27,23 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class User implements Serializable {
   @Id
-  @Column(name = "userID", unique = true, nullable = false)
+  @Column(name = "userID")
   private String userID;
 
-  @Column(name = "username", unique = true, nullable = false)
+  @Column(name = "username")
   private String username;
 
-  @Column(name = "password", unique = false, nullable = false)
+  @Column(name = "password")
   private String password;
 
   @Column(name = "dateOfBirth", unique = false, nullable = true)
   @Temporal(TemporalType.DATE)
   private Date dateOfBirth;
 
-  @Column(name = "phone", unique = true, nullable = false)
+  @Column(name = "phone")
   private String phone;
 
-  @Column(name = "email", unique = true, nullable = false)
+  @Column(name = "email")
   private String email;
 
   @Column(name = "gender", unique = false, nullable = true)
@@ -56,11 +56,11 @@ public class User implements Serializable {
   @Column(name = "imgUrl", unique = false, nullable = true)
   private String imgUrl;
 
-  @Column(name = "status", unique = false, nullable = false)
+  @Column(name = "status")
   @Enumerated(EnumType.STRING)
   private StatusGeneral status;
 
-  @Column(name = "language", unique = false, nullable = false)
+  @Column(name = "language")
   @Enumerated(EnumType.STRING)
   private Language language;
 }
