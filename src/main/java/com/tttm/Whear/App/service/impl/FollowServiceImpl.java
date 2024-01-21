@@ -1,6 +1,7 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
+import com.tttm.Whear.App.entity.Follower;
 import com.tttm.Whear.App.entity.FollowerKey;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.exception.CustomException;
@@ -64,7 +65,7 @@ public class FollowServiceImpl implements FollowService {
     }
 
     if (followerRepository.findFollowerByFollowerIdAndFollowingId(firstUser.getUserID(),
-        secondUser.getUserID()).size() > 0) {
+        secondUser.getUserID()) != null) {
       followerRepository.deleteFollowerByFollowerIDandFollowingID(firstUser.getUserID(),
           secondUser.getUserID());
       return new FollowResponse();
@@ -136,6 +137,29 @@ public class FollowServiceImpl implements FollowService {
         )
         .toList();
     return userResponseList;
+  }
+
+  @Override
+  public Follower checkContain(String baseUserID, String targetUserID)
+      throws CustomException {
+    if (baseUserID == null || baseUserID.isBlank() || baseUserID.isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    User baseUser = userService.getUserEntityByUserID(baseUserID);
+    if (baseUser == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+
+    if (targetUserID == null || targetUserID.isBlank() || targetUserID.isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    User targetUser = userService.getUserEntityByUserID(targetUserID);
+    if (targetUser == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+    return followerRepository.findFollowerByFollowerIdAndFollowingId(baseUserID, targetUserID);
   }
 
   private CustomException handleInvalidUsername(String username) {

@@ -18,7 +18,9 @@ public enum ConstantMessage {
   FORBIDDEN("Customer do not have role to access the page"),
   RESOURCE_NOT_FOUND("Resource not found"),
   REACH_MAXIMUM_COLLECTION("Please update plan to get more collection"),
-  REQUIRED_UPDATE_PLAN("Update plan to use this feature");
+  REQUIRED_UPDATE_PLAN("Update plan to use this feature"),
+  HAVE_NEW_POST("Have A New Post!"),
+  HAVE_NEW_FOLLOWER("Have A New Follower!");
 
   private final String message;
 

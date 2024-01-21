@@ -3,10 +3,14 @@ package com.tttm.Whear.App.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
+import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.FollowService;
+import com.tttm.Whear.App.service.NotificationService;
 import com.tttm.Whear.App.utils.request.FollowRequest;
+import com.tttm.Whear.App.utils.request.NotificationRequest;
 import com.tttm.Whear.App.utils.response.FollowResponse;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FollowerController {
 
   private final FollowService followService;
+  private final NotificationService notificationService;
 
   @PostMapping(APIConstant.FollowAPI.USER_FOLLOW_OR_UNFOLLOW_ANOTHER_USER)
   public ObjectNode userFollowOrUnfollowAnotherUser(@RequestBody FollowRequest followRequest)
@@ -35,6 +40,14 @@ public class FollowerController {
             "User " + followRequest.getBaseUserID() + " Follow " + followRequest.getTargetUserID()
                 + " Successfully");
         respon.set("data", objectMapper.valueToTree(followResponse));
+        NotificationRequest notiRequest = NotificationRequest.builder()
+            .action(ENotificationAction.FOLLOW.name())
+            .actionID(Integer.parseInt(followRequest.getBaseUserID()))
+            .baseUserID(followRequest.getBaseUserID())
+            .targetUserID(followRequest.getTargetUserID())
+            .dateTime(LocalDateTime.now())
+            .build();
+        notificationService.sendNotification(notiRequest);
       } else {
         respon.put("success", 200);
         respon.put("message",
