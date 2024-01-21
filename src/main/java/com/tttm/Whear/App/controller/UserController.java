@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.constant.APIConstant.UserAPI;
 import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.service.FollowService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.LoginRequest;
 import com.tttm.Whear.App.utils.request.UserRequest;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   private final UserService userService;
+  private final FollowService followService;
 
   @PostMapping(APIConstant.UserAPI.CREATE_NEW_USER)
   public ObjectNode createNewUser(@RequestBody UserRequest userRequest) throws CustomException {
@@ -61,13 +63,14 @@ public class UserController {
   }
 
   @GetMapping(UserAPI.GET_USER_BY_USERID)
-  public ObjectNode getUserByUserID(@RequestParam("userid") String userid) throws CustomException {
+  public ObjectNode getUserByUserID(@RequestParam("base_userid") String base_userid, @RequestParam("userid") String userid) throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Get Users Successfully");
       respon.set("data", objectMapper.valueToTree(userService.getUserbyUserID(userid)));
+      respon.put("followed", followService.checkContain(base_userid, userid) != null);
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();

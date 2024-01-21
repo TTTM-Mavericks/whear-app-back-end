@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.service;
 
+import com.tttm.Whear.App.entity.Follower;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.utils.request.FollowRequest;
 import com.tttm.Whear.App.utils.response.FollowResponse;
@@ -13,5 +14,6 @@ public interface FollowService {
   List<UserResponse> getAllFollowerUser(String username) throws CustomException;
 
   List<UserResponse> getAllFollowingUser(String username) throws CustomException;
+  Follower checkContain(String baseUserID, String targetUserID) throws CustomException;
 
 }

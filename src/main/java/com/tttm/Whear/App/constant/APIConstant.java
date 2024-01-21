@@ -80,4 +80,15 @@ public class APIConstant {
     public static final String GET_ALL_CLOTHES = "/get-all-clothes";
     public static final String GET_CLOTHES_BY_ID = "/get-clothes-by-id";
   }
+
+  public class NotificationAPI {
+
+    /**
+     * Notification API
+     */
+    public static final String NOTIFICATION = APIConstant.API + "/notification";
+    public static final String GET_ALL_NOTIFICATION = "/get-all-notification";
+    public static final String GET_UNREAD_NOTIFICATION = "/get-unread-notification";
+    public static final String UN_READ_NOTIFICATION = "/un-read-notification";
+  }
 }
