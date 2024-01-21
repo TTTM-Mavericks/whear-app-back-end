@@ -50,4 +50,4 @@ jobs:
           app-name: 'whear-app'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1350D59DCCB84B3EB3E136F469DCFAF1 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CB9BAB83E1324570A099AE587D2BB377 }}
