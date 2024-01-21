@@ -13,6 +13,7 @@ import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.UserRequest;
 import com.tttm.Whear.App.utils.response.CustomerResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,10 +21,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,13 +39,13 @@ public class UserServiceImpl implements UserService {
     return
         userRequest != null &&
 
-        userRequest.getUserID() != null &&
-        userRequest.getEmail() != null &&
-        userRequest.getPhone() != null &&
+            userRequest.getUserID() != null &&
+            userRequest.getEmail() != null &&
+            userRequest.getPhone() != null &&
 
-        !userRequest.getUserID().isEmpty() && !userRequest.getUserID().isBlank() &&
-        !userRequest.getEmail().isEmpty() && !userRequest.getEmail().isBlank() &&
-        !userRequest.getPhone().isEmpty() && !userRequest.getPhone().isBlank();
+            !userRequest.getUserID().isEmpty() && !userRequest.getUserID().isBlank() &&
+            !userRequest.getEmail().isEmpty() && !userRequest.getEmail().isBlank() &&
+            !userRequest.getPhone().isEmpty() && !userRequest.getPhone().isBlank();
   }
 
 
@@ -72,7 +69,7 @@ public class UserServiceImpl implements UserService {
       logger.error(ConstantMessage.PHONE_IS_EXIST.getMessage());
       throw new CustomException(ConstantMessage.PHONE_IS_EXIST.getMessage());
     }
-    String userID = String.valueOf(userRepository.count()+1);
+    String userID = String.valueOf(userRepository.count() + 1);
     User savedUser = userRepository.save(User
         .builder()
         .userID(userID)
@@ -98,15 +95,27 @@ public class UserServiceImpl implements UserService {
   public List<UserResponse> getUserbyUsername(String username) throws CustomException {
     List<UserResponse> resultList = null;
     List<User> listUser = userRepository.findAll();
-    for(User u : listUser){
-      if(u.getUsername().toLowerCase().trim().contains(username.toLowerCase().trim())){
-        if(resultList == null){
+    for (User u : listUser) {
+      if (u.getUsername().toLowerCase().trim().contains(username.toLowerCase().trim())) {
+        if (resultList == null) {
           resultList = new ArrayList<>();
         }
         resultList.add(convertToUserResponse(u));
       }
     }
     return resultList;
+  }
+
+  @Override
+  public UserResponse getUserbyUserID(String userid) throws CustomException {
+    if (userid == null || userid.isEmpty() || userid.isBlank()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+    User user = userRepository.getUserByUserID(userid);
+    if(user == null){
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+    return convertToUserResponse(user);
   }
 
 
@@ -147,7 +156,7 @@ public class UserServiceImpl implements UserService {
     }
 
     User user = userRepository.getUserByUserID(userRequest.getUserID());
-    if(user == null){
+    if (user == null) {
       throw new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
     }
 
@@ -236,12 +245,13 @@ public class UserServiceImpl implements UserService {
   }
 
   public UserResponse convertToUserResponse(User user) {
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     return UserResponse
         .builder()
         .userID(user.getUserID())
         .username(user.getUsername())
         .password(user.getPassword())
-        .dateOfBirth(user.getDateOfBirth().toString())
+        .dateOfBirth(String.valueOf(df.format(user.getDateOfBirth())))
         .phone(user.getPhone())
         .email(user.getEmail())
         .gender(user.getGender())

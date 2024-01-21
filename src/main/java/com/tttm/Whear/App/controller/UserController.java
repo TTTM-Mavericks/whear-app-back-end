@@ -3,6 +3,7 @@ package com.tttm.Whear.App.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
+import com.tttm.Whear.App.constant.APIConstant.UserAPI;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.LoginRequest;
@@ -49,6 +50,24 @@ public class UserController {
       respon.put("success", 200);
       respon.put("message", "Get All Users Successfully");
       respon.set("data", objectMapper.valueToTree(userService.getAllUser()));
+      return respon;
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
+  @GetMapping(UserAPI.GET_USER_BY_USERID)
+  public ObjectNode getUserByUserID(@RequestParam("userid") String userid) throws CustomException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("success", 200);
+      respon.put("message", "Get Users Successfully");
+      respon.set("data", objectMapper.valueToTree(userService.getUserbyUserID(userid)));
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();

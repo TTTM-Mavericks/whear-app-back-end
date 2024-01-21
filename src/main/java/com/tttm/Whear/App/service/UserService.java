@@ -13,6 +13,7 @@ public interface UserService {
   CustomerResponse createNewUsers(UserRequest userRequest) throws CustomException;
 
   List<UserResponse> getUserbyUsername(String username) throws CustomException;
+  UserResponse getUserbyUserID(String userid) throws CustomException;
 
   List<UserResponse> getAllUser() throws CustomException;
 

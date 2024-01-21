@@ -28,6 +28,7 @@ public class APIConstant {
     public static final String USER = APIConstant.API + "/user";
     public static final String GET_ALL_USER = "/get-all-user";
     public static final String GET_USER_BY_USERNAME = "/get-user-by-username";
+    public static final String GET_USER_BY_USERID = "/get-user-by-userid";
     public static final String GET_USER_BY_EMAIL_AND_PASSWORD = "/get-user-by-email-and-password";
     public static final String UPDATE_USER_BY_USERID = "/update-user-by-userid";
     public static final String CREATE_NEW_USER = "/create-new-user";
