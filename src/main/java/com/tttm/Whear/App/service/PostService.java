@@ -27,4 +27,6 @@ public interface PostService {
   public PostResponse updatePost(PostRequest postRequest) throws CustomException;
 
   public Post getPostEntityByPostID(Integer postID) throws CustomException;
+  public List<PostResponse> getAllPostForUser(String userID) throws CustomException;
+  public List<PostResponse> getAllPostOfUser(String userID) throws CustomException;
 }

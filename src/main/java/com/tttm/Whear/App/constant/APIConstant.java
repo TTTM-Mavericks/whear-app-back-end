@@ -49,6 +49,9 @@ public class APIConstant {
     public static final String GET_POST_IN_RANGE = "/get-post-in-range";
     public static final String DELETE_POST_BY_POSTID = "/delete-by-postid";
     public static final String UPDATE_POST = "/update-post";
+    public static final String GET_ALL_POST_FOR_A_USER = "/get-all-post-for-user";
+    public static final String GET_ALL_POST_OF_A_USER = "/get-all-post-of-user";
+
   }
 
   public class FollowAPI {
