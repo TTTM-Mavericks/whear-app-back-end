@@ -271,6 +271,55 @@ public class PostServiceImpl implements PostService {
     return post;
   }
 
+  @Override
+  public List<PostResponse> getAllPostForUser(String userID) throws CustomException {
+    if (userID == null || userID.isEmpty() || userID.isBlank()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+    User u = userService.getUserEntityByUserID(userID);
+    if (u == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+
+    List<PostResponse> responseList = null;
+
+    List<Post> postList = postRepository.getAllPostForUser(userID);
+    if (postList != null && !postList.isEmpty() && postList.size() > 0) {
+      for (Post p : postList) {
+        if (responseList == null) {
+          responseList = new ArrayList<>();
+        }
+        responseList.add(convertToPostResponse(p));
+      }
+    }
+
+    return responseList;
+  }
+
+  @Override
+  public List<PostResponse> getAllPostOfUser(String userID) throws CustomException {
+    if (userID == null || userID.isEmpty() || userID.isBlank()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+    User u = userService.getUserEntityByUserID(userID);
+    if (u == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+
+    List<PostResponse> responseList = null;
+
+    List<Post> postList = postRepository.getAllByUserID(userID);
+    if (postList != null && !postList.isEmpty() && postList.size() > 0) {
+      for (Post p : postList) {
+        if (responseList == null) {
+          responseList = new ArrayList<>();
+        }
+        responseList.add(convertToPostResponse(p));
+      }
+    }
+    return responseList;
+  }
+
   private PostResponse convertToPostResponse(Post post) {
     return PostResponse
         .builder()

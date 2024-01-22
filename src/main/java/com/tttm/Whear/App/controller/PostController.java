@@ -3,7 +3,6 @@ package com.tttm.Whear.App.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant.PostAPI;
-import com.tttm.Whear.App.enums.TypeOfPosts;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.PostService;
 import com.tttm.Whear.App.utils.request.DateTimeRequest;
@@ -53,6 +52,44 @@ public class PostController {
       respon.put("success", 200);
       respon.put("message", "Get post Successfully");
       respon.set("data", objectMapper.valueToTree(postService.getPostByPostID(postID)));
+      return respon;
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
+  @GetMapping(PostAPI.GET_ALL_POST_FOR_A_USER)
+  public ObjectNode getPostForAUser(@RequestParam("user_id") String user_id)
+      throws CustomException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("success", 200);
+      respon.put("message", "Get post Successfully");
+      respon.set("data", objectMapper.valueToTree(postService.getAllPostForUser(user_id)));
+      return respon;
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
+  @GetMapping(PostAPI.GET_ALL_POST_OF_A_USER)
+  public ObjectNode getPostOfAUser(@RequestParam("user_id") String user_id)
+      throws CustomException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("success", 200);
+      respon.put("message", "Get post Successfully");
+      respon.set("data", objectMapper.valueToTree(postService.getAllPostOfUser(user_id)));
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
