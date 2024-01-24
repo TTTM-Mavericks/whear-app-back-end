@@ -2,6 +2,7 @@ package com.tttm.Whear.App.repository;
 
 import com.tttm.Whear.App.entity.ClothesSize;
 import com.tttm.Whear.App.entity.ClothesSizeKey;
+import com.tttm.Whear.App.enums.SizeType;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,8 +15,8 @@ public interface ClothesSizeRepository extends JpaRepository<ClothesSize, Clothe
 
   @Modifying
   @Transactional
-  @Query(value = "insert into clothes_size (clothesid,size) values (?1, ?2)", nativeQuery = true)
-  void insertClothesSize(Integer clothesid, String size);
+  @Query(value = "insert into clothes_size (clothesid, size) values (?1, ?2)", nativeQuery = true)
+  void insertClothesSize(Integer clothesid, SizeType size);
 
   @Modifying
   @Transactional

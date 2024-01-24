@@ -20,7 +20,8 @@ public enum ConstantMessage {
   REACH_MAXIMUM_COLLECTION("Please update plan to get more collection"),
   REQUIRED_UPDATE_PLAN("Update plan to use this feature"),
   HAVE_NEW_POST("Have A New Post!"),
-  HAVE_NEW_FOLLOWER("Have A New Follower!");
+  HAVE_NEW_FOLLOWER("Have A New Follower!"),
+  USER_NOT_EXIST_IN_DATABASE("There is no user exist in database");
 
   private final String message;
 

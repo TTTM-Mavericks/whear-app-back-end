@@ -18,7 +18,7 @@ public class ClothesRequest {
   private String nameOfProduct;
   private String typeOfClothes;
   private String shape;
-  private SeasonType seasons;
+  private String seasons;
   private String description;
   private String link;
   private Integer rating;

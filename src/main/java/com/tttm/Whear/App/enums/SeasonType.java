@@ -1,8 +1,8 @@
 package com.tttm.Whear.App.enums;
 
 public enum SeasonType {
-  SPRING,
-  SUMMER,
-  AUTUMN,
-  WINTER
+  SPRING,     // Mùa xuân
+  SUMMER,     // Mùa hè
+  AUTUMN,     // Mùa thu
+  WINTER      // Mùa đông
 }

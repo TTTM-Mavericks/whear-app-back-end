@@ -1,9 +1,10 @@
 package com.tttm.Whear.App.enums;
 
 public enum SizeType {
+  XS,
   S,
-  N,
-  B,
+  M,
+  L,
   XL,
   XXL,
   XXXL
