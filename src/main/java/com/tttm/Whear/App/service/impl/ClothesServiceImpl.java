@@ -5,8 +5,7 @@ import com.tttm.Whear.App.entity.Clothes;
 import com.tttm.Whear.App.entity.ClothesColor;
 import com.tttm.Whear.App.entity.ClothesImage;
 import com.tttm.Whear.App.entity.ClothesSize;
-import com.tttm.Whear.App.enums.StatusGeneral;
-import com.tttm.Whear.App.enums.TypeOfPosts;
+import com.tttm.Whear.App.enums.*;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.ClothesRepository;
 import com.tttm.Whear.App.service.ClothesColorService;
@@ -21,6 +20,8 @@ import com.tttm.Whear.App.utils.response.PostResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -59,13 +60,13 @@ public class ClothesServiceImpl implements ClothesService {
           .clothesID(post.getPostID())
           .posts(postService.getPostEntityByPostID(post.getPostID()))
           .nameOfProduct(clothesRequest.getNameOfProduct())
-          .typeOfClothes(clothesRequest.getTypeOfClothes())
-          .shape(clothesRequest.getShape())
-          .seasons(clothesRequest.getSeasons())
+          .typeOfClothes(ClothesType.valueOf(clothesRequest.getTypeOfClothes().toUpperCase()))
+          .shape(ShapeType.valueOf(clothesRequest.getShape().toUpperCase()))
+          .seasons(SeasonType.valueOf(clothesRequest.getSeasons().toUpperCase()))
           .description(clothesRequest.getDescription())
           .link(clothesRequest.getLink())
           .rating(clothesRequest.getRating())
-          .materials(clothesRequest.getMaterials())
+          .materials(MaterialType.valueOf(clothesRequest.getMaterials().toUpperCase()))
           .build();
       clothesRepository.insertClothes(
           post.getPostID(), clothesRequest.getDescription(), clothesRequest.getLink(),
@@ -141,24 +142,34 @@ public class ClothesServiceImpl implements ClothesService {
 
   public ClothesResponse mapToClothesResponse(Clothes clothes) {
 
-    List<ClothesImage> clothesImages = clothesImageService.getAllImageOfClothes(
-        clothes.getClothesID());
+    List<String> clothesImages = clothesImageService
+            .getAllImageOfClothes(clothes.getClothesID())
+            .stream()
+            .map(clothesImage -> clothesImage.getImageUrl().toString())
+            .toList();
 
-    List<ClothesSize> clothesSizes = clothesSizeService.getAllSizeOfClothes(clothes.getClothesID());
+    List<String> clothesSizes = clothesSizeService
+            .getAllSizeOfClothes(clothes.getClothesID())
+            .stream()
+            .map(clothesSize -> clothesSize.getClothesSizeKey().getSize().name())
+            .toList();
 
-    List<ClothesColor> clothesColors = clothesColorService.getAllColorOfClothes(
-        clothes.getClothesID());
+    List<String> clothesColors = clothesColorService
+            .getAllColorOfClothes(clothes.getClothesID())
+            .stream()
+            .map(clothesColor -> clothesColor.getClothesColorKey().getColor().name())
+            .toList();
 
     ClothesResponse response = ClothesResponse.builder()
         .clothesID(clothes.getClothesID())
         .nameOfProduct(clothes.getNameOfProduct())
-        .typeOfClothes(clothes.getTypeOfClothes())
-        .shape(clothes.getShape())
-        .seasons(clothes.getSeasons())
+        .typeOfClothes(clothes.getTypeOfClothes().name())
+        .shape(clothes.getShape().name())
+        .seasons(clothes.getSeasons().name())
         .description(clothes.getDescription())
         .link(clothes.getLink())
         .rating(clothes.getRating())
-        .materials(clothes.getMaterials())
+        .materials(clothes.getMaterials().name())
         .clothesImages(clothesImages)
         .clothesSizes(clothesSizes)
         .clothesColors(clothesColors)

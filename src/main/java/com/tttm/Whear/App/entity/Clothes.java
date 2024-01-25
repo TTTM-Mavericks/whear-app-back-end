@@ -1,6 +1,9 @@
 package com.tttm.Whear.App.entity;
 
+import com.tttm.Whear.App.enums.ClothesType;
+import com.tttm.Whear.App.enums.MaterialType;
 import com.tttm.Whear.App.enums.SeasonType;
+import com.tttm.Whear.App.enums.ShapeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,10 +41,12 @@ public class Clothes implements Serializable {
   private String nameOfProduct;
 
   @Column(name = "typeOfClothes")
-  private String typeOfClothes;
+  @Enumerated(EnumType.STRING)
+  private ClothesType typeOfClothes;
 
   @Column(name = "shape")
-  private String shape;
+  @Enumerated(EnumType.STRING)
+  private ShapeType shape;
 
   @Column(name = "seasons")
   @Enumerated(EnumType.STRING)
@@ -57,5 +62,6 @@ public class Clothes implements Serializable {
   private Integer rating;
 
   @Column(name = "materials")
-  private String materials;
+  @Enumerated(EnumType.STRING)
+  private MaterialType materials;
 }

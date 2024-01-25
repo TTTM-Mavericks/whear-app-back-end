@@ -1,6 +1,7 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.entity.ClothesSize;
+import com.tttm.Whear.App.enums.SizeType;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.ClothesSizeRepository;
 import com.tttm.Whear.App.service.ClothesSizeService;
@@ -16,7 +17,7 @@ public class ClothesSizeServiceImpl implements ClothesSizeService {
 
   @Override
   public void createSize(Integer clothesID, String size) throws CustomException {
-    clothesSizeRepository.insertClothesSize(clothesID, size);
+    clothesSizeRepository.insertClothesSize(clothesID, SizeType.valueOf(size.toUpperCase()));
   }
 
   @Override

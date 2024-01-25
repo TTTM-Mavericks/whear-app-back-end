@@ -1,5 +1,7 @@
 package com.tttm.Whear.App.constant;
 
+import org.checkerframework.checker.units.qual.A;
+
 public class APIConstant {
 
   /**
@@ -93,5 +95,28 @@ public class APIConstant {
     public static final String GET_ALL_NOTIFICATION = "/get-all-notification";
     public static final String GET_UNREAD_NOTIFICATION = "/get-unread-notification";
     public static final String UN_READ_NOTIFICATION = "/un-read-notification";
+  }
+
+  public class HistoryAPI
+  {
+     public static final String HISTORY =  APIConstant.API + "/histories";
+
+     public static final String CREATE_HISTORY_ITEM = "/create-history-item";
+     public static final String GET_ALL_HISTORY_ITEMS_BY_CUSTOMER_ID = "/get-all-history-items-by-customer-id";
+  }
+
+  public class GenerateDataAPI
+  {
+    public static final String GENERATE_DATA =  APIConstant.API + "/generate-data";
+
+    public static final String GENERATE_RANDOM_LIST_CLOTHES = "/generate-random-list-clothes";
+    public static final String GENERATE_RANDOM_HISTORY_USER_SEARCH = "/generate-random-history-user-search";
+  }
+
+  public class RecommendationAPI
+  {
+    public static final String RECOMMENDATION =  APIConstant.API + "/recommedation";
+
+    public static final String GET_LIST_RECOMMMENDATION_BY_USER_HISTORY_ITEMS = "/get-list-recommendation-by-user-history-items";
   }
 }
