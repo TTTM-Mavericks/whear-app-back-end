@@ -2,11 +2,14 @@ package com.tttm.Whear.App.service;
 
 import com.tttm.Whear.App.entity.Customer;
 import com.tttm.Whear.App.entity.User;
+import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.utils.request.UserRequest;
+import com.tttm.Whear.App.utils.response.AuthenticationResponse;
 import com.tttm.Whear.App.utils.response.CustomerResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -26,9 +29,15 @@ public interface UserService {
 
   User getUserEntityByUserID(String userID) throws CustomException;
 
+  User registerNewUsers(UserRequest userRequest) throws CustomException;
+
   List<User> getAllUserEntity() throws CustomException;
 
   UserResponse convertToUserResponse(User user);
 
   CustomerResponse convertToCustomerResponse(User user, Customer customer);
+
+  User getUserByEmail(String email) throws CustomException;
+
+  Optional<User> findUserByEmailAndActiveStatus(String email, StatusGeneral status);
 }

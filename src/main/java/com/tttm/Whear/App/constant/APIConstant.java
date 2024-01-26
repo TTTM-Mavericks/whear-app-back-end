@@ -100,9 +100,9 @@ public class APIConstant {
   public class HistoryAPI
   {
      public static final String HISTORY =  APIConstant.API + "/histories";
-
      public static final String CREATE_HISTORY_ITEM = "/create-history-item";
      public static final String GET_ALL_HISTORY_ITEMS_BY_CUSTOMER_ID = "/get-all-history-items-by-customer-id";
+    public static final String SUB_HTTP_OF_HISTORY =  "/histories/**";
   }
 
   public class GenerateDataAPI
@@ -118,5 +118,14 @@ public class APIConstant {
     public static final String RECOMMENDATION =  APIConstant.API + "/recommedation";
 
     public static final String GET_LIST_RECOMMMENDATION_BY_USER_HISTORY_ITEMS = "/get-list-recommendation-by-user-history-items";
+  }
+
+  public class AuthenticationAPI
+  {
+    public static final String AUTHENTICATION =  APIConstant.API + "/auth";
+    public static final String REGISTER = "/register";
+    public static final String LOGIN = "/login";
+    public static final String LOG_OUT = AUTHENTICATION + "/log-out";
+    public static final String REFRESH_TOKEN = "/refresh-token";
   }
 }

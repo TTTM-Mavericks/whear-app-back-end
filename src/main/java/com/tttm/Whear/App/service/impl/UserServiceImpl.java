@@ -48,6 +48,42 @@ public class UserServiceImpl implements UserService {
             !userRequest.getPhone().isEmpty() && !userRequest.getPhone().isBlank();
   }
 
+  @Override
+  public User registerNewUsers(UserRequest userRequest) throws CustomException {
+    if (!(!userRequest.getEmail().isEmpty() && !userRequest.getEmail().isBlank() &&
+            !userRequest.getPassword().isEmpty() && !userRequest.getPassword().isBlank() &&
+            !userRequest.getPhone().isEmpty() && !userRequest.getPhone().isBlank())) {
+      logger.error(ConstantMessage.MISSING_ARGUMENT.getMessage());
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+    if (userRepository.getUserByEmail(userRequest.getEmail()) != null) {
+      logger.error(ConstantMessage.EMAIL_IS_EXIST.getMessage());
+      throw new CustomException(ConstantMessage.EMAIL_IS_EXIST.getMessage());
+    }
+    if (userRepository.getUserByPhone(userRequest.getPhone()) != null) {
+      logger.error(ConstantMessage.PHONE_IS_EXIST.getMessage());
+      throw new CustomException(ConstantMessage.PHONE_IS_EXIST.getMessage());
+    }
+    String userID = String.valueOf(userRepository.count() + 1);
+    User savedUser = userRepository.save(User
+            .builder()
+            .userID(userID)
+            .username(userRequest.getUsername())
+            .password(userRequest.getPassword())
+            .dateOfBirth(userRequest.getDateOfBirth())
+            .phone(userRequest.getPhone())
+            .email(userRequest.getEmail())
+            .gender(userRequest.getGender())
+            .role(ERole.CUSTOMER)
+            .imgUrl(userRequest.getImgUrl())
+            .status(StatusGeneral.ACTIVE)
+            .language(userRequest.getLanguage())
+            .build());
+
+    Customer customer = customerService.createNewCustomers(savedUser);
+    logger.info(ConstantMessage.CREATE_SUCCESS.getMessage());
+    return savedUser;
+  }
 
   @Override
 //  @Caching(
@@ -235,13 +271,32 @@ public class UserServiceImpl implements UserService {
     logger.error(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
     return new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
   }
-
+  private CustomException handleInvalidEmail(String username) {
+    logger.error(ConstantMessage.USER_EMAIL_IS_EMPTY_OR_NOT_EXIST.getMessage());
+    return new CustomException(ConstantMessage.USER_EMAIL_IS_EMPTY_OR_NOT_EXIST.getMessage());
+  }
   @Override
   public List<User> getAllUserEntity() throws CustomException {
     return userRepository.findAll()
         .stream()
         .filter(Objects::nonNull)
         .toList();
+  }
+
+  @Override
+  public User getUserByEmail(String email) throws CustomException{
+    Optional.of(email)
+            .filter(id -> !id.isEmpty() && !id.isBlank())
+            .orElseThrow(() -> handleInvalidUserID(email));
+
+    User user = Optional.ofNullable(userRepository.getUserByEmail(email))
+            .orElseThrow(() -> handleUserNotFound(email));
+    return user;
+  }
+
+  @Override
+  public Optional<User> findUserByEmailAndActiveStatus(String email, StatusGeneral status) {
+    return userRepository.findUserByEmailAndActiveStatus(email, status.name());
   }
 
   public UserResponse convertToUserResponse(User user) {

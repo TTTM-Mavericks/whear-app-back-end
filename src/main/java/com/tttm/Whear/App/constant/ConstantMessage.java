@@ -10,6 +10,7 @@ public enum ConstantMessage {
   CANNOT_FIND_USER_BY_USERNAME("Can not find User by Username"),
   CANNOT_FIND_USER_BY_USERID("Can not find User by UserID"),
   USERID_IS_EMPTY_OR_NOT_EXIST("UserID is empty or not exist"),
+  USER_EMAIL_IS_EMPTY_OR_NOT_EXIST("User Email is empty or not exist"),
   USERNAME_IS_EXIST("Username has existed already"),
   PHONE_IS_EXIST("Phone has existed already"),
   EMAIL_IS_EXIST("Email has existed already"),
