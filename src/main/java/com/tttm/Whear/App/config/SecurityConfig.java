@@ -65,11 +65,11 @@ public class SecurityConfig {
                                     .anyRequest()
                                     .authenticated()
                 )
-                .authorizeHttpRequests((authorize) ->
-                        authorize
-                                .anyRequest()
-                                .permitAll()
-                )
+//                .authorizeHttpRequests((authorize) ->
+//                        authorize
+//                                .anyRequest()
+//                                .permitAll()
+//                )
 
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .httpBasic(Customizer.withDefaults())
