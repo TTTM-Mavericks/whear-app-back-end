@@ -1,5 +1,7 @@
 package com.tttm.Whear.App.config;
 
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.enums.ERole;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
-
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -64,11 +63,6 @@ public class SecurityConfig {
                                     .hasRole(ERole.CUSTOMER.name())
                                     .anyRequest()
                                     .authenticated()
-                )
-                .authorizeHttpRequests((authorize) ->
-                        authorize
-                                .anyRequest()
-                                .permitAll()
                 )
 
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
