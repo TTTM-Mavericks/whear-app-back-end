@@ -37,7 +37,7 @@ public class Token implements Serializable {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "tokenType", nullable = false, unique = false)
-  private TokenType tokenType;
+  private TokenType tokenType = TokenType.BEARER;
 
   @Column(name = "expired", nullable = false, unique = false)
   private boolean expired;
