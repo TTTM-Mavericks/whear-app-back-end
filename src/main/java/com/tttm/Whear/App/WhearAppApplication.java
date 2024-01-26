@@ -1,5 +1,6 @@
 package com.tttm.Whear.App;
 
+import com.tttm.Whear.App.entity.Notification;
 import com.tttm.Whear.App.entity.SubRole;
 import com.tttm.Whear.App.enums.ESubRole;
 import com.tttm.Whear.App.repository.SubRoleRepository;
@@ -8,19 +9,34 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.stereotype.Controller;
 
+@Controller
 @SpringBootApplication
 @EnableCaching
 public class WhearAppApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(WhearAppApplication.class, args);
-//    RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
-//    String testKey = "testKey";
-//    redisTemplate.opsForValue().set(testKey, "testValue");
-//    String retrievedValue = redisTemplate.opsForValue().get(testKey);
-//    System.out.println("Redis Connection is OK. Retrieved value: " + retrievedValue);
+
+  }
+
+  @MessageMapping("/chat.sendMessage")
+  @SendToUser("/topic/public")
+  public Notification sendMessage(@Payload Notification chatMessage) {
+    return chatMessage;
+  }
+
+  @MessageMapping("/chat.addUser")
+  @SendToUser("/topic/public")
+  public Notification addUser(@Payload Notification chatMessage,
+      SimpMessageHeaderAccessor headerAccessor) {
+    headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+    return chatMessage;
   }
 
   @Bean

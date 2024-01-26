@@ -3,6 +3,8 @@ package com.tttm.Whear.App.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
+import com.tttm.Whear.App.entity.Notification;
+import com.tttm.Whear.App.entity.Notification.MessageType;
 import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.FollowService;
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +35,7 @@ public class FollowerController {
   private final FollowService followService;
   private final NotificationService notificationService;
   private final UserService userService;
+  private final SimpMessagingTemplate messagingTemplate;
 
   @PostMapping(APIConstant.FollowAPI.USER_FOLLOW_OR_UNFOLLOW_ANOTHER_USER)
   public ObjectNode userFollowOrUnfollowAnotherUser(@RequestBody FollowRequest followRequest)
@@ -54,6 +58,15 @@ public class FollowerController {
             .dateTime(LocalDateTime.now())
             .build();
         notificationService.sendNotification(notiRequest);
+
+        String username = followRequest.getTargetUserID();
+        messagingTemplate.convertAndSend("/topic/public",
+            Notification.builder()
+                .content("Have new follower!")
+                .type(MessageType.CHAT)
+                .sender(username)
+                .build()
+        );
       } else {
         respon.put("success", 200);
         respon.put("message",
