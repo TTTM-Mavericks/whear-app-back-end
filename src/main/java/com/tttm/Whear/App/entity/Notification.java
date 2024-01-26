@@ -27,14 +27,23 @@ public class Notification {
   private Integer notiID;
   private String baseUserID;
   @ManyToOne
-  @JoinColumn(name = "baseUserID", referencedColumnName = "userID", insertable=false, updatable=false)
+  @JoinColumn(name = "baseUserID", referencedColumnName = "userID", insertable = false, updatable = false)
   private User baseUser;
 
   private String targetUserID;
   @ManyToOne
-  @JoinColumn(name = "targetUserID", referencedColumnName = "userID", insertable=false, updatable=false)
+  @JoinColumn(name = "targetUserID", referencedColumnName = "userID", insertable = false, updatable = false)
   private User targetUser;
 
+  public enum MessageType {
+    CHAT,
+    JOIN,
+    LEAVE
+  }
+
+  private MessageType type;
+  private String content;
+  private String sender;
   private ENotificationAction action;
   private Integer actionID;
   private String message;
