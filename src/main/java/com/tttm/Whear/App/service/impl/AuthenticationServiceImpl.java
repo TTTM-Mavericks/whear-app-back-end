@@ -48,6 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
+                .user(userService.convertToUserResponse(user))
                 .build();
     }
 
@@ -69,10 +70,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return AuthenticationResponse
-                .builder()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
+            .builder()
+            .accessToken(jwtToken)
+            .refreshToken(refreshToken)
+            .user(userService.convertToUserResponse(user))
+            .build();
     }
 
     private void saveUserToken(User user, String jwtToken) {
@@ -114,10 +116,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 revokeAllUserTokens(user);
                 saveUserToken(user, accessToken);
                 var authResponse = AuthenticationResponse
-                        .builder()
-                        .accessToken(accessToken)
-                        .refreshToken(refreshToken)
-                        .build();
+                    .builder()
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken)
+                    .user(userService.convertToUserResponse(user))
+                    .build();
 
                 return authResponse;
             }
