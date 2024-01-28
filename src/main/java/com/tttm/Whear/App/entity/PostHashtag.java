@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "post_hashtag")
-public class PostHashtag {
+public class PostHashtag{
 
   @EmbeddedId
   PostHashtagKey postHashtagKey;

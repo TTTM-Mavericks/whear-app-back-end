@@ -1,18 +1,12 @@
 package com.tttm.Whear.App.entity;
 
-import com.tttm.Whear.App.enums.SizeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+import com.tttm.Whear.App.entity.common.AuditEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 
@@ -22,7 +16,8 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "clothes_color")
-public class ClothesColor implements Serializable {
+@EntityListeners(AuditingEntityListener.class)
+public class ClothesColor extends AuditEntity implements Serializable {
   @EmbeddedId
   ClothesColorKey clothesColorKey;
 }

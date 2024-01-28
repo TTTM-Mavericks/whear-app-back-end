@@ -1,22 +1,16 @@
 package com.tttm.Whear.App.entity;
 
+import com.tttm.Whear.App.entity.common.AuditEntity;
 import com.tttm.Whear.App.enums.ClothesType;
 import com.tttm.Whear.App.enums.MaterialType;
 import com.tttm.Whear.App.enums.SeasonType;
 import com.tttm.Whear.App.enums.ShapeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 
@@ -26,8 +20,8 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "clothes")
-public class Clothes implements Serializable {
-
+@EntityListeners(AuditingEntityListener.class)
+public class Clothes extends AuditEntity implements Serializable {
   @Id
   @Column(name = "clothesID")
   private Integer clothesID;

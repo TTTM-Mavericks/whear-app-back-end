@@ -1,21 +1,14 @@
 package com.tttm.Whear.App.entity;
 
+import com.tttm.Whear.App.entity.common.AuditEntity;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfNews;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 
@@ -25,7 +18,8 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "news")
-public class News implements Serializable {
+@EntityListeners(AuditingEntityListener.class)
+public class News extends AuditEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
