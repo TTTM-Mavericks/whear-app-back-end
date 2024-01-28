@@ -15,7 +15,7 @@ public interface ClothesSizeRepository extends JpaRepository<ClothesSize, Clothe
 
   @Modifying
   @Transactional
-  @Query(value = "insert into clothes_size (clothesid, size) values (?1, ?2)", nativeQuery = true)
+  @Query(value = "insert into clothes_size (clothesid, size, create_date, last_modified_date) values (?1, ?2, current_timestamp, current_timestamp)", nativeQuery = true)
   void insertClothesSize(Integer clothesid, SizeType size);
 
   @Modifying

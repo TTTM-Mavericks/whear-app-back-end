@@ -1,7 +1,6 @@
 package com.tttm.Whear.App.config;
 
 import com.tttm.Whear.App.enums.StatusGeneral;
-import com.tttm.Whear.App.repository.UserRepository;
 import com.tttm.Whear.App.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

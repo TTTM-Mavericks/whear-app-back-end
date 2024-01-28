@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface ClothesColorRepository extends JpaRepository<ClothesColor, ClothesColorKey> {
   @Modifying
   @Transactional
-  @Query(value = "insert into clothes_color (clothesid,color) values (?1, ?2)", nativeQuery = true)
+  @Query(value = "insert into clothes_color (clothesid, color, create_date, last_modified_date) values (?1, ?2, current_timestamp, current_timestamp)", nativeQuery = true)
   void insertClothesColor(Integer clothesid, ColorType color);
 
   @Modifying

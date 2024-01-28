@@ -56,14 +56,19 @@ public class SecurityConfig {
                 //Set unauthorized handler
                 .exceptionHandling(access -> access.authenticationEntryPoint(restUnauthorizedEntryPoint))
 
-                .authorizeHttpRequests(
-                        auth ->
-                                auth.requestMatchers(WHITE_LIST_URL)
+//                .authorizeHttpRequests(
+//                        auth ->
+//                                auth.requestMatchers(WHITE_LIST_URL)
+//                                    .permitAll()
+//                                    .requestMatchers(APIConstant.HistoryAPI.SUB_HTTP_OF_HISTORY)
+//                                    .hasRole(ERole.CUSTOMER.name())
+//                                    .anyRequest()
+//                                    .authenticated()
+//                )
+
+                .authorizeHttpRequests(auth ->
+                                auth.anyRequest()
                                     .permitAll()
-                                    .requestMatchers(APIConstant.HistoryAPI.SUB_HTTP_OF_HISTORY)
-                                    .hasRole(ERole.CUSTOMER.name())
-                                    .anyRequest()
-                                    .authenticated()
                 )
 
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

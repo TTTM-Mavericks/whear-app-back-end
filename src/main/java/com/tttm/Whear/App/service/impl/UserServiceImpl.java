@@ -161,7 +161,6 @@ public class UserServiceImpl implements UserService {
     return userRepository.findAll()
         .stream()
         .map(this::convertToUserResponse)
-        .filter(Objects::nonNull)
         .toList();
   }
 

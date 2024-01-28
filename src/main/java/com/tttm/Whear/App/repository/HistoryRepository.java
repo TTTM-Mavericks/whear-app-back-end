@@ -15,7 +15,7 @@ import java.util.List;
 public interface HistoryRepository extends JpaRepository<History, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "insert into history (customerid, history_item) values (?1, ?2)", nativeQuery = true)
+    @Query(value = "insert into history (customerid, history_item, create_date, last_modified_date) values (?1, ?2, current_timestamp, current_timestamp)", nativeQuery = true)
     void createHistoryItem(String customerID, String historyItem);
 
     @Transactional

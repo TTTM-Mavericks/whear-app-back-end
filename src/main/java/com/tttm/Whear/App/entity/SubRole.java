@@ -1,16 +1,13 @@
 package com.tttm.Whear.App.entity;
 
+import com.tttm.Whear.App.entity.common.AuditEntity;
 import com.tttm.Whear.App.enums.ESubRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 
@@ -20,7 +17,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "subRole")
-public class SubRole implements Serializable {
+@EntityListeners(AuditingEntityListener.class)
+public class SubRole extends AuditEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer subRoleID;

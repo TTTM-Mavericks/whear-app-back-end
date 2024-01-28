@@ -1,19 +1,8 @@
 package com.tttm.Whear.App.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tttm.Whear.App.entity.common.AuditEntity;
 import com.tttm.Whear.App.enums.StatusGeneral;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Data
 @AllArgsConstructor
@@ -28,7 +18,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "payment")
-public class Payment implements Serializable {
+@EntityListeners(AuditingEntityListener.class)
+public class Payment extends AuditEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

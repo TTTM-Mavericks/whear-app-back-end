@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.entity;
 
+import com.tttm.Whear.App.entity.common.AuditEntity;
 import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.Language;
 import com.tttm.Whear.App.enums.StatusGeneral;
@@ -21,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +33,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Builder
 @Entity
 @Table(name = "users")
-public class User implements Serializable, UserDetails {
+@EntityListeners(AuditingEntityListener.class)
+public class User extends AuditEntity implements Serializable, UserDetails{
   @Id
   @Column(name = "userID")
   private String userID;
