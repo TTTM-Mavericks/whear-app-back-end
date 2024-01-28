@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.entity;
 
+import com.tttm.Whear.App.entity.common.AuditEntity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

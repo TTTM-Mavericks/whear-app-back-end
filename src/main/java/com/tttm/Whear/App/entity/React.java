@@ -24,20 +24,4 @@ public class React extends AuditEntity implements Serializable{
 
   @Column(name = "react", unique = false, nullable = true)
   private String react;
-
-  @Embeddable
-  public class UserPostReactKey implements Serializable {
-
-    @Column(name = "userID")
-    private String userID;
-    @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
-    private User user;
-
-    @Column(name = "postID")
-    private Integer postID;
-    @ManyToOne
-    @JoinColumn(name = "postID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
-    private Post post;
-  }
 }

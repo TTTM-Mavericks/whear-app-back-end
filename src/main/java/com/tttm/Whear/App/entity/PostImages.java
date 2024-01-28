@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.entity;
 
+import com.tttm.Whear.App.entity.common.AuditEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "post_image")
-public class PostImages implements Serializable {
+public class PostImages extends AuditEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

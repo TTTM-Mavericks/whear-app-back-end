@@ -31,8 +31,8 @@ public class HashtagServiceImpl implements HashtagService {
           .hashtagID(Integer.parseInt(String.valueOf(hashtagRepository.count() + 1)))
           .hashtag(hashtag)
           .build();
-      hashtagRepository.save(newHashtag);
-      return newHashtag;
+     hashtagRepository.save(newHashtag);
+     return newHashtag;
     } else {
       throw new CustomException("Hashtag is existed");
     }
