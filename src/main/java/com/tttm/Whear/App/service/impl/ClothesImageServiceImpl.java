@@ -34,4 +34,9 @@ public class ClothesImageServiceImpl implements ClothesImageService {
   public List<ClothesImage> getAllImageOfClothes(Integer clothesID) {
     return clothesImageRepository.getAllByClothesID(clothesID);
   }
+
+  @Override
+  public void deleteByClothesID(Integer clothesID) {
+    clothesImageRepository.deleteByClothesID(clothesID);
+  }
 }

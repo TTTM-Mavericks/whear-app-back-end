@@ -3,9 +3,13 @@ package com.tttm.Whear.App.service.impl;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.Clothes;
 import com.tttm.Whear.App.entity.ClothesColor;
-import com.tttm.Whear.App.entity.ClothesImage;
 import com.tttm.Whear.App.entity.ClothesSize;
-import com.tttm.Whear.App.enums.*;
+import com.tttm.Whear.App.enums.ClothesType;
+import com.tttm.Whear.App.enums.MaterialType;
+import com.tttm.Whear.App.enums.SeasonType;
+import com.tttm.Whear.App.enums.ShapeType;
+import com.tttm.Whear.App.enums.StatusGeneral;
+import com.tttm.Whear.App.enums.TypeOfPosts;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.ClothesRepository;
 import com.tttm.Whear.App.service.ClothesColorService;
@@ -20,8 +24,6 @@ import com.tttm.Whear.App.utils.response.PostResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,8 @@ public class ClothesServiceImpl implements ClothesService {
 
   @Override
   public ClothesResponse createClothes(ClothesRequest clothesRequest) throws CustomException {
+    PostResponse post = null;
+    Clothes newClothes = null;
     if (clothesRequest.getUserID() == null
         || clothesRequest.getUserID().isBlank()
         || clothesRequest.getUserID().isEmpty()) {
@@ -50,7 +54,7 @@ public class ClothesServiceImpl implements ClothesService {
           .typeOfPosts(TypeOfPosts.CLOTHES)
           .status(StatusGeneral.ACTIVE)
           .build();
-      PostResponse post = postService.createPost(postRequest);
+      post = postService.createPost(postRequest);
 
       if (post == null) {
         throw new CustomException(ConstantMessage.CREATE_FAIL.getMessage());
@@ -74,7 +78,7 @@ public class ClothesServiceImpl implements ClothesService {
           clothesRequest.getRating(), clothesRequest.getSeasons().toString(),
           clothesRequest.getShape(), clothesRequest.getTypeOfClothes()
       );
-      Clothes newClothes = clothesRepository.getClothesByClothesID(post.getPostID());
+      newClothes = clothesRepository.getClothesByClothesID(post.getPostID());
       if (newClothes == null) {
         throw new CustomException(ConstantMessage.CREATE_FAIL.getMessage());
       }
@@ -109,6 +113,13 @@ public class ClothesServiceImpl implements ClothesService {
       return mapToClothesResponse(newClothes);
 
     } catch (Exception ex) {
+      if (post != null) {
+        postService.deletePostByPostID(post.getPostID());
+      }
+      if (newClothes != null) {
+        clothesRepository.deleteById(newClothes.getClothesID());
+        clothesImageService.deleteByClothesID(newClothes.getClothesID());
+      }
       throw ex;
     }
   }
@@ -143,22 +154,22 @@ public class ClothesServiceImpl implements ClothesService {
   public ClothesResponse mapToClothesResponse(Clothes clothes) {
 
     List<String> clothesImages = clothesImageService
-            .getAllImageOfClothes(clothes.getClothesID())
-            .stream()
-            .map(clothesImage -> clothesImage.getImageUrl().toString())
-            .toList();
+        .getAllImageOfClothes(clothes.getClothesID())
+        .stream()
+        .map(clothesImage -> clothesImage.getImageUrl().toString())
+        .toList();
 
     List<String> clothesSizes = clothesSizeService
-            .getAllSizeOfClothes(clothes.getClothesID())
-            .stream()
-            .map(clothesSize -> clothesSize.getClothesSizeKey().getSize().name())
-            .toList();
+        .getAllSizeOfClothes(clothes.getClothesID())
+        .stream()
+        .map(clothesSize -> clothesSize.getClothesSizeKey().getSize().name())
+        .toList();
 
     List<String> clothesColors = clothesColorService
-            .getAllColorOfClothes(clothes.getClothesID())
-            .stream()
-            .map(clothesColor -> clothesColor.getClothesColorKey().getColor().name())
-            .toList();
+        .getAllColorOfClothes(clothes.getClothesID())
+        .stream()
+        .map(clothesColor -> clothesColor.getClothesColorKey().getColor().name())
+        .toList();
 
     ClothesResponse response = ClothesResponse.builder()
         .clothesID(clothes.getClothesID())

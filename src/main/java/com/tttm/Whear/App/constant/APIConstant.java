@@ -128,4 +128,12 @@ public class APIConstant {
     public static final String LOG_OUT = AUTHENTICATION + "/log-out";
     public static final String REFRESH_TOKEN = "/refresh-token";
   }
+
+  public class ReactAPI
+  {
+    public static final String REACT =  APIConstant.API + "/react";
+    public static final String UN_SEND_REACT = "/un-send-react";
+    public static final String GET_ALL_REACT_OF_POST = "/get-react-of-post";
+    public static final String GET_ALL_REACT_OF_CLOTHES = "/get-react-of-clothes";
+  }
 }
