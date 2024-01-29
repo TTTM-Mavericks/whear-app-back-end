@@ -1,7 +1,6 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.entity.ClothesColor;
-import com.tttm.Whear.App.enums.ColorType;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.ClothesColorRepository;
 import com.tttm.Whear.App.service.ClothesColorService;
@@ -17,7 +16,7 @@ public class ClothesColorServiceImpl implements ClothesColorService {
 
   @Override
   public void createColor(Integer clothesID, String color) throws CustomException {
-    clothesColorRepository.insertClothesColor(clothesID, ColorType.valueOf(color.toUpperCase()));
+    clothesColorRepository.insertClothesColor(clothesID, color);
   }
 
   @Override

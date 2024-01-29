@@ -15,7 +15,7 @@ public interface ClothesColorRepository extends JpaRepository<ClothesColor, Clot
   @Modifying
   @Transactional
   @Query(value = "insert into clothes_color (clothesid, color, create_date, last_modified_date) values (?1, ?2, current_timestamp, current_timestamp)", nativeQuery = true)
-  void insertClothesColor(Integer clothesid, ColorType color);
+  void insertClothesColor(Integer clothesid, String color);
 
   @Modifying
   @Transactional
