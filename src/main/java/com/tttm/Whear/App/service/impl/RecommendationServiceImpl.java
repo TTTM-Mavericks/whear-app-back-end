@@ -129,7 +129,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         {
             ClothesItemDto clothes = ClothesItemDtoList.get(i);
             String ClotheItems =  clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " +
-                    clothes.getSeasons() + " " + clothes.getMaterials() + " " + clothes.sizeToString() + " " + clothes.colorToString();
+                    clothes.getMaterials() + " " + clothes.seasonToString() + " " +  clothes.sizeToString() + " " + clothes.colorToString();
             clothesItemList.add(new Pairs(ClothesItemDtoList.get(i).getClothesID(), ClotheItems));
         }
         return clothesItemList;
@@ -143,9 +143,15 @@ public class RecommendationServiceImpl implements RecommendationService {
                 .nameOfProduct(clothesResponse.getNameOfProduct())
                 .typeOfClothes(ClothesType.valueOf(clothesResponse.getTypeOfClothes()))
                 .shape(ShapeType.valueOf(clothesResponse.getShape()))
-                .seasons(SeasonType.valueOf(clothesResponse.getSeasons()))
                 .materials(MaterialType.valueOf(clothesResponse.getMaterials()))
-                .size(
+                .seasons(
+                        clothesResponse
+                                .getClothesSeasons()
+                                .stream()
+                                .map(Season -> SeasonType.valueOf(Season))
+                                .toList()
+                )
+                .sizes(
                         clothesResponse
                                 .getClothesSizes()
                                 .stream()

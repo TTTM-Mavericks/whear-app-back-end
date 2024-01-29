@@ -42,10 +42,6 @@ public class Clothes extends AuditEntity implements Serializable {
   @Enumerated(EnumType.STRING)
   private ShapeType shape;
 
-  @Column(name = "seasons")
-  @Enumerated(EnumType.STRING)
-  private SeasonType seasons;
-
   @Column(name = "description")
   private String description;
 

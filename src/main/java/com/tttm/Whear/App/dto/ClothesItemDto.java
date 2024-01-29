@@ -16,13 +16,13 @@ public class ClothesItemDto {
     private String nameOfProduct;
     private ClothesType typeOfClothes;
     private ShapeType shape;
-    private SeasonType seasons;
     private MaterialType materials;
-    private List<SizeType> size;
+    private List<SeasonType> seasons;
+    private List<SizeType> sizes;
     private List<ColorType> colors;
     public String sizeToString()
     {
-        return this.size
+        return this.sizes
                 .stream()
                 .map(size -> size + " ")
                 .collect(Collectors.joining());
@@ -34,5 +34,13 @@ public class ClothesItemDto {
                 .stream()
                 .map(color -> color + " ")
                 .collect(Collectors.joining());
+    }
+
+    public String seasonToString()
+    {
+        return this.seasons
+            .stream()
+            .map(season -> season + " ")
+            .collect(Collectors.joining());
     }
 }

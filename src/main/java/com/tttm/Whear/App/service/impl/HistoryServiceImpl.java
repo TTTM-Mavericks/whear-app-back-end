@@ -37,8 +37,10 @@ public class HistoryServiceImpl implements HistoryService {
 
         historyRequest
                 .getHistoryItems()
-                .forEach(historyItem ->  historyRepository.createHistoryItem(historyRequest.getCustomerID(),
-                        historyItem));
+                .forEach(historyItem ->  historyRepository
+                        .createHistoryItem(historyRequest.getCustomerID(),
+                        historyItem.toUpperCase())
+                );
     }
 
     @Override
