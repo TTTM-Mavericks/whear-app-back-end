@@ -48,21 +48,22 @@ public class PostController {
       respon.set("data", objectMapper.valueToTree(postResponse));
 
       List<UserResponse> follwers = followService.getAllFollowerUser(postResponse.getUserID());
-      for (UserResponse user : follwers) {
-        NotificationRequest notiRequest = NotificationRequest.builder()
-            .action(ENotificationAction.POST.name())
-            .actionID(postResponse.getPostID())
-            .baseUserID(postResponse.getUserID())
-            .targetUserID(user.getUserID())
-            .dateTime(LocalDateTime.now())
-            .message("New Post")
-            .status(false)
-            .build();
-        NotificationResponse notiresponse = notificationService.sendNotification(notiRequest);
-        notiRequest.setNotiID(notiresponse.getNotiID());
-        messagingTemplate.convertAndSend("/topic/public", notiRequest);
+      if (follwers != null && !follwers.isEmpty() && follwers.size() > 0) {
+        for (UserResponse user : follwers) {
+          NotificationRequest notiRequest = NotificationRequest.builder()
+              .action(ENotificationAction.POST.name())
+              .actionID(postResponse.getPostID())
+              .baseUserID(postResponse.getUserID())
+              .targetUserID(user.getUserID())
+              .dateTime(LocalDateTime.now())
+              .message("New Post")
+              .status(false)
+              .build();
+          NotificationResponse notiresponse = notificationService.sendNotification(notiRequest);
+          notiRequest.setNotiID(notiresponse.getNotiID());
+          messagingTemplate.convertAndSend("/topic/public", notiRequest);
+        }
       }
-
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
@@ -156,7 +157,8 @@ public class PostController {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Get post by type of post Successfully");
-      respon.set("data", objectMapper.valueToTree(postService.getAllPostByTypeOfPost(typeOfPosts)));
+      respon.set("data",
+          objectMapper.valueToTree(postService.getAllPostByTypeOfPost(typeOfPosts)));
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();

@@ -9,6 +9,7 @@ import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.ClothesService;
 import com.tttm.Whear.App.service.FollowService;
+import com.tttm.Whear.App.service.NotificationService;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
@@ -17,6 +18,7 @@ import com.tttm.Whear.App.utils.response.UserResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +33,8 @@ public class ClothesController {
 
   private final ClothesService clothesService;
   private final FollowService followService;
+  private final NotificationService notificationService;
+  private final SimpMessagingTemplate messagingTemplate;
 
   @GetMapping(ClothesAPI.GET_ALL_CLOTHES)
   public ObjectNode getAllClothes() {
@@ -79,21 +83,23 @@ public class ClothesController {
         JsonNode arrayNode = objectMapper.valueToTree(response);
         respon.set("data", arrayNode);
 
-//        List<UserResponse> follwers = followService.getAllFollowerUser(clothesRequest.getUserID());
-//        for (UserResponse user : follwers) {
-//          NotificationRequest notiRequest = NotificationRequest.builder()
-//              .action(ENotificationAction.CLOTHES.name())
-//              .actionID(postResponse.getPostID())
-//              .baseUserID(postResponse.getUserID())
-//              .targetUserID(user.getUserID())
-//              .dateTime(LocalDateTime.now())
-//              .message("New Post")
-//              .status(false)
-//              .build();
-//          NotificationResponse notiresponse = notificationService.sendNotification(notiRequest);
-//          notiRequest.setNotiID(notiresponse.getNotiID());
-//          messagingTemplate.convertAndSend("/topic/public", notiRequest);
-//        }
+        List<UserResponse> follwers = followService.getAllFollowerUser(clothesRequest.getUserID());
+        if (follwers != null && !follwers.isEmpty() && follwers.size() > 0) {
+          for (UserResponse user : follwers) {
+            NotificationRequest notiRequest = NotificationRequest.builder()
+                .action(ENotificationAction.CLOTHES.name())
+                .actionID(response.getClothesID())
+                .baseUserID(clothesRequest.getUserID())
+                .targetUserID(user.getUserID())
+                .dateTime(LocalDateTime.now())
+                .message("New Clothes")
+                .status(false)
+                .build();
+            NotificationResponse notiresponse = notificationService.sendNotification(notiRequest);
+            notiRequest.setNotiID(notiresponse.getNotiID());
+            messagingTemplate.convertAndSend("/topic/public", notiRequest);
+          }
+        }
 
         return respon;
       }
