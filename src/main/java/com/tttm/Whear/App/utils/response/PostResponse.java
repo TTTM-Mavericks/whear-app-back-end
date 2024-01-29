@@ -1,11 +1,9 @@
 package com.tttm.Whear.App.utils.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tttm.Whear.App.entity.Hashtag;
+import com.tttm.Whear.App.entity.React;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
-
-import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,4 +22,5 @@ public class PostResponse {
   private List<Hashtag> hashtag;
   private String date;
   private StatusGeneral status;
+  private List<React> reactList;
 }

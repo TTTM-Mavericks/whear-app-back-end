@@ -136,11 +136,16 @@ public class NotificationServiceImpl implements NotificationService {
       }
       noti.setAction(ENotificationAction.FOLLOW);
       noti.setActionID(Integer.parseInt(baseUserID));
+    } else if (action.equals(ENotificationAction.REACT.toString())) {
+      Integer postID = notification.getActionID();
+      PostResponse post = postService.getPostByPostID(postID);
+      if (post == null) {
+        throw new CustomException(
+            ConstantMessage.RESOURCE_NOT_FOUND.getMessage() + " for post: " + postID);
+      }
+      noti.setAction(ENotificationAction.REACT);
+      noti.setActionID(postID);
     }
-    /**
-     * else if REACT
-     * TODO
-     */
     noti.setStatus(false);
     noti.setDateTime(notification.getDateTime());
     noti.setMessage(notification.getMessage());

@@ -2,7 +2,6 @@ package com.tttm.Whear.App.repository;
 
 import com.tttm.Whear.App.entity.ClothesSize;
 import com.tttm.Whear.App.entity.ClothesSizeKey;
-import com.tttm.Whear.App.enums.SizeType;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

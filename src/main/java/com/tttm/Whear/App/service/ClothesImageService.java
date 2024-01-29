@@ -11,4 +11,6 @@ public interface ClothesImageService {
   public ClothesImage createImage(Integer clothesID, String imageUrl) throws CustomException;
 
   public List<ClothesImage> getAllImageOfClothes(Integer clothesID);
+
+  public void deleteByClothesID(Integer clothesID);
 }

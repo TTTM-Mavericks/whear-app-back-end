@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClothesImageRepository extends JpaRepository<ClothesImage, Integer> {
   public List<ClothesImage> getAllByClothesID(Integer clothesID);
+  public void deleteByClothesID(Integer clothesID);
 }
