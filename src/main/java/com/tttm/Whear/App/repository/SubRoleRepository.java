@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubRoleRepository extends JpaRepository<SubRole, Integer> {
-  public SubRole getSubRolesBySubRoleID(Integer subRoleID);
-  public SubRole getSubRolesBySubRoleName(ESubRole subRoleName);
+   SubRole getSubRolesBySubRoleID(Integer subRoleID);
+   SubRole getSubRolesBySubRoleName(ESubRole subRoleName);
 }

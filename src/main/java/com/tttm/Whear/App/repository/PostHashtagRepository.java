@@ -13,7 +13,7 @@ public interface PostHashtagRepository extends JpaRepository<PostHashtag, PostHa
 
   @Modifying
   @Transactional
-  @Query(value = "insert into post_hashtag (hashtagid,postid) values (?1, ?2)", nativeQuery = true)
+  @Query(value = "insert into post_hashtag (hashtagid, postid, create_date, last_modified_date) values (?1, ?2, current_timestamp, current_timestamp)", nativeQuery = true)
   void insertPostHashtag(Integer hashtagid, Integer postid);
 
   @Modifying
