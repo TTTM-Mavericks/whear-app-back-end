@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 @Embeddable
 public class ClothesColorKey implements Serializable {
-
   @Column(name = "clothesID")
   private Integer clothesID;
   @ManyToOne

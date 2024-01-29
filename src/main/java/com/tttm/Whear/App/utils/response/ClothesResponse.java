@@ -20,11 +20,11 @@ public class ClothesResponse {
   private String nameOfProduct;
   private String typeOfClothes;
   private String shape;
-  private String seasons;
   private String description;
   private String link;
   private Integer rating;
   private String materials;
+  private List<String> clothesSeasons;
   private List<String> clothesImages;
   private List<String> clothesSizes;
   private List<String> clothesColors;

@@ -18,12 +18,12 @@ public class ClothesRequest {
   private String nameOfProduct;
   private String typeOfClothes;
   private String shape;
-  private String seasons;
   private String description;
   private String link;
   private Integer rating;
   private String materials;
 
+  private List<String> clothesSeasons;
   private List<String> hashtag;
   private List<String> clothesColors;
   private List<String> clothesImages;

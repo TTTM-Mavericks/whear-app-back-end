@@ -10,13 +10,11 @@ import com.tttm.Whear.App.enums.SeasonType;
 import com.tttm.Whear.App.enums.ShapeType;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
+import com.tttm.Whear.App.entity.*;
+import com.tttm.Whear.App.enums.*;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.ClothesRepository;
-import com.tttm.Whear.App.service.ClothesColorService;
-import com.tttm.Whear.App.service.ClothesImageService;
-import com.tttm.Whear.App.service.ClothesService;
-import com.tttm.Whear.App.service.ClothesSizeService;
-import com.tttm.Whear.App.service.PostService;
+import com.tttm.Whear.App.service.*;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.PostRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
@@ -35,6 +33,7 @@ public class ClothesServiceImpl implements ClothesService {
   private final ClothesImageService clothesImageService;
   private final ClothesSizeService clothesSizeService;
   private final ClothesColorService clothesColorService;
+  private final ClothesSeasonService clothesSeasonService;
   private final PostService postService;
 
   @Override
@@ -66,17 +65,17 @@ public class ClothesServiceImpl implements ClothesService {
           .nameOfProduct(clothesRequest.getNameOfProduct())
           .typeOfClothes(ClothesType.valueOf(clothesRequest.getTypeOfClothes().toUpperCase()))
           .shape(ShapeType.valueOf(clothesRequest.getShape().toUpperCase()))
-          .seasons(SeasonType.valueOf(clothesRequest.getSeasons().toUpperCase()))
           .description(clothesRequest.getDescription())
           .link(clothesRequest.getLink())
           .rating(clothesRequest.getRating())
           .materials(MaterialType.valueOf(clothesRequest.getMaterials().toUpperCase()))
           .build();
+
       clothesRepository.insertClothes(
           post.getPostID(), clothesRequest.getDescription(), clothesRequest.getLink(),
           clothesRequest.getMaterials(), clothesRequest.getNameOfProduct(),
-          clothesRequest.getRating(), clothesRequest.getSeasons().toString(),
-          clothesRequest.getShape(), clothesRequest.getTypeOfClothes()
+          clothesRequest.getRating(), clothesRequest.getShape(),
+              clothesRequest.getTypeOfClothes()
       );
       newClothes = clothesRepository.getClothesByClothesID(post.getPostID());
       if (newClothes == null) {
@@ -96,6 +95,16 @@ public class ClothesServiceImpl implements ClothesService {
           ClothesSize finded = clothesSizeService.findByName(post.getPostID(), size);
           if (finded == null) {
             clothesSizeService.createSize(post.getPostID(), size);
+          }
+        }
+      }
+
+      List<String> clothesSeasons = clothesRequest.getClothesSeasons();
+      if (clothesSeasons != null && !clothesSeasons.isEmpty() && clothesSeasons.size() > 0) {
+        for (String season : clothesSeasons) {
+          ClothesSeason finded = clothesSeasonService.findByName(post.getPostID(), season);
+          if (finded == null) {
+            clothesSeasonService.createSeason(post.getPostID(), season);
           }
         }
       }
@@ -171,16 +180,22 @@ public class ClothesServiceImpl implements ClothesService {
         .map(clothesColor -> clothesColor.getClothesColorKey().getColor().name())
         .toList();
 
+    List<String> clothesSeasons = clothesSeasonService
+            .getAllSeasonOfClothes(clothes.getClothesID())
+            .stream()
+            .map(clothesSeason -> clothesSeason.getClothesSeasonKey().getSeason().name())
+            .toList();
+
     ClothesResponse response = ClothesResponse.builder()
         .clothesID(clothes.getClothesID())
         .nameOfProduct(clothes.getNameOfProduct())
         .typeOfClothes(clothes.getTypeOfClothes().name())
         .shape(clothes.getShape().name())
-        .seasons(clothes.getSeasons().name())
         .description(clothes.getDescription())
         .link(clothes.getLink())
         .rating(clothes.getRating())
         .materials(clothes.getMaterials().name())
+        .clothesSeasons(clothesSeasons)
         .clothesImages(clothesImages)
         .clothesSizes(clothesSizes)
         .clothesColors(clothesColors)
