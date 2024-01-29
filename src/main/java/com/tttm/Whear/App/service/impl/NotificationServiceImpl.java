@@ -126,7 +126,6 @@ public class NotificationServiceImpl implements NotificationService {
       }
       noti.setAction(ENotificationAction.POST);
       noti.setActionID(postID);
-      noti.setMessage(ConstantMessage.HAVE_NEW_POST.getMessage());
     } else if (action.equals(ENotificationAction.FOLLOW.toString())) {
       String baseFollowerID = notification.getActionID().toString();
       Follower follower = followService.checkContain(baseFollowerID, targerUserID);
@@ -137,7 +136,6 @@ public class NotificationServiceImpl implements NotificationService {
       }
       noti.setAction(ENotificationAction.FOLLOW);
       noti.setActionID(Integer.parseInt(baseUserID));
-      noti.setMessage(ConstantMessage.HAVE_NEW_FOLLOWER.getMessage());
     }
     /**
      * else if REACT
@@ -145,6 +143,7 @@ public class NotificationServiceImpl implements NotificationService {
      */
     noti.setStatus(false);
     noti.setDateTime(notification.getDateTime());
+    noti.setMessage(notification.getMessage());
     Notification newNoti = notificationRepository.save(noti);
     if (newNoti != null) {
       return mapToNotificationRespons(noti);
@@ -176,12 +175,40 @@ public class NotificationServiceImpl implements NotificationService {
 
   @Override
   public List<NotificationResponse> un_readAllNotification(String userID) throws CustomException {
-    return null;
+    if (userID == null || userID.isBlank() || userID.isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+    User user = userService.getUserEntityByUserID(userID);
+    if (user == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+    List<Notification> notificationList = notificationRepository.getAllByTargetUserID(userID);
+    List<NotificationResponse> responseList = null;
+    if (!notificationList.isEmpty() && notificationList.size() > 0) {
+      for (Notification noti : notificationList) {
+        if (responseList == null) {
+          responseList = new ArrayList<>();
+        }
+
+        notificationRepository.un_readNotification(true, noti.getNotiID());
+
+        responseList.add(mapToNotificationRespons(noti));
+      }
+    }
+    return responseList;
   }
 
   @Override
   public Boolean clearAllNotification(String userID) throws CustomException {
-    return null;
+    if (userID == null || userID.isBlank() || userID.isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+    User user = userService.getUserEntityByUserID(userID);
+    if (user == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+    notificationRepository.deleteNotificationByUserID(userID);
+    return true;
   }
 
   private NotificationResponse mapToNotificationRespons(Notification notification) {

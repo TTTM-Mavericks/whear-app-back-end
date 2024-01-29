@@ -11,6 +11,7 @@ import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.FollowRequest;
 import com.tttm.Whear.App.utils.response.FollowResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -90,19 +91,22 @@ public class FollowServiceImpl implements FollowService {
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
 
-    List<UserResponse> userResponseList = followerRepository.findAllFollowingUserByUserID(
-            user.getUserID())
-        .stream()
-        .map(following -> {
-          try {
-            return userService.convertToUserResponse(
-                userService.getUserEntityByUserID(
-                    following.getFollowerKey().getFollowerUser().getUserID()));
-          } catch (CustomException e) {
-            throw new RuntimeException(e);
-          }
-        })
-        .toList();
+    List<UserResponse> userResponseList = null;
+    List<Follower> fl = followerRepository.findAllFollowingUserByUserID(user.getUserID());
+    if (fl != null && !fl.isEmpty() && fl.size() > 0) {
+      for (Follower f : fl) {
+        if (userResponseList == null) {
+          userResponseList = new ArrayList<>();
+        }
+        userResponseList.add(userService.convertToUserResponse(
+            userService.getUserEntityByUserID(
+                f.getFollowerKey()
+                    .getFollowerUser()
+                    .getUserID()
+            )
+        ));
+      }
+    }
     return userResponseList;
   }
 

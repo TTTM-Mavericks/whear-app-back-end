@@ -23,7 +23,7 @@ public class ClothesImage extends AuditEntity implements Serializable {
   @Column(name = "imgID")
   private Integer imgID;
 
-  @Column(name = "imageUrl")
+  @Column(name = "imageUrl", columnDefinition="TEXT")
   private String imageUrl;
 
   @Column(name = "clothesID")

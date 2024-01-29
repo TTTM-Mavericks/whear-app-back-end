@@ -5,10 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant.ClothesAPI;
+import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.ClothesService;
+import com.tttm.Whear.App.service.FollowService;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
+import com.tttm.Whear.App.utils.request.NotificationRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
+import com.tttm.Whear.App.utils.response.NotificationResponse;
+import com.tttm.Whear.App.utils.response.UserResponse;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClothesController {
 
   private final ClothesService clothesService;
+  private final FollowService followService;
 
   @GetMapping(ClothesAPI.GET_ALL_CLOTHES)
   public ObjectNode getAllClothes() {
@@ -54,7 +61,8 @@ public class ClothesController {
   }
 
   @PostMapping(ClothesAPI.CREATE_CLOTHES)
-  public ObjectNode createClothes(@RequestBody ClothesRequest clothesRequest) throws CustomException{
+  public ObjectNode createClothes(@RequestBody ClothesRequest clothesRequest)
+      throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       ClothesResponse response = clothesService.createClothes(clothesRequest);
@@ -70,6 +78,23 @@ public class ClothesController {
         respon.put("message", "Create Clothes Successfully!");
         JsonNode arrayNode = objectMapper.valueToTree(response);
         respon.set("data", arrayNode);
+
+//        List<UserResponse> follwers = followService.getAllFollowerUser(clothesRequest.getUserID());
+//        for (UserResponse user : follwers) {
+//          NotificationRequest notiRequest = NotificationRequest.builder()
+//              .action(ENotificationAction.CLOTHES.name())
+//              .actionID(postResponse.getPostID())
+//              .baseUserID(postResponse.getUserID())
+//              .targetUserID(user.getUserID())
+//              .dateTime(LocalDateTime.now())
+//              .message("New Post")
+//              .status(false)
+//              .build();
+//          NotificationResponse notiresponse = notificationService.sendNotification(notiRequest);
+//          notiRequest.setNotiID(notiresponse.getNotiID());
+//          messagingTemplate.convertAndSend("/topic/public", notiRequest);
+//        }
+
         return respon;
       }
     } catch (Exception ex) {

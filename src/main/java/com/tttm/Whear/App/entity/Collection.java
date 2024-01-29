@@ -44,6 +44,6 @@ public class Collection extends AuditEntity implements Serializable {
   @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false, insertable = false, updatable = false)
   private User user;
 
-  @Column(name = "imgUrl")
+  @Column(name = "imgUrl", columnDefinition="TEXT")
   private String imgUrl;
 }

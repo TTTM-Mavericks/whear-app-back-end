@@ -19,4 +19,9 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
 
   @Query(value = "select * from notification where target_userid = ?1 and status = false;", nativeQuery = true)
   List<Notification> getUnreadNotification(String targetUserID);
+
+  @Modifying
+  @Transactional
+  @Query(value = "delete from notification where target_userid = ?1", nativeQuery = true)
+  void deleteNotificationByUserID(String userID);
 }
