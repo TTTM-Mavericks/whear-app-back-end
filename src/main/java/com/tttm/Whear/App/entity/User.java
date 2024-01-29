@@ -62,7 +62,7 @@ public class User extends AuditEntity implements Serializable, UserDetails{
   @Enumerated(EnumType.STRING)
   private ERole role;
 
-  @Column(name = "imgUrl", unique = false, nullable = true)
+  @Column(name = "imgUrl", columnDefinition="TEXT")
   private String imgUrl;
 
   @Column(name = "status")

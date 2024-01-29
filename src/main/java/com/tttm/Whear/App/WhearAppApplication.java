@@ -1,9 +1,9 @@
 package com.tttm.Whear.App;
 
-import com.tttm.Whear.App.entity.Notification;
 import com.tttm.Whear.App.entity.SubRole;
 import com.tttm.Whear.App.enums.ESubRole;
 import com.tttm.Whear.App.repository.SubRoleRepository;
+import com.tttm.Whear.App.utils.request.NotificationRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,17 +27,17 @@ public class WhearAppApplication {
 
   }
 
-  @MessageMapping("/chat.sendMessage")
+  @MessageMapping("/noti.sendMessage")
   @SendToUser("/topic/public")
-  public Notification sendMessage(@Payload Notification chatMessage) {
+  public NotificationRequest sendMessage(@Payload NotificationRequest chatMessage) {
     return chatMessage;
   }
 
-  @MessageMapping("/chat.addUser")
+  @MessageMapping("/noti.addUser")
   @SendToUser("/topic/public")
-  public Notification addUser(@Payload Notification chatMessage,
+  public NotificationRequest addUser(@Payload NotificationRequest chatMessage,
       SimpMessageHeaderAccessor headerAccessor) {
-    headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+    headerAccessor.getSessionAttributes().put("username", chatMessage.getTargetUserID());
     return chatMessage;
   }
 

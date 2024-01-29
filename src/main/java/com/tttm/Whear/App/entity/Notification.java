@@ -32,16 +32,6 @@ public class Notification extends AuditEntity {
   @ManyToOne
   @JoinColumn(name = "targetUserID", referencedColumnName = "userID", insertable = false, updatable = false)
   private User targetUser;
-
-  public enum MessageType {
-    CHAT,
-    JOIN,
-    LEAVE
-  }
-
-  private MessageType type;
-  private String content;
-  private String sender;
   private ENotificationAction action;
   private Integer actionID;
   private String message;

@@ -3,8 +3,6 @@ package com.tttm.Whear.App.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
-import com.tttm.Whear.App.entity.Notification;
-import com.tttm.Whear.App.entity.Notification.MessageType;
 import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.FollowService;
@@ -14,6 +12,7 @@ import com.tttm.Whear.App.utils.request.FollowRequest;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
 import com.tttm.Whear.App.utils.response.FollowResponse;
 import com.tttm.Whear.App.utils.response.FollowingResponse;
+import com.tttm.Whear.App.utils.response.NotificationResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -56,17 +55,12 @@ public class FollowerController {
             .baseUserID(followRequest.getBaseUserID())
             .targetUserID(followRequest.getTargetUserID())
             .dateTime(LocalDateTime.now())
+            .message("Follow You")
+            .status(false)
             .build();
-        notificationService.sendNotification(notiRequest);
-
-        String username = followRequest.getTargetUserID();
-        messagingTemplate.convertAndSend("/topic/public",
-            Notification.builder()
-                .content("Have new follower!")
-                .type(MessageType.CHAT)
-                .sender(username)
-                .build()
-        );
+        NotificationResponse notiresponse = notificationService.sendNotification(notiRequest);
+        notiRequest.setNotiID(notiresponse.getNotiID());
+        messagingTemplate.convertAndSend("/topic/public", notiRequest);
       } else {
         respon.put("success", 200);
         respon.put("message",
