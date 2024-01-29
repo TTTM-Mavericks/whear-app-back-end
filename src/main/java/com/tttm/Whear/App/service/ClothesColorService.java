@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ClothesColorService {
 
-  public void createColor(Integer clothesID, String color) throws CustomException;
+   void createColor(Integer clothesID, String color) throws CustomException;
 
-  public ClothesColor findByName(Integer clothesID, String color) throws CustomException;
+   ClothesColor findByName(Integer clothesID, String color) throws CustomException;
 
-  public List<ClothesColor> getAllColorOfClothes(Integer clothesID);
+   List<ClothesColor> getAllColorOfClothes(Integer clothesID);
 }

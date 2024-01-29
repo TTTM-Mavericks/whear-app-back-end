@@ -50,6 +50,7 @@ public class GenerateDataServiceImpl implements GenerateDataService {
             ShapeType shapeType = getRandomEnumType(ShapeType.class);
             SeasonType seasonsType = getRandomEnumType(SeasonType.class);
             MaterialType materialType = getRandomEnumType(MaterialType.class);
+            List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 1);
             List<SizeType> sizeTypeList = generateListRandomEnumType(SizeType.class, 1);
             List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 1);
             ClothesRequest clothesRequest =  ClothesRequest
@@ -58,8 +59,13 @@ public class GenerateDataServiceImpl implements GenerateDataService {
                     .nameOfProduct(nameOfClothes)
                     .typeOfClothes(clothesType.name())
                     .shape(shapeType.name())
-                    .seasons(seasonsType.name())
                     .materials(materialType.name())
+                    .clothesSeasons(
+                            seasonTypeList
+                                    .stream()
+                                    .map(Season -> Season.toString())
+                                    .collect(Collectors.toList())
+                    )
                     .clothesSizes(
                             sizeTypeList
                                     .stream()
