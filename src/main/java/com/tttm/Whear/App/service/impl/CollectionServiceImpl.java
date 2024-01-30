@@ -2,16 +2,20 @@ package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.Collection;
+import com.tttm.Whear.App.entity.CollectionClothes;
 import com.tttm.Whear.App.entity.Customer;
 import com.tttm.Whear.App.entity.SubRole;
 import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.repository.CollectionClothesRepository;
 import com.tttm.Whear.App.repository.CollectionRepository;
 import com.tttm.Whear.App.repository.SubRoleRepository;
+import com.tttm.Whear.App.service.ClothesService;
 import com.tttm.Whear.App.service.CollectionService;
 import com.tttm.Whear.App.service.CustomerService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.CollectionRequest;
+import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.CollectionResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.util.ArrayList;
@@ -33,6 +37,8 @@ public class CollectionServiceImpl implements CollectionService {
   UserService userService;
   private final CustomerService customerService;
   private final SubRoleRepository subRoleRepository;
+  private final CollectionClothesRepository collectionClothesRepository;
+  private final ClothesService clothesService;
 
   @Override
 //  @Cacheable(cacheNames = "collections", key = "#username", unless = "#result == null")
@@ -42,7 +48,8 @@ public class CollectionServiceImpl implements CollectionService {
         logger.error(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
         throw new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
       }
-      UserResponse user = userService.convertToUserResponse(userService.getUserEntityByUserID(username));
+      UserResponse user = userService.convertToUserResponse(
+          userService.getUserEntityByUserID(username));
       if (user == null) {
         logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
         throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERNAME.getMessage());
@@ -54,14 +61,8 @@ public class CollectionServiceImpl implements CollectionService {
         if (responseList == null) {
           responseList = new ArrayList<>();
         }
-        responseList.add(CollectionResponse.builder()
-            .collectionID(col.getCollectionID())
-            .nameOfCollection(col.getNameOfCollection())
-            .typeOfCollection(col.getTypeOfCollection())
-            .numberOfClothes(col.getNumberOfClothes())
-            .collectionStatus(col.getCollectionStatus())
-            .imgUrl(col.getImgUrl())
-            .build()
+        responseList.add(
+            getCollectionByCollectionID(col.getCollectionID())
         );
       }
       return responseList;
@@ -72,23 +73,38 @@ public class CollectionServiceImpl implements CollectionService {
 
   @Override
 //  @Cacheable(cacheNames = "collection", key = "#collectionID", unless = "#result == null")
-  public CollectionResponse getCollectionByCollectionID(Integer collectionID) {
+  public CollectionResponse getCollectionByCollectionID(Integer collectionID)
+      throws CustomException {
     CollectionResponse collectionResponse = null;
-    try {
-      Collection collection = collectionRepository.findByCollectionID(collectionID);
-      if (collection != null) {
-        collectionResponse = CollectionResponse.builder()
-            .collectionID(collection.getCollectionID())
-            .nameOfCollection(collection.getNameOfCollection())
-            .typeOfCollection(collection.getTypeOfCollection())
-            .numberOfClothes(collection.getNumberOfClothes())
-            .imgUrl(collection.getImgUrl())
-            .build();
+    Collection collection = collectionRepository.findByCollectionID(collectionID);
+    if (collection != null) {
+
+      List<ClothesResponse> clothesList = null;
+      List<CollectionClothes> collectionClothesList = collectionClothesRepository.getAllByCollectionID(
+          collectionID);
+      if (collectionClothesList != null) {
+        for (CollectionClothes cc : collectionClothesList) {
+          if (clothesList == null) {
+            clothesList = new ArrayList<>();
+          }
+          clothesList.add(
+              clothesService.getClothesByID(
+                  cc.getCollectionClothesKey().getClothesID()
+              )
+          );
+        }
       }
-      return collectionResponse;
-    } catch (Exception ex) {
-      throw ex;
+
+      collectionResponse = CollectionResponse.builder()
+          .collectionID(collection.getCollectionID())
+          .nameOfCollection(collection.getNameOfCollection())
+          .typeOfCollection(collection.getTypeOfCollection())
+          .numberOfClothes(collection.getNumberOfClothes())
+          .imgUrl(collection.getImgUrl())
+          .clothesList(clothesList)
+          .build();
     }
+    return collectionResponse;
   }
 
   @Override
@@ -137,6 +153,7 @@ public class CollectionServiceImpl implements CollectionService {
     try {
       Collection collection = collectionRepository.findByCollectionID(collectionID);
       if (collection != null) {
+        collectionClothesRepository.deleteByCollectionID(collectionID);
         collectionRepository.delete(collection);
       }
     } catch (Exception ex) {
@@ -156,7 +173,8 @@ public class CollectionServiceImpl implements CollectionService {
         logger.error(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
         throw new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
       }
-      UserResponse user = userService.convertToUserResponse(userService.getUserEntityByUserID(username));
+      UserResponse user = userService.convertToUserResponse(
+          userService.getUserEntityByUserID(username));
       if (user == null) {
         logger.warn(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
         throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());

@@ -9,7 +9,8 @@ public interface CollectionService {
 
   public List<CollectionResponse> getCollectionsOfUser(String userID) throws CustomException;
 
-  public CollectionResponse getCollectionByCollectionID(Integer collectionID);
+  public CollectionResponse getCollectionByCollectionID(Integer collectionID)
+      throws CustomException;
 
   public CollectionResponse updateCollectionByID(CollectionRequest collection);
 

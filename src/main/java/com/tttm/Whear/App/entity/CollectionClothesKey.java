@@ -6,7 +6,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
+import lombok.Data;
 
+@Data
 @Embeddable
 public class CollectionClothesKey implements Serializable {
     @Column(name = "clothesID")

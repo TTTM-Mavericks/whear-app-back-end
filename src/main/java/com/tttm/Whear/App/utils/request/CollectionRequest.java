@@ -1,8 +1,10 @@
 package com.tttm.Whear.App.utils.request;
 
 import com.tttm.Whear.App.enums.StatusCollection;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class CollectionRequest {
 

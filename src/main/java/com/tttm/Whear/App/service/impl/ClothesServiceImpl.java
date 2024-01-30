@@ -163,6 +163,15 @@ public class ClothesServiceImpl implements ClothesService {
     return mapToClothesResponse(clothes);
   }
 
+  @Override
+  public Clothes getClothesEntityByID(Integer clothesID) throws CustomException {
+    if (clothesID == null || clothesID.toString().isEmpty() || clothesID.toString().isBlank()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+    Clothes clothes = clothesRepository.getClothesByClothesID(clothesID);
+    return clothes;
+  }
+
   public ClothesResponse mapToClothesResponse(Clothes clothes) {
 
     List<String> clothesImages = clothesImageService

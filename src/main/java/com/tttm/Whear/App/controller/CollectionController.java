@@ -65,13 +65,7 @@ public class CollectionController {
       if (collectionResponse != null) {
         response.put("success", 200);
         response.put("message", "Collection is getted!");
-        response.set("data", objectMapper.createObjectNode()
-            .put("ID", collectionResponse.getCollectionID())
-            .put("NAME", collectionResponse.getNameOfCollection())
-            .put("TYPE", collectionResponse.getTypeOfCollection())
-            .put("NUMBER OF CLOTHES", collectionResponse.getNumberOfClothes())
-            .put("imgUrl", collectionResponse.getImgUrl())
-        );
+        response.set("data", objectMapper.valueToTree(collectionResponse));
       }
       return response;
     } catch (Exception ex) {
