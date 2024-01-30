@@ -1,8 +1,11 @@
 package com.tttm.Whear.App.entity;
 
 import com.tttm.Whear.App.entity.common.AuditEntity;
-import jakarta.persistence.*;
-
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.Table;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "collection_clothes")
 @EntityListeners(AuditingEntityListener.class)
-public class CollectionClothes extends AuditEntity {
+public class CollectionClothes extends AuditEntity implements Serializable {
 
   @EmbeddedId
   private CollectionClothesKey collectionClothesKey;

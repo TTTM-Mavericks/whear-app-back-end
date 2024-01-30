@@ -7,12 +7,17 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant.ClothesAPI;
 import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.service.ClothesCollectionService;
 import com.tttm.Whear.App.service.ClothesService;
 import com.tttm.Whear.App.service.FollowService;
 import com.tttm.Whear.App.service.NotificationService;
+import com.tttm.Whear.App.service.ReactService;
+import com.tttm.Whear.App.utils.request.ClothesCollectionRequest;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
+import com.tttm.Whear.App.utils.response.ClothesCollectionResponse;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
+import com.tttm.Whear.App.utils.response.CollectionResponse;
 import com.tttm.Whear.App.utils.response.NotificationResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.time.LocalDateTime;
@@ -31,10 +36,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(ClothesAPI.CLOTHES)
 public class ClothesController {
 
+  private final ClothesCollectionService clothesCollectionService;
   private final ClothesService clothesService;
   private final FollowService followService;
   private final NotificationService notificationService;
   private final SimpMessagingTemplate messagingTemplate;
+  private final ReactService reactService;
 
   @GetMapping(ClothesAPI.GET_ALL_CLOTHES)
   public ObjectNode getAllClothes() {
@@ -113,8 +120,8 @@ public class ClothesController {
   }
 
   @GetMapping(ClothesAPI.GET_CLOTHES_BY_ID)
-  public ObjectNode getClothesByID(@RequestParam(name = "clothes_id") Integer clothesID)
-      throws CustomException {
+  public ObjectNode getClothesByID(@RequestParam(name = "clothes_id") Integer clothesID,
+      @RequestParam("based_userid") String userID) throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       ClothesResponse responseList = clothesService.getClothesByID(clothesID);
@@ -125,11 +132,47 @@ public class ClothesController {
         respon.set("data", null);
         return respon;
       } else {
+
+        ObjectNode responseObject = objectMapper.createObjectNode();
+        responseObject.put("clothes",
+            objectMapper.valueToTree(responseList));
+        responseObject.put("react",
+            objectMapper.valueToTree(reactService.checkContain(clothesID, userID)));
+
         ObjectNode respon = objectMapper.createObjectNode();
         respon.put("success", 200);
         respon.put("message", "Get Clothes Successfully!");
-        JsonNode arrayNode = objectMapper.valueToTree(responseList);
-        respon.set("data", arrayNode);
+        respon.set("data", responseObject);
+        return respon;
+      }
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
+  @PostMapping(ClothesAPI.ADD_CLOTHES_TO_COLLECTION)
+  public ObjectNode addClothesToCollection(
+      @RequestBody ClothesCollectionRequest clothesCollectionRequest) throws CustomException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      CollectionResponse responseList = clothesCollectionService.addClothesToCollection(
+          clothesCollectionRequest);
+
+      if (responseList == null) {
+        ObjectNode respon = objectMapper.createObjectNode();
+        respon.put("success", 200);
+        respon.put("message", "Add Fail");
+        respon.set("data", null);
+        return respon;
+      } else {
+        ObjectNode respon = objectMapper.createObjectNode();
+        respon.put("success", 200);
+        respon.put("message", "Get Clothes Successfully!");
+        respon.set("data", objectMapper.valueToTree(responseList));
         return respon;
       }
     } catch (Exception ex) {
