@@ -85,6 +85,8 @@ public class APIConstant {
     public static final String GET_ALL_CLOTHES = "/get-all-clothes";
     public static final String GET_CLOTHES_BY_ID = "/get-clothes-by-id";
     public static final String ADD_CLOTHES_TO_COLLECTION = "/add-clothes-to-collection";
+    public static final String UPDATE_CLOTHES = "/update-clothes";
+    public static final String DELETE_CLOTHES = "/delete-clothes";
   }
 
   public class NotificationAPI {

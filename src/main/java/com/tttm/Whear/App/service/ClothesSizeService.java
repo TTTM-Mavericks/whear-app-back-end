@@ -11,4 +11,6 @@ public interface ClothesSizeService {
   public ClothesSize findByName(Integer clothesID, String size) throws CustomException;
 
   public List<ClothesSize> getAllSizeOfClothes(Integer clothesID);
+
+  public void deleteByClothesID(Integer clothesID);
 }
