@@ -21,4 +21,8 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
     @Transactional
     @Query(value = "select * from history where history.customerid = ?1", nativeQuery = true)
     List<History> getAllHistoryItemsByCustomerID(String customerID);
+    @Modifying
+    @Transactional
+    @Query(value = "delete from history where customerid = ?1 and history_item = ?2", nativeQuery = true)
+    Integer deleteAllHistoryItems(String userID, String historyItem);
 }

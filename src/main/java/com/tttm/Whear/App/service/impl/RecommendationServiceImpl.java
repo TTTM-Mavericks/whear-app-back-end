@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class RecommendationServiceImpl implements RecommendationService {
-    private static final double THRESHOLD = 0.55555555;
+    private static final double THRESHOLD = 0.055555555555555555555555;
 
     private final UserService userService;
 
@@ -48,6 +48,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
         Collections.sort(listConsineSimilarity, Comparator.comparingDouble(PairConsineSimilarity::getConsineSimilarity).reversed());
         List<ClothesResponse> clothesResponses = listConsineSimilarity.stream()
+                .filter(similarityPoint -> similarityPoint.getConsineSimilarity() >= THRESHOLD)
                 .map(cloth -> {
                     try {
                         return clothesService.getClothesByID(cloth.getClothesID());

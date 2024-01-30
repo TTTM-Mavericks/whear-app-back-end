@@ -10,4 +10,8 @@ public interface HistoryService {
     void createHistoryItem(HistoryRequest historyRequest) throws CustomException;
 
     HistoryResponse getAllHistoryItemsByCustomerID(String customerID) throws CustomException;
+
+    List<String> createHistoryItemBasedOnReactFeature(String userID, Integer clothesID) throws CustomException;
+
+    void deleteHistoryItemBasedOnReactFeature(String userID, Integer clothesID) throws CustomException;
 }
