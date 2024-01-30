@@ -3,18 +3,21 @@ package com.tttm.Whear.App.service.impl;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.Clothes;
 import com.tttm.Whear.App.entity.ClothesColor;
+import com.tttm.Whear.App.entity.ClothesSeason;
 import com.tttm.Whear.App.entity.ClothesSize;
 import com.tttm.Whear.App.enums.ClothesType;
 import com.tttm.Whear.App.enums.MaterialType;
-import com.tttm.Whear.App.enums.SeasonType;
 import com.tttm.Whear.App.enums.ShapeType;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
-import com.tttm.Whear.App.entity.*;
-import com.tttm.Whear.App.enums.*;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.ClothesRepository;
-import com.tttm.Whear.App.service.*;
+import com.tttm.Whear.App.service.ClothesColorService;
+import com.tttm.Whear.App.service.ClothesImageService;
+import com.tttm.Whear.App.service.ClothesSeasonService;
+import com.tttm.Whear.App.service.ClothesService;
+import com.tttm.Whear.App.service.ClothesSizeService;
+import com.tttm.Whear.App.service.PostService;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.PostRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
@@ -75,7 +78,7 @@ public class ClothesServiceImpl implements ClothesService {
           post.getPostID(), clothesRequest.getDescription(), clothesRequest.getLink(),
           clothesRequest.getMaterials(), clothesRequest.getNameOfProduct(),
           clothesRequest.getRating(), clothesRequest.getShape(),
-              clothesRequest.getTypeOfClothes()
+          clothesRequest.getTypeOfClothes()
       );
       newClothes = clothesRepository.getClothesByClothesID(post.getPostID());
       if (newClothes == null) {
@@ -181,10 +184,10 @@ public class ClothesServiceImpl implements ClothesService {
         .toList();
 
     List<String> clothesSeasons = clothesSeasonService
-            .getAllSeasonOfClothes(clothes.getClothesID())
-            .stream()
-            .map(clothesSeason -> clothesSeason.getClothesSeasonKey().getSeason().name())
-            .toList();
+        .getAllSeasonOfClothes(clothes.getClothesID())
+        .stream()
+        .map(clothesSeason -> clothesSeason.getClothesSeasonKey().getSeason().name())
+        .toList();
 
     ClothesResponse response = ClothesResponse.builder()
         .clothesID(clothes.getClothesID())

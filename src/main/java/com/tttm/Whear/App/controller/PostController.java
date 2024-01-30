@@ -8,6 +8,7 @@ import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.FollowService;
 import com.tttm.Whear.App.service.NotificationService;
 import com.tttm.Whear.App.service.PostService;
+import com.tttm.Whear.App.service.ReactService;
 import com.tttm.Whear.App.utils.request.DateTimeRequest;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
 import com.tttm.Whear.App.utils.request.PostRequest;
@@ -36,6 +37,7 @@ public class PostController {
   private final SimpMessagingTemplate messagingTemplate;
   private final NotificationService notificationService;
   private final FollowService followService;
+  private final ReactService reactService;
 
   @PostMapping(PostAPI.CREATE_POST)
   public ObjectNode createPost(@RequestBody PostRequest postRequest) throws CustomException {
@@ -75,14 +77,21 @@ public class PostController {
   }
 
   @GetMapping(PostAPI.GET_POST_BY_POST_ID)
-  public ObjectNode getPostByPostID(@RequestParam("post_id") Integer postID)
-      throws CustomException {
+  public ObjectNode getPostByPostID(@RequestParam("post_id") Integer postID,
+      @RequestParam("based_userid") String userID) throws CustomException {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
+
+      ObjectNode responseObject = objectMapper.createObjectNode();
+      responseObject.put("post",
+          objectMapper.valueToTree(postService.getPostByPostID(postID)));
+      responseObject.put("react",
+          objectMapper.valueToTree(reactService.checkContain(postID, userID)));
+
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Get post Successfully");
-      respon.set("data", objectMapper.valueToTree(postService.getPostByPostID(postID)));
+      respon.set("data", responseObject);
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();

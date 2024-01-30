@@ -22,6 +22,6 @@ public class React extends AuditEntity implements Serializable{
   @EmbeddedId
   private UserPostReactKey userPostReactKey;
 
-  @Column(name = "react", unique = false, nullable = true)
+  @Column(name = "react", unique = false, nullable = true, columnDefinition = "nvarchar(550)")
   private String react;
 }

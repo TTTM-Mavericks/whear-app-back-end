@@ -29,10 +29,10 @@ public class Brand extends AuditEntity implements Serializable {
   @JoinColumn(name = "brandID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
   private Customer customer;
 
-  @Column(name = "description")
+  @Column(name = "description", columnDefinition = "nvarchar(550)")
   private String description;
 
-  @Column(name = "address")
+  @Column(name = "address", columnDefinition = "nvarchar(550)")
   private String address;
 
   @Column(name = "link")

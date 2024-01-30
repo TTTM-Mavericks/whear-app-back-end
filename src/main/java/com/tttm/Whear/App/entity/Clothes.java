@@ -3,16 +3,23 @@ package com.tttm.Whear.App.entity;
 import com.tttm.Whear.App.entity.common.AuditEntity;
 import com.tttm.Whear.App.enums.ClothesType;
 import com.tttm.Whear.App.enums.MaterialType;
-import com.tttm.Whear.App.enums.SeasonType;
 import com.tttm.Whear.App.enums.ShapeType;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
@@ -22,6 +29,7 @@ import java.io.Serializable;
 @Table(name = "clothes")
 @EntityListeners(AuditingEntityListener.class)
 public class Clothes extends AuditEntity implements Serializable {
+
   @Id
   @Column(name = "clothesID")
   private Integer clothesID;
@@ -31,7 +39,7 @@ public class Clothes extends AuditEntity implements Serializable {
   @JoinColumn(name = "clothesID", referencedColumnName = "postID", nullable = false, insertable = false, updatable = false)
   private Post posts;
 
-  @Column(name = "nameOfProduct")
+  @Column(name = "nameOfProduct", columnDefinition = "nvarchar(550)")
   private String nameOfProduct;
 
   @Column(name = "typeOfClothes")
@@ -42,7 +50,7 @@ public class Clothes extends AuditEntity implements Serializable {
   @Enumerated(EnumType.STRING)
   private ShapeType shape;
 
-  @Column(name = "description")
+  @Column(name = "description", columnDefinition = "nvarchar(550)")
   private String description;
 
   @Column(name = "link")

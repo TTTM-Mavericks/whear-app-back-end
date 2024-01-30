@@ -32,10 +32,10 @@ public class News extends AuditEntity implements Serializable {
   @JoinColumn(name = "brandID", referencedColumnName = "brandID", nullable = false, insertable = false, updatable = false)
   private Brand brand;
 
-  @Column(name = "title")
+  @Column(name = "title", columnDefinition = "nvarchar(550)")
   private String title;
 
-  @Column(name = "content")
+  @Column(name = "content", columnDefinition = "nvarchar(550)")
   private String content;
 
   @Column(name = "typeOfNews")

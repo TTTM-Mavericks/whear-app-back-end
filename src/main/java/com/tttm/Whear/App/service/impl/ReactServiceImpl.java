@@ -11,6 +11,7 @@ import com.tttm.Whear.App.service.ReactService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.ReactRequest;
 import com.tttm.Whear.App.utils.response.ReactResponse;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -67,7 +68,17 @@ public class ReactServiceImpl implements ReactService {
 
   @Override
   public List<ReactResponse> getPostReact(Integer postID) throws CustomException {
-    return null;
+    List<ReactResponse> responseList = null;
+    List<React> reactList = reactRepository.getPostReact(postID);
+    if (reactList != null) {
+      for (React r : reactList) {
+        if (responseList == null) {
+          responseList = new ArrayList<>();
+        }
+        responseList.add(convertToReactResponse(r));
+      }
+    }
+    return responseList;
   }
 
   @Override
@@ -75,7 +86,39 @@ public class ReactServiceImpl implements ReactService {
     return null;
   }
 
+  @Override
+  public ReactResponse checkContain(Integer postID, String userID) throws CustomException {
+    if (postID == null || userID == null) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    if (userID.isEmpty() || userID.isBlank()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    User user = userService.getUserEntityByUserID(userID);
+    if (user == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+
+    if (postID.toString().isBlank() || postID.toString()
+        .isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    Post post = postService.getPostEntityByPostID(postID);
+    if (post == null) {
+      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+    }
+
+    React finded = reactRepository.findReact(userID, postID);
+    return convertToReactResponse(finded);
+  }
+
   private ReactResponse convertToReactResponse(React react) {
+    if (react == null) {
+      return null;
+    }
     return ReactResponse
         .builder()
         .userID(

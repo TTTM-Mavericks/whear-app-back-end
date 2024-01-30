@@ -28,6 +28,6 @@ public class History extends AuditEntity implements Serializable {
   @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
   private Customer customer;
 
-  @Column(name = "historyItem", unique = false, nullable = true)
+  @Column(name = "historyItem", unique = false, nullable = true, columnDefinition = "nvarchar(550)")
   private String historyItem;
 }

@@ -26,13 +26,13 @@ public class Collection extends AuditEntity implements Serializable {
   @Column(name = "collectionID")
   private Integer collectionID;
 
-  @Column(name = "nameOfCollection")
+  @Column(name = "nameOfCollection", columnDefinition = "nvarchar(550)")
   private String nameOfCollection;
 
   @Column(name = "numberOfClothes")
   private Integer numberOfClothes;
 
-  @Column(name = "typeOfCollection")
+  @Column(name = "typeOfCollection", columnDefinition = "nvarchar(550)")
   private String typeOfCollection;
 
   @Column(name = "collectionStatus")

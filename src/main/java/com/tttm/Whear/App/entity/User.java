@@ -39,7 +39,7 @@ public class User extends AuditEntity implements Serializable, UserDetails{
   @Column(name = "userID")
   private String userID;
 
-  @Column(name = "username")
+  @Column(name = "username", columnDefinition = "nvarchar(550)")
   private String username;
 
   @Column(name = "password")

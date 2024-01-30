@@ -22,5 +22,4 @@ public class PostResponse {
   private List<Hashtag> hashtag;
   private String date;
   private StatusGeneral status;
-  private List<React> reactList;
 }
