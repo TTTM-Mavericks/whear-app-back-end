@@ -172,6 +172,105 @@ public class ClothesServiceImpl implements ClothesService {
     return clothes;
   }
 
+  @Override
+  public ClothesResponse updateClothes(ClothesRequest clothesRequest) throws CustomException {
+    if (clothesRequest == null || clothesRequest.getClothesID() == null) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    if (clothesRequest.getClothesID().toString().isBlank() || clothesRequest.getClothesID()
+        .toString().isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    Clothes clothes = clothesRepository.findById(clothesRequest.getClothesID()).get();
+    if (clothes == null) {
+      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+    }
+
+    clothes.setTypeOfClothes(
+        ClothesType.valueOf(clothesRequest.getTypeOfClothes().trim().toUpperCase()));
+    clothes.setLink(
+        clothesRequest.getLink()
+    );
+    clothes.setMaterials(
+        MaterialType.valueOf(clothesRequest.getMaterials().trim().toUpperCase())
+    );
+    clothes.setDescription(
+        clothesRequest.getDescription()
+    );
+    clothes.setNameOfProduct(
+        clothesRequest.getNameOfProduct()
+    );
+    clothes.setShape(
+        ShapeType.valueOf(clothesRequest.getShape().trim().toUpperCase())
+    );
+
+    clothesRepository.save(clothes);
+
+    clothesImageService.deleteByClothesID(clothes.getClothesID());
+    clothesSizeService.deleteByClothesID(clothes.getClothesID());
+    clothesSeasonService.deleteByClothesID(clothes.getClothesID());
+    clothesColorService.deleteByClothesID(clothes.getClothesID());
+
+    List<String> clothesImages = clothesRequest.getClothesImages();
+    if (clothesImages != null && !clothesImages.isEmpty() && clothesImages.size() > 0) {
+      for (String image : clothesImages) {
+        clothesImageService.createImage(clothes.getClothesID(), image);
+      }
+    }
+
+    List<String> clothesSizes = clothesRequest.getClothesSizes();
+    if (clothesSizes != null && !clothesSizes.isEmpty() && clothesSizes.size() > 0) {
+      for (String size : clothesSizes) {
+        ClothesSize finded = clothesSizeService.findByName(clothes.getClothesID(), size);
+        if (finded == null) {
+          clothesSizeService.createSize(clothes.getClothesID(), size);
+        }
+      }
+    }
+
+    List<String> clothesSeasons = clothesRequest.getClothesSeasons();
+    if (clothesSeasons != null && !clothesSeasons.isEmpty() && clothesSeasons.size() > 0) {
+      for (String season : clothesSeasons) {
+        ClothesSeason finded = clothesSeasonService.findByName(clothes.getClothesID(), season);
+        if (finded == null) {
+          clothesSeasonService.createSeason(clothes.getClothesID(), season);
+        }
+      }
+    }
+
+    List<String> clothesColors = clothesRequest.getClothesColors();
+    if (clothesColors != null && !clothesColors.isEmpty() && clothesColors.size() > 0) {
+      for (String color : clothesColors) {
+        ClothesColor finded = clothesColorService.findByName(clothes.getClothesID(), color);
+        if (finded == null) {
+          clothesColorService.createColor(clothes.getClothesID(), color);
+        }
+      }
+    }
+
+    clothes = clothesRepository.getClothesByClothesID(clothes.getClothesID());
+    return mapToClothesResponse(clothes);
+
+  }
+
+  @Override
+  public void deleteClothesByID(Integer clothesID) throws CustomException {
+
+    Clothes clothes = clothesRepository.getClothesByClothesID(clothesID);
+    if (clothes == null) {
+      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+    }
+
+    clothesColorService.deleteByClothesID(clothesID);
+    clothesImageService.deleteByClothesID(clothesID);
+    clothesSeasonService.deleteByClothesID(clothesID);
+    clothesSizeService.deleteByClothesID(clothesID);
+
+    clothesRepository.deleteById(clothesID);
+  }
+
   public ClothesResponse mapToClothesResponse(Clothes clothes) {
 
     List<String> clothesImages = clothesImageService

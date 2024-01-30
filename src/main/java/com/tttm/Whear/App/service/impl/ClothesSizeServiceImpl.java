@@ -28,4 +28,9 @@ public class ClothesSizeServiceImpl implements ClothesSizeService {
   public List<ClothesSize> getAllSizeOfClothes(Integer clothesID) {
     return clothesSizeRepository.getAllSizeOfClothes(clothesID);
   }
+
+  @Override
+  public void deleteByClothesID(Integer clothesID) {
+    clothesSizeRepository.deleteByClothesID(clothesID);
+  }
 }

@@ -29,4 +29,9 @@ public class ClothesSeasonServiceImpl implements ClothesSeasonService {
     public List<ClothesSeason> getAllSeasonOfClothes(Integer clothesid) {
         return clothesSeasonRepository.getAllSeasonOfClothes(clothesid);
     }
+
+    @Override
+    public void deleteByClothesID(Integer clothesid) {
+        clothesSeasonRepository.deleteByClothesID(clothesid);
+    }
 }

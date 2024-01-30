@@ -15,7 +15,6 @@ import com.tttm.Whear.App.service.ReactService;
 import com.tttm.Whear.App.utils.request.ClothesCollectionRequest;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
-import com.tttm.Whear.App.utils.response.ClothesCollectionResponse;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.CollectionResponse;
 import com.tttm.Whear.App.utils.response.NotificationResponse;
@@ -24,8 +23,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -175,6 +176,49 @@ public class ClothesController {
         respon.set("data", objectMapper.valueToTree(responseList));
         return respon;
       }
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
+  @PutMapping(ClothesAPI.UPDATE_CLOTHES)
+  public ObjectNode updateCollectionByID(@RequestBody ClothesRequest clothesRequest) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      ObjectNode response = objectMapper.createObjectNode();
+      ClothesResponse clothesResponse = clothesService.updateClothes(clothesRequest);
+      if (clothesResponse != null) {
+        response.put("success", 200);
+        response.put("message", "Collection is updated!");
+        response.set("data", objectMapper.valueToTree(clothesResponse));
+      }
+      return response;
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
+  @DeleteMapping(ClothesAPI.DELETE_CLOTHES)
+  public ObjectNode deleteCollectionByID(
+      @RequestParam(name = "clothes_id") Integer clothesID) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      ObjectNode response = objectMapper.createObjectNode();
+      clothesService.deleteClothesByID(clothesID);
+//      if(collectionResponse != null){
+      response.put("success", 200);
+      response.put("message", "Clothes is deleted!");
+      response.set("data", null);
+//      }
+      return response;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("error", -1);

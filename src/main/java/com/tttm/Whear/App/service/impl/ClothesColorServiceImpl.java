@@ -28,4 +28,9 @@ public class ClothesColorServiceImpl implements ClothesColorService {
   public List<ClothesColor> getAllColorOfClothes(Integer clothesID) {
     return clothesColorRepository.getAllColorOfClothes(clothesID);
   }
+
+  @Override
+  public void deleteByClothesID(Integer clothesID) {
+    clothesColorRepository.deleteByClothesID(clothesID);
+  }
 }
