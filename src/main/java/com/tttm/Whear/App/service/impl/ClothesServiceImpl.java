@@ -5,6 +5,7 @@ import com.tttm.Whear.App.entity.Clothes;
 import com.tttm.Whear.App.entity.ClothesColor;
 import com.tttm.Whear.App.entity.ClothesSeason;
 import com.tttm.Whear.App.entity.ClothesSize;
+import com.tttm.Whear.App.entity.Hashtag;
 import com.tttm.Whear.App.enums.ClothesType;
 import com.tttm.Whear.App.enums.MaterialType;
 import com.tttm.Whear.App.enums.ShapeType;
@@ -17,6 +18,7 @@ import com.tttm.Whear.App.service.ClothesImageService;
 import com.tttm.Whear.App.service.ClothesSeasonService;
 import com.tttm.Whear.App.service.ClothesService;
 import com.tttm.Whear.App.service.ClothesSizeService;
+import com.tttm.Whear.App.service.HashtagService;
 import com.tttm.Whear.App.service.PostService;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.PostRequest;
@@ -38,6 +40,7 @@ public class ClothesServiceImpl implements ClothesService {
   private final ClothesColorService clothesColorService;
   private final ClothesSeasonService clothesSeasonService;
   private final PostService postService;
+  private final HashtagService hashtagService;
 
   @Override
   public ClothesResponse createClothes(ClothesRequest clothesRequest) throws CustomException {
@@ -297,6 +300,17 @@ public class ClothesServiceImpl implements ClothesService {
         .map(clothesSeason -> clothesSeason.getClothesSeasonKey().getSeason().name())
         .toList();
 
+    List<String> hashtag = null;
+    List<Hashtag> htl = hashtagService.getAllHashtagOfPost(clothes.getClothesID());
+    if (htl != null && !htl.isEmpty() && htl.size() > 0) {
+      for (Hashtag h : htl) {
+        if (hashtag == null) {
+          hashtag = new ArrayList<>();
+        }
+        hashtag.add(h.getHashtag());
+      }
+    }
+
     ClothesResponse response = ClothesResponse.builder()
         .clothesID(clothes.getClothesID())
         .nameOfProduct(clothes.getNameOfProduct())
@@ -310,6 +324,7 @@ public class ClothesServiceImpl implements ClothesService {
         .clothesImages(clothesImages)
         .clothesSizes(clothesSizes)
         .clothesColors(clothesColors)
+        .hashtag(hashtag)
         .build();
     return response;
   }
