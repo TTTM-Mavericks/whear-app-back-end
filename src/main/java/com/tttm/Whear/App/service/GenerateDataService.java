@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface GenerateDataService {
     List<ClothesRequest> generateRandomListClothes(int size) throws CustomException;
-    List<String> generateRandomHistoryUserSearch(int size) throws CustomException;
+    List<String> generateRandomHistoryUserSearch(String userID, int size) throws CustomException;
 }

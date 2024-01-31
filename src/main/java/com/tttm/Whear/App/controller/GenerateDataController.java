@@ -18,14 +18,15 @@ public class GenerateDataController {
     private final GenerateDataService generateDataService;
 
     @GetMapping(APIConstant.GenerateDataAPI.GENERATE_RANDOM_HISTORY_USER_SEARCH)
-    public ObjectNode generateRandomHistoryUserSearch(@RequestParam("size") Integer size)
+    public ObjectNode generateRandomHistoryUserSearch(@RequestParam("userID") String userID,
+                                                      @RequestParam("size") Integer size)
             throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
             respon.put("message", "GENERATE RANDOM HISTORY USER SEARCH SUCCESSFULLY");
-            respon.set("data", objectMapper.valueToTree(generateDataService.generateRandomHistoryUserSearch(size)));
+            respon.set("data", objectMapper.valueToTree(generateDataService.generateRandomHistoryUserSearch(userID, size)));
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();

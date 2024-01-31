@@ -100,14 +100,9 @@ public class GenerateDataServiceImpl implements GenerateDataService {
     }
 
     @Override
-    public  List<String> generateRandomHistoryUserSearch(int size) throws CustomException {
-        List<UserResponse> userList = userService.getAllUser();
+    public  List<String> generateRandomHistoryUserSearch(String userID, int size) throws CustomException {
 
-        if (userList == null || userList.isEmpty()) {
-            throw new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
-        }
-
-        Optional<UserResponse> user = userList.stream().findFirst();
+        User user = userService.getUserEntityByUserID(userID);
 
         List<String> historyUserSearch = new ArrayList<>();
         for (int i = 0; i < size; i++)
@@ -115,23 +110,23 @@ public class GenerateDataServiceImpl implements GenerateDataService {
             historyUserSearch.add(generateRandomNameOfClothes() + " " + generateRandomNameBrand());
             historyUserSearch.add(getRandomEnumType(ClothesType.class).name());
             historyUserSearch.add(getRandomEnumType(ShapeType.class).name());
-            historyUserSearch.add(getRandomEnumType(SeasonType.class).name());
-            historyUserSearch.add(getRandomEnumType(ColorType.class).name());
             historyUserSearch.add(getRandomEnumType(MaterialType.class).name());
         }
 
-        List<SizeType> sizeTypeList = generateListRandomEnumType(SizeType.class, 1);
-        List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 1);
+        List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 2);
+        List<SizeType> sizeTypeList = generateListRandomEnumType(SizeType.class, 2);
+        List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 2);
 
         for(int i = 0; i < sizeTypeList.size(); ++i)
         {
+            historyUserSearch.add(seasonTypeList.get(i).name());
             historyUserSearch.add(sizeTypeList.get(i).name());
             historyUserSearch.add(colorTypeList.get(i).name());
         }
 
         historyService.createHistoryItem(HistoryRequest
                 .builder()
-                .customerID(user.get().getUserID())
+                .customerID(user.getUserID())
                 .historyItems(historyUserSearch)
                 .build());
 

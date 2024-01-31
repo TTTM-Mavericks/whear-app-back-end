@@ -160,6 +160,7 @@ public class UserServiceImpl implements UserService {
   public List<UserResponse> getAllUser() throws CustomException {
     return userRepository.findAll()
         .stream()
+        .filter(Objects::nonNull)
         .map(this::convertToUserResponse)
         .toList();
   }

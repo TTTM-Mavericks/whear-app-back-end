@@ -144,6 +144,65 @@ public class FollowServiceImpl implements FollowService {
   }
 
   @Override
+//  @Cacheable(cacheNames = "following", key = "#username", condition = "#username != null", unless = "#result == null")
+  public List<UserResponse> getAllFollowingUserExceptCurrentUser(String userid, String currentUserID) throws CustomException // List All User, User Following
+  {
+    if (userid == null || userid.isBlank() || userid.isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    User user = userService.getUserEntityByUserID(userid);
+    if (user == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+
+    List<UserResponse> userResponseList = followerRepository.findAllFollowerUserExceptCurrentUserByUserID(
+                    userid, currentUserID)
+            .stream()
+            .map(follower -> {
+                      try {
+                        return userService.convertToUserResponse(
+                                userService.getUserEntityByUserID(
+                                        follower.getFollowerKey().getFollowingUser().getUserID()
+                                )
+                        );
+                      } catch (CustomException e) {
+                        throw new RuntimeException(e);
+                      }
+                    }
+            )
+            .toList();
+    return userResponseList;
+  }
+  @Override
+  public Long calculateNumberOfFollowerByUserID(String userID) throws CustomException {
+    if (userID == null || userID.isBlank() || userID.isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    User user = userService.getUserEntityByUserID(userID);
+    if (user == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+
+    return followerRepository.findAllFollowingUserByUserID(userID).stream().count();
+  }
+
+  @Override
+  public Long calculateNumberOfFollowingByUserID(String userID) throws CustomException {
+    if (userID == null || userID.isBlank() || userID.isEmpty()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+
+    User user = userService.getUserEntityByUserID(userID);
+    if (user == null) {
+      throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
+    }
+
+    return followerRepository.findAllFollowerUserByUserID(userID).stream().count();
+  }
+
+  @Override
   public Follower checkContain(String baseUserID, String targetUserID)
       throws CustomException {
     if (baseUserID == null || baseUserID.isBlank() || baseUserID.isEmpty()) {

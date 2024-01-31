@@ -11,9 +11,11 @@ public interface FollowService {
 
   FollowResponse userFollowAnotherUser(FollowRequest followRequest) throws CustomException;
 
-  List<UserResponse> getAllFollowerUser(String username) throws CustomException;
+  List<UserResponse> getAllFollowerUser(String userID) throws CustomException;
 
-  List<UserResponse> getAllFollowingUser(String username) throws CustomException;
+  List<UserResponse> getAllFollowingUser(String userID) throws CustomException;
+  List<UserResponse> getAllFollowingUserExceptCurrentUser(String userID, String currentUserID) throws CustomException;
   Follower checkContain(String baseUserID, String targetUserID) throws CustomException;
-
+  Long calculateNumberOfFollowerByUserID(String userID) throws CustomException;
+  Long calculateNumberOfFollowingByUserID(String userID) throws CustomException;
 }

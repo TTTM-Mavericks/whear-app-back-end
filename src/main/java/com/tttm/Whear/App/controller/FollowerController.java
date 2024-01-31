@@ -97,6 +97,44 @@ public class FollowerController {
     }
   }
 
+  @GetMapping(APIConstant.FollowAPI.GET_NUMBER_OF_FOLLOWER_BY_USER_ID)
+  public ObjectNode calculateNumberOfFollowerByUserID(@RequestParam("userid") String userid)
+          throws CustomException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("success", 200);
+      respon.put("message", "Get Number Of Follower by UserID Successfully");
+      respon.set("data", objectMapper.valueToTree(followService.calculateNumberOfFollowerByUserID(userid)));
+      return respon;
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
+  @GetMapping(APIConstant.FollowAPI.GET_NUMBER_OF_FOLLOWING_BY_USER_ID)
+  public ObjectNode calculateNumberOfFollowingByUserID(@RequestParam("userid") String userid)
+          throws CustomException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("success", 200);
+      respon.put("message", "Get Number Of Following by UserID Successfully");
+      respon.set("data", objectMapper.valueToTree(followService.calculateNumberOfFollowingByUserID(userid)));
+      return respon;
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
   @GetMapping(APIConstant.FollowAPI.GET_ALL_FOLLOWING_USER)
   public ObjectNode getAllFollowingUser(@RequestParam("base_userid") String base_userid,
       @RequestParam("userid") String userid)

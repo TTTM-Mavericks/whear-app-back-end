@@ -63,6 +63,9 @@ public class APIConstant {
     public static final String USER_FOLLOW_OR_UNFOLLOW_ANOTHER_USER = "/un-follow";
     public static final String GET_ALL_FOLLOWER_USER = "/get-all-follower-user";
     public static final String GET_ALL_FOLLOWING_USER = "/get-all-following-user";
+
+    public static final String GET_NUMBER_OF_FOLLOWER_BY_USER_ID = "/get-number-of-follower-by-userid";
+    public static final String GET_NUMBER_OF_FOLLOWING_BY_USER_ID = "/get-number-of-following-by-userid";
   }
 
   public class CustomerAPI {
@@ -119,6 +122,7 @@ public class APIConstant {
     public static final String RECOMMENDATION = APIConstant.API + "/recommedation";
 
     public static final String GET_LIST_RECOMMMENDATION_BY_USER_HISTORY_ITEMS = "/get-list-recommendation-by-user-history-items";
+    public static final String GET_LIST_RECOMMENDATION_WHEN_FOLLOW_ANOTHER_USER = "/get-list-recommendation-when-follow-another-user";
   }
 
   public class AuthenticationAPI {
