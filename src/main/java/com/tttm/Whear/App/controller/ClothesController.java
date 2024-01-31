@@ -5,13 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant.ClothesAPI;
+import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.ClothesCollectionService;
 import com.tttm.Whear.App.service.ClothesService;
 import com.tttm.Whear.App.service.FollowService;
 import com.tttm.Whear.App.service.NotificationService;
+import com.tttm.Whear.App.service.PostService;
 import com.tttm.Whear.App.service.ReactService;
+import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.ClothesCollectionRequest;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
@@ -43,6 +46,8 @@ public class ClothesController {
   private final NotificationService notificationService;
   private final SimpMessagingTemplate messagingTemplate;
   private final ReactService reactService;
+  private final UserService userService;
+  private final PostService postService;
 
   @GetMapping(ClothesAPI.GET_ALL_CLOTHES)
   public ObjectNode getAllClothes() {
@@ -134,11 +139,15 @@ public class ClothesController {
         return respon;
       } else {
 
+        Post clothes = postService.getPostEntityByPostID(clothesID);
+
         ObjectNode responseObject = objectMapper.createObjectNode();
         responseObject.put("clothes",
             objectMapper.valueToTree(responseList));
         responseObject.put("react",
             objectMapper.valueToTree(reactService.checkContain(clothesID, userID)));
+        responseObject.put("user",
+            objectMapper.valueToTree(userService.getUserbyUserID(clothes.getUserID())));
 
         ObjectNode respon = objectMapper.createObjectNode();
         respon.put("success", 200);
