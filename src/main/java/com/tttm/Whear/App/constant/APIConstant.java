@@ -1,7 +1,5 @@
 package com.tttm.Whear.App.constant;
 
-import org.checkerframework.checker.units.qual.A;
-
 public class APIConstant {
 
   /**
@@ -100,43 +98,50 @@ public class APIConstant {
     public static final String UN_READ_NOTIFICATION = "/un-read-notification";
   }
 
-  public class HistoryAPI
-  {
-     public static final String HISTORY =  APIConstant.API + "/histories";
-     public static final String CREATE_HISTORY_ITEM = "/create-history-item";
-     public static final String GET_ALL_HISTORY_ITEMS_BY_CUSTOMER_ID = "/get-all-history-items-by-customer-id";
-    public static final String SUB_HTTP_OF_HISTORY =  "/histories/**";
+  public class HistoryAPI {
+
+    public static final String HISTORY = APIConstant.API + "/histories";
+    public static final String CREATE_HISTORY_ITEM = "/create-history-item";
+    public static final String GET_ALL_HISTORY_ITEMS_BY_CUSTOMER_ID = "/get-all-history-items-by-customer-id";
+    public static final String SUB_HTTP_OF_HISTORY = "/histories/**";
   }
 
-  public class GenerateDataAPI
-  {
-    public static final String GENERATE_DATA =  APIConstant.API + "/generate-data";
+  public class GenerateDataAPI {
+
+    public static final String GENERATE_DATA = APIConstant.API + "/generate-data";
 
     public static final String GENERATE_RANDOM_LIST_CLOTHES = "/generate-random-list-clothes";
     public static final String GENERATE_RANDOM_HISTORY_USER_SEARCH = "/generate-random-history-user-search";
   }
 
-  public class RecommendationAPI
-  {
-    public static final String RECOMMENDATION =  APIConstant.API + "/recommedation";
+  public class RecommendationAPI {
+
+    public static final String RECOMMENDATION = APIConstant.API + "/recommedation";
 
     public static final String GET_LIST_RECOMMMENDATION_BY_USER_HISTORY_ITEMS = "/get-list-recommendation-by-user-history-items";
   }
 
-  public class AuthenticationAPI
-  {
-    public static final String AUTHENTICATION =  APIConstant.API + "/auth";
+  public class AuthenticationAPI {
+
+    public static final String AUTHENTICATION = APIConstant.API + "/auth";
     public static final String REGISTER = "/register";
     public static final String LOGIN = "/login";
     public static final String LOG_OUT = AUTHENTICATION + "/log-out";
     public static final String REFRESH_TOKEN = "/refresh-token";
   }
 
-  public class ReactAPI
-  {
-    public static final String REACT =  APIConstant.API + "/react";
+  public class ReactAPI {
+
+    public static final String REACT = APIConstant.API + "/react";
     public static final String UN_SEND_REACT = "/un-send-react";
     public static final String GET_ALL_REACT_OF_POST = "/get-react-of-post";
     public static final String GET_ALL_REACT_OF_CLOTHES = "/get-react-of-clothes";
+  }
+
+  public class SubroleAPI {
+
+    public static final String SUBROLE = APIConstant.API + "/subrole";
+    public static final String GET_SUBROLE_BY_ID = "/get_subrole_by_id";
+    public static final String UPDATE_SUBROLE = "/update-subrole";
   }
 }
