@@ -15,6 +15,8 @@ public interface FollowerRepository extends JpaRepository<Follower, FollowerKey>
   @Query(value = "Select follower_userid,following_userid, create_date, last_modified_date from Follower f where f.follower_userid = ?1", nativeQuery = true)
   List<Follower> findAllFollowerUserByUserID(String userid);
 
+    @Query(value = "Select follower_userid,following_userid, create_date, last_modified_date from Follower f where f.follower_userid = ?1 and f.following_userid != ?2 ", nativeQuery = true)
+    List<Follower> findAllFollowerUserExceptCurrentUserByUserID(String userid, String currentUserID);
   @Query(value = "Select follower_userid,following_userid, create_date, last_modified_date from Follower f where f.following_userid = ?1", nativeQuery = true)
   List<Follower> findAllFollowingUserByUserID(String userID);
 
