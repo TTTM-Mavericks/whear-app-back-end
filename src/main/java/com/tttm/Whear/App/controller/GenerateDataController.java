@@ -38,14 +38,15 @@ public class GenerateDataController {
     }
 
     @GetMapping(APIConstant.GenerateDataAPI.GENERATE_RANDOM_LIST_CLOTHES)
-    public ObjectNode generateRandomListClothes(@RequestParam("size") Integer size)
+    public ObjectNode generateRandomListClothes(@RequestParam("userID") String userID,
+                                                @RequestParam("size") Integer size)
             throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
             respon.put("message", "GENERATE RANDOM LIST CLOTHES SUCCESSFULLY");
-            respon.set("data", objectMapper.valueToTree(generateDataService.generateRandomListClothes(size)));
+            respon.set("data", objectMapper.valueToTree(generateDataService.generateRandomListClothes(userID, size)));
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();

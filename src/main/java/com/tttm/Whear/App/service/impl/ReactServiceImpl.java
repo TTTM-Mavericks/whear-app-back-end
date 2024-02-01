@@ -91,6 +91,21 @@ public class ReactServiceImpl implements ReactService {
     }
 
     @Override
+    public Integer getAllReactPerClothes(Integer postID) throws CustomException {
+        if (postID.toString().isBlank() || postID.toString()
+                .isEmpty()) {
+            throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+        }
+
+        Post post = postService.getPostEntityByPostID(postID);
+        if (post == null) {
+            throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+        }
+
+        return reactRepository.getAllReactPerClothes(postID);
+    }
+
+    @Override
     public ReactResponse checkContain(Integer postID, String userID) throws CustomException {
         if (postID == null || userID == null) {
             throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());

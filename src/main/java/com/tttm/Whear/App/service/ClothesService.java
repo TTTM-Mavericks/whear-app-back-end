@@ -15,8 +15,8 @@ public interface ClothesService {
   public ClothesResponse getClothesByID(Integer clothesID) throws CustomException;
 
   public Clothes getClothesEntityByID(Integer clothesID) throws CustomException;
-
   public ClothesResponse updateClothes(ClothesRequest clothesRequest) throws CustomException;
 
   public void deleteClothesByID(Integer clothesID) throws CustomException;
+  List<ClothesResponse> getAllClothesByBrandID(String brandID);
 }

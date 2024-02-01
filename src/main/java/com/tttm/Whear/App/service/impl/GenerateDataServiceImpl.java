@@ -31,15 +31,9 @@ public class GenerateDataServiceImpl implements GenerateDataService {
     private final String[] nameOfClothes = {"Áo", "Quần", "Giày", "Dép"};
     private final String[] nameBrand = {"LV", "GUCCI", "HERMES", "DIOR", "BALENCIAGA", "TOM BROWN"};
 
-    public List<ClothesRequest> generateRandomListClothes(int size) throws CustomException
+    public List<ClothesRequest> generateRandomListClothes(String userID, int size) throws CustomException
     {
-        List<UserResponse> userList = userService.getAllUser();
-
-        if (userList == null || userList.isEmpty()) {
-            throw new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage());
-        }
-
-        Optional<UserResponse> user = userList.stream().findFirst();
+        User user = userService.getUserEntityByUserID(userID);
 
         List<ClothesRequest> clothesRequestsList = new ArrayList<>();
 
@@ -55,7 +49,7 @@ public class GenerateDataServiceImpl implements GenerateDataService {
             List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 1);
             ClothesRequest clothesRequest =  ClothesRequest
                     .builder()
-                    .userID(user.get().getUserID())
+                    .userID(user.getUserID())
                     .nameOfProduct(nameOfClothes)
                     .typeOfClothes(clothesType.name())
                     .shape(shapeType.name())
