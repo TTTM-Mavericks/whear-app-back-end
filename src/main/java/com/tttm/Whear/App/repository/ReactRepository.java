@@ -17,7 +17,8 @@ public interface ReactRepository extends JpaRepository<React, UserPostReactKey> 
 
   @Query(value = "select * from react r where r.postid = ?1", nativeQuery = true)
   public List<React> getPostReact(Integer postID);
-
+  @Query(value = "select COUNT(*) from react r where r.postid = ?1", nativeQuery = true)
+  Integer getAllReactPerClothes(Integer postID);
   @Modifying
   @Transactional
   @Query(value = "insert into react (userid, postid, react, create_date, last_modified_date) values (?1, ?2, ?3, current_timestamp, current_timestamp)", nativeQuery = true)

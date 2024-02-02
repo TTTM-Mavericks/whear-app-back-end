@@ -19,7 +19,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "brand")
 @EntityListeners(AuditingEntityListener.class)
 public class Brand extends AuditEntity implements Serializable {
-
   @Id
   @Column(name = "brandID")
   private String brandID;

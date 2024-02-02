@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ClothesRepository extends JpaRepository<Clothes, Integer> {
 
@@ -17,4 +19,7 @@ public interface ClothesRepository extends JpaRepository<Clothes, Integer> {
       String name, Integer rating, String shape, String type);
 
   public Clothes getClothesByClothesID(Integer clothesID);
+
+  @Query(value = "select c.* from clothes c JOIN posts p on c.clothesid = p.postid where p.userid = ?1", nativeQuery = true)
+  List<Clothes> getAllClothesByBrandID(String brandID);
 }

@@ -148,4 +148,10 @@ public class APIConstant {
     public static final String GET_SUBROLE_BY_ID = "/get_subrole_by_id";
     public static final String UPDATE_SUBROLE = "/update-subrole";
   }
+
+  public class BrandAPI{
+    public static final String BRAND = APIConstant.API + "/brand";
+    public static final String CREATE_NEW_BRAND = "/create-new-brand";
+    public static final String GET_HOT_BRAND = "/get-hot-brand";
+  }
 }

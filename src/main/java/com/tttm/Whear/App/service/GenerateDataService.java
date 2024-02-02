@@ -7,6 +7,6 @@ import com.tttm.Whear.App.utils.response.ClothesResponse;
 import java.util.List;
 
 public interface GenerateDataService {
-    List<ClothesRequest> generateRandomListClothes(int size) throws CustomException;
+    List<ClothesRequest> generateRandomListClothes(String userID, int size) throws CustomException;
     List<String> generateRandomHistoryUserSearch(String userID, int size) throws CustomException;
 }

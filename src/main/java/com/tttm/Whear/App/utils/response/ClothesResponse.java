@@ -20,6 +20,7 @@ public class ClothesResponse {
   private String link;
   private Integer rating;
   private String materials;
+  private Integer reactPerClothes;
   private List<String> hashtag;
   private List<String> clothesSeasons;
   private List<String> clothesImages;

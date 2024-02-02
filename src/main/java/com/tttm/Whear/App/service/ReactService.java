@@ -14,4 +14,6 @@ public interface ReactService {
   public List<ReactResponse> getClothesReact(ReactRequest reactRequest) throws CustomException;
 
   public ReactResponse checkContain(Integer postID, String userID) throws CustomException;
+
+  Integer getAllReactPerClothes(Integer postID) throws CustomException;
 }
