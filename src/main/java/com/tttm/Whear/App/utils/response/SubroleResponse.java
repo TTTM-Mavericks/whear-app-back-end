@@ -12,4 +12,5 @@ public class SubroleResponse {
   private ESubRole subRoleName;
   private Integer numberOfCollection;
   private Integer numberOfClothes;
+  private Integer price;
 }

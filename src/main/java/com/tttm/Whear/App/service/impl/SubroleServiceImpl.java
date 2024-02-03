@@ -2,6 +2,7 @@ package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.SubRole;
+import com.tttm.Whear.App.enums.ESubRole;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.SubRoleRepository;
 import com.tttm.Whear.App.service.SubroleService;
@@ -29,6 +30,7 @@ public class SubroleServiceImpl implements SubroleService {
     subRole.setSubRoleName(newSubrole.getSubRoleName());
     subRole.setNumberOfClothes(newSubrole.getNumberOfClothes());
     subRole.setNumberOfCollection(newSubrole.getNumberOfCollection());
+    subRole.setPrice(newSubrole.getPrice());
 
     subRoleRepository.save(subRole);
 
@@ -52,6 +54,12 @@ public class SubroleServiceImpl implements SubroleService {
         .subRoleName(subRole.getSubRoleName())
         .numberOfCollection(subRole.getNumberOfCollection())
         .numberOfClothes(subRole.getNumberOfClothes())
+        .price(subRole.getPrice())
         .build();
+  }
+
+  @Override
+  public SubRole getSubroleBySubroleName(ESubRole eSubRole) {
+    return subRoleRepository.getSubRolesBySubRoleName(eSubRole);
   }
 }

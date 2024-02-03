@@ -125,6 +125,12 @@
       <version>2.14.2</version>
     </dependency>
 
+    <!--	PAYOS	-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+
   </dependencies>
   <description>whear-app-back-end</description>
   <groupId>com.tttm.Whear.App</groupId>
