@@ -1,6 +1,5 @@
 package com.tttm.Whear.App.service.impl;
 
-import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.enums.*;
 import com.tttm.Whear.App.exception.CustomException;
@@ -10,10 +9,7 @@ import com.tttm.Whear.App.service.HistoryService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.HistoryRequest;
-import com.tttm.Whear.App.utils.response.ClothesResponse;
-import com.tttm.Whear.App.utils.response.UserResponse;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -43,7 +39,7 @@ public class GenerateDataServiceImpl implements GenerateDataService {
             ClothesType clothesType = getRandomEnumType(ClothesType.class);
             ShapeType shapeType = getRandomEnumType(ShapeType.class);
             SeasonType seasonsType = getRandomEnumType(SeasonType.class);
-            MaterialType materialType = getRandomEnumType(MaterialType.class);
+            ClothesMaterialType materialType = getRandomEnumType(ClothesMaterialType.class);
             List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 1);
             List<SizeType> sizeTypeList = generateListRandomEnumType(SizeType.class, 1);
             List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 1);
@@ -104,7 +100,7 @@ public class GenerateDataServiceImpl implements GenerateDataService {
             historyUserSearch.add(generateRandomNameOfClothes() + " " + generateRandomNameBrand());
             historyUserSearch.add(getRandomEnumType(ClothesType.class).name());
             historyUserSearch.add(getRandomEnumType(ShapeType.class).name());
-            historyUserSearch.add(getRandomEnumType(MaterialType.class).name());
+            historyUserSearch.add(getRandomEnumType(ClothesMaterialType.class).name());
         }
 
         List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 2);

@@ -17,5 +17,20 @@ public enum ClothesType {
     SUIT,           // Bộ vest
     POLO_SHIRT,     // Áo polo
     FORMAL_WEAR,    // Trang phục trang trí
-    ATHLETIC_WEAR   // Trang phục thể thao
+    ATHLETIC_WEAR,   // Trang phục thể thao
+    WIDE_LEG_PANT,
+    CARGO_PANT,
+    SKINNY,
+    JOGGER,
+    BAGGY,
+    SUIT_PANTS,
+    PENCIL_SKIRT,
+    FLARED_PANTS,
+    BAGGY_JEAN,
+    HIGH_WAISTED_SHORTS,
+    LEGGING,
+    CHINOS,
+    LOOSE_SKIRTS,
+    LONG_MAXI_DRESS,
+    BLACK_CARGO_PANT
 }

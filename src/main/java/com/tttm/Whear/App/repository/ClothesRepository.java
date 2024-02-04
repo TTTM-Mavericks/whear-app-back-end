@@ -14,7 +14,7 @@ public interface ClothesRepository extends JpaRepository<Clothes, Integer> {
 
   @Modifying
   @Transactional
-  @Query(value = "insert into clothes (clothesid, description, link, materials, name_of_product, rating, shape, type_of_clothes, create_date, last_modified_date) values (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, current_timestamp, current_timestamp)", nativeQuery = true)
+  @Query(value = "insert into clothes (clothesid, description, link, materials, name_of_product, rating, shape, type_of_clothes, create_date, last_modified_date) values (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, current_timestamp, null)", nativeQuery = true)
   void insertClothes(Integer clothesid, String desctiption, String link, String materials,
       String name, Integer rating, String shape, String type);
 

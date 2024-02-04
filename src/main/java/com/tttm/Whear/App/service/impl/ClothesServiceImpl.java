@@ -7,7 +7,7 @@ import com.tttm.Whear.App.entity.ClothesSeason;
 import com.tttm.Whear.App.entity.ClothesSize;
 import com.tttm.Whear.App.entity.Hashtag;
 import com.tttm.Whear.App.enums.ClothesType;
-import com.tttm.Whear.App.enums.MaterialType;
+import com.tttm.Whear.App.enums.ClothesMaterialType;
 import com.tttm.Whear.App.enums.ShapeType;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
@@ -77,7 +77,7 @@ public class ClothesServiceImpl implements ClothesService {
                     .description(clothesRequest.getDescription())
                     .link(clothesRequest.getLink())
                     .rating(clothesRequest.getRating())
-                    .materials(MaterialType.valueOf(clothesRequest.getMaterials().toUpperCase()))
+                    .materials(ClothesMaterialType.valueOf(clothesRequest.getMaterials().toUpperCase()))
                     .build();
 
             clothesRepository.insertClothes(
@@ -200,7 +200,7 @@ public class ClothesServiceImpl implements ClothesService {
                 clothesRequest.getLink()
         );
         clothes.setMaterials(
-                MaterialType.valueOf(clothesRequest.getMaterials().trim().toUpperCase())
+                ClothesMaterialType.valueOf(clothesRequest.getMaterials().trim().toUpperCase())
         );
         clothes.setDescription(
                 clothesRequest.getDescription()
