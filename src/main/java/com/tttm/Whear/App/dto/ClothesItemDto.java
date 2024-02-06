@@ -16,7 +16,7 @@ public class ClothesItemDto {
     private String nameOfProduct;
     private ClothesType typeOfClothes;
     private ShapeType shape;
-    private MaterialType materials;
+    private ClothesMaterialType materials;
     private List<SeasonType> seasons;
     private List<SizeType> sizes;
     private List<ColorType> colors;

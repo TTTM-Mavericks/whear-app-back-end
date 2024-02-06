@@ -154,4 +154,11 @@ public class APIConstant {
     public static final String CREATE_NEW_BRAND = "/create-new-brand";
     public static final String GET_HOT_BRAND = "/get-hot-brand";
   }
+
+  public class RuleMatchingClothesAPI {
+    public static final String RULE_MATCHING_CLOTHES = APIConstant.API + "/rule-matching-clothes";
+    public static final String CREATE_NEW_RULE = "/create-new-rules";
+    public static final String GET_RULE_BY_ID = "/get-rule-by-id";
+    public static final String GET_ALL_RULE = "/get-all-rule";
+  }
 }

@@ -15,7 +15,7 @@ public interface CollectionClothesRepository extends
 
   @Modifying
   @Transactional
-  @Query(value = "insert into collection_clothes (clothesid, collectionid, create_date, last_modified_date) values (?1, ?2, current_timestamp, current_timestamp)", nativeQuery = true)
+  @Query(value = "insert into collection_clothes (clothesid, collectionid, create_date, last_modified_date) values (?1, ?2, current_timestamp, null)", nativeQuery = true)
   void insertClothesToCollection(Integer clothesID, Integer collectionID);
 
   @Modifying

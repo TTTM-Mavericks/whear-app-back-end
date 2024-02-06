@@ -21,7 +21,7 @@ public interface ReactRepository extends JpaRepository<React, UserPostReactKey> 
   Integer getAllReactPerClothes(Integer postID);
   @Modifying
   @Transactional
-  @Query(value = "insert into react (userid, postid, react, create_date, last_modified_date) values (?1, ?2, ?3, current_timestamp, current_timestamp)", nativeQuery = true)
+  @Query(value = "insert into react (userid, postid, react, create_date, last_modified_date) values (?1, ?2, ?3, current_timestamp, null)", nativeQuery = true)
   void insertReact(String userID, Integer postid, String react);
 
   @Modifying

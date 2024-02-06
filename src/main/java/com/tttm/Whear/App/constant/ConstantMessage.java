@@ -8,6 +8,7 @@ public enum ConstantMessage {
   CREATE_FAIL("Create Fail"),
   INVALID_USERNAME_OR_PASSWORD("Invalid Username or Password"),
   CANNOT_FIND_USER_BY_USERNAME("Can not find User by Username"),
+  ID_IS_EMPTY_OR_NOT_EXIST("Id is empty or not exist"),
   CANNOT_FIND_USER_BY_USERID("Can not find User by UserID"),
   USERID_IS_EMPTY_OR_NOT_EXIST("UserID is empty or not exist"),
   USER_EMAIL_IS_EMPTY_OR_NOT_EXIST("User Email is empty or not exist"),

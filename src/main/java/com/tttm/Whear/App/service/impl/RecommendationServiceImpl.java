@@ -10,12 +10,9 @@ import com.tttm.Whear.App.enums.*;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
 import com.tttm.Whear.App.utils.request.FollowRequest;
-import com.tttm.Whear.App.utils.request.HistorySearchRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
-import com.tttm.Whear.App.utils.response.HistoryResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -211,7 +208,7 @@ public class RecommendationServiceImpl implements RecommendationService {
                 .nameOfProduct(clothesResponse.getNameOfProduct())
                 .typeOfClothes(ClothesType.valueOf(clothesResponse.getTypeOfClothes()))
                 .shape(ShapeType.valueOf(clothesResponse.getShape()))
-                .materials(MaterialType.valueOf(clothesResponse.getMaterials()))
+                .materials(ClothesMaterialType.valueOf(clothesResponse.getMaterials()))
                 .seasons(
                         clothesResponse
                                 .getClothesSeasons()

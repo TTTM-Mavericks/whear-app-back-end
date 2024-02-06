@@ -24,7 +24,7 @@ public interface FollowerRepository extends JpaRepository<Follower, FollowerKey>
   Follower findFollowerByFollowerIdAndFollowingId(String followerUserID, String followingUserID);
   @Modifying
   @Transactional
-  @Query(value = "insert into follower (follower_userid,following_userid, create_date, last_modified_date) values (?1, ?2, current_timestamp, current_timestamp)", nativeQuery = true)
+  @Query(value = "insert into follower (follower_userid,following_userid, create_date, last_modified_date) values (?1, ?2, current_timestamp, null)", nativeQuery = true)
   void insertFollower(String followerUserID, String followingUserID);
 
    @Modifying
