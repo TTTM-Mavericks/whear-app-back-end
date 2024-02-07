@@ -145,15 +145,11 @@ public class ClothesServiceImpl implements ClothesService {
     @Override
     public List<ClothesResponse> getAllClothes() {
         List<Clothes> clothesList = clothesRepository.findAll();
-        List<ClothesResponse> responseList = null;
-        if (clothesList != null) {
-            if (responseList == null) {
-                responseList = new ArrayList<>();
-            }
-            for (Clothes clothe : clothesList) {
-                responseList.add(mapToClothesResponse(clothe));
-            }
-        }
+
+        List<ClothesResponse> responseList = clothesList.stream()
+            .map(this::mapToClothesResponse)
+            .collect(Collectors.toList());
+
         return responseList;
     }
 
@@ -303,7 +299,7 @@ public class ClothesServiceImpl implements ClothesService {
                 .map(clothesSeason -> clothesSeason.getClothesSeasonKey().getSeason().name())
                 .toList();
 
-        List<String> hashtag = null;
+        List<String> hashtag = new ArrayList<>();
         List<Hashtag> htl = hashtagService.getAllHashtagOfPost(clothes.getClothesID());
         if (htl != null && !htl.isEmpty() && htl.size() > 0) {
             for (Hashtag h : htl) {

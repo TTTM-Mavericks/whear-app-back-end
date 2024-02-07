@@ -55,7 +55,7 @@ public class PostServiceImpl implements PostService {
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
 
-    List<Hashtag> hashtagList = null;
+    List<Hashtag> hashtagList = new ArrayList<>();
     List<String> hashtags = postRequest.getHashtag();
     if (hashtags != null && !hashtags.isEmpty() && hashtags.size() > 0) {
       for (String ht : hashtags) {
@@ -111,7 +111,7 @@ public class PostServiceImpl implements PostService {
 //  @Cacheable(cacheNames = "posts")
   public List<PostResponse> getAllPost() {
     List<Post> postList = postRepository.findAll();
-    List<PostResponse> responseList = null;
+    List<PostResponse> responseList = new ArrayList<>();
     if (postList != null) {
       for (Post p : postList) {
         if (responseList == null) {
@@ -129,7 +129,7 @@ public class PostServiceImpl implements PostService {
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
     List<Post> postList = postRepository.findAll();
-    List<PostResponse> responseList = null;
+    List<PostResponse> responseList = new ArrayList<>();
     if (postList != null) {
       for (Post p : postList) {
         if (typeOfPosts.equals(p.getTypeOfPosts().toString())) {
@@ -145,7 +145,7 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public List<PostResponse> getAllPostByHashtag(String hashtag) throws CustomException {
-    List<PostResponse> postList = null;
+    List<PostResponse> postList = new ArrayList<>();
     List<PostHashtag> postHashtagList = postHashtagRepository.findAll()
         .stream()
         .filter(postHashtag -> {
@@ -174,7 +174,7 @@ public class PostServiceImpl implements PostService {
         .stream()
         .filter(c -> c.getDate().after(startDate) && c.getDate().before(endDate))
         .toList();
-    List<PostResponse> responseList = null;
+    List<PostResponse> responseList =  new ArrayList<>();
     if (postList != null && !postList.isEmpty() && postList.size() > 0) {
       for (Post p : postList) {
         if (responseList == null) {
@@ -248,7 +248,7 @@ public class PostServiceImpl implements PostService {
       throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
     }
 
-    List<Hashtag> hashtagList = null;
+    List<Hashtag> hashtagList = new ArrayList<>();
     List<String> hashtags = postRequest.getHashtag();
     if (hashtags != null && !hashtags.isEmpty() && hashtags.size() > 0) {
       for (String ht : hashtags) {
@@ -305,7 +305,7 @@ public class PostServiceImpl implements PostService {
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
 
-    List<PostResponse> responseList = null;
+    List<PostResponse> responseList = new ArrayList<>();
 
     List<Post> postList = postRepository.getAllPostForUser(userID);
     if (postList != null && !postList.isEmpty() && postList.size() > 0) {
@@ -330,7 +330,7 @@ public class PostServiceImpl implements PostService {
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
 
-    List<PostResponse> responseList = null;
+    List<PostResponse> responseList = new ArrayList<>();
 
     List<Post> postList = postRepository.getAllByUserID(userID);
     if (postList != null && !postList.isEmpty() && postList.size() > 0) {

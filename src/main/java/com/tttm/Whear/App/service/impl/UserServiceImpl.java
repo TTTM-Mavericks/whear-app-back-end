@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
     @Override
 //  @Cacheable(cacheNames = "user", key = "#username", condition = "#username != null", unless = "#result == null")
     public List<UserResponse> getUserbyUsername(String username) throws CustomException {
-        List<UserResponse> resultList = null;
+        List<UserResponse> resultList = new ArrayList<>();
         List<User> listUser = userRepository.findAll();
         for (User u : listUser) {
             if (u.getUsername().toLowerCase().trim().contains(username.toLowerCase().trim())) {
@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
                 resultList.add(convertToUserResponse(u));
             }
         }
-        return resultList;
+        return resultList != null ? resultList : new ArrayList<>();
     }
 
     @Override
@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService {
 //  @Cacheable(cacheNames = "users")
     public List<UserResponse> getAllUser() throws CustomException {
         List<User> userList = userRepository.findAll();
-        List<UserResponse> responseList = null;
+        List<UserResponse> responseList = new ArrayList<>();
         for (User u : userList) {
             if (u != null) {
                 if (responseList == null) {
@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
                 responseList.add(convertToUserResponse(u));
             }
         }
-        return responseList;
+        return responseList != null ? responseList : new ArrayList<>();
     }
 
     @Override

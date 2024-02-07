@@ -54,20 +54,12 @@ public class ClothesController {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       List<ClothesResponse> responseList = clothesService.getAllClothes();
-      if (responseList == null || responseList.isEmpty()) {
-        ObjectNode respon = objectMapper.createObjectNode();
-        respon.put("success", 200);
-        respon.put("message", "Their is no clothes!");
-        respon.set("data", null);
-        return respon;
-      } else {
-        ObjectNode respon = objectMapper.createObjectNode();
-        respon.put("success", 200);
-        respon.put("message", "Their are " + responseList.size() + " clothes");
-        ArrayNode arrayNode = objectMapper.valueToTree(responseList);
-        respon.set("data", arrayNode);
-        return respon;
-      }
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("success", 200);
+      respon.put("message", "Their are " + responseList.size() + " clothes");
+      ArrayNode arrayNode = objectMapper.valueToTree(responseList);
+      respon.set("data", arrayNode);
+      return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("error", -1);

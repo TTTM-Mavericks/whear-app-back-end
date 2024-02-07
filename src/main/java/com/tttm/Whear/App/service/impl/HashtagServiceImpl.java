@@ -48,7 +48,7 @@ public class HashtagServiceImpl implements HashtagService {
   public List<Hashtag> getAllHashtagOfPost(Integer postID) {
     List<PostHashtag> postHashtagList = postHashtagRepository.findAll().stream()
         .filter(s -> s.getPostHashtagKey().getPostID() == postID).toList();
-    List<Hashtag> result = null;
+    List<Hashtag> result = new ArrayList<>();
     for (PostHashtag postHT : postHashtagList) {
       if (result == null) {
         result = new ArrayList<>();

@@ -74,7 +74,7 @@ public class ClothesCollectionServiceImpl implements ClothesCollectionService {
   public List<Clothes> getClothesOfCollection(Integer collectionID) throws CustomException {
     List<CollectionClothes> responseList = collectionClothesRepository.getAllByCollectionID(
         collectionID);
-    List<Clothes> clothesList = null;
+    List<Clothes> clothesList = new ArrayList<>();
     if (responseList != null && !responseList.isEmpty() && responseList.size() > 0) {
       for (CollectionClothes response : responseList) {
         if (clothesList == null) {

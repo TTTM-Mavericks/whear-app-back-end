@@ -72,7 +72,7 @@ public class ReactServiceImpl implements ReactService {
 
     @Override
     public List<ReactResponse> getPostReact(Integer postID) throws CustomException {
-        List<ReactResponse> responseList = null;
+        List<ReactResponse> responseList = new ArrayList<>();
         List<React> reactList = reactRepository.getPostReact(postID);
         if (reactList != null) {
             for (React r : reactList) {

@@ -2,6 +2,7 @@ package com.tttm.Whear.App.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.enums.ENotificationAction;
@@ -51,7 +52,8 @@ public class BrandController {
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
             respon.put("message", "Get List Hot Brand Successfully");
-            respon.set("data", objectMapper.valueToTree(brandService.getListHotBrand()));
+            ArrayNode arr = objectMapper.valueToTree(brandService.getListHotBrand());
+            respon.set("data", arr);
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();

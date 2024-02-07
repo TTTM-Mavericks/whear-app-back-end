@@ -39,7 +39,7 @@ public class NotificationServiceImpl implements NotificationService {
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
     List<Notification> notificationList = notificationRepository.getAllByTargetUserID(userID);
-    List<NotificationResponse> responseList = null;
+    List<NotificationResponse> responseList = new ArrayList<>();
     if (!notificationList.isEmpty() && notificationList.size() > 0) {
       for (Notification noti : notificationList) {
         if (responseList == null) {
@@ -62,7 +62,7 @@ public class NotificationServiceImpl implements NotificationService {
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
     List<Notification> notificationList = notificationRepository.getUnreadNotification(userID);
-    List<NotificationResponse> responseList = null;
+    List<NotificationResponse> responseList = new ArrayList<>();
     if (!notificationList.isEmpty() && notificationList.size() > 0) {
       for (Notification noti : notificationList) {
         if (responseList == null) {
@@ -188,7 +188,7 @@ public class NotificationServiceImpl implements NotificationService {
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
     List<Notification> notificationList = notificationRepository.getAllByTargetUserID(userID);
-    List<NotificationResponse> responseList = null;
+    List<NotificationResponse> responseList = new ArrayList<>();
     if (!notificationList.isEmpty() && notificationList.size() > 0) {
       for (Notification noti : notificationList) {
         if (responseList == null) {

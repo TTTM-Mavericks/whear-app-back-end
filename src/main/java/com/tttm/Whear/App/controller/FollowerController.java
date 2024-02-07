@@ -1,6 +1,7 @@
 package com.tttm.Whear.App.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.enums.ENotificationAction;
@@ -86,7 +87,8 @@ public class FollowerController {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Get All Follower Users Successfully");
-      respon.set("data", objectMapper.valueToTree(followService.getAllFollowerUser(userid)));
+      ArrayNode arr = objectMapper.valueToTree(followService.getAllFollowerUser(userid));
+      respon.set("data", arr);
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();

@@ -56,7 +56,7 @@ public class CollectionServiceImpl implements CollectionService {
       }
       String userID = user.getUserID();
       List<Collection> collectionList = collectionRepository.getAllByUserID(userID);
-      List<CollectionResponse> responseList = null;
+      List<CollectionResponse> responseList = new ArrayList<>();
       for (Collection col : collectionList) {
         if (responseList == null) {
           responseList = new ArrayList<>();
@@ -79,7 +79,7 @@ public class CollectionServiceImpl implements CollectionService {
     Collection collection = collectionRepository.findByCollectionID(collectionID);
     if (collection != null) {
 
-      List<ClothesResponse> clothesList = null;
+      List<ClothesResponse> clothesList = new ArrayList<>();
       List<CollectionClothes> collectionClothesList = collectionClothesRepository.getAllByCollectionID(
           collectionID);
       if (collectionClothesList != null) {

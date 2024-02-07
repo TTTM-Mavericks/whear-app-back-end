@@ -91,7 +91,7 @@ public class FollowServiceImpl implements FollowService {
       throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
     }
 
-    List<UserResponse> userResponseList = null;
+    List<UserResponse> userResponseList = new ArrayList<>();
     List<Follower> fl = followerRepository.findAllFollowingUserByUserID(user.getUserID());
     if (fl != null && !fl.isEmpty() && fl.size() > 0) {
       for (Follower f : fl) {

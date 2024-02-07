@@ -35,7 +35,7 @@ public class CollectionController {
         ObjectNode respon = objectMapper.createObjectNode();
         respon.put("success", 200);
         respon.put("message", "Their is no collection for user: " + userID);
-        respon.set("data", null);
+        respon.set("data", objectMapper.valueToTree(collectionResponseList));
         return respon;
       } else {
         ObjectNode respon = objectMapper.createObjectNode();
@@ -86,14 +86,7 @@ public class CollectionController {
       if (collectionResponse != null) {
         response.put("success", 200);
         response.put("message", "Collection is updated!");
-        response.set("data", objectMapper.createObjectNode()
-            .put("id", collectionResponse.getCollectionID())
-            .put("name", collectionResponse.getNameOfCollection())
-            .put("type", collectionResponse.getTypeOfCollection())
-            .put("numberOfClothes", collectionResponse.getNumberOfClothes())
-            .put("collectionStatus", collectionResponse.getCollectionStatus().toString())
-            .put("imgUrl", collectionResponse.getImgUrl())
-        );
+        response.set("data", objectMapper.valueToTree(collectionResponse));
       }
       return response;
     } catch (Exception ex) {
@@ -136,14 +129,7 @@ public class CollectionController {
       if (collectionResponse != null) {
         response.put("success", 200);
         response.put("message", "Collection is created!");
-        response.set("data", objectMapper.createObjectNode()
-            .put("id", collectionResponse.getCollectionID())
-            .put("name", collectionResponse.getNameOfCollection())
-            .put("type", collectionResponse.getTypeOfCollection())
-            .put("numberOfClothes", collectionResponse.getNumberOfClothes())
-            .put("collectionStatus", collectionResponse.getCollectionStatus().toString())
-            .put("imgUrl", collectionResponse.getImgUrl())
-        );
+        response.set("data", objectMapper.valueToTree(collectionResponse));
       }
       return response;
     } catch (Exception ex) {
