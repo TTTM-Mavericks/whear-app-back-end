@@ -108,8 +108,8 @@ public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesServic
 
     private RuleMatchingClothesResponse convertToRuleMatchingClothesResponse(RuleMatchingClothes ruleMatchingClothes) {
         return RuleMatchingClothesResponse.builder()
-                .styleType(ruleMatchingClothes.getStyleType().toString())
-                .bodyShapeType(ruleMatchingClothes.getBodyShapeType().toString())
+                //.styleType(ruleMatchingClothes.getStyleType().toString())
+                //.bodyShapeType(ruleMatchingClothes.getBodyShapeType().toString())
                 .topInside(ruleMatchingClothes.getTopInside().toString())
                 .topInsideColor(ruleMatchingClothes.getTopInsideColor().toString())
                 .topOutside(ruleMatchingClothes.getTopOutside().toString())

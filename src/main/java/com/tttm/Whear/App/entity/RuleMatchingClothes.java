@@ -24,11 +24,21 @@ public class RuleMatchingClothes extends AuditEntity implements Serializable {
     @Column(name = "ruleid")
     private Integer ruleID;
 
-    @Column(name = "style_type", nullable = false)
-    private String styleType;
+    // Style Rule
+    @Column(name = "styleID")
+    private Integer styleID;
 
-    @Column(name = "body_shape_type", nullable = false)
-    private String bodyShapeType;
+    @ManyToOne
+    @JoinColumn(name = "styleID", referencedColumnName = "styleID", nullable = false, insertable = false, updatable = false)
+    private Style style;
+
+    // BodyShape Rule
+    @Column(name = "bodyShapeID")
+    private Integer bodyShapeID;
+
+    @ManyToOne
+    @JoinColumn(name = "bodyShapeID", referencedColumnName = "bodyShapeID", nullable = false, insertable = false, updatable = false)
+    private BodyShape BodyShape;
 
     // Top Kind, Materials and Color Rule
     @Column(name = "top_inside", nullable = true)

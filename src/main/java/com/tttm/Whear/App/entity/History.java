@@ -30,4 +30,7 @@ public class History extends AuditEntity implements Serializable {
 
   @Column(name = "historyItem", unique = false, nullable = true, columnDefinition = "nvarchar(550)")
   private String historyItem;
+
+  @Column(name = "historyIndex")
+  private Integer historyIndex; // 1: Default styles, 2: Update Styles, 3: History Search, 4: React, Like
 }
