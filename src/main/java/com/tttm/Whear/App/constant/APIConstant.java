@@ -33,6 +33,7 @@ public class APIConstant {
     public static final String UPDATE_USER_BY_USERID = "/update-user-by-userid";
     public static final String CREATE_NEW_USER = "/create-new-user";
     public static final String UPDATE_STATUS_USER = "/update-status-user";
+
   }
 
   public class PostAPI {
@@ -160,5 +161,10 @@ public class APIConstant {
     public static final String CREATE_NEW_RULE = "/create-new-rules";
     public static final String GET_RULE_BY_ID = "/get-rule-by-id";
     public static final String GET_ALL_RULE = "/get-all-rule";
+  }
+
+  public class UserStyleAPI{
+    public static final String USER_STYLE = APIConstant.API + "/user-style";
+    public static final String CREATE_STYLE_AND_BODY_SHAPE = "/create-style-and-body-shape";
   }
 }

@@ -23,6 +23,9 @@ public enum ConstantMessage {
   REQUIRED_UPDATE_PLAN("Update plan to use this feature"),
   HAVE_NEW_POST("Have A New Post!"),
   HAVE_NEW_FOLLOWER("Have A New Follower!"),
+  CAN_NOT_FIND_STYLE_NAME("Can not find Style Name"),
+  STYLE_ID_AND_USER_ID_IS_EXIST("StyleID and UserID is existed"),
+  CAN_NOT_FIND_BODY_SHAPE_NAME("Can not find Body Shape Name"),
   USER_NOT_EXIST_IN_DATABASE("There is no user exist in database");
 
   private final String message;

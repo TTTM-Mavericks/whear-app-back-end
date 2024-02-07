@@ -171,7 +171,7 @@ public class WhearAppApplication {
                 .bodyShapeName(BodyShapeType.LEAN_OR_SLIM_SHAPE)
                 .build();
         BodyShape ROUND_SHAPE = BodyShape.builder()
-                .bodyShapeName(BodyShapeType.HOURGLASS_SHAPE)
+                .bodyShapeName(BodyShapeType.ROUND_SHAPE)
                 .build();
         bodyShapeRepository.save(HOURGLASS_SHAPE);
         bodyShapeRepository.save(PEAR_SHAPE);

@@ -4,8 +4,8 @@ import com.tttm.Whear.App.entity.Customer;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.utils.request.StyleAndBodyShapeRequest;
 import com.tttm.Whear.App.utils.request.UserRequest;
-import com.tttm.Whear.App.utils.response.AuthenticationResponse;
 import com.tttm.Whear.App.utils.response.CustomerResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.util.List;
@@ -40,4 +40,6 @@ public interface UserService {
   User getUserByEmail(String email) throws CustomException;
 
   Optional<User> findUserByEmailAndActiveStatus(String email, StatusGeneral status);
+  void updateBodyShapeToUser(User user, String bodyShapeName) throws CustomException;
+
 }

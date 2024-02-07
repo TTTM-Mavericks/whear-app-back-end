@@ -4,12 +4,18 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Data
 @Embeddable
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserStyleKey implements Serializable {
     @Column(name = "userID")
     private String userID;
