@@ -167,4 +167,13 @@ public class APIConstant {
     public static final String USER_STYLE = APIConstant.API + "/user-style";
     public static final String CREATE_STYLE_AND_BODY_SHAPE = "/create-style-and-body-shape";
   }
+
+  /**
+   * PAYMENT API
+   */
+  public class PaymentAPI{
+    public static final String PAYMENT = APIConstant.API + "/payment";
+    public static final String CREATE_PAYMENT = "/create-payment";
+    public static final String GET_PAYMENT_BY_ID = "/get-payment-infor";
+  }
 }
