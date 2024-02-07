@@ -17,7 +17,6 @@ import com.tttm.Whear.App.utils.response.PostResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,21 +110,37 @@ public class PostServiceImpl implements PostService {
   @Override
 //  @Cacheable(cacheNames = "posts")
   public List<PostResponse> getAllPost() {
-    return postRepository.findAll()
-        .stream()
-        .map(this::convertToPostResponse)
-        .filter(Objects::nonNull)
-        .toList();
+    List<Post> postList = postRepository.findAll();
+    List<PostResponse> responseList = null;
+    if (postList != null) {
+      for (Post p : postList) {
+        if (responseList == null) {
+          responseList = new ArrayList<>();
+        }
+        responseList.add(convertToPostResponse(p));
+      }
+    }
+    return responseList;
   }
 
   @Override
   public List<PostResponse> getAllPostByTypeOfPost(String typeOfPosts) throws CustomException {
-    return postRepository.findAll()
-        .stream()
-        .map(this::convertToPostResponse)
-        .filter(c -> c.getTypeOfPosts().toString().trim().toLowerCase()
-            .contains(typeOfPosts.trim().toLowerCase()))
-        .toList();
+    if (typeOfPosts == null || typeOfPosts.isEmpty() || typeOfPosts.isBlank()) {
+      throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
+    }
+    List<Post> postList = postRepository.findAll();
+    List<PostResponse> responseList = null;
+    if (postList != null) {
+      for (Post p : postList) {
+        if (typeOfPosts.equals(p.getTypeOfPosts().toString())) {
+          if (responseList == null) {
+            responseList = new ArrayList<>();
+          }
+          responseList.add(convertToPostResponse(p));
+        }
+      }
+    }
+    return responseList;
   }
 
   @Override
@@ -155,11 +170,20 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public List<PostResponse> getAllPostInRange(Date startDate, Date endDate) throws CustomException {
-    return postRepository.findAll()
+    List<Post> postList = postRepository.findAll()
         .stream()
         .filter(c -> c.getDate().after(startDate) && c.getDate().before(endDate))
-        .map(this::convertToPostResponse)
         .toList();
+    List<PostResponse> responseList = null;
+    if (postList != null && !postList.isEmpty() && postList.size() > 0) {
+      for (Post p : postList) {
+        if (responseList == null) {
+          responseList = new ArrayList<>();
+        }
+        responseList.add(convertToPostResponse(p));
+      }
+    }
+    return responseList;
   }
 
   @Override
