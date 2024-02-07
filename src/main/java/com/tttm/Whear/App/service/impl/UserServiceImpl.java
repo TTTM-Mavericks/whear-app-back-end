@@ -217,7 +217,7 @@ public class UserServiceImpl implements UserService {
     User updateUser = User
         .builder()
         .userID(user.getUserID())
-        .username(user.getUsername())
+        .username(userRequest.getUsername())
         .password(userRequest.getPassword())
         .dateOfBirth(userRequest.getDateOfBirth())
         .phone(userRequest.getPhone())
