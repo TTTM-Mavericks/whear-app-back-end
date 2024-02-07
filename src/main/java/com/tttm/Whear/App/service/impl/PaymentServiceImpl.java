@@ -6,20 +6,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.Customer;
+import com.tttm.Whear.App.entity.Payment;
 import com.tttm.Whear.App.entity.SubRole;
 import com.tttm.Whear.App.enums.ESubRole;
 import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.repository.PaymentRepository;
 import com.tttm.Whear.App.service.CustomerService;
 import com.tttm.Whear.App.service.PaymentService;
 import com.tttm.Whear.App.service.SubroleService;
 import com.tttm.Whear.App.utils.request.PaymentRequest;
 import com.tttm.Whear.App.utils.response.PaymentData;
+import com.tttm.Whear.App.utils.response.PaymentInformation;
+import com.tttm.Whear.App.utils.response.PaymentInformationData;
 import com.tttm.Whear.App.utils.response.PaymentResponse;
+import com.tttm.Whear.App.utils.response.Transactions;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -49,6 +56,7 @@ public class PaymentServiceImpl implements PaymentService {
 
   private final CustomerService customerService;
   private final SubroleService subroleService;
+  private final PaymentRepository paymentRepository;
 
   @Override
   public PaymentResponse createPayment(PaymentRequest paymentRequest)
@@ -64,7 +72,6 @@ public class PaymentServiceImpl implements PaymentService {
           ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + " " + customerID);
     }
 
-    String description = paymentRequest.getDescription().trim();
     String buyerName = paymentRequest.getBuyerName().trim();
     String buyerEmail = paymentRequest.getBuyerEmail().trim();
     String buyerPhone = paymentRequest.getBuyerPhone().trim();
@@ -96,7 +103,7 @@ public class PaymentServiceImpl implements PaymentService {
     Integer orderCode = Integer.parseInt(
         currentTimeString.substring(currentTimeString.length() - 6));
 
-    String status = "WAITING";
+    String status = "PENDING";
 
     paymentRequest.setBuyerEmail(buyerEmail);
     paymentRequest.setBuyerName(buyerName);
@@ -126,11 +133,20 @@ public class PaymentServiceImpl implements PaymentService {
     if (!Objects.equals(res.get("code").asText(), "00")) {
       throw new CustomException("Fail");
     }
+    String bin = res.get("data").get("bin").asText();
+    String accountNumber = res.get("data").get("accountNumber").asText();
+    String accountName = res.get("data").get("accountName").asText();
+    String description = res.get("data").get("description").asText();
+    String currency = res.get("data").get("currency").asText();
+    String paymentLinkId = res.get("data").get("paymentLinkId").asText();
+    status = res.get("data").get("status").asText();
     String checkoutUrl = res.get("data").get("checkoutUrl").asText();
+    String qrCode = res.get("data").get("qrCode").asText();
 
     //Kiểm tra dữ liệu có đúng không
     String paymentLinkResSignature = createSignatureFromObj(res.get("data"), checksumKey);
-    System.out.println(paymentLinkResSignature);
+//    System.out.println("RES: " + res);
+//    System.out.println(paymentLinkResSignature);
     if (!paymentLinkResSignature.equals(res.get("signature").asText())) {
 //      orderRepository.deleteOrderByOrderID(newestOrder.getId());
       throw new CustomException("Signature is not compatible");
@@ -142,23 +158,102 @@ public class PaymentServiceImpl implements PaymentService {
         .desc("Success - Thành công")
         .data(PaymentData
             .builder()
-            .bin("")
-            .accountNumber("")
-            .accountName("")
-            .amount(0)
-            .description("")
+            .bin(bin)
+            .accountNumber(accountNumber)
+            .accountName(accountName)
+            .amount(amount)
+            .description(description)
             .orderCode(orderCode)
-            .currency("")
-            .paymentLinkId("")
-            .status("PENDING")
-            .checkoutUrl("")
-            .qrCode("")
+            .currency(currency)
+            .paymentLinkId(paymentLinkId)
+            .status(status)
+            .checkoutUrl(checkoutUrl)
+            .qrCode(qrCode)
             .build()
         )
         .signature(paymentRequest.getSignature())
         .build();
 
+    Payment payment = Payment
+        .builder()
+        .paymentID(orderCode)
+        .customerID(customerID)
+        .value(amount)
+        .status(status)
+        .checkoutUrl(checkoutUrl)
+        .qrCode(qrCode)
+        .build();
+    paymentRepository.save(payment);
     return paymentResponse;
+  }
+
+  @Override
+  public PaymentInformation getPaymentInfor(String paymentID)
+      throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.set("x-client-id", clientId);
+    headers.set("x-api-key", apiKey);
+    // Gửi yêu cầu POST
+    WebClient client = WebClient.create();
+    Mono<String> response = client.get()
+        .uri(createPaymentLinkUrl + "/" + paymentID)
+        .headers(httpHeaders -> httpHeaders.putAll(headers))
+        .retrieve()
+        .bodyToMono(String.class);
+    String responseBody = response.block();
+    JsonNode res = objectMapper.readTree(responseBody);
+    System.out.println(res);
+    if (!Objects.equals(res.get("code").asText(), "00")) {
+      throw new CustomException("Fail");
+    }
+
+    String code = res.get("code").asText();
+    String desc = res.get("desc").asText();
+    String id = res.get("data").get("id").asText();
+    Integer orderCode = Integer.parseInt(res.get("data").get("orderCode").asText());
+    Integer amount = Integer.parseInt(res.get("data").get("amount").asText());
+    Integer amountPaid = Integer.parseInt(res.get("data").get("amountPaid").asText());
+    Integer amountRemaining = Integer.parseInt(res.get("data").get("amountRemaining").asText());
+    String status = res.get("data").get("status").asText();
+    String createdAt = res.get("data").get("createdAt").asText();
+    List<Transactions> transactions = new ArrayList<>();
+    JsonNode jsonArrayNode = res.get("data").get("transactions");
+    for (JsonNode jsonNode : jsonArrayNode) {
+      Transactions transactionsObject = objectMapper.convertValue(jsonNode, Transactions.class);
+      transactions.add(transactionsObject);
+    }
+    String canceledAt = res.get("data").get("canceledAt").asText();
+    String cancellationReason = res.get("data").get("cancellationReason").asText();
+    String signature = res.get("signature").asText();
+
+    PaymentInformationData data = PaymentInformationData
+        .builder()
+        .id(id)
+        .orderCode(orderCode)
+        .amount(amount)
+        .amountPaid(amountPaid)
+        .amountRemaining(amountRemaining)
+        .status(status)
+        .createdAt(createdAt)
+        .transactions(transactions)
+        .canceledAt(canceledAt)
+        .cancellationReason(cancellationReason)
+        .build();
+
+    Payment paymentObject = paymentRepository.getByPaymentID(orderCode);
+
+    PaymentInformation paymentInformation = PaymentInformation
+        .builder()
+        .code(code)
+        .desc(desc)
+        .data(data)
+        .signature(signature)
+        .checkoutUrl(paymentObject.getCheckoutUrl())
+        .qrCode(paymentObject.getQrCode())
+        .build();
+    return paymentInformation;
   }
 
   private static String convertObjToQueryStr(JsonNode object) {

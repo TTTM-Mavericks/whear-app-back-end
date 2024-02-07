@@ -5,6 +5,7 @@ import com.tttm.Whear.App.enums.StatusGeneral;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Payment extends AuditEntity implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "paymentID")
   private Integer paymentID;
 
@@ -32,14 +32,15 @@ public class Payment extends AuditEntity implements Serializable {
   @JoinColumn(name = "customerID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
   private Customer customer;
 
-  @Column(name = "createTime", unique = false, nullable = true)
-  @Temporal(TemporalType.DATE)
-  private Date createTime;
-
   @Column(name = "value", unique = false, nullable = true)
-  private Double value;
+  private Integer value;
 
   @Column(name = "status")
-  @Enumerated(EnumType.STRING)
-  private StatusGeneral status;
+  private String status;
+
+  @Column(name = "checkoutUrl")
+  private String checkoutUrl;
+
+  @Column(name = "qrCode")
+  private String qrCode;
 }

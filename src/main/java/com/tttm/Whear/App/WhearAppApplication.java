@@ -55,16 +55,19 @@ public class WhearAppApplication {
             .subRoleName(ESubRole.LV1)
             .numberOfCollection(2)
             .numberOfClothes(2)
+            .price(2000)
             .build();
         SubRole lv2 = SubRole.builder()
             .subRoleName(ESubRole.LV2)
             .numberOfCollection(3)
             .numberOfClothes(3)
+            .price(4000)
             .build();
         SubRole lv3 = SubRole.builder()
             .subRoleName(ESubRole.LV3)
             .numberOfCollection(4)
             .numberOfClothes(4)
+            .price(6000)
             .build();
         subRoleRepository.save(lv1);
         subRoleRepository.save(lv2);
