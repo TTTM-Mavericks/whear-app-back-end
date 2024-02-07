@@ -6,18 +6,19 @@ import com.tttm.Whear.App.enums.Language;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
-import jakarta.persistence.*;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +35,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
-public class User extends AuditEntity implements Serializable, UserDetails{
+public class User extends AuditEntity implements Serializable, UserDetails {
+
   @Id
   @Column(name = "userID")
   private String userID;
@@ -62,7 +64,7 @@ public class User extends AuditEntity implements Serializable, UserDetails{
   @Enumerated(EnumType.STRING)
   private ERole role;
 
-  @Column(name = "imgUrl", columnDefinition="TEXT")
+  @Column(name = "imgUrl", columnDefinition = "TEXT")
   private String imgUrl;
 
   @Column(name = "status")
@@ -84,6 +86,10 @@ public class User extends AuditEntity implements Serializable, UserDetails{
   @Override
   public String getUsername() {
     return email;
+  }
+
+  public String getNameOfUser() {
+    return username;
   }
 
   @Override

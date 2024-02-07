@@ -236,6 +236,7 @@ public class UserServiceImpl implements UserService {
                 .build();
         userRepository.save(updateUser);
         logger.info("Update User Information Successfully");
+        updateUser = userRepository.getUserByUserID(user.getUserID());
         return convertToUserResponse(updateUser);
     }
 
@@ -321,7 +322,7 @@ public class UserServiceImpl implements UserService {
         return UserResponse
                 .builder()
                 .userID(user.getUserID())
-                .username(user.getUsername())
+                .username(user.getNameOfUser())
                 .password(user.getPassword())
                 .dateOfBirth(String.valueOf(df.format(user.getDateOfBirth())))
                 .phone(user.getPhone())
@@ -339,7 +340,7 @@ public class UserServiceImpl implements UserService {
         return CustomerResponse
                 .builder()
                 .userID(user.getUserID())
-                .username(user.getUsername())
+                .username(user.getNameOfUser())
                 .password(user.getPassword())
                 .dateOfBirth(user.getDateOfBirth().toString())
                 .phone(user.getPhone())
