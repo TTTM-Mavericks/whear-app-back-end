@@ -81,56 +81,56 @@ public class WhearAppApplication {
     return args -> {
       if (styleRepository.findAll().size() == 0) {
         Style CYBERPUNK = Style.builder()
-                .styleName(StyleType.CYBERPUNK)
-                .build();
+            .styleName(StyleType.CYBERPUNK)
+            .build();
         Style CLASSIC = Style.builder()
-                .styleName(StyleType.CLASSIC)
-                .build();
+            .styleName(StyleType.CLASSIC)
+            .build();
         Style ROCK = Style.builder()
-                .styleName(StyleType.ROCK)
-                .build();
+            .styleName(StyleType.ROCK)
+            .build();
         Style PREPPY = Style.builder()
-                .styleName(StyleType.PREPPY)
-                .build();
+            .styleName(StyleType.PREPPY)
+            .build();
         Style NORMCORE = Style.builder()
-                .styleName(StyleType.NORMCORE)
-                .build();
+            .styleName(StyleType.NORMCORE)
+            .build();
         Style MINIMALISM = Style.builder()
-                .styleName(StyleType.MINIMALISM)
-                .build();
+            .styleName(StyleType.MINIMALISM)
+            .build();
         Style BASIC = Style.builder()
-                .styleName(StyleType.BASIC)
-                .build();
+            .styleName(StyleType.BASIC)
+            .build();
         Style SPORTY = Style.builder()
-                .styleName(StyleType.SPORTY)
-                .build();
+            .styleName(StyleType.SPORTY)
+            .build();
         Style PARISIAN = Style.builder()
-                .styleName(StyleType.PARISIAN)
-                .build();
+            .styleName(StyleType.PARISIAN)
+            .build();
         Style GOTHIC = Style.builder()
-                .styleName(StyleType.GOTHIC)
-                .build();
+            .styleName(StyleType.GOTHIC)
+            .build();
         Style BOHEMIAN = Style.builder()
-                .styleName(StyleType.MINIMALISM)
-                .build();
+            .styleName(StyleType.BOHEMIAN)
+            .build();
         Style Y2K = Style.builder()
-                .styleName(StyleType.Y2K)
-                .build();
+            .styleName(StyleType.Y2K)
+            .build();
         Style OLD_MONEY = Style.builder()
-                .styleName(StyleType.OLD_MONEY)
-                .build();
+            .styleName(StyleType.OLD_MONEY)
+            .build();
         Style HIPPIE = Style.builder()
-                .styleName(StyleType.HIPPIE)
-                .build();
+            .styleName(StyleType.HIPPIE)
+            .build();
         Style VINTAGE = Style.builder()
-                .styleName(StyleType.VINTAGE)
-                .build();
+            .styleName(StyleType.VINTAGE)
+            .build();
         Style INDIE = Style.builder()
-                .styleName(StyleType.INDIE)
-                .build();
+            .styleName(StyleType.INDIE)
+            .build();
         Style E_GIRL = Style.builder()
-                .styleName(StyleType.E_GIRL)
-                .build();
+            .styleName(StyleType.E_GIRL)
+            .build();
         styleRepository.save(CYBERPUNK);
         styleRepository.save(CLASSIC);
         styleRepository.save(ROCK);
@@ -138,7 +138,7 @@ public class WhearAppApplication {
         styleRepository.save(NORMCORE);
         styleRepository.save(MINIMALISM);
         styleRepository.save(BASIC);
-        styleRepository.save(SPORTY );
+        styleRepository.save(SPORTY);
         styleRepository.save(PARISIAN);
         styleRepository.save(GOTHIC);
         styleRepository.save(BOHEMIAN);
@@ -151,31 +151,32 @@ public class WhearAppApplication {
       }
     };
   }
+
   @Bean
-  public CommandLineRunner bodyShapeRinner(BodyShapeRepository bodyShapeRepository){
+  public CommandLineRunner bodyShapeRinner(BodyShapeRepository bodyShapeRepository) {
     return args -> {
       if (bodyShapeRepository.findAll().size() == 0) {
         BodyShape HOURGLASS_SHAPE = BodyShape.builder()
-                .bodyShapeName(BodyShapeType.HOURGLASS_SHAPE)
-                .build();
+            .bodyShapeName(BodyShapeType.HOURGLASS_SHAPE)
+            .build();
         BodyShape PEAR_SHAPE = BodyShape.builder()
-                .bodyShapeName(BodyShapeType.PEAR_SHAPE)
-                .build();
-        BodyShape APPLE_SHAPE  = BodyShape.builder()
-                .bodyShapeName(BodyShapeType.APPLE_SHAPE )
-                .build();
+            .bodyShapeName(BodyShapeType.PEAR_SHAPE)
+            .build();
+        BodyShape APPLE_SHAPE = BodyShape.builder()
+            .bodyShapeName(BodyShapeType.APPLE_SHAPE)
+            .build();
         BodyShape RECTANGLE_SHAPE = BodyShape.builder()
-                .bodyShapeName(BodyShapeType.RECTANGLE_SHAPE)
-                .build();
+            .bodyShapeName(BodyShapeType.RECTANGLE_SHAPE)
+            .build();
         BodyShape INVERTED_TRIANGLE_SHAPE = BodyShape.builder()
-                .bodyShapeName(BodyShapeType.INVERTED_TRIANGLE_SHAPE)
-                .build();
+            .bodyShapeName(BodyShapeType.INVERTED_TRIANGLE_SHAPE)
+            .build();
         BodyShape LEAN_OR_SLIM_SHAPE = BodyShape.builder()
-                .bodyShapeName(BodyShapeType.LEAN_OR_SLIM_SHAPE)
-                .build();
+            .bodyShapeName(BodyShapeType.LEAN_OR_SLIM_SHAPE)
+            .build();
         BodyShape ROUND_SHAPE = BodyShape.builder()
-                .bodyShapeName(BodyShapeType.ROUND_SHAPE)
-                .build();
+            .bodyShapeName(BodyShapeType.ROUND_SHAPE)
+            .build();
         bodyShapeRepository.save(HOURGLASS_SHAPE);
         bodyShapeRepository.save(PEAR_SHAPE);
         bodyShapeRepository.save(APPLE_SHAPE);

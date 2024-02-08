@@ -1,6 +1,5 @@
 package com.tttm.Whear.App.utils.request;
 
-import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.enums.TypeOfPosts;
 import java.util.Date;
 import java.util.List;
@@ -20,5 +19,7 @@ public class PostRequest {
   private TypeOfPosts typeOfPosts;
   private List<String> hashtag;
   private Date date;
-  private StatusGeneral status;
+  private String status;
+  private String content;
+  private List<String> image;
 }

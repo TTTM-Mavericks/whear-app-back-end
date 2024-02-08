@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "post_image")
-public class PostImages extends AuditEntity implements Serializable {
+public class PostImages implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

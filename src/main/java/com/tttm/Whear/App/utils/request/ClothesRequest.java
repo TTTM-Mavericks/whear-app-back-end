@@ -28,4 +28,5 @@ public class ClothesRequest {
   private List<String> clothesColors;
   private List<String> clothesImages;
   private List<String> clothesSizes;
+  private List<String> clothesStyle;
 }
