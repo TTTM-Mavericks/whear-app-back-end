@@ -26,4 +26,5 @@ public class ClothesResponse {
   private List<String> clothesImages;
   private List<String> clothesSizes;
   private List<String> clothesColors;
+  private List<String> clothesStyles;
 }

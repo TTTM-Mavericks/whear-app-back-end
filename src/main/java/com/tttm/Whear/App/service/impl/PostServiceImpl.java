@@ -5,11 +5,11 @@ import com.tttm.Whear.App.entity.Hashtag;
 import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.entity.PostHashtag;
 import com.tttm.Whear.App.entity.User;
-import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.PostHashtagRepository;
 import com.tttm.Whear.App.repository.PostRepository;
 import com.tttm.Whear.App.service.HashtagService;
+import com.tttm.Whear.App.service.PostImageService;
 import com.tttm.Whear.App.service.PostService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.PostRequest;
@@ -31,6 +31,7 @@ public class PostServiceImpl implements PostService {
   private final UserService userService;
   private final HashtagService hashtagService;
   private final PostHashtagRepository postHashtagRepository;
+  private final PostImageService postImageService;
 
   private boolean checkValidArguement(PostRequest postRequest) {
     return postRequest.getPostID() != null && postRequest.getUserID() != null &&
@@ -79,10 +80,18 @@ public class PostServiceImpl implements PostService {
         .postID(Integer.valueOf(String.valueOf(postRepository.count() + 1)))
         .userID(postRequest.getUserID())
         .typeOfPosts(postRequest.getTypeOfPosts() != null ? postRequest.getTypeOfPosts() : null)
-        .status(StatusGeneral.ACTIVE)
+        .status(postRequest.getStatus())
+        .content(postRequest.getContent())
         .date(new Date())
         .build();
     post = postRepository.save(post);
+
+    List<String> postImage = postRequest.getImage();
+    if (postImage != null && !postImage.isEmpty() && postImage.size() > 0) {
+      for (String image : postImage) {
+        postImageService.createImage(post.getPostID(), image);
+      }
+    }
 
     for (Hashtag ht : hashtagList) {
       postHashtagRepository.insertPostHashtag(ht.getHashtagID(), post.getPostID());
@@ -109,7 +118,7 @@ public class PostServiceImpl implements PostService {
 
   @Override
 //  @Cacheable(cacheNames = "posts")
-  public List<PostResponse> getAllPost() {
+  public List<PostResponse> getAllPost() throws CustomException {
     List<Post> postList = postRepository.findAll();
     List<PostResponse> responseList = new ArrayList<>();
     if (postList != null) {
@@ -174,7 +183,7 @@ public class PostServiceImpl implements PostService {
         .stream()
         .filter(c -> c.getDate().after(startDate) && c.getDate().before(endDate))
         .toList();
-    List<PostResponse> responseList =  new ArrayList<>();
+    List<PostResponse> responseList = new ArrayList<>();
     if (postList != null && !postList.isEmpty() && postList.size() > 0) {
       for (Post p : postList) {
         if (responseList == null) {
@@ -344,16 +353,26 @@ public class PostServiceImpl implements PostService {
     return responseList;
   }
 
-  private PostResponse convertToPostResponse(Post post) {
+  private PostResponse convertToPostResponse(Post post) throws CustomException {
+    List<String> postImage = postImageService
+        .getAllImageOfPost(post.getPostID())
+        .stream()
+        .map(postImages -> postImages.getImageUrl().toString())
+        .toList();
+    List<String> postHashtag = hashtagService
+        .getAllHashtagOfPost(post.getPostID())
+        .stream()
+        .map(postImages -> postImages.getHashtag())
+        .toList();
     return PostResponse
         .builder()
-        .typeOfPosts(post.getTypeOfPosts())
         .postID(post.getPostID())
+        .userResponse(userService.getUserbyUserID(post.getUserID()))
+        .typeOfPosts(post.getTypeOfPosts())
+        .hashtag(postHashtag)
+        .content(post.getContent())
+        .image(postImage)
         .date(post.getDate().toString())
-        .hashtag(
-            hashtagService.getAllHashtagOfPost(post.getPostID())
-        )
-        .userID(post.getUserID())
         .status(post.getStatus())
         .build();
   }

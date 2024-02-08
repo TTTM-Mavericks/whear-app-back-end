@@ -3,6 +3,7 @@ package com.tttm.Whear.App.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant.ReactAPI;
+import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.NotificationService;
@@ -42,13 +43,14 @@ public class ReactController {
       respon.set("data", objectMapper.valueToTree(reactResponse));
 
       PostResponse postResponse = postService.getPostByPostID(reactRequest.getPostID());
+      Post post = postService.getPostEntityByPostID(postResponse.getPostID());
 
       if (postResponse != null) {
         NotificationRequest notiRequest = NotificationRequest.builder()
             .action(ENotificationAction.REACT.name())
             .actionID(postResponse.getPostID())
             .baseUserID(reactRequest.getUserID())
-            .targetUserID(postResponse.getUserID())
+            .targetUserID(post.getUserID())
             .dateTime(LocalDateTime.now())
             .message("New React")
             .status(false)

@@ -49,13 +49,13 @@ public class PostController {
       respon.put("message", "Create new post Successfully");
       respon.set("data", objectMapper.valueToTree(postResponse));
 
-      List<UserResponse> follwers = followService.getAllFollowerUser(postResponse.getUserID());
+      List<UserResponse> follwers = followService.getAllFollowerUser(postRequest.getUserID());
       if (follwers != null && !follwers.isEmpty() && follwers.size() > 0) {
         for (UserResponse user : follwers) {
           NotificationRequest notiRequest = NotificationRequest.builder()
               .action(ENotificationAction.POST.name())
               .actionID(postResponse.getPostID())
-              .baseUserID(postResponse.getUserID())
+              .baseUserID(postRequest.getUserID())
               .targetUserID(user.getUserID())
               .dateTime(LocalDateTime.now())
               .message("New Post")

@@ -50,7 +50,7 @@ public class Clothes extends AuditEntity implements Serializable {
   @Enumerated(EnumType.STRING)
   private ShapeType shape;
 
-  @Column(name = "description", columnDefinition = "nvarchar(550)")
+  @Column(name = "description", columnDefinition = "nvarchar(1000)")
   private String description;
 
   @Column(name = "link")
