@@ -52,4 +52,24 @@ public class RecommendationController {
             return respon;
         }
     }
+
+    @GetMapping(APIConstant.RecommendationAPI.GET_LIST_RECOMMENDATION_BY_KEYWORD)
+    public ObjectNode getListRecommendationByKeyword(@RequestParam("userID") String userID,
+                                                     @RequestParam("keyword") String keyword)
+            throws CustomException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("success", 200);
+            respon.put("message", "GET LIST RECOMMMENDATION BY KEYWORD SUCCESSFULLY");
+            respon.set("data", objectMapper.valueToTree(recommendationService.getListRecommendationByKeyword(userID, keyword)));
+            return respon;
+        } catch (Exception ex) {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("error", -1);
+            respon.put("message", ex.getMessage());
+            respon.set("data", null);
+            return respon;
+        }
+    }
 }

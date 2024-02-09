@@ -6,7 +6,6 @@ import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.HistoryService;
 import com.tttm.Whear.App.utils.request.HistoryRequest;
-import com.tttm.Whear.App.utils.request.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +22,7 @@ public class HistoryController {
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
             respon.put("message", "Create History Items Successfully");
-            historyService.createHistoryItem(historyRequest);
+            historyService.createHistoryItemBySearching(historyRequest);
             respon.set("data", null);
             return respon;
         } catch (Exception ex) {

@@ -20,6 +20,7 @@ public class ClothesItemDto {
     private List<SeasonType> seasons;
     private List<SizeType> sizes;
     private List<ColorType> colors;
+    private List<StyleType> styles;
     public String sizeToString()
     {
         return this.sizes
@@ -42,5 +43,13 @@ public class ClothesItemDto {
             .stream()
             .map(season -> season + " ")
             .collect(Collectors.joining());
+    }
+
+    public String styleToString()
+    {
+        return this.styles
+                .stream()
+                .map(style -> style + " ")
+                .collect(Collectors.joining());
     }
 }

@@ -18,4 +18,9 @@ public interface UserStyleRepository extends JpaRepository<UserStyle, UserStyleK
 
     @Query(value = "select * from user_style where styleid = ?1 and userid = ?2", nativeQuery = true)
     UserStyle findUserStyleByStyleIDAndUserID(Integer styleID, String userID);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update user_style set styleid = ?1, last_modified_date = current_timestamp where userid = ?2 and styleid = ?3", nativeQuery = true)
+    void updateUserStyle(Integer newStyleID, String userID, Integer oldStyleID);
 }

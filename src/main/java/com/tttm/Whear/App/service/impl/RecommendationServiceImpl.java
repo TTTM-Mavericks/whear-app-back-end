@@ -38,15 +38,43 @@ public class RecommendationServiceImpl implements RecommendationService {
                 .filter(id -> !id.isEmpty() && !id.isBlank())
                 .orElseThrow(() -> new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
 
-        User user = userService.getUserEntityByUserID(userID);
-        if (user == null) {
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
-        }
+        User user = Optional.ofNullable(userService.getUserEntityByUserID(userID))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
 
         String userSearchText = convertListHistoryItemsToText(userID);
         List<Pairs> clothesItemList = convertListClothesToListClothesPairs();
 
         List<PairConsineSimilarity> listConsineSimilarity = calculateConsineSimilarities(userSearchText, clothesItemList);
+
+        Collections.sort(listConsineSimilarity, Comparator.comparingDouble(PairConsineSimilarity::getConsineSimilarity).reversed());
+        List<ClothesResponse> clothesResponses = listConsineSimilarity.stream()
+                .filter(similarityPoint -> similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH)
+                .map(cloth -> {
+                    try {
+                        return clothesService.getClothesByID(cloth.getClothesID());
+                    } catch (CustomException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .toList();
+        for (PairConsineSimilarity pairs : listConsineSimilarity) {
+            System.out.println(clothesService.getClothesByID(pairs.getClothesID()) + " " + pairs.getConsineSimilarity());
+        }
+        return clothesResponses;
+    }
+
+    @Override
+    public List<ClothesResponse> getListRecommendationByKeyword(String userID, String keyword) throws CustomException {
+        Optional.of(userID)
+                .filter(id -> !id.isEmpty() && !id.isBlank())
+                .orElseThrow(() -> new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
+
+        User user = Optional.ofNullable(userService.getUserEntityByUserID(userID))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
+
+        historyService.createHistoryItemByDefaultStyleOrKeyword(userID, keyword, "2");
+        List<Pairs> clothesItemList = convertListClothesToListClothesPairs();
+        List<PairConsineSimilarity> listConsineSimilarity = calculateConsineSimilarities(keyword, clothesItemList);
 
         Collections.sort(listConsineSimilarity, Comparator.comparingDouble(PairConsineSimilarity::getConsineSimilarity).reversed());
         List<ClothesResponse> clothesResponses = listConsineSimilarity.stream()
@@ -195,7 +223,8 @@ public class RecommendationServiceImpl implements RecommendationService {
         for (int i = 0; i < ClothesItemDtoList.size(); i++) {
             ClothesItemDto clothes = ClothesItemDtoList.get(i);
             String ClotheItems = clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " +
-                    clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString();
+                    clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString() + " " +
+                    clothes.styleToString();
             clothesItemList.add(new Pairs(ClothesItemDtoList.get(i).getClothesID(), ClotheItems));
         }
         return clothesItemList;
@@ -228,6 +257,13 @@ public class RecommendationServiceImpl implements RecommendationService {
                                 .getClothesColors()
                                 .stream()
                                 .map(Colors -> ColorType.valueOf(Colors))
+                                .toList()
+                )
+                .styles(
+                        clothesResponse
+                                .getClothesStyles()
+                                .stream()
+                                .map(Styles -> StyleType.valueOf(Styles))
                                 .toList()
                 )
                 .build();

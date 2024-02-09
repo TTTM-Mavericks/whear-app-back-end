@@ -40,9 +40,10 @@ public class GenerateDataServiceImpl implements GenerateDataService {
             ShapeType shapeType = getRandomEnumType(ShapeType.class);
             SeasonType seasonsType = getRandomEnumType(SeasonType.class);
             ClothesMaterialType materialType = getRandomEnumType(ClothesMaterialType.class);
-            List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 1);
-            List<SizeType> sizeTypeList = generateListRandomEnumType(SizeType.class, 1);
-            List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 1);
+            List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 2);
+            List<SizeType> sizeTypeList = generateListRandomEnumType(SizeType.class, 2);
+            List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 2);
+            List<StyleType> styleTypeList = generateListRandomEnumType(StyleType.class, 2);
             ClothesRequest clothesRequest =  ClothesRequest
                     .builder()
                     .userID(user.getUserID())
@@ -66,6 +67,12 @@ public class GenerateDataServiceImpl implements GenerateDataService {
                             colorTypeList
                                     .stream()
                                     .map(Color -> Color.toString())
+                                    .collect(Collectors.toList())
+                    )
+                    .clothesStyle(
+                            styleTypeList
+                                    .stream()
+                                    .map(Style -> Style.toString())
                                     .collect(Collectors.toList())
                     )
                     .hashtag(
@@ -106,15 +113,17 @@ public class GenerateDataServiceImpl implements GenerateDataService {
         List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 2);
         List<SizeType> sizeTypeList = generateListRandomEnumType(SizeType.class, 2);
         List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 2);
+        List<StyleType> styleTypeList = generateListRandomEnumType(StyleType.class, 2);
 
         for(int i = 0; i < sizeTypeList.size(); ++i)
         {
             historyUserSearch.add(seasonTypeList.get(i).name());
             historyUserSearch.add(sizeTypeList.get(i).name());
             historyUserSearch.add(colorTypeList.get(i).name());
+            historyUserSearch.add(styleTypeList.get(i).name());
         }
 
-        historyService.createHistoryItem(HistoryRequest
+        historyService.createHistoryItemBySearching(HistoryRequest
                 .builder()
                 .customerID(user.getUserID())
                 .historyItems(historyUserSearch)
