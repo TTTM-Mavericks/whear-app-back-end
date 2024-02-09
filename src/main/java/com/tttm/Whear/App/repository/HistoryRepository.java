@@ -31,4 +31,7 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
     @Transactional
     @Query(value = "update history set history_item = ?1, last_modified_date = current_timestamp where  customerid = ?2 and history_item = ?3 and history_index = ?4", nativeQuery = true)
     void updateHistoryByNewStyle(String newStyleName, String customerID, String oldStyleName, String index);
+
+    @Query(value = "select * from history where customerid = ?1 and history_index = ?2", nativeQuery = true)
+    List<History> getAllHistoryItemByUserIDAnIndex(String customerID, String historyIndex);
 }

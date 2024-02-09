@@ -19,4 +19,6 @@ public interface HistoryService {
 
     void updateHistoryByNewStyle(String newStyleName, String customerID, String oldStyleName, String index);
 
+    List<String> getAllHistoryItemByUserIDAnIndex(String userID, String index);
+
 }

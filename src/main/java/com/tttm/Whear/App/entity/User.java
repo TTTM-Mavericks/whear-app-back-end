@@ -4,17 +4,8 @@ import com.tttm.Whear.App.entity.common.AuditEntity;
 import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.Language;
 import com.tttm.Whear.App.enums.StatusGeneral;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -75,7 +66,7 @@ public class User extends AuditEntity implements Serializable, UserDetails {
   @Enumerated(EnumType.STRING)
   private Language language;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "bodyShapeID", referencedColumnName = "bodyShapeID")
   private BodyShape bodyShape;
 

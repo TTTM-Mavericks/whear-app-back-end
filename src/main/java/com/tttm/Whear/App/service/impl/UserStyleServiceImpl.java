@@ -3,6 +3,7 @@ package com.tttm.Whear.App.service.impl;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.Style;
 import com.tttm.Whear.App.entity.User;
+import com.tttm.Whear.App.entity.UserStyle;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.UserStyleRepository;
 import com.tttm.Whear.App.service.HistoryService;
@@ -15,6 +16,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -83,5 +85,10 @@ public class UserStyleServiceImpl implements UserStyleService {
         // Update new Style to UserStyle and History
         userStyleRepository.updateUserStyle(newStyle.getStyleID(), request.getUserID(), oldStyle.getStyleID());
         historyService.updateHistoryByNewStyle(request.getNewStyleName(), request.getUserID(), request.getOldStyleName(), "1");
+    }
+
+    @Override
+    public List<UserStyle> getListUserStyleByUserID(String userID) throws CustomException {
+        return userStyleRepository.getListUserStyleByUserID(userID);
     }
 }

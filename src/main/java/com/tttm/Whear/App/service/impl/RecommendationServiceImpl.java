@@ -5,7 +5,9 @@ import com.tttm.Whear.App.dto.ClothesItemDto;
 import com.tttm.Whear.App.dto.PairConsineSimilarity;
 import com.tttm.Whear.App.dto.Pairs;
 import com.tttm.Whear.App.dto.UserFollowDto;
+import com.tttm.Whear.App.entity.History;
 import com.tttm.Whear.App.entity.User;
+import com.tttm.Whear.App.entity.UserStyle;
 import com.tttm.Whear.App.enums.*;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
@@ -31,6 +33,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     private final ClothesService clothesService;
 
     private final FollowService followService;
+    private final UserStyleService userStyleService;
 
     @Override
     public List<ClothesResponse> getListRecommendationByUserHistoryItems(String userID) throws CustomException {
@@ -107,25 +110,29 @@ public class RecommendationServiceImpl implements RecommendationService {
             throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
         }
 
-        User baseUserEntity = userService.getUserEntityByUserID(followRequest.getBaseUserID());
-        if (baseUserEntity == null) {
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
-                    + followRequest.getBaseUserID());
-        }
+        User baseUserEntity = Optional.ofNullable(userService.getUserEntityByUserID(followRequest.getBaseUserID()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
+                        + followRequest.getBaseUserID()));
 
-        User targetUserEntity = userService.getUserEntityByUserID(followRequest.getTargetUserID());
-        if (targetUserEntity == null) {
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
-                    + followRequest.getTargetUserID());
-        }
+        User targetUserEntity = Optional.ofNullable(userService.getUserEntityByUserID(followRequest.getTargetUserID()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
+                        + followRequest.getTargetUserID()));
 
         String baseUserHistoryText = convertListHistoryItemsToText(followRequest.getBaseUserID());
 
         List<UserResponse> listFollowingUser = followService.getAllFollowingUserExceptCurrentUser(followRequest.getTargetUserID(), followRequest.getBaseUserID());
 
+        List<String> listBaseHistoryStyle = historyService.getAllHistoryItemByUserIDAnIndex(followRequest.getBaseUserID(), "1");
+
         List<UserFollowDto> userFollowDtoList = new ArrayList<>();
 
         for (UserResponse user : listFollowingUser) {
+
+            List<String> listTargetHistoryStyle = historyService.getAllHistoryItemByUserIDAnIndex(user.getUserID(), "1");
+            double consineSimilarityForStyle = calculateConsineSimilarityByTwoStyleFromTwoUser(listBaseHistoryStyle, listTargetHistoryStyle);
+            System.out.println(consineSimilarityForStyle);
+            if(consineSimilarityForStyle <= 0.0) continue;
+
             String followingUserHistoryText = convertListHistoryItemsToText(user.getUserID());
             double consineSimilarity = calculateConsineSimilarityByTwoUserHistorySearch(baseUserHistoryText, followingUserHistoryText);
             Long totalOfFollowerOfTargetUserID = followService.calculateNumberOfFollowerByUserID(user.getUserID());
@@ -159,6 +166,24 @@ public class RecommendationServiceImpl implements RecommendationService {
                     }
                 })
                 .collect(Collectors.toList());
+    }
+
+    private double calculateConsineSimilarityByTwoStyleFromTwoUser(List<String> baseUserStyle, List<String> targetUserStyle)
+    {
+        double dotStyle = 0.0, magnitudeStyleBaseUser = 0.0, magnitudeStyleTargetUser = 0.0;
+        for(String userStyle : baseUserStyle)
+        {
+            if(targetUserStyle.contains(userStyle))
+            {
+                dotStyle += 1;
+            }
+            magnitudeStyleBaseUser += Math.pow(1, 2);
+        }
+        for(String userStyle : targetUserStyle)
+        {
+            magnitudeStyleTargetUser += Math.pow(1, 2);
+        }
+        return dotStyle / (Math.sqrt(magnitudeStyleBaseUser) * Math.sqrt(magnitudeStyleTargetUser));
     }
 
     public List<PairConsineSimilarity> calculateConsineSimilarities(String userSearchText, List<Pairs> listClothesText) {

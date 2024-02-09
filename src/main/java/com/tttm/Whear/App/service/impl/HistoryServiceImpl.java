@@ -63,6 +63,14 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
+    public List<String> getAllHistoryItemByUserIDAnIndex(String userID, String index) {
+        return historyRepository.getAllHistoryItemByUserIDAnIndex(userID, index)
+                .stream()
+                .map(history -> history.getHistoryItem())
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<String> createHistoryItemBasedOnReactFeature(String userID, Integer clothesID) throws CustomException {
         ClothesResponse clothesResponse = clothesService.getClothesByID(clothesID);
 
