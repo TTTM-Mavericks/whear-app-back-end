@@ -1,11 +1,15 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
+import com.tttm.Whear.App.entity.BodyShape;
 import com.tttm.Whear.App.entity.RuleMatchingClothes;
+import com.tttm.Whear.App.entity.Style;
 import com.tttm.Whear.App.enums.*;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.RuleMatchingClothesRepository;
+import com.tttm.Whear.App.service.BodyShapeService;
 import com.tttm.Whear.App.service.RuleMatchingClothesService;
+import com.tttm.Whear.App.service.StyleService;
 import com.tttm.Whear.App.utils.request.RuleMatchingClothesRequest;
 import com.tttm.Whear.App.utils.response.RuleMatchingClothesResponse;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesService {
     private final RuleMatchingClothesRepository repository;
+    private final BodyShapeService bodyShapeService;
+    private final StyleService styleService;
     private final Logger logger = LoggerFactory.getLogger(RuleMatchingClothesServiceImpl.class);
     private <T extends Enum<T>> void validateEnum(Class<T> enumClass, String fieldValue) {
         try {
@@ -34,24 +40,11 @@ public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesServic
 
     @Override
     public RuleMatchingClothesRequest createNewRule(RuleMatchingClothesRequest request) throws CustomException{
-        validateEnum(StyleType.class, request.getStyleType());
-        validateEnum(BodyShapeType.class, request.getBodyShapeType());
-//        validateEnum(ClothesType.class, request.getTopInside());
-//        validateEnum(ColorType.class, request.getTopInsideColor());
-//        validateEnum(ClothesType.class, request.getTopOutside());
-//        validateEnum(ColorType.class, request.getTopOutsideColor());
-//        validateEnum(ClothesMaterialType.class, request.getTopMaterial());
-//        validateEnum(ClothesType.class, request.getBottomKind());
-//        validateEnum(ColorType.class, request.getBottomColor());
-//        validateEnum(ShoesType.class, request.getShoesType());
-//        validateEnum(ColorType.class, request.getShoesTypeColor());
-//        validateEnum(ClothesMaterialType.class, request.getBottomMaterial());
-//        validateEnum(AccessoriesType.class, request.getAccessoryKind());
-//        validateEnum(AccessoriesMaterialType.class, request.getAccessoryMaterial());
-
+        Style style = styleService.getStyleByStyleName(request.getStyleName());
+        BodyShape bodyShape = bodyShapeService.getBodyShapeByBodyShapeName(request.getBodyShapeName());
         repository.createNewRuleMatchingClothes(
-                request.getStyleType().toUpperCase(),
-                request.getBodyShapeType().toUpperCase(),
+                style.getStyleID(),
+                bodyShape.getBodyShapeID(),
                 request.getTopInside().toUpperCase(),
                 request.getTopInsideColor().toUpperCase(),
                 request.getTopOutside().toUpperCase(),
@@ -67,8 +60,8 @@ public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesServic
         );
 
         return RuleMatchingClothesRequest.builder()
-                .styleType(request.getStyleType().toUpperCase())
-                .bodyShapeType(request.getBodyShapeType().toUpperCase())
+                .styleName(request.getStyleName().toUpperCase())
+                .bodyShapeName(request.getBodyShapeName().toUpperCase())
                 .topInside(request.getTopInside().toUpperCase())
                 .topInsideColor(request.getTopInsideColor().toUpperCase())
                 .topOutside(request.getTopOutside().toUpperCase())
@@ -107,21 +100,25 @@ public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesServic
     }
 
     private RuleMatchingClothesResponse convertToRuleMatchingClothesResponse(RuleMatchingClothes ruleMatchingClothes) {
-        return RuleMatchingClothesResponse.builder()
-                //.styleType(ruleMatchingClothes.getStyleType().toString())
-                //.bodyShapeType(ruleMatchingClothes.getBodyShapeType().toString())
-                .topInside(ruleMatchingClothes.getTopInside().toString())
-                .topInsideColor(ruleMatchingClothes.getTopInsideColor().toString())
-                .topOutside(ruleMatchingClothes.getTopOutside().toString())
-                .topOutsideColor(ruleMatchingClothes.getTopOutsideColor().toString())
-                .topMaterial(ruleMatchingClothes.getTopMaterial().toString())
-                .bottomKind(ruleMatchingClothes.getBottomKind().toString())
-                .bottomColor(ruleMatchingClothes.getBottomColor().toString())
-                .shoesType(ruleMatchingClothes.getShoesType().toString())
-                .shoesTypeColor(ruleMatchingClothes.getShoesTypeColor().toString())
-                .bottomMaterial(ruleMatchingClothes.getBottomMaterial().toString())
-                .accessoryKind(ruleMatchingClothes.getAccessoryKind().toString())
-                .accessoryMaterial(ruleMatchingClothes.getAccessoryMaterial().toString())
-                .build();
+        try {
+            return RuleMatchingClothesResponse.builder()
+                    .styleName(styleService.getStyleByID(ruleMatchingClothes.getRuleID()).getStyleName().toString())
+                    .bodyShapeName(bodyShapeService.getBodyShapeByID(ruleMatchingClothes.getBodyShapeID()).getBodyShapeName().toString())
+                    .topInside(ruleMatchingClothes.getTopInside().toString())
+                    .topInsideColor(ruleMatchingClothes.getTopInsideColor().toString())
+                    .topOutside(ruleMatchingClothes.getTopOutside().toString())
+                    .topOutsideColor(ruleMatchingClothes.getTopOutsideColor().toString())
+                    .topMaterial(ruleMatchingClothes.getTopMaterial().toString())
+                    .bottomKind(ruleMatchingClothes.getBottomKind().toString())
+                    .bottomColor(ruleMatchingClothes.getBottomColor().toString())
+                    .shoesType(ruleMatchingClothes.getShoesType().toString())
+                    .shoesTypeColor(ruleMatchingClothes.getShoesTypeColor().toString())
+                    .bottomMaterial(ruleMatchingClothes.getBottomMaterial().toString())
+                    .accessoryKind(ruleMatchingClothes.getAccessoryKind().toString())
+                    .accessoryMaterial(ruleMatchingClothes.getAccessoryMaterial().toString())
+                    .build();
+        } catch (CustomException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

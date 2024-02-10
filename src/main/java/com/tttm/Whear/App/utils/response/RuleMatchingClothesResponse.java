@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class RuleMatchingClothesResponse {
-    private String styleType;
+    private String styleName;
 
-    private String bodyShapeType;
+    private String bodyShapeName;
 
     // Top Kind, Materials and Color Rule
     private String topInside;
