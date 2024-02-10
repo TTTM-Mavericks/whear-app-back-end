@@ -1,6 +1,8 @@
 package com.tttm.Whear.App.service.impl;
 
+import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.BodyShape;
+import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.BodyShapeRepository;
 import com.tttm.Whear.App.service.BodyShapeService;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +23,11 @@ public class BodyShapeServiceImpl implements BodyShapeService {
     @Override
     public List<BodyShape> getAllBodyShape() {
         return bodyShapeRepository.findAll();
+    }
+
+    @Override
+    public BodyShape getBodyShapeByID(Integer ID) throws CustomException {
+        return bodyShapeRepository.findById(ID)
+                .orElseThrow(() -> new CustomException(ConstantMessage.ID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
     }
 }

@@ -32,5 +32,5 @@ public class History extends AuditEntity implements Serializable {
   private String historyItem;
 
   @Column(name = "historyIndex")
-  private Integer historyIndex; // 1: Default styles, 2: Update Styles, 3: History Search, 4: React, Like
+  private String historyIndex; // 1: Styles (Default, Update), 2: History Search, 3: React, Like + clothes_id
 }

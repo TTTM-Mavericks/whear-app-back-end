@@ -5,7 +5,9 @@ import com.tttm.Whear.App.dto.ClothesItemDto;
 import com.tttm.Whear.App.dto.PairConsineSimilarity;
 import com.tttm.Whear.App.dto.Pairs;
 import com.tttm.Whear.App.dto.UserFollowDto;
+import com.tttm.Whear.App.entity.History;
 import com.tttm.Whear.App.entity.User;
+import com.tttm.Whear.App.entity.UserStyle;
 import com.tttm.Whear.App.enums.*;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
@@ -31,6 +33,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     private final ClothesService clothesService;
 
     private final FollowService followService;
+    private final UserStyleService userStyleService;
 
     @Override
     public List<ClothesResponse> getListRecommendationByUserHistoryItems(String userID) throws CustomException {
@@ -38,15 +41,43 @@ public class RecommendationServiceImpl implements RecommendationService {
                 .filter(id -> !id.isEmpty() && !id.isBlank())
                 .orElseThrow(() -> new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
 
-        User user = userService.getUserEntityByUserID(userID);
-        if (user == null) {
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
-        }
+        User user = Optional.ofNullable(userService.getUserEntityByUserID(userID))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
 
         String userSearchText = convertListHistoryItemsToText(userID);
         List<Pairs> clothesItemList = convertListClothesToListClothesPairs();
 
         List<PairConsineSimilarity> listConsineSimilarity = calculateConsineSimilarities(userSearchText, clothesItemList);
+
+        Collections.sort(listConsineSimilarity, Comparator.comparingDouble(PairConsineSimilarity::getConsineSimilarity).reversed());
+        List<ClothesResponse> clothesResponses = listConsineSimilarity.stream()
+                .filter(similarityPoint -> similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH)
+                .map(cloth -> {
+                    try {
+                        return clothesService.getClothesByID(cloth.getClothesID());
+                    } catch (CustomException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .toList();
+        for (PairConsineSimilarity pairs : listConsineSimilarity) {
+            System.out.println(clothesService.getClothesByID(pairs.getClothesID()) + " " + pairs.getConsineSimilarity());
+        }
+        return clothesResponses;
+    }
+
+    @Override
+    public List<ClothesResponse> getListRecommendationByKeyword(String userID, String keyword) throws CustomException {
+        Optional.of(userID)
+                .filter(id -> !id.isEmpty() && !id.isBlank())
+                .orElseThrow(() -> new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
+
+        User user = Optional.ofNullable(userService.getUserEntityByUserID(userID))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
+
+        historyService.createHistoryItemByDefaultStyleOrKeyword(userID, keyword, "2");
+        List<Pairs> clothesItemList = convertListClothesToListClothesPairs();
+        List<PairConsineSimilarity> listConsineSimilarity = calculateConsineSimilarities(keyword, clothesItemList);
 
         Collections.sort(listConsineSimilarity, Comparator.comparingDouble(PairConsineSimilarity::getConsineSimilarity).reversed());
         List<ClothesResponse> clothesResponses = listConsineSimilarity.stream()
@@ -79,25 +110,29 @@ public class RecommendationServiceImpl implements RecommendationService {
             throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
         }
 
-        User baseUserEntity = userService.getUserEntityByUserID(followRequest.getBaseUserID());
-        if (baseUserEntity == null) {
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
-                    + followRequest.getBaseUserID());
-        }
+        User baseUserEntity = Optional.ofNullable(userService.getUserEntityByUserID(followRequest.getBaseUserID()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
+                        + followRequest.getBaseUserID()));
 
-        User targetUserEntity = userService.getUserEntityByUserID(followRequest.getTargetUserID());
-        if (targetUserEntity == null) {
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
-                    + followRequest.getTargetUserID());
-        }
+        User targetUserEntity = Optional.ofNullable(userService.getUserEntityByUserID(followRequest.getTargetUserID()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + ": "
+                        + followRequest.getTargetUserID()));
 
         String baseUserHistoryText = convertListHistoryItemsToText(followRequest.getBaseUserID());
 
         List<UserResponse> listFollowingUser = followService.getAllFollowingUserExceptCurrentUser(followRequest.getTargetUserID(), followRequest.getBaseUserID());
 
+        List<String> listBaseHistoryStyle = historyService.getAllHistoryItemByUserIDAnIndex(followRequest.getBaseUserID(), "1");
+
         List<UserFollowDto> userFollowDtoList = new ArrayList<>();
 
         for (UserResponse user : listFollowingUser) {
+
+            List<String> listTargetHistoryStyle = historyService.getAllHistoryItemByUserIDAnIndex(user.getUserID(), "1");
+            double consineSimilarityForStyle = calculateConsineSimilarityByTwoStyleFromTwoUser(listBaseHistoryStyle, listTargetHistoryStyle);
+            System.out.println(consineSimilarityForStyle);
+            if(consineSimilarityForStyle <= 0.0) continue;
+
             String followingUserHistoryText = convertListHistoryItemsToText(user.getUserID());
             double consineSimilarity = calculateConsineSimilarityByTwoUserHistorySearch(baseUserHistoryText, followingUserHistoryText);
             Long totalOfFollowerOfTargetUserID = followService.calculateNumberOfFollowerByUserID(user.getUserID());
@@ -131,6 +166,24 @@ public class RecommendationServiceImpl implements RecommendationService {
                     }
                 })
                 .collect(Collectors.toList());
+    }
+
+    private double calculateConsineSimilarityByTwoStyleFromTwoUser(List<String> baseUserStyle, List<String> targetUserStyle)
+    {
+        double dotStyle = 0.0, magnitudeStyleBaseUser = 0.0, magnitudeStyleTargetUser = 0.0;
+        for(String userStyle : baseUserStyle)
+        {
+            if(targetUserStyle.contains(userStyle))
+            {
+                dotStyle += 1;
+            }
+            magnitudeStyleBaseUser += Math.pow(1, 2);
+        }
+        for(String userStyle : targetUserStyle)
+        {
+            magnitudeStyleTargetUser += Math.pow(1, 2);
+        }
+        return dotStyle / (Math.sqrt(magnitudeStyleBaseUser) * Math.sqrt(magnitudeStyleTargetUser));
     }
 
     public List<PairConsineSimilarity> calculateConsineSimilarities(String userSearchText, List<Pairs> listClothesText) {
@@ -195,7 +248,8 @@ public class RecommendationServiceImpl implements RecommendationService {
         for (int i = 0; i < ClothesItemDtoList.size(); i++) {
             ClothesItemDto clothes = ClothesItemDtoList.get(i);
             String ClotheItems = clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " +
-                    clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString();
+                    clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString() + " " +
+                    clothes.styleToString();
             clothesItemList.add(new Pairs(ClothesItemDtoList.get(i).getClothesID(), ClotheItems));
         }
         return clothesItemList;
@@ -228,6 +282,13 @@ public class RecommendationServiceImpl implements RecommendationService {
                                 .getClothesColors()
                                 .stream()
                                 .map(Colors -> ColorType.valueOf(Colors))
+                                .toList()
+                )
+                .styles(
+                        clothesResponse
+                                .getClothesStyles()
+                                .stream()
+                                .map(Styles -> StyleType.valueOf(Styles))
                                 .toList()
                 )
                 .build();

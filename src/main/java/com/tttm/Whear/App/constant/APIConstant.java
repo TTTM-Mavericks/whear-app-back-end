@@ -124,6 +124,7 @@ public class APIConstant {
 
     public static final String GET_LIST_RECOMMMENDATION_BY_USER_HISTORY_ITEMS = "/get-list-recommendation-by-user-history-items";
     public static final String GET_LIST_RECOMMENDATION_WHEN_FOLLOW_ANOTHER_USER = "/get-list-recommendation-when-follow-another-user";
+    public static final String GET_LIST_RECOMMENDATION_BY_KEYWORD = "/get-list-recommendation-by-keyword";
   }
 
   public class AuthenticationAPI {
@@ -166,6 +167,7 @@ public class APIConstant {
   public class UserStyleAPI{
     public static final String USER_STYLE = APIConstant.API + "/user-style";
     public static final String CREATE_STYLE_AND_BODY_SHAPE = "/create-style-and-body-shape";
+    public static final String UPDATE_STYLE_FOR_CUSTOMER = "/update-style-for-customer";
   }
 
   /**

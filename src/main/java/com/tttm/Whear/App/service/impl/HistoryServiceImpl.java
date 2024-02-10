@@ -31,7 +31,7 @@ public class HistoryServiceImpl implements HistoryService {
     private final ClothesService clothesService;
 
     @Override
-    public void createHistoryItem(HistoryRequest historyRequest) throws CustomException {
+    public void createHistoryItemBySearching(HistoryRequest historyRequest) throws CustomException {
         Optional.of(historyRequest.getCustomerID())
                 .filter(id -> !id.isEmpty() && !id.isBlank())
                 .orElseThrow(() -> new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
@@ -44,9 +44,30 @@ public class HistoryServiceImpl implements HistoryService {
         historyRequest
                 .getHistoryItems()
                 .forEach(historyItem -> historyRepository
-                        .createHistoryItem(historyRequest.getCustomerID(),
-                                historyItem.toUpperCase())
+                        .createHistoryItem(
+                                historyRequest.getCustomerID(),
+                                historyItem.toUpperCase(),
+                                "2"
+                        )
                 );
+    }
+
+    @Override
+    public void createHistoryItemByDefaultStyleOrKeyword(String userID, String styleName, String typeOfIndex) {
+        historyRepository.createHistoryItem(userID, styleName, typeOfIndex);
+    }
+
+    @Override
+    public void updateHistoryByNewStyle(String newStyleName, String customerID, String oldStyleName, String index) {
+        historyRepository.updateHistoryByNewStyle(newStyleName, customerID, oldStyleName, index);
+    }
+
+    @Override
+    public List<String> getAllHistoryItemByUserIDAnIndex(String userID, String index) {
+        return historyRepository.getAllHistoryItemByUserIDAnIndex(userID, index)
+                .stream()
+                .map(history -> history.getHistoryItem())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -54,34 +75,40 @@ public class HistoryServiceImpl implements HistoryService {
         ClothesResponse clothesResponse = clothesService.getClothesByID(clothesID);
 
         List<String> historyReact = Stream.of(
-                clothesResponse.getNameOfProduct() + " " + clothesID,
-                clothesResponse.getTypeOfClothes() + " " + clothesID,
-                clothesResponse.getShape() + " " + clothesID,
-                clothesResponse.getMaterials() + " " + clothesID)
+                clothesResponse.getNameOfProduct(),
+                clothesResponse.getTypeOfClothes(),
+                clothesResponse.getShape(),
+                clothesResponse.getMaterials())
                 .collect(Collectors.toList());
 
         clothesResponse.getClothesSeasons()
                 .forEach(
-                        season -> historyReact.add(season + " " + clothesID)
-                );
-        clothesResponse.getClothesColors()
-                .forEach(
-                        color -> historyReact.add(color + " " + clothesID)
-                );
-        clothesResponse.getClothesSizes()
-                .forEach(
-                        size -> historyReact.add(size + " " + clothesID)
+                        season -> historyReact.add(season)
                 );
 
-        historyReact.forEach(history -> historyRepository.createHistoryItem(userID, history));
+        clothesResponse.getClothesColors()
+                .forEach(
+                        color -> historyReact.add(color)
+                );
+
+        clothesResponse.getClothesSizes()
+                .forEach(
+                        size -> historyReact.add(size)
+                );
+
+        clothesResponse.getClothesStyles()
+                .forEach(
+                        style -> historyReact.add(style)
+                );
+
+        historyReact.forEach(history -> historyRepository.createHistoryItem(userID, history, "3_" + clothesResponse.getClothesID()));
 
         return historyReact;
     }
 
     @Override
     public void deleteHistoryItemBasedOnReactFeature(String userID, Integer clothesID) throws CustomException {
-        List<String> histories = createHistoryItemBasedOnReactFeature(userID, clothesID);
-        histories.forEach(history -> historyRepository.deleteAllHistoryItems(userID, history));
+        historyRepository.deleteAllHistoryItems(userID, "3_" + clothesID);
     }
 
     @Override

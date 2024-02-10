@@ -13,5 +13,7 @@ import java.util.List;
 
 public interface RecommendationService {
       List<ClothesResponse> getListRecommendationByUserHistoryItems(String userID) throws CustomException;
+
+      List<ClothesResponse> getListRecommendationByKeyword(String userID, String keyword) throws CustomException;
       List<UserResponse> getListRecommendationUserWhenUserFollowAnotherUser(FollowRequest followRequest) throws CustomException;
 }

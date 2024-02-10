@@ -12,9 +12,9 @@ import org.checkerframework.checker.units.qual.N;
 @NoArgsConstructor
 @Builder
 public class RuleMatchingClothesRequest {
-    private String styleType;
+    private String styleName;
 
-    private String bodyShapeType;
+    private String bodyShapeName;
 
     // Top Kind, Materials and Color Rule
     private String topInside;

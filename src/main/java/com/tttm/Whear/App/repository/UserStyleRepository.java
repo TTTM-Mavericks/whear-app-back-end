@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserStyleRepository extends JpaRepository<UserStyle, UserStyleKey> {
     @Modifying
@@ -18,4 +20,12 @@ public interface UserStyleRepository extends JpaRepository<UserStyle, UserStyleK
 
     @Query(value = "select * from user_style where styleid = ?1 and userid = ?2", nativeQuery = true)
     UserStyle findUserStyleByStyleIDAndUserID(Integer styleID, String userID);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update user_style set styleid = ?1, last_modified_date = current_timestamp where userid = ?2 and styleid = ?3", nativeQuery = true)
+    void updateUserStyle(Integer newStyleID, String userID, Integer oldStyleID);
+
+    @Query(value = "select * from user_style where userid = ?1", nativeQuery = true)
+    List<UserStyle> getListUserStyleByUserID(String userID);
 }

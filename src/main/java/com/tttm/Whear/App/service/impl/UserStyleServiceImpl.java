@@ -4,7 +4,6 @@ import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.Style;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.entity.UserStyle;
-import com.tttm.Whear.App.entity.UserStyleKey;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.UserStyleRepository;
 import com.tttm.Whear.App.service.HistoryService;
@@ -12,6 +11,7 @@ import com.tttm.Whear.App.service.StyleService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.service.UserStyleService;
 import com.tttm.Whear.App.utils.request.StyleAndBodyShapeRequest;
+import com.tttm.Whear.App.utils.request.UpdateStyleRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,10 +33,8 @@ public class UserStyleServiceImpl implements UserStyleService {
                 .filter(id -> !id.isEmpty() && !id.isBlank())
                 .orElseThrow(() -> new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
 
-        User user = userService.getUserEntityByUserID(request.getUserID());
-        if (user == null) {
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + " : " + request.getUserID());
-        }
+        User user = Optional.ofNullable(userService.getUserEntityByUserID(request.getUserID()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage() + " : " + request.getUserID()));
 
         if(request.getBodyShapeName().isBlank() || request.getBodyShapeName().isEmpty())
         {
@@ -52,23 +50,45 @@ public class UserStyleServiceImpl implements UserStyleService {
 
         request.getListStyles().forEach(styleName -> {
             Style style = styleService.getStyleByStyleName(styleName);
-            if (style != null) {
-                if(userStyleRepository.findUserStyleByStyleIDAndUserID(style.getStyleID(), request.getUserID()) == null)
-                {
-                    userStyleRepository.createUserStyle(style.getStyleID(), request.getUserID());
-                }
-                else try {
-                    throw new CustomException(ConstantMessage.STYLE_ID_AND_USER_ID_IS_EXIST.getMessage());
-                } catch (CustomException e) {
-                    throw new RuntimeException(e);
-                }
+            if (style == null) {
+                throw new RuntimeException(new CustomException(ConstantMessage.CAN_NOT_FIND_STYLE_NAME.getMessage() + " : " + styleName));
+            }
+
+            if (userStyleRepository.findUserStyleByStyleIDAndUserID(style.getStyleID(), request.getUserID()) == null) {
+                historyService.createHistoryItemByDefaultStyleOrKeyword(request.getUserID(), styleName, "1");
+                userStyleRepository.createUserStyle(style.getStyleID(), request.getUserID());
             } else {
-                try {
-                    throw new CustomException(ConstantMessage.CAN_NOT_FIND_STYLE_NAME.getMessage() + " : " + styleName);
-                } catch (CustomException e) {
-                    throw new RuntimeException(e);
-                }
+                throw new RuntimeException(new CustomException(ConstantMessage.STYLE_ID_AND_USER_ID_IS_EXIST.getMessage()));
             }
         });
+    }
+
+
+    @Override
+    @Transactional
+    public void updateStyleForCustomer(UpdateStyleRequest request) throws CustomException {
+        Optional.of(request.getUserID())
+                .filter(id -> !id.isEmpty() && !id.isBlank())
+                .orElseThrow(() -> new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
+
+        User user = Optional.ofNullable(userService.getUserEntityByUserID(request.getUserID()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID + " : " + request.getUserID()));
+
+        // Find Old Style
+        Style oldStyle = Optional.ofNullable(styleService.getStyleByStyleName(request.getOldStyleName()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CAN_NOT_FIND_STYLE_NAME.getMessage() + " : " + request.getOldStyleName()));
+
+        // Find New Style
+        Style newStyle = Optional.ofNullable(styleService.getStyleByStyleName(request.getNewStyleName()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CAN_NOT_FIND_STYLE_NAME.getMessage() + " : " + request.getNewStyleName()));
+
+        // Update new Style to UserStyle and History
+        userStyleRepository.updateUserStyle(newStyle.getStyleID(), request.getUserID(), oldStyle.getStyleID());
+        historyService.updateHistoryByNewStyle(request.getNewStyleName(), request.getUserID(), request.getOldStyleName(), "1");
+    }
+
+    @Override
+    public List<UserStyle> getListUserStyleByUserID(String userID) throws CustomException {
+        return userStyleRepository.getListUserStyleByUserID(userID);
     }
 }
