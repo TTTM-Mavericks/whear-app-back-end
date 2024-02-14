@@ -30,5 +30,13 @@ public enum ColorType {
   DARK_PURPLE,    // Tím đậm
   TEAL,           // Xanh bạch yến
   LIGHT_BROWN,    // Nâu nhạt
-  LIGHT_GRAY      // Xám nhạt
+  LIGHT_GRAY,      // Xám nhạt
+  XANH_NEON,       // Xanh neon
+  BURNING_RED,
+  XANH_OLIVE,
+  AQUA_NEON,
+  BLUE_NEON,
+  ĐỎ_BURGUNDY,
+  YELLOW_NEON,
+  BLUE_NAVY
 }

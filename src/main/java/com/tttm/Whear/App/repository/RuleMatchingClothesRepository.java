@@ -17,4 +17,7 @@ public interface RuleMatchingClothesRepository extends JpaRepository<RuleMatchin
     void createNewRuleMatchingClothes(Integer style_type, Integer body_shape_type, String top_inside, String top_inside_color, String top_outside, String top_outside_color,
                                       String top_material, String bottom_kind, String bottom_color, String shoes_type, String shoes_type_color, String bottom_material,
                                       String accessory_kind, String accessory_material);
+
+    @Query(value = "select * from rule_matching_clothes where styleid = ?1 and body_shapeid = ?2", nativeQuery = true)
+    RuleMatchingClothes getRuleMatchingClothesByStyleAndBodyShape(Integer styleID, Integer bodyShapeID);
 }

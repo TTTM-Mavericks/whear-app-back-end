@@ -20,5 +20,13 @@ public enum ClothesMaterialType {
     TERRY_CLOTH,    // Terry cloth
     FLANNEL,        // Flannel
     LACE,           // Lace
-    TWILL           // Twill
+    TWILL,           // Twill
+    GOLD,
+    TITAN,
+    SILVER,
+    PEARL,
+    METAL,
+    FABRIC,
+    PENDANT,
+    BEADED
 }

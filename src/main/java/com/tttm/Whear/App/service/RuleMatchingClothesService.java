@@ -12,4 +12,5 @@ public interface RuleMatchingClothesService {
     List<RuleMatchingClothesResponse> getAllRuleMatchingClothes();
 
     RuleMatchingClothesResponse getRuleMatchingClothesByRuleID(Integer ruleID) throws CustomException;
+    RuleMatchingClothesResponse getRuleMatchingClothesByStyleAndBodyShape(Integer styleID, Integer bodyShapeID);
 }

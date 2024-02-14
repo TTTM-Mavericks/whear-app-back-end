@@ -352,7 +352,23 @@ public class ClothesServiceImpl implements ClothesService {
   public List<ClothesResponse> getAllClothesByBrandID(String brandID) {
     return clothesRepository.getAllClothesByBrandID(brandID)
         .stream()
-        .map(clothes -> mapToClothesResponse(clothes))
+        .map(this::mapToClothesResponse)
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndColorOrMaterials(String typeOfClothes, String color, String materials) {
+    return clothesRepository.getClothesBaseOnTypeOfClothesAndColorOrMaterials(typeOfClothes, color, materials)
+            .stream()
+            .map(this::mapToClothesResponse)
+            .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes, String materials) {
+    return clothesRepository.getClothesBaseOnTypeOfClothesAndMaterial(typeOfClothes, materials)
+            .stream()
+            .map(this::mapToClothesResponse)
+            .collect(Collectors.toList());
   }
 }

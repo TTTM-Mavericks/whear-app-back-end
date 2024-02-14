@@ -99,10 +99,15 @@ public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesServic
                 });
     }
 
+    @Override
+    public RuleMatchingClothesResponse getRuleMatchingClothesByStyleAndBodyShape(Integer styleID, Integer bodyShapeID) {
+        return convertToRuleMatchingClothesResponse(repository.getRuleMatchingClothesByStyleAndBodyShape(styleID, bodyShapeID));
+    }
+
     private RuleMatchingClothesResponse convertToRuleMatchingClothesResponse(RuleMatchingClothes ruleMatchingClothes) {
         try {
             return RuleMatchingClothesResponse.builder()
-                    .styleName(styleService.getStyleByID(ruleMatchingClothes.getRuleID()).getStyleName().toString())
+                    .styleName(styleService.getStyleByID(ruleMatchingClothes.getStyleID()).getStyleName().toString())
                     .bodyShapeName(bodyShapeService.getBodyShapeByID(ruleMatchingClothes.getBodyShapeID()).getBodyShapeName().toString())
                     .topInside(ruleMatchingClothes.getTopInside().toString())
                     .topInsideColor(ruleMatchingClothes.getTopInsideColor().toString())
