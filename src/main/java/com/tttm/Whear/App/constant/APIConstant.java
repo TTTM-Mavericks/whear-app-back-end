@@ -178,4 +178,10 @@ public class APIConstant {
     public static final String CREATE_PAYMENT = "/create-payment";
     public static final String GET_PAYMENT_BY_ID = "/get-payment-infor";
   }
+
+  public class AIStylishAPI
+  {
+    public static final String AI_STYLISH_API = APIConstant.API + "/ai-stylish";
+    public static final String GET_SUGGEST_CLOTHES_FOR_USER = "/get-suggest-clothes-for-user";
+  }
 }

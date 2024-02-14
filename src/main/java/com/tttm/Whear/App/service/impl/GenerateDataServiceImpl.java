@@ -27,6 +27,10 @@ public class GenerateDataServiceImpl implements GenerateDataService {
     private final String[] nameOfClothes = {"Áo", "Quần", "Giày", "Dép"};
     private final String[] nameBrand = {"LV", "GUCCI", "HERMES", "DIOR", "BALENCIAGA", "TOM BROWN"};
 
+    private final String[] typeOfClothesSample = {"WIDE_LEG_PANT", "SKIRTS", "PANTS", "JEANS", "JOGGER", "BOMBER", "T_SHIRT", "HOODIE", "SNEAKER", "DR_MARTENS", "CHELSEA_BOOTS"};
+
+    private final String[] colorSample = {"BLACK", "WHITE", "GRAY", "BURNING_RED", "XANH_NEON", "YELLOW_NEON", "BROWN", "BEIGE", "BLACK", "BLUE_NAVY"};
+    private final String[] materialSample = {"FLEECE", "COTTON", "POLYESTER", "DENIM", "LINEN", "FABRIC", "METAL"};
     public List<ClothesRequest> generateRandomListClothes(String userID, int size) throws CustomException
     {
         User user = userService.getUserEntityByUserID(userID);
@@ -36,13 +40,22 @@ public class GenerateDataServiceImpl implements GenerateDataService {
         for(int i = 0; i < size; i++)
         {
             String nameOfClothes = generateRandomNameOfClothes() + " " + generateRandomNameBrand();
-            ClothesType clothesType = getRandomEnumType(ClothesType.class);
+
+          //  ClothesType clothesType = getRandomEnumType(ClothesType.class);
+            ClothesType clothesType = generateRandomtypeOfClothesSample();
+
             ShapeType shapeType = getRandomEnumType(ShapeType.class);
             SeasonType seasonsType = getRandomEnumType(SeasonType.class);
-            ClothesMaterialType materialType = getRandomEnumType(ClothesMaterialType.class);
+
+           // ClothesMaterialType materialType = getRandomEnumType(ClothesMaterialType.class);
+            ClothesMaterialType materialType = generateRandomMaterial();
+
             List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 2);
             List<SizeType> sizeTypeList = generateListRandomEnumType(SizeType.class, 2);
-            List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 2);
+
+            //List<ColorType> colorTypeList = generateListRandomEnumType(ColorType.class, 2);
+            List<ColorType> colorTypeList = generateRandomColorType(3);
+
             List<StyleType> styleTypeList = generateListRandomEnumType(StyleType.class, 2);
             ClothesRequest clothesRequest =  ClothesRequest
                     .builder()
@@ -141,6 +154,26 @@ public class GenerateDataServiceImpl implements GenerateDataService {
     private String generateRandomNameBrand()
     {
         return nameBrand[random.nextInt(nameBrand.length)];
+    }
+
+    private ClothesType generateRandomtypeOfClothesSample()
+    {
+        return ClothesType.valueOf(typeOfClothesSample[random.nextInt(typeOfClothesSample.length)]);
+    }
+
+    private ClothesMaterialType generateRandomMaterial()
+    {
+        return ClothesMaterialType.valueOf(materialSample[random.nextInt(materialSample.length)]);
+    }
+
+    private List<ColorType> generateRandomColorType(int size)
+    {
+        List<ColorType> colors = new ArrayList<>();
+        for(int i = 0; i < size; i++)
+        {
+            colors.add(ColorType.valueOf(colorSample[random.nextInt(colorSample.length)]));
+        }
+        return colors;
     }
 
     private <T extends Enum<?>> T getRandomEnumType(Class<T> enumType)

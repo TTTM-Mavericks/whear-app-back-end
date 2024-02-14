@@ -19,4 +19,6 @@ public interface ClothesService {
 
   public void deleteClothesByID(Integer clothesID) throws CustomException;
   List<ClothesResponse> getAllClothesByBrandID(String brandID);
+  List<ClothesResponse> getClothesBaseOnTypeOfClothesAndColorOrMaterials(String typeOfClothes, String color, String materials);
+  List<ClothesResponse> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes, String materials);
 }

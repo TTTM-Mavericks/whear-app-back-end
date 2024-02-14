@@ -1,15 +1,14 @@
 package com.tttm.Whear.App.utils.response;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode
 public class ClothesResponse {
 
   private Integer clothesID;

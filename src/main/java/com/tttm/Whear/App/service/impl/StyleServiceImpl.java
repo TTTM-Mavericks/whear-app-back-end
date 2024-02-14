@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +30,10 @@ public class StyleServiceImpl implements StyleService {
     public Style getStyleByID(Integer ID) throws CustomException {
         return styleRepository.findById(ID)
                 .orElseThrow(() -> new CustomException(ConstantMessage.ID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
+    }
+
+    @Override
+    public List<Style> getListStyleByUserID(String userID) throws CustomException {
+        return styleRepository.getListStyleNameByUserID(userID);
     }
 }

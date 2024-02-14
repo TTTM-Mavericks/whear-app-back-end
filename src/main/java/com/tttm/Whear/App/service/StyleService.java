@@ -11,4 +11,5 @@ public interface StyleService {
     List<Style> getAllStyle();
 
     Style getStyleByID(Integer ID) throws CustomException;
+    List<Style> getListStyleByUserID(String UserID) throws CustomException;
 }
