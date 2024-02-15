@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.N;
 
 import java.util.List;
 
@@ -16,4 +15,5 @@ public class AIStylishResponse {
     private String styleName;
     private String bodyShapeName;
     private List<List<ClothesResponse>> outfits;
+    private String message;
 }
