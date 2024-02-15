@@ -26,7 +26,11 @@ public enum ConstantMessage {
   CAN_NOT_FIND_STYLE_NAME("Can not find Style Name"),
   STYLE_ID_AND_USER_ID_IS_EXIST("StyleID and UserID is existed"),
   CAN_NOT_FIND_BODY_SHAPE_NAME("Can not find Body Shape Name"),
-  USER_NOT_EXIST_IN_DATABASE("There is no user exist in database");
+  USER_NOT_EXIST_IN_DATABASE("There is no user exist in database"),
+  SUGGEST_FULL_CLOTHES_FOR_FREE_USER("Suggest full clothes for free user"),
+  SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_FREE_USER("Suggest Missing or Run out of clothes for free user"),
+  SUGGEST_FULL_CLOTHES_FOR_PREMIUM_USER("Suggest full clothes for Premium user"),
+  SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER("Suggest Missing or Run out of clothes for Premium user");
 
   private final String message;
 
