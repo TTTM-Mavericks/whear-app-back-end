@@ -1152,6 +1152,352 @@ public class WhearAppApplication {
                         .accessoryMaterial("METAL")
                         .build();
                 ruleMatchingClothesRepository.save(rule52);
+
+                RuleMatchingClothes rule53 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("PARISIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("HOURGLASS_SHAPE").getBodyShapeID())
+                        .topInside("T_SHIRT")
+                        .topInsideColor("WHITE")
+                        .topOutside("X")
+                        .topOutsideColor("BLACK")
+                        .topMaterial("COTTON")
+                        .bottomKind("JEANS")
+                        .bottomColor("BLACK")
+                        .bottomMaterial("COTTON")
+                        .shoesType("SNEAKER")
+                        .shoesTypeColor("RED")
+                        .accessoryKind("SUNGLASSES")
+                        .accessoryMaterial("METAL")
+                        .build();
+                ruleMatchingClothesRepository.save(rule53);
+
+                RuleMatchingClothes rule54 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("PARISIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("LEAN_OR_SLIM_SHAPE").getBodyShapeID())
+                        .topInside("T_SHIRT")
+                        .topInsideColor("BLUE_NAVY")
+                        .topOutside("X")
+                        .topOutsideColor("BEIGE")
+                        .topMaterial("COTTON")
+                        .bottomKind("SKINNY")
+                        .bottomColor("WHITE")
+                        .bottomMaterial("DENIM")
+                        .shoesType("DERBY")
+                        .shoesTypeColor("BROWN")
+                        .accessoryKind("WATCH")
+                        .accessoryMaterial("LEATHER")
+                        .build();
+                ruleMatchingClothesRepository.save(rule54);
+
+                RuleMatchingClothes rule55 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("PARISIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("INVERTED_TRIANGLE_SHAPE").getBodyShapeID())
+                        .topInside("SWEATER")
+                        .topInsideColor("WHITE")
+                        .topOutside("X")
+                        .topOutsideColor("GRAY")
+                        .topMaterial("WOOL")
+                        .bottomKind("TROUSER")
+                        .bottomColor("BLACK")
+                        .bottomMaterial("WOOL")
+                        .shoesType("CHELSEA_BOOTS")
+                        .shoesTypeColor("GRAY")
+                        .accessoryKind("GLOVES")
+                        .accessoryMaterial("LEATHER")
+                        .build();
+                ruleMatchingClothesRepository.save(rule55);
+
+                RuleMatchingClothes rule56 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("PARISIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("HOURGLASS_SHAPE").getBodyShapeID())
+                        .topInside("T_SHIRT")
+                        .topInsideColor("WHITE")
+                        .topOutside("X")
+                        .topOutsideColor("BROWN")
+                        .topMaterial("COTTON")
+                        .bottomKind("SKIRT")
+                        .bottomColor("DARK_BROWN")
+                        .bottomMaterial("COTTON")
+                        .shoesType("BALLERINA_FLATS")
+                        .shoesTypeColor("HỒNG_PASTEL")
+                        .accessoryKind("NECKLACE")
+                        .accessoryMaterial("PEARL")
+                        .build();
+                ruleMatchingClothesRepository.save(rule56);
+
+                RuleMatchingClothes rule57 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("PARISIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("LEAN_OR_SLIM_SHAPE").getBodyShapeID())
+                        .topInside("T_SHIRT")
+                        .topInsideColor("WHITE")
+                        .topOutside("BLOUSE")
+                        .topOutsideColor("RED")
+                        .topMaterial("SILK")
+                        .bottomKind("SKINNY")
+                        .bottomColor("BLACK")
+                        .bottomMaterial("DENIM")
+                        .shoesType("LOAFERS")
+                        .shoesTypeColor("BLACK")
+                        .accessoryKind("WATCH")
+                        .accessoryMaterial("LEATHER")
+                        .build();
+                ruleMatchingClothesRepository.save(rule57);
+
+
+                RuleMatchingClothes rule58 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("PARISIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("INVERTED_TRIANGLE_SHAPE").getBodyShapeID())
+                        .topInside("T_SHIRT")
+                        .topInsideColor("HỒNG_PASTEL")
+                        .topOutside("TRENCH_COAT")
+                        .topOutsideColor("BLACK")
+                        .topMaterial("COTTON")
+                        .bottomKind("WIDE_LEG_PANT")
+                        .bottomColor("WHITE")
+                        .bottomMaterial("LINEN")
+                        .shoesType("BOOTS")
+                        .shoesTypeColor("WHITE")
+                        .accessoryKind("GLOVES")
+                        .accessoryMaterial("LEATHER")
+                        .build();
+                ruleMatchingClothesRepository.save(rule58);
+
+                RuleMatchingClothes rule59 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("GOTHIC").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("INVERTED_TRIANGLE_SHAPE").getBodyShapeID())
+                        .topInside("TANK_TOP")
+                        .topInsideColor("ĐỎ_BURGUNDY")
+                        .topOutside("JACKET")
+                        .topOutsideColor("BLACK")
+                        .topMaterial("LEATHER")
+                        .bottomKind("TROUSER")
+                        .bottomColor("GRAY")
+                        .bottomMaterial("DENIM")
+                        .shoesType("BOOTS")
+                        .shoesTypeColor("BLACK")
+                        .accessoryKind("BRACELET")
+                        .accessoryMaterial("LEATHER")
+                        .build();
+                ruleMatchingClothesRepository.save(rule59);
+
+
+                RuleMatchingClothes rule60 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("GOTHIC").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("LEAN_OR_SLIM_SHAPE").getBodyShapeID())
+                        .topInside("LONG_SLEEVE")
+                        .topInsideColor("BLACK")
+                        .topOutside("HOOKED_CLOAK_JACKET")
+                        .topOutsideColor("BLACK")
+                        .topMaterial("COTTON")
+                        .bottomKind("SKINNY")
+                        .bottomColor("DARK_BROWN")
+                        .bottomMaterial("LEATHER")
+                        .shoesType("DR_MARTENS")
+                        .shoesTypeColor("BLACK")
+                        .accessoryKind("BRACELET")
+                        .accessoryMaterial("LEATHER")
+                        .build();
+                ruleMatchingClothesRepository.save(rule60);
+
+                RuleMatchingClothes rule61 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("GOTHIC").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("LEAN_OR_SLIM_SHAPE").getBodyShapeID())
+                        .topInside("CROP_TOP")
+                        .topInsideColor("RUBY")
+                        .topOutside("HOODED_CARDIGAN")
+                        .topOutsideColor("GRAY")
+                        .topMaterial("VELVET")
+                        .bottomKind("FLARED_PANTS")
+                        .bottomColor("WHITE")
+                        .bottomMaterial("VELVET")
+                        .shoesType("BOOTS")
+                        .shoesTypeColor("BLACK")
+                        .accessoryKind("NECKLACE")
+                        .accessoryMaterial("PENDANT")
+                        .build();
+                ruleMatchingClothesRepository.save(rule61);
+
+                RuleMatchingClothes rule62 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("GOTHIC").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("HOURGLASS_SHAPE").getBodyShapeID())
+                        .topInside("BLOUSE")
+                        .topInsideColor("RED")
+                        .topOutside("BLAZER")
+                        .topOutsideColor("BLACK")
+                        .topMaterial("VELVET")
+                        .bottomKind("SKINNY")
+                        .bottomColor("GRAY")
+                        .bottomMaterial("DENIM")
+                        .shoesType("CHELSEA_BOOTS")
+                        .shoesTypeColor("BLACK")
+                        .accessoryKind("NECKLACE")
+                        .accessoryMaterial("LEATHER")
+                        .build();
+                ruleMatchingClothesRepository.save(rule62);
+
+                RuleMatchingClothes rule63 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("BOHEMIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("HOURGLASS_SHAPE").getBodyShapeID())
+                        .topInside("SHIRT")
+                        .topInsideColor("WHITE")
+                        .topOutside("X")
+                        .topOutsideColor("MINT")
+                        .topMaterial("LINEN")
+                        .bottomKind("FLARED_PANTS")
+                        .bottomColor("BLUE_NAVY")
+                        .bottomMaterial("COTTON")
+                        .shoesType("LOAFERS")
+                        .shoesTypeColor("BROWN")
+                        .accessoryKind("NECKLACE")
+                        .accessoryMaterial("BEADED")
+                        .build();
+                ruleMatchingClothesRepository.save(rule63);
+
+                RuleMatchingClothes rule64 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("BOHEMIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("LEAN_OR_SLIM_SHAPE").getBodyShapeID())
+                        .topInside("SHIRT")
+                        .topInsideColor("BLACK")
+                        .topOutside("X")
+                        .topOutsideColor("HỒNG_PASTEL")
+                        .topMaterial("RAYON")
+                        .bottomKind("SKINNY")
+                        .bottomColor("BLUE_NAVY")
+                        .bottomMaterial("DENIM")
+                        .shoesType("WELLINGTON_BOOTS")
+                        .shoesTypeColor("BROWN")
+                        .accessoryKind("BRACELET")
+                        .accessoryMaterial("LEATHER")
+                        .build();
+                ruleMatchingClothesRepository.save(rule64);
+
+                RuleMatchingClothes rule65 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("BOHEMIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("INVERTED_TRIANGLE_SHAPE").getBodyShapeID())
+                        .topInside("SHIRT")
+                        .topInsideColor("WHITE")
+                        .topOutside("X")
+                        .topOutsideColor("ORANGE")
+                        .topMaterial("COTTON")
+                        .bottomKind("CARGO_PANT")
+                        .bottomColor("DARK_BROWN")
+                        .bottomMaterial("LINEN")
+                        .shoesType("SANDALS")
+                        .shoesTypeColor("WHITE")
+                        .accessoryKind("BRACELET")
+                        .accessoryMaterial("BEADED")
+                        .build();
+                ruleMatchingClothesRepository.save(rule65);
+
+                RuleMatchingClothes rule66 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("BOHEMIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("ROUND_SHAPE").getBodyShapeID())
+                        .topInside("SWEATER")
+                        .topInsideColor("RED")
+                        .topOutside("X")
+                        .topOutsideColor("XANH_OLIVE")
+                        .topMaterial("WOOL")
+                        .bottomKind("BAGGY")
+                        .bottomColor("WHITE")
+                        .bottomMaterial("COTTON")
+                        .shoesType("SLIP_ON")
+                        .shoesTypeColor("BROWN")
+                        .accessoryKind("SUNGLASSES")
+                        .accessoryMaterial("METAL")
+                        .build();
+                ruleMatchingClothesRepository.save(rule66);
+
+
+                RuleMatchingClothes rule67 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("BOHEMIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("HOURGLASS_SHAPE").getBodyShapeID())
+                        .topInside("BLOUSE")
+                        .topInsideColor("ORANGE")
+                        .topOutside("X")
+                        .topOutsideColor("BLACK")
+                        .topMaterial("COTTON")
+                        .bottomKind("SKIRT")
+                        .bottomColor("BLUE_NAVY")
+                        .bottomMaterial("SATIN")
+                        .shoesType("SANDALS")
+                        .shoesTypeColor("WHITE")
+                        .accessoryKind("EARINGS")
+                        .accessoryMaterial("GOLD")
+                        .build();
+                ruleMatchingClothesRepository.save(rule67);
+
+
+                RuleMatchingClothes rule68 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("BOHEMIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("INVERTED_TRIANGLE_SHAPE").getBodyShapeID())
+                        .topInside("BLOUSE")
+                        .topInsideColor("ĐỎ_BURGUNDY")
+                        .topOutside("X")
+                        .topOutsideColor("GRAY")
+                        .topMaterial("SILK")
+                        .bottomKind("WIDE_LEG_PANT")
+                        .bottomColor("WHITE")
+                        .bottomMaterial("COTTON")
+                        .shoesType("PLATFORM_WEDGES")
+                        .shoesTypeColor("BROWN")
+                        .accessoryKind("COIN_BELT")
+                        .accessoryMaterial("LEATHER")
+                        .build();
+                ruleMatchingClothesRepository.save(rule68);
+
+                RuleMatchingClothes rule69 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("BOHEMIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("LEAN_OR_SLIM_SHAPE").getBodyShapeID())
+                        .topInside("CROP_TOP")
+                        .topInsideColor("WHITE")
+                        .topOutside("X")
+                        .topOutsideColor("HỒNG_NHẠT")
+                        .topMaterial("COTTON")
+                        .bottomKind("MAXI_SKIRT")
+                        .bottomColor("BLUE")
+                        .bottomMaterial("RAYON")
+                        .shoesType("SANDALS")
+                        .shoesTypeColor("WHITE")
+                        .accessoryKind("NECKLACE")
+                        .accessoryMaterial("X")
+                        .build();
+                ruleMatchingClothesRepository.save(rule69);
+
+                RuleMatchingClothes rule70 = RuleMatchingClothes.builder()
+                        .styleID(styleRepository.getStyleByStyleName("BOHEMIAN").getStyleID())
+                        .bodyShapeID(
+                                bodyShapeRepository.getBodyShapeByBodyShapeName("ROUND_SHAPE").getBodyShapeID())
+                        .topInside("X")
+                        .topInsideColor("X")
+                        .topOutside("FLOWY_BOHO_DRESS")
+                        .topOutsideColor("X")
+                        .topMaterial("CHIFFON")
+                        .bottomKind("X")
+                        .bottomColor("X")
+                        .bottomMaterial("X")
+                        .shoesType("BOOTS")
+                        .shoesTypeColor("X")
+                        .accessoryKind("EARINGS")
+                        .accessoryMaterial("GOLD")
+                        .build();
+                ruleMatchingClothesRepository.save(rule70);
             }
         };
     }

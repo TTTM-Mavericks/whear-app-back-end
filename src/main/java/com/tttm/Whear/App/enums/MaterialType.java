@@ -1,6 +1,6 @@
 package com.tttm.Whear.App.enums;
 
-public enum ClothesMaterialType {
+public enum MaterialType {
     COTTON,         // Cotton
     POLYESTER,      // Polyester
     WOOL,           // Wool

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.AIStylishService;
-import com.tttm.Whear.App.utils.request.BrandRequestDto;
+import com.tttm.Whear.App.utils.request.RejectClothesRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +23,24 @@ public class AIStylishController {
             respon.put("success", 200);
             respon.put("message", "Create Suggest Clothes for User Successfully");
             respon.set("data", objectMapper.valueToTree(stylishService.getSuggestClothesForUser(userID)));
+            return respon;
+        } catch (Exception ex) {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("error", -1);
+            respon.put("message", ex.getMessage());
+            respon.set("data", null);
+            return respon;
+        }
+    }
+
+    @PostMapping(APIConstant.AIStylishAPI.RENEW_CLOTHES_AFTER_REJECT_FOR_PREMIUM_USER)
+    public ObjectNode createSuggestClothesForUSer(@RequestBody RejectClothesRequest rejectClothesRequest) throws CustomException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("success", 200);
+            respon.put("message", "Create New Clothes After Reject for Premium User Successfully");
+            respon.set("data", objectMapper.valueToTree(stylishService.createNewClothesAfterRejectClothesForPremiumUser(rejectClothesRequest)));
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();

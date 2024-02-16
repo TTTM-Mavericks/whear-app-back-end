@@ -5,9 +5,7 @@ import com.tttm.Whear.App.dto.ClothesItemDto;
 import com.tttm.Whear.App.dto.PairConsineSimilarity;
 import com.tttm.Whear.App.dto.Pairs;
 import com.tttm.Whear.App.dto.UserFollowDto;
-import com.tttm.Whear.App.entity.History;
 import com.tttm.Whear.App.entity.User;
-import com.tttm.Whear.App.entity.UserStyle;
 import com.tttm.Whear.App.enums.*;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
@@ -262,7 +260,7 @@ public class RecommendationServiceImpl implements RecommendationService {
                 .nameOfProduct(clothesResponse.getNameOfProduct())
                 .typeOfClothes(ClothesType.valueOf(clothesResponse.getTypeOfClothes()))
                 .shape(ShapeType.valueOf(clothesResponse.getShape()))
-                .materials(ClothesMaterialType.valueOf(clothesResponse.getMaterials()))
+                .materials(MaterialType.valueOf(clothesResponse.getMaterials()))
                 .seasons(
                         clothesResponse
                                 .getClothesSeasons()
