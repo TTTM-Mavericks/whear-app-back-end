@@ -48,7 +48,7 @@ public class GenerateDataServiceImpl implements GenerateDataService {
             SeasonType seasonsType = getRandomEnumType(SeasonType.class);
 
            // ClothesMaterialType materialType = getRandomEnumType(ClothesMaterialType.class);
-            ClothesMaterialType materialType = generateRandomMaterial();
+            MaterialType materialType = generateRandomMaterial();
 
             List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 2);
             List<SizeType> sizeTypeList = generateListRandomEnumType(SizeType.class, 2);
@@ -120,7 +120,7 @@ public class GenerateDataServiceImpl implements GenerateDataService {
             historyUserSearch.add(generateRandomNameOfClothes() + " " + generateRandomNameBrand());
             historyUserSearch.add(getRandomEnumType(ClothesType.class).name());
             historyUserSearch.add(getRandomEnumType(ShapeType.class).name());
-            historyUserSearch.add(getRandomEnumType(ClothesMaterialType.class).name());
+            historyUserSearch.add(getRandomEnumType(MaterialType.class).name());
         }
 
         List<SeasonType> seasonTypeList = generateListRandomEnumType(SeasonType.class, 2);
@@ -161,9 +161,9 @@ public class GenerateDataServiceImpl implements GenerateDataService {
         return ClothesType.valueOf(typeOfClothesSample[random.nextInt(typeOfClothesSample.length)]);
     }
 
-    private ClothesMaterialType generateRandomMaterial()
+    private MaterialType generateRandomMaterial()
     {
-        return ClothesMaterialType.valueOf(materialSample[random.nextInt(materialSample.length)]);
+        return MaterialType.valueOf(materialSample[random.nextInt(materialSample.length)]);
     }
 
     private List<ColorType> generateRandomColorType(int size)

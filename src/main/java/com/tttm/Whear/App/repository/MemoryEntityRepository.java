@@ -38,4 +38,15 @@ public interface MemoryEntityRepository extends JpaRepository<MemoryEntity, Inte
     @Transactional
     @Query(value = "update memory_entity set suggest_clothes_to_user = ?1,last_modified_date = current_timestamp where memoryid = ?2", nativeQuery = true)
     void updateMemoryEntityForSuggestClothes(String suggestUser, Integer memoryID);
+
+    @Query(value = "select * from memory_entity where " +
+            "style_name = ?1 and " +
+            "body_shape_name = ?2 and " +
+            "(top_insideid = ?3 OR top_insideid IS NULL) and " +
+            "(top_outsideid = ?4 OR top_outsideid IS NULL) and " +
+            "(bottom_kindid = ?5 OR bottom_kindid IS NULL) and " +
+            "(shoes_typeid = ?6 OR shoes_typeid IS NULL) and " +
+            "(accessory_kindid = ?7 OR accessory_kindid IS NULL)", nativeQuery = true)
+    MemoryEntity getMemoryForRejectClothesRequest(String styleName, String bodyShapeName, String topInsideID, String topOutsideID,
+                                          String bottomKindID, String shoesTypeID, String accessoryKindID);
 }

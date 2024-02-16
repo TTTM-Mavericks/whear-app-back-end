@@ -30,7 +30,9 @@ public enum ConstantMessage {
   SUGGEST_FULL_CLOTHES_FOR_FREE_USER("Suggest full clothes for free user"),
   SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_FREE_USER("Suggest Missing or Run out of clothes for free user"),
   SUGGEST_FULL_CLOTHES_FOR_PREMIUM_USER("Suggest full clothes for Premium user"),
-  SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER("Suggest Missing or Run out of clothes for Premium user");
+  SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER("Suggest Missing or Run out of clothes for Premium user"),
+  STYLE_NAME_IS_NOT_EXISTED("Style name is not existed"),
+  BODY_SHAPE_NAME_IS_NOT_EXISTED("Body Shape Name is not existed");
 
   private final String message;
 

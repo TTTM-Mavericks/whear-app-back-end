@@ -1,11 +1,16 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
+import com.tttm.Whear.App.entity.BodyShape;
 import com.tttm.Whear.App.entity.MemoryEntity;
+import com.tttm.Whear.App.entity.Style;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.MemoryEntityRepository;
+import com.tttm.Whear.App.service.BodyShapeService;
 import com.tttm.Whear.App.service.MemoryEntityService;
+import com.tttm.Whear.App.service.StyleService;
 import com.tttm.Whear.App.utils.request.MemoryRequest;
+import com.tttm.Whear.App.utils.request.RejectClothesRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +20,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemoryEntityServiceImpl implements MemoryEntityService {
     private final MemoryEntityRepository memoryEntityRepository;
+    private final BodyShapeService bodyShapeService;
+    private final StyleService styleService;
     private final Logger logger = LoggerFactory.getLogger(MemoryEntityServiceImpl.class);
 
     @Override
@@ -76,5 +83,28 @@ public class MemoryEntityServiceImpl implements MemoryEntityService {
     @Override
     public Integer countMemoryByStyleAndBodyShape(String styleName, String bodyShapeName) throws CustomException {
         return memoryEntityRepository.countMemoryByStyleAndBodyShape(styleName, bodyShapeName);
+    }
+
+    @Override
+    public MemoryEntity getMemoryForRejectClothesRequest(RejectClothesRequest rejectClothesRequest) throws CustomException {
+        Style style = styleService.getStyleByStyleName(rejectClothesRequest.getStyleName());
+        if(style == null)
+        {
+            throw new CustomException(ConstantMessage.STYLE_NAME_IS_NOT_EXISTED.getMessage());
+        }
+        BodyShape bodyShape = bodyShapeService.getBodyShapeByBodyShapeName(rejectClothesRequest.getBodyShapeName());
+        if(bodyShape == null)
+        {
+            throw new CustomException(ConstantMessage.BODY_SHAPE_NAME_IS_NOT_EXISTED.getMessage());
+        }
+        return memoryEntityRepository.getMemoryForRejectClothesRequest(
+                rejectClothesRequest.getStyleName(),
+                rejectClothesRequest.getBodyShapeName(),
+                rejectClothesRequest.getTopInsideID(),
+                rejectClothesRequest.getTopOutsideID(),
+                rejectClothesRequest.getBottomKindID(),
+                rejectClothesRequest.getShoesTypeID(),
+                rejectClothesRequest.getAccessoryKindID()
+        );
     }
 }

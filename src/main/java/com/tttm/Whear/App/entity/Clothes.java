@@ -2,7 +2,7 @@ package com.tttm.Whear.App.entity;
 
 import com.tttm.Whear.App.entity.common.AuditEntity;
 import com.tttm.Whear.App.enums.ClothesType;
-import com.tttm.Whear.App.enums.ClothesMaterialType;
+import com.tttm.Whear.App.enums.MaterialType;
 import com.tttm.Whear.App.enums.ShapeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,5 +61,5 @@ public class Clothes extends AuditEntity implements Serializable {
 
   @Column(name = "materials")
   @Enumerated(EnumType.STRING)
-  private ClothesMaterialType materials;
+  private MaterialType materials;
 }
