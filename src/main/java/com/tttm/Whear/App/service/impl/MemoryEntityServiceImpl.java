@@ -61,8 +61,7 @@ public class MemoryEntityServiceImpl implements MemoryEntityService {
         MemoryEntity memoryEntity = memoryEntityRepository.findById(memoryID)
                 .orElseThrow(() -> new CustomException(ConstantMessage.ID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
 
-        switch (keyword)
-        {
+        switch (keyword) {
             case "DISLIKE":
                 memoryEntityRepository.updateMemoryEntityForDislikeClothes(userID, memoryID);
                 break;
