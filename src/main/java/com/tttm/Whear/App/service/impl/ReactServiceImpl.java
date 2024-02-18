@@ -4,6 +4,7 @@ import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.entity.React;
 import com.tttm.Whear.App.entity.User;
+import com.tttm.Whear.App.enums.TypeOfPosts;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.PostRepository;
 import com.tttm.Whear.App.repository.ReactRepository;
@@ -64,8 +65,10 @@ public class ReactServiceImpl implements ReactService {
           reactRequest.getPostID(),
           reactRequest.getReact().trim().toUpperCase()
       );
-      historyService.createHistoryItemBasedOnReactFeature(reactRequest.getUserID(),
-          reactRequest.getPostID());
+      if (post.getTypeOfPosts().equals(TypeOfPosts.CLOTHES)) {
+        historyService.createHistoryItemBasedOnReactFeature(reactRequest.getUserID(),
+            reactRequest.getPostID());
+      }
     }
 
     return convertToReactResponse(
