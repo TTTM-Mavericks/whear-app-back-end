@@ -10,15 +10,21 @@ public interface ClothesService {
 
   public ClothesResponse createClothes(ClothesRequest clothesRequest) throws CustomException;
 
-  public List<ClothesResponse> getAllClothes();
+  public List<ClothesResponse> getAllClothes() throws CustomException;
 
   public ClothesResponse getClothesByID(Integer clothesID) throws CustomException;
 
   public Clothes getClothesEntityByID(Integer clothesID) throws CustomException;
+
   public ClothesResponse updateClothes(ClothesRequest clothesRequest) throws CustomException;
 
   public void deleteClothesByID(Integer clothesID) throws CustomException;
-  List<ClothesResponse> getAllClothesByBrandID(String brandID);
-  List<ClothesResponse> getClothesBaseOnTypeOfClothesAndColorOrMaterials(String typeOfClothes, String color, String materials);
-  List<ClothesResponse> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes, String materials);
+
+  List<ClothesResponse> getAllClothesByBrandID(String brandID) throws CustomException;
+
+  List<ClothesResponse> getClothesBaseOnTypeOfClothesAndColorOrMaterials(String typeOfClothes,
+      String color, String materials) throws CustomException;
+
+  List<ClothesResponse> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes,
+      String materials) throws CustomException;
 }

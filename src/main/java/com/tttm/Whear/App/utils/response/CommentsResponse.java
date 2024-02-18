@@ -9,7 +9,7 @@ import lombok.Data;
 public class CommentsResponse implements Serializable {
 
   private Integer commentID;
-  private String userID;
+  private UserResponse user;
   private Integer postID;
   private String content;
 }

@@ -62,7 +62,9 @@ public class BrandServiceImpl implements BrandService {
                 .getAllBrand()
                 .stream()
                 .map(brand -> {
-                    List<ClothesResponse> clothes = clothesService
+                  List<ClothesResponse> clothes = null;
+                  try {
+                    clothes = clothesService
                             .getAllClothesByBrandID(brand.getBrandID())
                             .stream()
                             .map(clothesResponse -> {
@@ -77,8 +79,11 @@ public class BrandServiceImpl implements BrandService {
                             })
                             .sorted(Comparator.comparingInt(ClothesResponse::getReactPerClothes).reversed())
                             .collect(Collectors.toList());
+                  } catch (CustomException e) {
+                    throw new RuntimeException(e);
+                  }
 
-                    int totalReactPerBrand = clothes.stream().mapToInt(ClothesResponse::getReactPerClothes).sum();
+                  int totalReactPerBrand = clothes.stream().mapToInt(ClothesResponse::getReactPerClothes).sum();
 
                     clothes.forEach(clothesResponse ->
                             logger.info("ClothesID: " + clothesResponse.getClothesID() + " Total Of React Per Clothes: " + clothesResponse.getReactPerClothes())

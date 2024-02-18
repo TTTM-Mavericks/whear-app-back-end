@@ -235,7 +235,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         return String.join(" ", historyItems);
     }
 
-    private List<Pairs> convertListClothesToListClothesPairs() {
+    private List<Pairs> convertListClothesToListClothesPairs() throws CustomException {
         List<ClothesItemDto> ClothesItemDtoList = clothesService
                 .getAllClothes()
                 .stream()

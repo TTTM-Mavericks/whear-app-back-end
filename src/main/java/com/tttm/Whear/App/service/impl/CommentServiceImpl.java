@@ -14,6 +14,8 @@ import com.tttm.Whear.App.repository.UserRepository;
 import com.tttm.Whear.App.service.CommentService;
 import com.tttm.Whear.App.utils.request.CommentsRequest;
 import com.tttm.Whear.App.utils.response.CommentsResponse;
+import com.tttm.Whear.App.utils.response.UserResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -92,12 +94,29 @@ public class CommentServiceImpl implements CommentService {
   }
 
   private CommentsResponse convertToResponse(Comments comments) {
+    User user = userRepository.getUserByUserID(comments.getUserID());
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     CommentsResponse commentsResponse = CommentsResponse
         .builder()
         .commentID(comments.getCommentID())
         .content(comments.getContent())
         .postID(comments.getPostID())
-        .userID(comments.getUserID())
+        .user(
+            UserResponse
+                .builder()
+                .userID(user.getUserID())
+                .username(user.getNameOfUser())
+                .password(user.getPassword())
+                .dateOfBirth(String.valueOf(df.format(user.getDateOfBirth())))
+                .phone(user.getPhone())
+                .email(user.getEmail())
+                .gender(user.getGender())
+                .role(user.getRole())
+                .imgUrl(user.getImgUrl())
+                .status(user.getStatus())
+                .language(user.getLanguage())
+                .build()
+        )
         .build();
     return commentsResponse;
   }

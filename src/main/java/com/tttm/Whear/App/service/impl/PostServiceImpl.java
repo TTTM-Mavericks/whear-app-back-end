@@ -20,6 +20,8 @@ import com.tttm.Whear.App.utils.request.PostRequest;
 import com.tttm.Whear.App.utils.response.CommentsResponse;
 import com.tttm.Whear.App.utils.response.PostResponse;
 import com.tttm.Whear.App.utils.response.ReactResponse;
+import com.tttm.Whear.App.utils.response.UserResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -397,15 +399,18 @@ public class PostServiceImpl implements PostService {
         .getAllByPostID(post.getPostID())
         .stream()
         .toList();
+
     List<CommentsResponse> commentsResponses = new ArrayList<>();
     for (Comments comments : commentsList) {
+      UserResponse user = userService.getUserbyUserID(comments.getUserID());
+      SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
       commentsResponses.add(
           CommentsResponse
               .builder()
               .commentID(comments.getCommentID())
               .content(comments.getContent())
               .postID(comments.getPostID())
-              .userID(comments.getUserID())
+              .user(user)
               .build()
       );
     }

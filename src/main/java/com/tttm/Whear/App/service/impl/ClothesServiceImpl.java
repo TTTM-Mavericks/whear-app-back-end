@@ -24,16 +24,18 @@ import com.tttm.Whear.App.service.ClothesSizeService;
 import com.tttm.Whear.App.service.ClothesStyleService;
 import com.tttm.Whear.App.service.HashtagService;
 import com.tttm.Whear.App.service.PostService;
+import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.PostRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.CommentsResponse;
 import com.tttm.Whear.App.utils.response.PostResponse;
 import com.tttm.Whear.App.utils.response.ReactResponse;
+import com.tttm.Whear.App.utils.response.UserResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,7 @@ public class ClothesServiceImpl implements ClothesService {
   private final HashtagService hashtagService;
   private final CommentsRepostitory commentService;
   private final ReactRepository reactService;
+  private final UserService userService;
 
   @Override
   public ClothesResponse createClothes(ClothesRequest clothesRequest) throws CustomException {
@@ -157,12 +160,14 @@ public class ClothesServiceImpl implements ClothesService {
   }
 
   @Override
-  public List<ClothesResponse> getAllClothes() {
+  public List<ClothesResponse> getAllClothes() throws CustomException {
     List<Clothes> clothesList = clothesRepository.findAll();
 
-    List<ClothesResponse> responseList = clothesList.stream()
-        .map(this::mapToClothesResponse)
-        .collect(Collectors.toList());
+    List<ClothesResponse> responseList = new ArrayList<>();
+    for (Clothes clothes : clothesList) {
+      ClothesResponse clothesResponse = mapToClothesResponse(clothes);
+      responseList.add(clothesResponse);
+    }
 
     return responseList;
   }
@@ -294,7 +299,7 @@ public class ClothesServiceImpl implements ClothesService {
     clothesRepository.deleteById(clothesID);
   }
 
-  public ClothesResponse mapToClothesResponse(Clothes clothes) {
+  public ClothesResponse mapToClothesResponse(Clothes clothes) throws CustomException {
 
     List<String> clothesImages = clothesImageService
         .getAllImageOfClothes(clothes.getClothesID())
@@ -363,13 +368,15 @@ public class ClothesServiceImpl implements ClothesService {
         .toList();
     List<CommentsResponse> commentsResponses = new ArrayList<>();
     for (Comments comments : commentsList) {
+      UserResponse user = userService.getUserbyUserID(comments.getUserID());
+      SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
       commentsResponses.add(
           CommentsResponse
               .builder()
               .commentID(comments.getCommentID())
               .content(comments.getContent())
               .postID(comments.getPostID())
-              .userID(comments.getUserID())
+              .user(user)
               .build()
       );
     }
@@ -396,29 +403,37 @@ public class ClothesServiceImpl implements ClothesService {
   }
 
   @Override
-  public List<ClothesResponse> getAllClothesByBrandID(String brandID) {
-    return clothesRepository.getAllClothesByBrandID(brandID)
-        .stream()
-        .map(this::mapToClothesResponse)
-        .collect(Collectors.toList());
+  public List<ClothesResponse> getAllClothesByBrandID(String brandID) throws CustomException {
+    List<ClothesResponse> collect = new ArrayList<>();
+    for (Clothes clothes : clothesRepository.getAllClothesByBrandID(brandID)) {
+      ClothesResponse clothesResponse = mapToClothesResponse(clothes);
+      collect.add(clothesResponse);
+    }
+    return collect;
   }
 
   @Override
   public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-      String typeOfClothes, String color, String materials) {
-    return clothesRepository.getClothesBaseOnTypeOfClothesAndColorOrMaterials(typeOfClothes, color,
-            materials)
-        .stream()
-        .map(this::mapToClothesResponse)
-        .collect(Collectors.toList());
+      String typeOfClothes, String color, String materials) throws CustomException {
+    List<ClothesResponse> collect = new ArrayList<>();
+    for (Clothes clothes : clothesRepository.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+        typeOfClothes, color,
+        materials)) {
+      ClothesResponse clothesResponse = mapToClothesResponse(clothes);
+      collect.add(clothesResponse);
+    }
+    return collect;
   }
 
   @Override
   public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes,
-      String materials) {
-    return clothesRepository.getClothesBaseOnTypeOfClothesAndMaterial(typeOfClothes, materials)
-        .stream()
-        .map(this::mapToClothesResponse)
-        .collect(Collectors.toList());
+      String materials) throws CustomException {
+    List<ClothesResponse> collect = new ArrayList<>();
+    for (Clothes clothes : clothesRepository.getClothesBaseOnTypeOfClothesAndMaterial(
+        typeOfClothes, materials)) {
+      ClothesResponse clothesResponse = mapToClothesResponse(clothes);
+      collect.add(clothesResponse);
+    }
+    return collect;
   }
 }
