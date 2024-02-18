@@ -377,6 +377,9 @@ public class ClothesServiceImpl implements ClothesService {
               .content(comments.getContent())
               .postID(comments.getPostID())
               .user(user)
+              .date(
+                  commentService.getDateTimeByID(comments.getCommentID())
+              )
               .build()
       );
     }

@@ -411,6 +411,9 @@ public class PostServiceImpl implements PostService {
               .content(comments.getContent())
               .postID(comments.getPostID())
               .user(user)
+              .date(
+                  commentService.getDateTimeByID(comments.getCommentID())
+              )
               .build()
       );
     }

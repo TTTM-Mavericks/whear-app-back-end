@@ -12,4 +12,5 @@ public class CommentsResponse implements Serializable {
   private UserResponse user;
   private Integer postID;
   private String content;
+  private String date;
 }

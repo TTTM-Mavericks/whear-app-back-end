@@ -117,6 +117,9 @@ public class CommentServiceImpl implements CommentService {
                 .language(user.getLanguage())
                 .build()
         )
+        .date(
+            commentsRepostitory.getDateTimeByID(comments.getCommentID())
+        )
         .build();
     return commentsResponse;
   }
