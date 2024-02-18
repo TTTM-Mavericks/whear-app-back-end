@@ -5,13 +5,17 @@ import com.tttm.Whear.App.entity.Clothes;
 import com.tttm.Whear.App.entity.ClothesColor;
 import com.tttm.Whear.App.entity.ClothesSeason;
 import com.tttm.Whear.App.entity.ClothesSize;
+import com.tttm.Whear.App.entity.Comments;
 import com.tttm.Whear.App.entity.Hashtag;
-import com.tttm.Whear.App.enums.MaterialType;
+import com.tttm.Whear.App.entity.React;
 import com.tttm.Whear.App.enums.ClothesType;
+import com.tttm.Whear.App.enums.MaterialType;
 import com.tttm.Whear.App.enums.ShapeType;
 import com.tttm.Whear.App.enums.TypeOfPosts;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.ClothesRepository;
+import com.tttm.Whear.App.repository.CommentsRepostitory;
+import com.tttm.Whear.App.repository.ReactRepository;
 import com.tttm.Whear.App.service.ClothesColorService;
 import com.tttm.Whear.App.service.ClothesImageService;
 import com.tttm.Whear.App.service.ClothesSeasonService;
@@ -23,7 +27,9 @@ import com.tttm.Whear.App.service.PostService;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.PostRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
+import com.tttm.Whear.App.utils.response.CommentsResponse;
 import com.tttm.Whear.App.utils.response.PostResponse;
+import com.tttm.Whear.App.utils.response.ReactResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +49,8 @@ public class ClothesServiceImpl implements ClothesService {
   private final ClothesStyleService clothesStyleService;
   private final PostService postService;
   private final HashtagService hashtagService;
+  private final CommentsRepostitory commentService;
+  private final ReactRepository reactService;
 
   @Override
   public ClothesResponse createClothes(ClothesRequest clothesRequest) throws CustomException {
@@ -329,6 +337,43 @@ public class ClothesServiceImpl implements ClothesService {
       }
     }
 
+    List<React> reactList = reactService
+        .getPostReact(clothes.getClothesID())
+        .stream()
+        .toList();
+    List<ReactResponse> reactResponses = new ArrayList<>();
+    for (React react : reactList) {
+      reactResponses.add(
+          ReactResponse.builder()
+              .userID(
+                  react.getUserPostReactKey() != null ?
+                      react.getUserPostReactKey().getUserID() : null)
+              .postID(
+                  react.getUserPostReactKey() != null ?
+                      react.getUserPostReactKey().getPostID() : null)
+              .react(react.getReact() != null ?
+                  react.getReact() : null)
+              .build()
+      );
+    }
+
+    List<Comments> commentsList = commentService
+        .getAllByPostID(clothes.getClothesID())
+        .stream()
+        .toList();
+    List<CommentsResponse> commentsResponses = new ArrayList<>();
+    for (Comments comments : commentsList) {
+      commentsResponses.add(
+          CommentsResponse
+              .builder()
+              .commentID(comments.getCommentID())
+              .content(comments.getContent())
+              .postID(comments.getPostID())
+              .userID(comments.getUserID())
+              .build()
+      );
+    }
+
     ClothesResponse response = ClothesResponse.builder()
         .clothesID(clothes.getClothesID())
         .nameOfProduct(clothes.getNameOfProduct())
@@ -344,6 +389,8 @@ public class ClothesServiceImpl implements ClothesService {
         .clothesColors(clothesColors)
         .clothesStyles(clothesStyles)
         .hashtag(hashtag)
+        .react(reactResponses)
+        .comment(commentsResponses)
         .build();
     return response;
   }
@@ -357,18 +404,21 @@ public class ClothesServiceImpl implements ClothesService {
   }
 
   @Override
-  public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndColorOrMaterials(String typeOfClothes, String color, String materials) {
-    return clothesRepository.getClothesBaseOnTypeOfClothesAndColorOrMaterials(typeOfClothes, color, materials)
-            .stream()
-            .map(this::mapToClothesResponse)
-            .collect(Collectors.toList());
+  public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+      String typeOfClothes, String color, String materials) {
+    return clothesRepository.getClothesBaseOnTypeOfClothesAndColorOrMaterials(typeOfClothes, color,
+            materials)
+        .stream()
+        .map(this::mapToClothesResponse)
+        .collect(Collectors.toList());
   }
 
   @Override
-  public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes, String materials) {
+  public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes,
+      String materials) {
     return clothesRepository.getClothesBaseOnTypeOfClothesAndMaterial(typeOfClothes, materials)
-            .stream()
-            .map(this::mapToClothesResponse)
-            .collect(Collectors.toList());
+        .stream()
+        .map(this::mapToClothesResponse)
+        .collect(Collectors.toList());
   }
 }

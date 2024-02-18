@@ -1,7 +1,5 @@
 package com.tttm.Whear.App.utils.response;
 
-import com.tttm.Whear.App.entity.Hashtag;
-import com.tttm.Whear.App.entity.PostImages;
 import com.tttm.Whear.App.enums.TypeOfPosts;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -23,4 +21,6 @@ public class PostResponse {
   private List<String> image;
   private String date;
   private String status;
+  private List<ReactResponse> react;
+  private List<CommentsResponse> comment;
 }

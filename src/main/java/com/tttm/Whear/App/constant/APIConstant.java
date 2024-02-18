@@ -185,4 +185,11 @@ public class APIConstant {
     public static final String GET_SUGGEST_CLOTHES_FOR_USER = "/get-suggest-clothes-for-user";
     public static final String RENEW_CLOTHES_AFTER_REJECT_FOR_PREMIUM_USER = "/renew-clothes-after-reject-for-premium-user";
   }
+
+  public class CommentAPI
+  {
+    public static final String COMMENT = APIConstant.API + "/comment";
+    public static final String CREATE_COMMENT = "/create-comment";
+    public static final String GET_ALL_COMMENT_OF_A_POST = "/get-all-comment";
+  }
 }

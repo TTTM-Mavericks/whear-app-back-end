@@ -26,4 +26,6 @@ public class ClothesResponse {
   private List<String> clothesSizes;
   private List<String> clothesColors;
   private List<String> clothesStyles;
+  private List<ReactResponse> react;
+  private List<CommentsResponse> comment;
 }

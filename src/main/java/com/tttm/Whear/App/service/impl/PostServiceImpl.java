@@ -1,19 +1,25 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
+import com.tttm.Whear.App.entity.Comments;
 import com.tttm.Whear.App.entity.Hashtag;
 import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.entity.PostHashtag;
+import com.tttm.Whear.App.entity.React;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.repository.CommentsRepostitory;
 import com.tttm.Whear.App.repository.PostHashtagRepository;
 import com.tttm.Whear.App.repository.PostRepository;
+import com.tttm.Whear.App.repository.ReactRepository;
 import com.tttm.Whear.App.service.HashtagService;
 import com.tttm.Whear.App.service.PostImageService;
 import com.tttm.Whear.App.service.PostService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.PostRequest;
+import com.tttm.Whear.App.utils.response.CommentsResponse;
 import com.tttm.Whear.App.utils.response.PostResponse;
+import com.tttm.Whear.App.utils.response.ReactResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +38,8 @@ public class PostServiceImpl implements PostService {
   private final HashtagService hashtagService;
   private final PostHashtagRepository postHashtagRepository;
   private final PostImageService postImageService;
+  private final CommentsRepostitory commentService;
+  private final ReactRepository reactService;
 
   private boolean checkValidArguement(PostRequest postRequest) {
     return postRequest.getPostID() != null && postRequest.getUserID() != null &&
@@ -364,6 +372,44 @@ public class PostServiceImpl implements PostService {
         .stream()
         .map(postImages -> postImages.getHashtag())
         .toList();
+
+    List<React> reactList = reactService
+        .getPostReact(post.getPostID())
+        .stream()
+        .toList();
+    List<ReactResponse> reactResponses = new ArrayList<>();
+    for (React react : reactList) {
+      reactResponses.add(
+          ReactResponse.builder()
+              .userID(
+                  react.getUserPostReactKey() != null ?
+                      react.getUserPostReactKey().getUserID() : null)
+              .postID(
+                  react.getUserPostReactKey() != null ?
+                      react.getUserPostReactKey().getPostID() : null)
+              .react(react.getReact() != null ?
+                  react.getReact() : null)
+              .build()
+      );
+    }
+
+    List<Comments> commentsList = commentService
+        .getAllByPostID(post.getPostID())
+        .stream()
+        .toList();
+    List<CommentsResponse> commentsResponses = new ArrayList<>();
+    for (Comments comments : commentsList) {
+      commentsResponses.add(
+          CommentsResponse
+              .builder()
+              .commentID(comments.getCommentID())
+              .content(comments.getContent())
+              .postID(comments.getPostID())
+              .userID(comments.getUserID())
+              .build()
+      );
+    }
+
     return PostResponse
         .builder()
         .postID(post.getPostID())
@@ -374,6 +420,8 @@ public class PostServiceImpl implements PostService {
         .image(postImage)
         .date(post.getDate().toString())
         .status(post.getStatus())
+        .react(reactResponses)
+        .comment(commentsResponses)
         .build();
   }
 }

@@ -27,7 +27,7 @@ public class GenerateDataServiceImpl implements GenerateDataService {
     private final String[] nameOfClothes = {"Áo", "Quần", "Giày", "Dép"};
     private final String[] nameBrand = {"LV", "GUCCI", "HERMES", "DIOR", "BALENCIAGA", "TOM BROWN"};
 
-    private final String[] typeOfClothesSample = {"WIDE_LEG_PANT", "SKIRTS", "PANTS", "JEANS", "JOGGER", "BOMBER", "T_SHIRT", "HOODIE", "SNEAKER", "DR_MARTENS", "CHELSEA_BOOTS"};
+    private final String[] typeOfClothesSample = {"WIDE_LEG_PANT", "SKIRT", "PANTS", "JEANS", "JOGGER", "BOMBER", "T_SHIRT", "HOODIE", "SNEAKER", "DR_MARTENS", "CHELSEA_BOOTS"};
 
     private final String[] colorSample = {"BLACK", "WHITE", "GRAY", "BURNING_RED", "XANH_NEON", "YELLOW_NEON", "BROWN", "BEIGE", "BLACK", "BLUE_NAVY"};
     private final String[] materialSample = {"FLEECE", "COTTON", "POLYESTER", "DENIM", "LINEN", "FABRIC", "METAL"};
