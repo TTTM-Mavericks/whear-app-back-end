@@ -320,12 +320,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByEmailAndActiveStatus(email, status.name());
     }
 
-    private String convertToDateTime(LocalDateTime localDateTime)
-    {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return dateTimeFormatter.format(localDateTime);
-    }
-
     public UserResponse convertToUserResponse(User user) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return UserResponse
@@ -341,8 +335,8 @@ public class UserServiceImpl implements UserService {
                 .imgUrl(user.getImgUrl())
                 .status(user.getStatus())
                 .language(user.getLanguage())
-                .createDate(convertToDateTime(user.getCreateDate()))
-                .lastModifiedDate(convertToDateTime(user.getLastModifiedDate()))
+                .createDate(user.getCreateDate() == null ? null : user.getCreateDate().toString().substring(0, 10))
+                .lastModifiedDate(user.getLastModifiedDate() == null ? null : user.getLastModifiedDate().toString().substring(0, 10))
                 .build();
     }
 
@@ -361,8 +355,8 @@ public class UserServiceImpl implements UserService {
                 .imgUrl(user.getImgUrl())
                 .status(user.getStatus())
                 .language(user.getLanguage())
-                .createDate(convertToDateTime(user.getCreateDate()))
-                .lastModifiedDate(convertToDateTime(user.getLastModifiedDate()))
+                .createDate(user.getCreateDate() == null ? null : user.getCreateDate().toString().substring(0, 10))
+                .lastModifiedDate(user.getLastModifiedDate() == null ? null : user.getLastModifiedDate().toString().substring(0, 10))
                 .isFirstLogin(customer.getIsFirstLogin())
                 .subRole(subRoleRepository.getSubRolesBySubRoleID(customer.getSubRoleID()).getSubRoleName())
                 .build();
