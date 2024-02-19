@@ -17,6 +17,8 @@ import com.tttm.Whear.App.utils.response.CustomerResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +28,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -317,6 +320,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByEmailAndActiveStatus(email, status.name());
     }
 
+    private String convertToDateTime(LocalDateTime localDateTime)
+    {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return dateTimeFormatter.format(localDateTime);
+    }
+
     public UserResponse convertToUserResponse(User user) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return UserResponse
@@ -332,6 +341,8 @@ public class UserServiceImpl implements UserService {
                 .imgUrl(user.getImgUrl())
                 .status(user.getStatus())
                 .language(user.getLanguage())
+                .createDate(convertToDateTime(user.getCreateDate()))
+                .lastModifiedDate(convertToDateTime(user.getLastModifiedDate()))
                 .build();
     }
 
@@ -350,6 +361,8 @@ public class UserServiceImpl implements UserService {
                 .imgUrl(user.getImgUrl())
                 .status(user.getStatus())
                 .language(user.getLanguage())
+                .createDate(convertToDateTime(user.getCreateDate()))
+                .lastModifiedDate(convertToDateTime(user.getLastModifiedDate()))
                 .isFirstLogin(customer.getIsFirstLogin())
                 .subRole(subRoleRepository.getSubRolesBySubRoleID(customer.getSubRoleID()).getSubRoleName())
                 .build();

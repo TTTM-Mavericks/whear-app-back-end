@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.Language;
 import com.tttm.Whear.App.enums.StatusGeneral;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,4 +38,8 @@ public class UserResponse {
   private StatusGeneral status;
 
   private Language language;
+
+  private String createDate;
+
+  private String lastModifiedDate;
 }
