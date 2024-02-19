@@ -1,13 +1,7 @@
 package com.tttm.Whear.App.service.impl;
 
 import com.tttm.Whear.App.constant.ConstantMessage;
-import com.tttm.Whear.App.entity.Clothes;
-import com.tttm.Whear.App.entity.ClothesColor;
-import com.tttm.Whear.App.entity.ClothesSeason;
-import com.tttm.Whear.App.entity.ClothesSize;
-import com.tttm.Whear.App.entity.Comments;
-import com.tttm.Whear.App.entity.Hashtag;
-import com.tttm.Whear.App.entity.React;
+import com.tttm.Whear.App.entity.*;
 import com.tttm.Whear.App.enums.ClothesType;
 import com.tttm.Whear.App.enums.MaterialType;
 import com.tttm.Whear.App.enums.ShapeType;
@@ -36,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -383,6 +379,7 @@ public class ClothesServiceImpl implements ClothesService {
               .build()
       );
     }
+
 
     ClothesResponse response = ClothesResponse.builder()
         .clothesID(clothes.getClothesID())

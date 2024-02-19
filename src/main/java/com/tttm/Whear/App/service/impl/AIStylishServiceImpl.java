@@ -10,6 +10,7 @@ import com.tttm.Whear.App.utils.request.RejectClothesRequest;
 import com.tttm.Whear.App.utils.response.AIStylishResponse;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.RuleMatchingClothesResponse;
+import com.tttm.Whear.App.utils.response.UserResponseStylish;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,18 +55,25 @@ public class AIStylishServiceImpl implements AIStylishService {
         Customer customer = customerService.getCustomerByID(userID);
         List<AIStylishResponse> outfitsForWeek = new ArrayList<>();
 
+        UserResponseStylish userResponseStylish = UserResponseStylish
+                .builder()
+                .userID(user.getUserID())
+                .username(user.getUsername())
+                .imgUrl(user.getImgUrl())
+                .build();
+
         switch (subroleService.getSubroleByID(customer.getSubRoleID()).getSubRoleName()) {
             case LV1:
-                outfitsForWeek = suggestClothesForFreeUser(user, bodyShape, styleList);
+                outfitsForWeek = suggestClothesForFreeUser(user, bodyShape, styleList, userResponseStylish);
                 break;
             case LV2:
-                outfitsForWeek = suggestClothesForPremiumUser(user, bodyShape, styleList);
+                outfitsForWeek = suggestClothesForPremiumUser(user, bodyShape, styleList, userResponseStylish);
                 break;
         }
         return outfitsForWeek;
     }
 
-    private List<AIStylishResponse> suggestClothesForFreeUser(User user, BodyShape bodyShape, List<Style> styleList) throws CustomException {
+    private List<AIStylishResponse> suggestClothesForFreeUser(User user, BodyShape bodyShape, List<Style> styleList,  UserResponseStylish userResponseStylish) throws CustomException {
         List<RuleMatchingClothesResponse> ruleMatchingClothesResponses = styleList
                 .stream()
                 .map(style -> ruleMatchingClothesService.getRuleMatchingClothesByStyleAndBodyShape(style.getStyleID(), bodyShape.getBodyShapeID()))
@@ -128,7 +136,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                     rule.getStyleName(),
                     rule.getBodyShapeName(),
                     user.getUserID(),
-                    styleList.size() < 2 ? ConstantString.SUGGEST_CLOTHES_FOR_FREE_USER_A_WEEK : ConstantString.SUGGEST_CLOTHES_FOR_FREE_USER_A_DAY);
+                    styleList.size() < 2 ? ConstantString.SUGGEST_CLOTHES_FOR_FREE_USER_A_WEEK : ConstantString.SUGGEST_CLOTHES_FOR_FREE_USER_A_DAY,
+                    userResponseStylish);
 
             if (outfits.size() == (styleList.size() < 2 ? ConstantString.SUGGEST_CLOTHES_FOR_FREE_USER_A_WEEK : ConstantString.SUGGEST_CLOTHES_FOR_FREE_USER_A_DAY)) {
                 message = ConstantMessage.SUGGEST_FULL_CLOTHES_FOR_FREE_USER.getMessage();
@@ -176,7 +185,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                                                            String styleName,
                                                            String bodyShapeName,
                                                            String userID,
-                                                           int numberOfOutfits) throws CustomException {
+                                                           int numberOfOutfits,
+                                                           UserResponseStylish userResponseStylish) throws CustomException {
 
         Integer maxOutFitCanGenerate = calculateMaxOutfitsCanGenerate(topInsideClothes, topOutsideClothes, bottomClothes, shoesClothes, accessoriesClothes);
         logger.error("This is size of maxOutFitCanGenerate : {}", maxOutFitCanGenerate);
@@ -192,26 +202,31 @@ public class AIStylishServiceImpl implements AIStylishService {
             if (topInsideClothes.size() > 0) {
                 ClothesResponse topInside = selectRandomElement(topInsideClothes);
                 topInsideID = topInside.getClothesID().toString();
+                topInside.setUserResponseStylish(userResponseStylish);
                 outfit.add(topInside);
             }
             if (topOutsideClothes.size() > 0) {
                 ClothesResponse topOutside = selectRandomElement(topOutsideClothes);
                 topOutsideID = topOutside.getClothesID().toString();
+                topOutside.setUserResponseStylish(userResponseStylish);
                 outfit.add(topOutside);
             }
             if (bottomClothes.size() > 0) {
                 ClothesResponse bottomKind = selectRandomElement(bottomClothes);
                 bottomKindID = bottomKind.getClothesID().toString();
+                bottomKind.setUserResponseStylish(userResponseStylish);
                 outfit.add(bottomKind);
             }
             if (shoesClothes.size() > 0) {
                 ClothesResponse shoesType = selectRandomElement(shoesClothes);
                 shoesTypeID = shoesType.getClothesID().toString();
+                shoesType.setUserResponseStylish(userResponseStylish);
                 outfit.add(shoesType);
             }
             if (accessoriesClothes.size() > 0) {
                 ClothesResponse accessoryKind = selectRandomElement(accessoriesClothes);
                 accessoryKindID = accessoryKind.getClothesID().toString();
+                accessoryKind.setUserResponseStylish(userResponseStylish);
                 outfit.add(accessoryKind);
             }
 
@@ -323,7 +338,7 @@ public class AIStylishServiceImpl implements AIStylishService {
         }
         return list;
     }
-    private List<AIStylishResponse> suggestClothesForPremiumUser(User user, BodyShape bodyShape, List<Style> styleList) throws CustomException{
+    private List<AIStylishResponse> suggestClothesForPremiumUser(User user, BodyShape bodyShape, List<Style> styleList,  UserResponseStylish userResponseStylish) throws CustomException{
 
         List<Style> selectedStyle = null;
         List<Integer> calculateDaysForEachStyle = null;
@@ -397,7 +412,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                         rule.getStyleName(),
                         rule.getBodyShapeName(),
                         user.getUserID(),
-                        ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_HAVING_ONE_STYLE);
+                        ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_HAVING_ONE_STYLE,
+                        userResponseStylish);
 
                 if(outfitList.size() == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_HAVING_ONE_STYLE)
                 {
@@ -420,7 +436,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                         rule.getStyleName(),
                         rule.getBodyShapeName(),
                         user.getUserID(),
-                        ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY);
+                        ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY,
+                        userResponseStylish);
 
                 for (List<ClothesResponse> out : outfits) {
                     if (!containsOutfit(outfitList, out)) {
@@ -457,7 +474,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                             rule.getStyleName(),
                             rule.getBodyShapeName(),
                             user.getUserID(),
-                            ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY);
+                            ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY,
+                            userResponseStylish);
 
                     index += outfits.size();
 
@@ -509,6 +527,20 @@ public class AIStylishServiceImpl implements AIStylishService {
             throw new CustomException(ConstantMessage.BODY_SHAPE_NAME_IS_NOT_EXISTED.getMessage());
         }
 
+        // Check ID User or User Entity is exist or not
+        Optional.of(rejectClothesRequest.getUserID())
+                .filter(id -> !id.isEmpty() && !id.isBlank())
+                .orElseThrow(() -> new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
+
+        User user = Optional.ofNullable(userService.getUserEntityByUserID(rejectClothesRequest.getUserID()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
+
+        UserResponseStylish userResponseStylish = UserResponseStylish
+                .builder()
+                .userID(user.getUserID())
+                .username(user.getUsername())
+                .imgUrl(user.getImgUrl())
+                .build();
         RuleMatchingClothesResponse rule = ruleMatchingClothesService.getRuleMatchingClothesByStyleAndBodyShape(style.getStyleID(), bodyShape.getBodyShapeID());
 
         List<List<ClothesResponse>> outfitList = new ArrayList<>();
@@ -564,7 +596,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                 rule.getStyleName(),
                 rule.getBodyShapeName(),
                 rejectClothesRequest.getUserID(),
-                ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_AFTER_REJECT);
+                ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_AFTER_REJECT,
+                userResponseStylish);
 
         String message = "";
         if(outfitList.size() == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_AFTER_REJECT)
