@@ -5,6 +5,7 @@ public enum ClothesType {
     PANTS,          // Quần dài
     DRESS,          // Đầm
     SKIRT,          // Váy
+    SKIRTS,
     JACKET,         // Áo khoác
     COAT,           // Áo choàng
     SHORTS,         // Quần ngắn
