@@ -34,4 +34,7 @@ public class Customer extends AuditEntity implements Serializable {
   @Column(name = "subRoleID")
   @PrimaryKeyJoinColumn()
   private Integer subRoleID;
+
+  @Column(name = "numberOfUpdateStyle")
+  private Integer numberOfUpdateStyle;
 }

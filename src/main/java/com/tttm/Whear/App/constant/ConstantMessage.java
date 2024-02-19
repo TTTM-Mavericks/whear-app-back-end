@@ -31,7 +31,12 @@ public enum ConstantMessage {
   SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_FREE_USER("Suggest Missing or Run out of clothes for free user"),
   SUGGEST_FULL_CLOTHES_FOR_PREMIUM_USER("Suggest full clothes for Premium user"),
   SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER("Suggest Missing or Run out of clothes for Premium user"),
-  STYLE_NAME_IS_NOT_EXISTED("Style name is not existed"),
+  STYLE_NAME_IS_NOT_EXISTED("Style name is not existed in database"),
+  STYLE_NAME_IS_EXIST("Style name is existed"),
+  STYLE_NAME_IS_EXIST_IN_USER_STYLE("Style name is existed in User Style"),
+  STYLE_NAME_IS_NOT_EXIST_IN_USER_STYLE("Style name is not existed in User Style"),
+  ACCOUNT_HAVE_CHANGE_STYLE_MAXIMUM_NUMBER_OF_TIMES("Your Account have change style maximum number of Times"),
+  OLD_STYLE_AND_NEW_STYLE_IS_THE_SAME("Old Style And New Style is the same"),
   BODY_SHAPE_NAME_IS_NOT_EXISTED("Body Shape Name is not existed");
 
   private final String message;

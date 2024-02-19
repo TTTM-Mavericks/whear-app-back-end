@@ -6,4 +6,5 @@ import com.tttm.Whear.App.entity.User;
 public interface CustomerService {
   Customer createNewCustomers(User username);
   Customer getCustomerByID(String customerID);
+  void updateNumberOfTimesChangeStyleByCustomerID(Integer numberOfUpdateStyle, String customerID);
 }
