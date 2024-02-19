@@ -30,4 +30,7 @@ public class UserStyleKey implements Serializable {
     @ManyToOne
     @JoinColumn(name = "styleID", referencedColumnName = "styleID", nullable = false, insertable = false, updatable = false)
     private Style style;
+
+    @Column(name = "style_position")
+    private Integer stylePosition;
 }

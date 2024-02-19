@@ -26,6 +26,7 @@ public class UserStyleServiceImpl implements UserStyleService {
     private final HistoryService historyService;
     private final StyleService styleService;
     private final CustomerService customerService;
+    private final AIStylishService aiStylishService;
     @Override
     @Transactional
     public void createStyleAndBodyShape(StyleAndBodyShapeRequest request) throws CustomException {
@@ -56,7 +57,7 @@ public class UserStyleServiceImpl implements UserStyleService {
 
             if (userStyleRepository.findUserStyleByStyleIDAndUserID(style.getStyleID(), request.getUserID()) == null) {
                 historyService.createHistoryItemByDefaultStyleOrKeyword(request.getUserID(), styleName, "1");
-                userStyleRepository.createUserStyle(style.getStyleID(), request.getUserID());
+                userStyleRepository.createUserStyle(request.getUserID(), style.getStyleID(), userStyleRepository.findAll().size() + 1);
             } else {
                 throw new RuntimeException(new CustomException(ConstantMessage.STYLE_ID_AND_USER_ID_IS_EXIST.getMessage()));
             }

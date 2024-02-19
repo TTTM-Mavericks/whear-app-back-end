@@ -17,7 +17,7 @@ public class BodyShapeServiceImpl implements BodyShapeService {
 
     @Override
     public BodyShape getBodyShapeByBodyShapeName(String bodyShapeName) {
-        return bodyShapeRepository.getBodyShapeByBodyShapeName(bodyShapeName);
+        return bodyShapeRepository.getBodyShapeByBodyShapeName(bodyShapeName.toUpperCase());
     }
 
     @Override

@@ -22,7 +22,7 @@ public enum ClothesType {
 
     // TOP
     BOMBER,     // Bomber
-    CROPTOP,   // Áo ngắn ngang hông
+    CROP_TOP,   // Áo ngắn ngang hông
     BLOUSE,     // Áo cánh
     BABY_TEE,   // Áo thun trẻ em
     OVERSIZE_TEE,   // Áo ngoại cỡ

@@ -15,7 +15,8 @@ public interface StyleRepository extends JpaRepository<Style, Integer> {
     Style getStyleByStyleName(String styleName);
 
     @Query(
-            value = "select s.* from style s join user_style us on s.styleid = us.styleid where us.userid = ?1", nativeQuery = true
+            value = "select s.* from style s join user_style us on s.styleid = us.styleid where us.userid = ?1 " +
+                    "ORDER BY us.style_position ASC", nativeQuery = true
     )
     List<Style> getListStyleNameByUserID(String userID);
 }
