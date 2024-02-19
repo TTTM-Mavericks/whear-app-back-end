@@ -53,7 +53,7 @@ public class Clothes extends AuditEntity implements Serializable {
   @Column(name = "description", columnDefinition = "nvarchar(1000)")
   private String description;
 
-  @Column(name = "link")
+  @Column(name = "link", columnDefinition="TEXT")
   private String link;
 
   @Column(name = "rating")
