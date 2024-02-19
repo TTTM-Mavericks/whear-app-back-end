@@ -113,7 +113,7 @@ public class ClothesServiceImpl implements ClothesService {
         for (String size : clothesSizes) {
           ClothesSize finded = clothesSizeService.findByName(post.getPostID(), size);
           if (finded == null) {
-            clothesSizeService.createSize(post.getPostID(), size);
+            clothesSizeService.createSize(post.getPostID(), size.toUpperCase());
           }
         }
       }
@@ -133,7 +133,7 @@ public class ClothesServiceImpl implements ClothesService {
         for (String color : clothesColors) {
           ClothesColor finded = clothesColorService.findByName(post.getPostID(), color);
           if (finded == null) {
-            clothesColorService.createColor(post.getPostID(), color);
+            clothesColorService.createColor(post.getPostID(), color.toUpperCase());
           }
         }
       }
@@ -141,7 +141,7 @@ public class ClothesServiceImpl implements ClothesService {
       List<String> clothesStyle = clothesRequest.getClothesStyle();
       if (clothesStyle != null && !clothesStyle.isEmpty() && clothesStyle.size() > 0) {
         for (String style : clothesStyle) {
-          clothesStyleService.createStyle(post.getPostID(), style);
+          clothesStyleService.createStyle(post.getPostID(), style.toUpperCase());
         }
       }
 

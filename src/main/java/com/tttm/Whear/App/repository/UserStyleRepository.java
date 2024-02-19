@@ -15,8 +15,8 @@ import java.util.List;
 public interface UserStyleRepository extends JpaRepository<UserStyle, UserStyleKey> {
     @Modifying
     @Transactional
-    @Query(value = "insert into user_style (styleid, userid, create_date, last_modified_date) values (?1, ?2, current_timestamp, null)", nativeQuery = true)
-    void createUserStyle(Integer styleID, String userID);
+    @Query(value = "insert into user_style (userid, styleid, style_position, create_date, last_modified_date) values (?1, ?2, ?3, current_timestamp, null)", nativeQuery = true)
+    void createUserStyle(String userid, Integer styelid, Integer index);
 
     @Query(value = "select * from user_style where styleid = ?1 and userid = ?2", nativeQuery = true)
     UserStyle findUserStyleByStyleIDAndUserID(Integer styleID, String userID);

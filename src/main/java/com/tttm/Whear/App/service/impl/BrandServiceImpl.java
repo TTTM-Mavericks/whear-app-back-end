@@ -43,7 +43,7 @@ public class BrandServiceImpl implements BrandService {
             throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
         }
 
-        Brand brand =  Brand
+        Brand brand = Brand
                 .builder()
                 .brandID(brandRequestDto.getCustomerID())
                 .address(brandRequestDto.getAddress())
@@ -62,28 +62,28 @@ public class BrandServiceImpl implements BrandService {
                 .getAllBrand()
                 .stream()
                 .map(brand -> {
-                  List<ClothesResponse> clothes = null;
-                  try {
-                    clothes = clothesService
-                            .getAllClothesByBrandID(brand.getBrandID())
-                            .stream()
-                            .map(clothesResponse -> {
-                                int reactPerClothes = 0;
-                                try {
-                                    reactPerClothes = reactService.getAllReactPerClothes(clothesResponse.getClothesID());
-                                } catch (CustomException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                clothesResponse.setReactPerClothes(reactPerClothes);
-                                return clothesResponse;
-                            })
-                            .sorted(Comparator.comparingInt(ClothesResponse::getReactPerClothes).reversed())
-                            .collect(Collectors.toList());
-                  } catch (CustomException e) {
-                    throw new RuntimeException(e);
-                  }
+                    List<ClothesResponse> clothes = null;
+                    try {
+                        clothes = clothesService
+                                .getAllClothesByBrandID(brand.getBrandID())
+                                .stream()
+                                .map(clothesResponse -> {
+                                    int reactPerClothes = 0;
+                                    try {
+                                        reactPerClothes = reactService.getAllReactPerClothes(clothesResponse.getClothesID());
+                                    } catch (CustomException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    clothesResponse.setReactPerClothes(reactPerClothes);
+                                    return clothesResponse;
+                                })
+                                .sorted(Comparator.comparingInt(ClothesResponse::getReactPerClothes).reversed())
+                                .collect(Collectors.toList());
+                    } catch (CustomException e) {
+                        throw new RuntimeException(e);
+                    }
 
-                  int totalReactPerBrand = clothes.stream().mapToInt(ClothesResponse::getReactPerClothes).sum();
+                    int totalReactPerBrand = clothes.stream().mapToInt(ClothesResponse::getReactPerClothes).sum();
 
                     clothes.forEach(clothesResponse ->
                             logger.info("ClothesID: " + clothesResponse.getClothesID() + " Total Of React Per Clothes: " + clothesResponse.getReactPerClothes())
@@ -103,7 +103,7 @@ public class BrandServiceImpl implements BrandService {
                 .collect(Collectors.toList());
     }
 
-    private BrandResponse convertToBrandResponse(Brand brand){
+    private BrandResponse convertToBrandResponse(Brand brand) {
         return BrandResponse
                 .builder()
                 .brandID(brand.getBrandID())
