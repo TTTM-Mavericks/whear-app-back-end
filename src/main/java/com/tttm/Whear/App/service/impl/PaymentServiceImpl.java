@@ -262,6 +262,11 @@ public class PaymentServiceImpl implements PaymentService {
     return paymentList;
   }
 
+  @Override
+  public String getDateTime(Integer paymentID) {
+    return paymentRepository.getDateTime(paymentID);
+  }
+
   private static String convertObjToQueryStr(JsonNode object) {
     StringBuilder stringBuilder = new StringBuilder();
     ObjectMapper objectMapper = new ObjectMapper();

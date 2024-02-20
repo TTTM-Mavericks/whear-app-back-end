@@ -19,4 +19,6 @@ public interface PaymentService {
       throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException;
 
   List<Payment> getAllPayment() throws Exception;
+
+  String getDateTime(Integer paymentID);
 }
