@@ -124,10 +124,11 @@ public class GenerateDataServiceImpl implements GenerateDataService {
     public void generateRandomCustomer() throws CustomException {
         UserRequest userRequest = UserRequest
                 .builder()
-                .username("Sample")
-                .email("sample@gmail.com")
+                .username("admin")
+                .email("admin@gmail.com")
                 .phone("01234567890")
                 .password("12345")
+                .language(Language.VIETNAM)
                 .dateOfBirth(getCurrentDate())
                 .imgUrl(generateRandomNameBrand())
                 .build();

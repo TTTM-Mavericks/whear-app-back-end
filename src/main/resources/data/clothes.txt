@@ -801,3 +801,966 @@
     ]
 }
 ------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Mũ lưỡi trai LOULI SAIGON ",
+    "typeOfClothes": "CAP",
+    "shape": "SQUARE",
+    "description": "THÔNG TIN CHI TIẾT SẢN PHẨM MŨ LƯỠI TRAI VINTAGE: Chất liệu vải: Mũ được dệt từ vải kaki cao cấp. Kích thước nón: từ 53-60 cm Màu sắc: Đen, kem, nâu coffee, xanh đen, xám, xanh lá, hồng. Khóa chỉnh size: Được làm bằng inox chống gỉ. Form mềm Nam Nữ đều được, phong cách Unisex.",
+    "link": "https://shopee.vn/M%C5%A9-l%C6%B0%E1%BB%A1i-trai-LOULI-SAIGON-VINTAGE-v%E1%BA%A3i-kaki-cao-c%E1%BA%A5p-form-m%E1%BB%81m-i.906790672.22642852825?sp_atk=b197c335-43c6-4182-89c1-f751c491ea22&xptdk=b197c335-43c6-4182-89c1-f751c491ea22",
+    "rating": 0,
+    "materials": "FABRIC",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lgymjtu17uur25"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "White",
+        "Black"
+    ],
+    "hashtag": [
+        "Louli Saigon Official Store"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{ "userID": "1",
+    "nameOfProduct": "Mũ lưỡi trai LOULI SAIGON ",
+    "typeOfClothes": "CAP",
+    "shape": "RECTANGLE",
+    "description": "THÔNG TIN CHI TIẾT SẢN PHẨM MŨ LƯỠI TRAI VINTAGE: Chất liệu vải: Mũ được dệt từ vải kaki cao cấp. Kích thước nón: từ 53-60 cm. Màu sắc: Đen, kem, nâu coffee, xanh đen, xám, xanh lá, hồng. Khóa chỉnh size: Được làm bằng inox chống gỉ. Form mềm Nam Nữ đều được, phong cách Unisex.",
+    "link": "https://shopee.vn/M%C5%A9-l%C6%B0%E1%BB%A1i-trai-LOULI-SAIGON-VINTAGE-v%E1%BA%A3i-kaki-cao-c%E1%BA%A5p-form-m%E1%BB%81m-i.906790672.22642852825?sp_atk=b197c335-43c6-4182-89c1-f751c491ea22&xptdk=b197c335-43c6-4182-89c1-f751c491ea22",
+    "rating": 0,
+    "materials": "FABRIC",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lgymjtu17uur25"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "WHITE",
+        "Black"
+    ],
+    "hashtag": [
+        "Louli Saigon Official Store"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Túi Hộp Cannes Handbag Edmond Maison Monogram Chính Hãng",
+    "typeOfClothes": "HANDBAG",
+    "shape": "TRIANGLE",
+    "description": "EDMOND MONOGRAM OFFICIAL STORE Cam kết 100% chính hãng AUTHENTIC. Nói không với fake. GIÁ CẠNH TRANH NHẤT THỊ TRƯỜNG. UY TÍN CHẤT LƯỢNG. HÀNG KHÔNG GIỐNG ẢNH HOẶC MÔ TẢ SHOP HOÀN TIỀN NGAY 100%. CAM KẾT 100% CHÍNH HÃNG, NÓI KHÔNG VỚI FAKE.",
+    "link": "https://shopee.vn/-M%C3%A3-INBAU702-gi%E1%BA%A3m-70K-%C4%91%C6%A1n-449K-CH%C3%8DNH-H%C3%83NG-T%C3%BAi-H%E1%BB%99p-Cannes-Handbag-Edmond-Maison-Monogram-Ch%C3%ADnh-H%C3%A3ng-i.625348515.16568471345?sp_atk=808a8399-efb7-4a60-9590-b682f1605f85&xptdk=808a8399-efb7-4a60-9590-b682f1605f85",
+    "rating": 0,
+    "materials": "FABRIC",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lob7nfm4uhvb42"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "White",
+        "Black"
+    ],
+    "hashtag": [
+        "EDMOND MONOGRAM"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+ "userID": "1",
+    "nameOfProduct": "Sơ mi classic lụa dáng",
+    "typeOfClothes": "SHIRT",
+    "shape": "PENTAGON",
+    "description": "Sơ mi lụa cổ điển với độ rũ hoàn hảo, Tăng chiều dài tay áo, bo cổ tay đứng. May giấu nút và được tối ưu, giảm tình trạng áo dễ nhăn. Free Size",
+    "link": "https://shopee.vn/S%C6%A1mi-classic-l%E1%BB%A5a-d%C3%A1ng-Slim-Black-Silk-Shirt-i.33868243.24153376072?sp_atk=f2e3e0a3-c984-4b10-ab4c-90b8c3cecacd&xptdk=f2e3e0a3-c984-4b10-ab4c-90b8c3cecacd",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lppe9q2qx0opbf"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "cherry.on.top"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{ "userID": "1",
+    "nameOfProduct": "Áo Polo Shirt Dài Tay Màu Xanh",
+    "typeOfClothes": "POLO_SHIRT",
+    "shape": "PENTAGON",
+    "description": "Cam Kết lỗi 1 đổi 1 ngay lập tức nếu áo lỗi hoặc không giống như quảng cáo. 100% HÌNH ẢNH và VIDEO được shop quay chụp trực tiếp!!!. MIỄN PHÍ VẬN CHUYỂN tận tay bạn. Giao ĐÚNG ĐỦ mẫu,số lượng. Hãy đánh giá thật tâm chúng tôi sẽ tặng bạn VOUCHER giảm 10% toàn SHOP. Mọi khiếu nại, phản hồi từ khách sẽ được trả lời trong 1 phút!!. Đội ngũ CSKH nhiệt tình,tận tâm.",
+    "link": "https://shopee.vn/%C3%81o-Polo-Shirt-D%C3%A0i-Tay-M%C3%A0u-Xanh-Navy-C%E1%BB%95-Widespread-KILEE-2023-i.13598443.24760391988?sp_atk=2f1ef301-0937-4c50-b3d2-17d46c78c52a&xptdk=2f1ef301-0937-4c50-b3d2-17d46c78c52a",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lquaoq8nkrt056"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLUE_NAVY"
+    ],
+    "hashtag": [
+        "KILEE"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+ "userID": "1",
+    "nameOfProduct": "Áo phông nam wash IFXBYT",
+    "typeOfClothes": "SHIRT",
+    "shape": "TRIANGLE",
+    "description": "Chất liệu: 100 - Chất liệu: 100% cotton, vải mềm, chất vải mịn, thoáng mát, không xù. Đường may chuẩn, tỉ mỉ, chắc chắn. Mặc ở nhà, đi chơi hoặc khi tập thể thao. Thích hợp để trộn quần áo với nhiều loại. Kiểu dáng hiện đại, trẻ trung, năng động. Dễ dàng kết hợp. Thông số lựa chọn kích thước: Chiều dài M: 69 Ngực: 116 Chiều dài tay: 56 Chiều dài L: 71 Ngực: 120 Chiều dài tay áo: 57. Chiều dài Xl: 73 Bức tượng bán thân: 124 Chiều dài tay áo: 58 Chiều dài 2XL: 75 Hình dạng cơ thể: 128 Chiều dài cánh tay: 59",
+    "link": "https://shopee.vn/%C3%81o-pho%CC%82ng-nam-wash-IFXBYT-a%CC%81o-thun-basic-fashion-T-shirt-unisex-ulzzang-100-cotton-Y0437-i.919931212.24909559607?sp_atk=34ed8db9-f3b2-4caf-b076-ef494c004552&xptdk=34ed8db9-f3b2-4caf-b076-ef494c004552",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/cn-11134207-7r98o-lqpzjmmg10d4fb"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "IFXBYT"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+ "userID": "1",
+    "nameOfProduct": "Timberland Áo Khoác Ngoài Sơ Mi Nam ",
+    "typeOfClothes": "SHIRT",
+    "shape": "HEXAGON",
+    "description": "Thông tin thương hiệu: Timberland là một nhà sản xuất và bản lẻ những trang phục ngoài trời của Mỹ, đặc biệt là các sản phẩm giày dép và những đôi boot da chống thấm nước. Những sản phẩm giày dép của hướng tới người tiêu dùng có các hoạt động ngoài trời đời thường. Năm 1973, đánh dấu bước ngoặt lớn trong việc xây dựng tên tuổi của mình, lần đầu tiên cho ra mắt những đôi boot da chống thấm nước, thiết lập tiêu chuẩn mới cho tính thủ công, độ vững bền và sự bảo hộ. Tất nhiên, để trở thành cái tên tiên phong trong công nghệ chống thấm nước, rất nghiêm túc trong việc thiết kế, nghiên cứu và thậm chí là công khai thử nghiệm.",
+    "link": "https://shopee.vn/-Original-Timberland-%C3%81o-Kho%C3%A1c-Ngo%C3%A0i-S%C6%A1-Mi-Nam-Men%E2%80%99s-Shirt-with-Outlast%C2%AE-Technology-TB0A2NHT-i.228438641.20996232250?sp_atk=ca9bfc3f-50dd-4c5a-af3e-c8c56db0e900&xptdk=ca9bfc3f-50dd-4c5a-af3e-c8c56db0e900",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lq8rihcq66ky60"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "XANH_OLIVE"
+    ],
+    "hashtag": [
+        "timberlandvietnam"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+ "userID": "1",
+    "nameOfProduct": "Áo sơ mi Kaki",
+    "typeOfClothes": "SHIRT",
+    "shape": "HEXAGON",
+    "description": "Tên sản phẩm: Áo sơ mi kaki KRAFT. Chất liệu: kaki, có độ bền cao. Màu sắc: Nâu - Xanh Rêu. Phom dáng: Chuẩn form, thoải mái, màu sắc trung tính , tôn dáng, phù hợp với mọi lứa tuổi. Size: S - M - L -XL - XXL. Xuất xứ: Việt Nam. Tính năng nổi bật: + Thấm hút mồ hôi tốt + Co giãn, đàn hồi tốt + Bền màu. HƯỚNG DẪN BẢO QUẢN SẢN PHẨM + Nên phơi đồ trong bóng râm + Giặt bằng nước lạnh + Không ngâm quần áo quá lâu, chỉ ngâm 3-5 phút + Nên giặt tay để áo bền màu lâu hơn. HƯỚNG DẪN SỬ DỤNG: + Giặt máy với chu kỳ trung bình và vòng quay ngắn + Giặt với nhiệt độ tối đa 30 độ C + Sấy nhẹ ở nhiệt độ thường + Là ủi không quá 110 độ C + Phơi bằng móc dưới bóng râm + Không sử dụng chất tẩy",
+    "link": "https://shopee.vn/A%CC%81o-s%C6%A1-mi-Kaki-ph%C3%B4%CC%81i-da-Kraft-Shirt-i.623651329.22823666656?sp_atk=2f037daa-7160-4ed2-8a93-6cca8ae11baa&xptdk=2f037daa-7160-4ed2-8a93-6cca8ae11baa",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/sg-11134201-23020-iajbdqmvufnvcd",
+"https://down-vn.img.susercontent.com/file/sg-11134201-23020-2pfn9wpvufnv7d"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BROWN"
+    ],
+    "hashtag": [
+        "Kraft VN"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+ "userID": "1",
+    "nameOfProduct": "Áo thun lạnh nam local brand ",
+    "typeOfClothes": "SHIRT",
+    "shape": "HEXAGON",
+    "description": "Thương hiệu: G-STYLE Chất liệu: Vải cotton cao cấp thấm hút mồ hôi tốt, mát, vải mịn, co dãn tốt. Chỉ may cẩn thận, chắc chắn. Thiết kế trơn, kiểu dáng thể thao, regular. Đủ size: M - L - XL -XXL-3XL-4XL. Màu sắc: màu navy, đen, xanh cổ vịt",
+    "link": "https://shopee.vn/%C3%81o-thun-l%E1%BA%A1nh-nam-local-brand-G-Style-MTS30523-tr%C6%A1n-Tshirt-basic-m%C3%B9a-h%C3%A8-m%E1%BA%A1nh-m%E1%BA%BD-nam-t%C3%ADnh-i.964973472.22443200093?sp_atk=d24e65cf-27f3-4ebb-bb05-ca89108fd48b&xptdk=d24e65cf-27f3-4ebb-bb05-ca89108fd48b",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lh8xpgkemnzn0e"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLUE_NAVY"
+    ],
+    "hashtag": [
+        "G-style Official"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{ "userID": "1",
+    "nameOfProduct": "Quần Âu Nam MARU Phom Suông Ống Rộng",
+    "typeOfClothes": "PANTS",
+    "shape": "RECTANGLE",
+    "description": "Mã sản phẩm: WP. SIZE S/M/L/XL/XXL. Màu sắc: ĐEN-BE KEM-TRẮNG-BE XÁM-NÂU-XÁM TRẮNG. Chất liệu: Vải âu cotton Hàn Quốc, có co giãn. Phom: SUÔNG ỐNG RỘNG, CẠP CAO GIỮA EO.",
+    "link": "https://shopee.vn/Qu%E1%BA%A7n-%C3%82u-Nam-MARU-Phom-Su%C3%B4ng-%E1%BB%90ng-R%E1%BB%99ng-C%E1%BA%A1p-Cao.-WIDE-PANTS-C%C3%B3-6-M%C3%A0u.-i.318657464.11578502150?sp_atk=6b805ef8-e9e1-4529-8f13-6dcb4af22e2b&xptdk=6b805ef8-e9e1-4529-8f13-6dcb4af22e2b",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lomfss5b783b45"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BROWN"
+    ],
+    "hashtag": [
+        "MARU MENSWEAR STORE"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Quần Kaki ống rộng THOMAS STU Wide fit vải",
+    "typeOfClothes": "WIDE_LEG_PANT",
+    "shape": "RECTANGLE",
+    "description": "Chất liệu quần: Vải Khaki cao cấp, sơi bông nguồn gốc Palestine dày dặn, bóng nhẹ. Form dáng: Ống rộng - Wide fit. Size: 28-29-30-31-32",
+    "link": "https://shopee.vn/Qu%E1%BA%A7n-Kaki-%E1%BB%91ng-r%E1%BB%99ng-THOMAS-STU-Wide-fit-v%E1%BA%A3i-Khaki-cao-c%E1%BA%A5p-Thomas-Eric-Khaki-Wide-Leg-Trouser-Pant-Black-KP01D-i.338290430.19981453788?sp_atk=5fd3530f-b6a3-40d4-a641-70a6ff631e07&xptdk=5fd3530f-b6a3-40d4-a641-70a6ff631e07",
+    "rating": 0,
+    "materials": "LINEN",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lirjcamsj7kced"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "Thomas.Stu"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Quần Kaki ống rộng THOMAS STU Wide fit vải",
+    "typeOfClothes": "WIDE_LEG_PANT",
+    "shape": "OCTAGON",
+    "description": "Chất liệu quần: Vải Khaki cao cấp, sơi bông nguồn gốc Palestine dày dặn, bóng nhẹ. Form dáng: Ống rộng - Wide fit. Size: 28-29-30-31-32",
+    "link": "https://shopee.vn/Qu%E1%BA%A7n-Kaki-%E1%BB%91ng-r%E1%BB%99ng-THOMAS-STU-Wide-fit-v%E1%BA%A3i-Khaki-cao-c%E1%BA%A5p-Thomas-Eric-Khaki-Wide-Leg-Trouser-Pant-Black-KP01D-i.338290430.19981453788?sp_atk=5fd3530f-b6a3-40d4-a641-70a6ff631e07&xptdk=5fd3530f-b6a3-40d4-a641-70a6ff631e07",
+    "rating": 0,
+    "materials": "LINEN",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lirjcamsj7kced"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BEIGE"
+    ],
+    "hashtag": [
+        "Thomas.Stu"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{ "userID": "1",
+    "nameOfProduct": "Chân váy lưng thấp dáng ngắn xoè",
+    "typeOfClothes": "SKIRT",
+    "shape": "TRIANGLE",
+    "description": "Tên sản phẩm : SKIRT MINI XOÈ NỈ PCG. Vải nỉ PCG , nền vải dày vừa phải . Phù hợp thời tiết se lạnh hoặc khoác ngoài ạaaa. Các bạn miền Bắc mua em này sẵn khoác cho mùa xuân hè sắp tới luôn cũng tiện ạaaa. Còn dân miền Nam vi vu khắp các mùa luônnn. Áo chống nhăn tốt, dễ giặt sạch, nhanh khô. Giặt tay hay giặt máy thoải mái không sợ ra màu , mất form. Mực in / Hình thêu không bông tróc, sắc nét, không bay màu, không gây hại cho da, không dính vào nhau khi giặt, an toàn cho sức khỏe người dùng.",
+    "link": "https://shopee.vn/Ch%C3%A2n-v%C3%A1y-l%C6%B0ng-th%E1%BA%A5p-d%C3%A1ng-ng%E1%BA%AFn-xo%C3%A8-c%C3%B3-qu%E1%BA%A7n-b%E1%BA%A3o-h%E1%BB%99-(-c%C3%B3-t%C3%BAi-trong-)-V%E1%BA%A3i-PCG-Regods-Skirt-xo%C3%A8-RG-i.36635146.21986877655?sp_atk=a5b2e0ed-a943-415f-9dd1-c62213f1c354&xptdk=a5b2e0ed-a943-415f-9dd1-c62213f1c354",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lpklj1lb86s409"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "regods"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Champion Traditional Pleated Double Knit Skirt",
+    "typeOfClothes": "SKIRT",
+    "shape": "TRIANGLE",
+    "description": "Champion Teamwear là nhà cung cấp đa quốc gia về đồng phục được may riêng và trang phục luyện tập cho các đội thể thao đại học, trường học và câu lạc bộ trên toàn thế giới. Tọa lạc tại Manhattan USA, Champion Teamwear sử dụng gần 900 chuyên gia thiết kế để cho ra những mẫu quần áo chất lượng tuyệt vời và hợp thời . Champion Teamwear đã trang bị cho hơn 1,1 triệu đội nhóm và các câu lạc bộ kể từ năm 1989. Thông số sản phẩm: https://championteamwear.com/product/traditional-pleated-double-knit-skirt?style=1172BL&color=201 16 nếp gấp xếp ly Các nếp gấp được may chắn chắn, tỉ mỉ để giữ cố định váy khi vận động. Khóa kéo với 2 nút điều chỉnh ở eo. Chất liệu: 100% polyester đan",
+    "link": "https://shopee.vn/Champion-Traditional-Pleated-Double-Knit-Skirt-V%C3%A1y-th%E1%BB%83-thao-tennis-x%E1%BA%BFp-ly-Red-i.164892806.18481178370?sp_atk=1d00cd3d-8bc3-4b2f-9726-c861a45b1d1d&xptdk=1d00cd3d-8bc3-4b2f-9726-c861a45b1d1d",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lijzvfnaoah80d"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "ĐỎ_BURGUNDY"
+    ],
+    "hashtag": [
+        "Usa Nutrition"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Quần DirtyCoins Logo Plaid Pants - Red",
+    "typeOfClothes": "PANTS",
+    "shape": "PENTAGON",
+    "description": "Chi tiết sản phẩm: Màu: Đỏ. Size: S - M - L - XL. Chất liệu: Polyester. Relaxed Fit. Logo Y được thêu bên hông mặt trước quần. Phần dây rút đồng chất liệu vải quần.",
+    "link": "https://shopee.vn/Qu%E1%BA%A7n-DirtyCoins-Logo-Plaid-Pants-Red-i.77177153.21980249967?sp_atk=9e2bef1d-4170-43a2-a41a-2e6cc6829dea&xptdk=9e2bef1d-4170-43a2-a41a-2e6cc6829dea",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-liy6neiui8yade"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BURNING_RED"
+    ],
+    "hashtag": [
+        "Dirty Coins"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{ "userID": "1",
+    "nameOfProduct": "Giày Lười Da Nam BANULI HDPL1M0",
+    "typeOfClothes": "LOAFERS",
+    "shape": "PENTAGON",
+    "description": "Nếu bạn đang tìm kiếm một đôi loafers hiện đại để đi làm và đi chơi trong thành phố thì đôi loafer này chính là dành cho bạn. Đáng kinh ngạc ở giày lười BANULI HDPL1M0 là được làm hoàn toàn thủ công với mặt trên là da bê Italy mềm mại và được chế tác thủ công, mềm đến mức bạn có thể mang nó mà không cần tất kể từ thời điểm bạn nhận được chúng.",
+    "link": "https://shopee.vn/Gi%C3%A0y-L%C6%B0%E1%BB%9Di-Da-Nam-BANULI-HDPL1M0-Gi%C3%A0y-C%C3%B4ng-S%E1%BB%9F-Da-Italy-(BANULI-HDPL1M0-Men's-Leather-Penny-Loafers)-i.9008042.15997640827?sp_atk=b078274a-8819-4959-bd69-a117982db684&xptdk=b078274a-8819-4959-bd69-a117982db684",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lqvuxnxo74xw78"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "Michilux Global"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{ "userID": "1",
+    "nameOfProduct": "Đèn led neon hình giày Neonchill",
+    "typeOfClothes": "SNEAKER",
+    "shape": "PENTAGON",
+    "description": "Đèn led neon hình giày. Sử dụng để trang trí, decor phòng siêu đẹp. Với ánh sáng sang trọng ấm áp, quý khách có thể lựa chọn màu sắc theo yêu cầu. Ngoài ra, quý khách có thể yêu cầu size khác nhau để phù hợp với căn phòng của mình",
+    "link": "https://shopee.vn/%C4%90%C3%A8n-led-neon-h%C3%ACnh-gi%C3%A0y-Neonchill97-35-x-20-cm-sneaker-neon-sign-trang-tr%C3%AD-c%E1%BB%ADa-h%C3%A0ng-i.291415124.18745429854?sp_atk=9c991f4b-7961-4d40-925a-19b3a0c95900&xptdk=9c991f4b-7961-4d40-925a-19b3a0c95900",
+    "rating": 0,
+    "materials": "CHIFFON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/12a198dddf146dc53e081b95e197db26"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "XANH_NEON"
+    ],
+    "hashtag": [
+        "NEONCHILL97"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{"userID": "1",
+    "nameOfProduct": "Giày đốc Dr.Martens Cao Cổ Nam",
+    "typeOfClothes": "DR_MARTENS",
+    "shape": "RECTANGLE",
+    "description": "THÔNG TIN SẢN PHẨM: Giày đốc Dr.Martens Cao Cổ Nam PHANANH.4MAN'S Da bò bảo hành 12 tháng làm từ da bò nguyên tấm đế caosu. Thương hiệu: Phananh.4man’s. Xuất xứ: Việt Nam. Chất liệu: Da bò. Màu sắc: đen, vàng bò. Size: 38-43. Giày đốc Dr.Martens Cao Cổ Nam PHANANH.4MAN'S Da bò bảo hành 12 tháng làm từ da bò nguyên tấm đế caosu cao cấp tinh tế đơn giản êm ái sang trọng. Kiểu dáng: Thiết kế cổ cao vừa đủ tôn dáng và tôn chiều cao cho các bạn nam",
+    "link": "https://shopee.vn/Gi%C3%A0y-%C4%91%E1%BB%91c-Dr.Martens-Cao-C%E1%BB%95-Nam-PHANANH.4MAN'S-Da-b%C3%B2-b%E1%BA%A3o-h%C3%A0nh-12-th%C3%A1ng-i.264542552.18068200295?sp_atk=069eec53-462d-404e-8567-f69f34160476&xptdk=069eec53-462d-404e-8567-f69f34160476",
+    "rating": 0,
+    "materials": "LINEN",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/sg-11134201-22120-zwbpelq2jykv1c"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "phananh.4man's fashion"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Giày Oxford Tăng Chiều Cao",
+    "typeOfClothes": "OXFORD",
+    "shape": "RECTANGLE",
+    "description": "Giày Oxford Tăng Chiều Cao 6cm Đế Phíp Cao Cấp SIGOURNEY Da Bò Nhập Khẩu Màu Đen Trơn SCC08 Bảo Hành 18 Tháng. Giày nam tăng chiều cao 6cm Sigourney có thiết kế dáng Oxford cổ điển với màu đen bóng sang trọng, dễ mang, dễ phối đồ, mang đến vẻ sang trọng và chỉn chu cho người mang. Với thiết kế TĂNG CHIỀU CAO, không khó để SCC08 “giấu” một miếng độn đế dày 3cm, cộng với phần đế giày cao 3cm, tổng thể tăng thêm 6cm cho người mang, hoàn toàn bí mật, cực kì dễ mang và không hề chông chênh.",
+    "link": "https://shopee.vn/Gi%C3%A0y-Oxford-T%C4%83ng-Chi%E1%BB%81u-Cao-6cm-%C4%90%E1%BA%BF-Ph%C3%ADp-Cao-C%E1%BA%A5p-SIGOURNEY-Da-B%C3%B2-Nh%E1%BA%ADp-Kh%E1%BA%A9u-M%C3%A0u-%C4%90en-Tr%C6%A1n-SCC08-B%E1%BA%A3o-H%C3%A0nh-18-Th%C3%A1ng-i.119959072.25857963895?sp_atk=c4e5b1f8-9e19-42f7-9a37-477ed51f3249&xptdk=c4e5b1f8-9e19-42f7-9a37-477ed51f3249",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lqe62jcypmwnfd"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "SIGOURNEY OFFICIAL STORE"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Da Nubuck Cao Cấp",
+    "typeOfClothes": "LOAFERS",
+    "shape": "PENTAGON",
+    "description": "HÔNG TIN SẢN PHẨM: The Breakthrough Chunky LOAFER TAN NUBUCK LEMANS TBL.TAN. Thương hiệu: LEMANS. Chất liệu da: Da bò lộn Nubuck cao cấp (Da lộn Nubuck). Lót trong: Da cừu, vải canvas cao cấp. Đế Gót: Đế Full cao su màu Tan cao cấp, Khuôn đế họa tiết thiết kế độc quyền Lemans, họa tiết sân đế hạt kim cương chống trơn trượt, in nổi Logo Lemans dưới gầm. Đế gót đc khâu xuyên đế (xem kỹ ảnh và video). Chiều cao gót giày: 6cm. Màu sắc: Tan. Kiểu dáng: Chunky PENNY LOAFER TAN. Cấu trúc giày:  Blake Stitch (Khâu xuyên đế). Size: 38 - 44 (bảng size chi tiết có trong mục hình ảnh)",
+    "link": "https://shopee.vn/-Breakthrough-Chunky-Loafer-Tan-Lemans-Da-Nubuck-Cao-C%E1%BA%A5p-BST-%C4%91%E1%BB%99c-quy%E1%BB%81n-%C4%91%E1%BA%BF-cao-6cm-Full-cao-su-Tan-nguy%C3%AAn-kh%E1%BB%91i-BH-24T-i.25934336.23682182122?sp_atk=d3c4a614-70b7-4e16-a01f-67e6a328eb6a&xptdk=d3c4a614-70b7-4e16-a01f-67e6a328eb6a",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lmekukqqim735b"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "YELLOW_NEON"
+    ],
+    "hashtag": [
+        "iày Da LeMans Việt Nam"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Giày Boot Nam Kiểu Dáng Chelsea Chất Liệu",
+    "typeOfClothes": "CHELSEA_BOOTS",
+    "shape": "PENTAGON",
+    "description": "Giày Boot Nam Kiểu Dáng Chelsea Chất Liệu Da Bê Nhập Khẩu Thương Hiệu KNAR (P006). Cam kết của thương hiệu. Bảo dưỡng, spa MIỄN PHÍ trọn đời sản phẩm. Sản phẩm làm từ da thật nhập khẩu 100%. Bảo hành sản phẩm 6 tháng. Hỗ trợ đổi sản phẩm 7 ngày với điều kiện sản phẩm chưa qua sử dụng. Cam kết sản phẩm như hình, video",
+    "link": "https://shopee.vn/Gi%C3%A0y-Boot-Nam-Ki%E1%BB%83u-D%C3%A1ng-Chelsea-Ch%E1%BA%A5t-Li%E1%BB%87u-Da-B%C3%AA-Nh%E1%BA%ADp-Kh%E1%BA%A9u-Th%C6%B0%C6%A1ng-Hi%E1%BB%87u-KNAR-(P006)-i.806889648.24612192542?sp_atk=bfb24da4-dcef-4a99-84e8-5d6051a3bcef&xptdk=bfb24da4-dcef-4a99-84e8-5d6051a3bcef",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lraddtcm1zmh57"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "KNAR Bootmaker"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Đồng hồ thông minh PKSAIGON",
+    "typeOfClothes": "WATCH",
+    "shape": "TRIANGLE",
+    "description": "*** 5 LÝ DO TẠI SAO NÊN MUA ĐỒNG HỒ TẠI PKSAIGON *** Cam kết Bảo hành 12 tháng 1 đổi 1 – LỖI LÀ ĐỔI. Sản phầm Top 1 doanh thu TPHCM - Top 1 Đánh giá 5 SAO ngành Đồng hồ thông minh. Chính sách 100% nhận hàng dùng thử - không ưng hoàn tiền 100%. Chăm sóc khách hàng chu đáo Trước và Sau khi mua hàng. Miễn phí ship toàn quốc và Hoàn xu tới 200k( KHÁCH HÀNG CẦN TƯ VẤN VÀ XEM THÊM ẢNH THẬT VUI LÒNG NHẮN TIN CHO SHOP )",
+    "link": "https://shopee.vn/%C4%90%E1%BB%93ng-h%E1%BB%93-th%C3%B4ng-minh-PKSAIGON-T800-PRM-Nghe-g%E1%BB%8Di-Ch%C6%A1i-game-Nh%E1%BA%ADn-th%C3%B4ng-b%C3%A1o-Theo-d%C3%B5i-s%E1%BB%A9c-kh%E1%BB%8Fe-Ch%E1%BB%91ng-n%C6%B0%E1%BB%9Bc-cho-Nam-v%C3%A0-N%E1%BB%AF-i.727266105.24509180708?sp_atk=d9aedc50-d84b-4f7e-baea-08c3e38ff945&xptdk=d9aedc50-d84b-4f7e-baea-08c3e38ff945",
+    "rating": 0,
+    "materials": "METAL",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/sg-11134201-7rbm4-lqn70fto0k2y43",
+"https://down-vn.img.susercontent.com/file/sg-11134201-7rbkt-lqn70g6fghac8e"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "PKSAIGON OFFICAL"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{ "userID": "1",
+    "nameOfProduct": "Đồng hồ thông minh PKSAIGON",
+    "typeOfClothes": "WATCH",
+    "shape": "HEXAGON",
+    "description": "*** 5 LÝ DO TẠI SAO NÊN MUA ĐỒNG HỒ TẠI PKSAIGON *** Cam kết Bảo hành 12 tháng 1 đổi 1 – LỖI LÀ ĐỔI. Sản phầm Top 1 doanh thu TPHCM - Top 1 Đánh giá 5 SAO ngành Đồng hồ thông minh. Chính sách 100% nhận hàng dùng thử - không ưng hoàn tiền 100%. Chăm sóc khách hàng chu đáo Trước và Sau khi mua hàng. Miễn phí ship toàn quốc và Hoàn xu tới 200k( KHÁCH HÀNG CẦN TƯ VẤN VÀ XEM THÊM ẢNH THẬT VUI LÒNG NHẮN TIN CHO SHOP )",
+    "link": "https://shopee.vn/%C4%90%E1%BB%93ng-h%E1%BB%93-th%C3%B4ng-minh-PKSAIGON-T800-PRM-Nghe-g%E1%BB%8Di-Ch%C6%A1i-game-Nh%E1%BA%ADn-th%C3%B4ng-b%C3%A1o-Theo-d%C3%B5i-s%E1%BB%A9c-kh%E1%BB%8Fe-Ch%E1%BB%91ng-n%C6%B0%E1%BB%9Bc-cho-Nam-v%C3%A0-N%E1%BB%AF-i.727266105.24509180708?sp_atk=d9aedc50-d84b-4f7e-baea-08c3e38ff945&xptdk=d9aedc50-d84b-4f7e-baea-08c3e38ff945",
+    "rating": 0,
+    "materials": "METAL",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/sg-11134201-7rbm4-lqn70fto0k2y43",
+"https://down-vn.img.susercontent.com/file/sg-11134201-7rbkt-lqn70g6fghac8e"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "WHITE"
+    ],
+    "hashtag": [
+        "PKSAIGON OFFICAL"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+ {"userID": "1",
+    "nameOfProduct": "Mũ Len beanie Đen Giữ Ấm Mùa Đông Cho Nam",
+    "typeOfClothes": "BEANIE",
+    "shape": "RECTANGLE",
+    "description": "Các tính năng: 100% thương hiệu mới và chất lượng cao. Sự chỉ rõ: Loại: Mũ beanie. Màu đen. Kích thước: 20 * 20cm. Chất liệu: Sợi Acrylic. Nội dung gói: 1 * mũ beanie",
+    "link": "https://shopee.vn/M%C5%A9-Len-beanie-%C4%90en-Gi%E1%BB%AF-%E1%BA%A4m-M%C3%B9a-%C4%90%C3%B4ng-Cho-Nam-i.289645181.22287897924?sp_atk=06e09f38-a67e-44f6-97f3-a4ff65962c6a&xptdk=06e09f38-a67e-44f6-97f3-a4ff65962c6a",
+    "rating": 0,
+    "materials": "FABRIC",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/sg-11134201-7rbkd-lp0fxzafnhyd4d",
+"https://down-vn.img.susercontent.com/file/sg-11134201-7rbng-lp0fy06ccsytf2"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "WHITE"
+    ],
+    "hashtag": [
+        "HWetR"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Dây chuyền bạc nữ CDE Bow Necklace Silver ",
+    "typeOfClothes": "NECKLACE",
+    "shape": "RECTANGLE",
+    "description": "Các tính năng: 100% thương hiệu mới và chất lượng cao!. Chất liệu: Sợi Acrylic",
+    "link": "https://shopee.vn/D%C3%A2y-chuy%E1%BB%81n-b%E1%BA%A1c-n%C6%B0%CC%83-CDE-Bow-Necklace-Silver-CDE601902-B%E1%BA%A1c-cao-c%E1%BA%A5p-i.70658682.19821320605?sp_atk=c5edab3f-7f11-436c-a932-f573760d031c&xptdk=c5edab3f-7f11-436c-a932-f573760d031c",
+    "rating": 0,
+    "materials": "METAL",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/sg-11134201-22120-b4ttt9wi1tkvf5",
+"https://down-vn.img.susercontent.com/file/sg-11134201-22120-4kiqymlmblkvca"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "WHITE"
+    ],
+    "hashtag": [
+        "LAMY OFFICIA"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Túi xách chống sốc Tomtoc The Her Handbag",
+    "typeOfClothes": "HANDBAG",
+    "shape": "TRIANGLE",
+    "description": "Phong cách và thời thượng: Thời trang và thanh lịch, chiếc túi đựng laptop thon gọn này là sự bổ sung hoàn hảo cho tủ quần áo làm việc của bạn với đủ chỗ cho những vật dụng cần thiết (laptop / máy tính bảng, tài liệu, phụ kiện điện tử, mỹ phẩm, v.v.). Mặt đối mặt màu kép: Vỏ túi laptop được làm bằng vải mịn và chống nước, giúp bảo vệ thiết bị của bạn khỏi thời tiết xấu. Nó có các màu sắc khác nhau nhưng vẫn mang đến phong cách cổ điển và đẳng cấp ở cả hai mặt, đảm bảo rằng túi sẽ không bao giờ lỗi mốt. Thiết kế lưu trữ thông minh",
+    "link": "https://shopee.vn/T%C3%BAi-x%C3%A1ch-ch%E1%BB%91ng-s%E1%BB%91c-Tomtoc-The-Her-Handbag-cho-Macbook-Ultrabook-13%E2%80%B314%E2%80%B3-H%C3%A0ng-ch%C3%ADnh-h%C3%A3ng-i.711189317.23831734236?sp_atk=7695b49f-6f36-4919-8c84-4b66b05b8e04&xptdk=7695b49f-6f36-4919-8c84-4b66b05b8e04",
+    "rating": 0,
+    "materials": "METAL",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llu2w9zaowrj2a",
+"https://down-vn.img.susercontent.com/file/vn-11134201-23030-n95st4bmomovee"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "WHITE"
+    ],
+    "hashtag": [
+        "KADEN Official Store"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+ {"userID": "1",
+    "nameOfProduct": "Lovito Kính râm màu kim loại ",
+    "typeOfClothes": "SUNGLASSES",
+    "shape": "PENTAGON",
+    "description": "Lovito là một thương hiệu mới nổi tin tưởng vào sức mạnh của các cô gái, cam kết cung cấp các lựa chọn quần áo thời trang và giá cả phải chăng cho các kiểu dáng, nhu cầu và bản sắc khác nhau. Chúng tôi tin rằng thời trang phải vui vẻ.",
+    "link": "https://shopee.vn/Lovito-K%C3%ADnh-r%C3%A2m-m%C3%A0u-kim-lo%E1%BA%A1i-ch%E1%BB%AF-th%C6%B0%E1%BB%9Dng-d%C3%A0nh-cho-n%E1%BB%AF-LFA13783-i.446089250.25957422350?sp_atk=6239cd51-cc17-4679-95eb-e0d05099ba7f&xptdk=6239cd51-cc17-4679-95eb-e0d05099ba7f",
+    "rating": 0,
+    "materials": "METAL",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/sg-11134201-7rbl0-lq49cnb0hl7u91",
+"https://down-vn.img.susercontent.com/file/sg-11134201-7rbkq-lq49cp9rm1vre5"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "WHITE"
+    ],
+    "hashtag": [
+        "LOVITO OFFICIAL STORE"
+    ],
+    "clothesStyle":[
+        "CLASSIC"
+    ]
+}
