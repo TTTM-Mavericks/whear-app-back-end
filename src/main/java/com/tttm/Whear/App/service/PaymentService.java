@@ -1,6 +1,7 @@
 package com.tttm.Whear.App.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.tttm.Whear.App.entity.Payment;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.utils.request.PaymentRequest;
 import com.tttm.Whear.App.utils.response.PaymentInformation;
@@ -17,5 +18,5 @@ public interface PaymentService {
   PaymentInformation getPaymentInfor(String paymentID)
       throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException;
 
-  List<PaymentInformation> getAllPayment() throws Exception;
+  List<Payment> getAllPayment() throws Exception;
 }
