@@ -10,4 +10,6 @@ public interface CommentService {
   public CommentsResponse createComment(CommentsRequest commentsRequest) throws CustomException;
 
   public List<CommentsResponse> getAllComment(Integer postID) throws CustomException;
+
+  void deleteComment(Integer postID, Integer commentID) throws CustomException;
 }

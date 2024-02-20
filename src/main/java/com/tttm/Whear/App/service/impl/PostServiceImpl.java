@@ -5,6 +5,7 @@ import com.tttm.Whear.App.entity.Comments;
 import com.tttm.Whear.App.entity.Hashtag;
 import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.entity.PostHashtag;
+import com.tttm.Whear.App.entity.PostImages;
 import com.tttm.Whear.App.entity.React;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.exception.CustomException;
@@ -236,6 +237,9 @@ public class PostServiceImpl implements PostService {
                     pth.getPostHashtagKey().getPostID()
             );
         }
+        postImageService.deleteByPostID(postID);
+        reactService.deleteByPostID(postID);
+        commentService.deleteByPostID(postID);
         try {
             return postRepository.deleteByPostID(postID) > 0;
         } catch (Exception ex) {
@@ -334,7 +338,13 @@ public class PostServiceImpl implements PostService {
                 if (responseList == null) {
                     responseList = new ArrayList<>();
                 }
-                responseList.add(convertToPostResponse(p));
+                PostResponse postResponse = convertToPostResponse(p);
+                if(reactService.findReact(userID, p.getPostID()) != null){
+                    postResponse.setReacted(true);
+                } else {
+                    postResponse.setReacted(false);
+                }
+                responseList.add(postResponse);
             }
         }
 
@@ -359,7 +369,13 @@ public class PostServiceImpl implements PostService {
                 if (responseList == null) {
                     responseList = new ArrayList<>();
                 }
-                responseList.add(convertToPostResponse(p));
+                PostResponse postResponse = convertToPostResponse(p);
+                if(reactService.findReact(userID, p.getPostID()) != null){
+                    postResponse.setReacted(true);
+                } else {
+                    postResponse.setReacted(false);
+                }
+                responseList.add(postResponse);
             }
         }
         return responseList;

@@ -191,5 +191,6 @@ public class APIConstant {
     public static final String COMMENT = APIConstant.API + "/comment";
     public static final String CREATE_COMMENT = "/create-comment";
     public static final String GET_ALL_COMMENT_OF_A_POST = "/get-all-comment";
+    public static final String DELETE_BY_COMMENT_ID = "/delete-comment";
   }
 }

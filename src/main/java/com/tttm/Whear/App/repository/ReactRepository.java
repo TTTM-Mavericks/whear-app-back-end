@@ -28,4 +28,9 @@ public interface ReactRepository extends JpaRepository<React, UserPostReactKey> 
   @Transactional
   @Query(value = "delete from react where userid = ?1 and postid = ?2", nativeQuery = true)
   Integer deleteReact(String userID, Integer postid);
+
+  @Modifying
+  @Transactional
+  @Query(value = "delete from react where postid = ?1", nativeQuery = true)
+  void deleteByPostID(Integer postID);
 }
