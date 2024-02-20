@@ -1,0 +1,803 @@
+{
+    "userID": "1",
+    "nameOfProduct": "PATHS Tee",
+    "typeOfClothes": "T_SHIRT",
+    "shape": "SQUARE",
+    "description": "In lụa thủ công phía trước",
+    "link": "",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "AUTUmn"
+    ],
+    "clothesImages": [
+        "https://scontent.fsgn5-12.fna.fbcdn.net/v/t39.30808-6/401564398_838487031613346_2731815767188674876_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=3635dc&_nc_ohc=VomG0EgScHcAX8Oew3m&_nc_ht=scontent.fsgn5-12.fna&oh=00_AfC3PYQIZZiQQ36mrYvxqtf0CNfCkwv6RT5vctr_Uaz34g&oe=65B576D1",
+        "https://scontent.fsgn5-2.fna.fbcdn.net/v/t39.30808-6/402891053_838487028280013_6107667657388766329_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=3635dc&_nc_ohc=TWYVbNqs2YgAX8RU_xV&_nc_ht=scontent.fsgn5-2.fna&oh=00_AfBTN_zc8v776qk37MuROU8EV187fRGP84HIJgz-7S-6bg&oe=65B6187A"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "White",
+        "Red",
+        "Orange"
+    ],
+    "hashtag": [
+        "H&M PRING 2024"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK",
+        "VINTAGE"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Machine Age T-shirt",
+    "typeOfClothes": "T_SHIRT",
+    "shape": "CIRCLE",
+    "description": "Machine Age T-shirt MA-29, Black n Neon/ White n Red, Unisex nam nữ đều mặc được",
+    "link": "https://shopee.vn/Machine-Age-T-shirt-%C3%A1o-ph%C3%B4ng-unisex-phong-c%C3%A1ch-streetwear-trendy-i.68926569.19728660724?sp_atk=b89d73b4-2486-449c-be81-a4607b078ce6&xptdk=b89d73b4-2486-449c-be81-a4607b078ce6",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/e0f1ea7e73468ae951486cadb462b8c9",
+        "https://down-vn.img.susercontent.com/file/c857497b21a79c883a9a4c9f5018aa36"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "White",
+        "Black"
+    ],
+    "hashtag": [
+        "Carpediem.2k"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "CouleurStudio Gray T-Shirt",
+    "typeOfClothes": "T_SHIRT",
+    "shape": "CIRCLE",
+    "description": "Bảng size áo thun Couleur: M: Dài 70 Rộng 53 | 1m45 – 1m60, Dưới 55kg, L: Dài 72 Rộng 55 | 1m55 – 1m70, Dưới 65kg, XL: Dài 74 Rộng 57 | 1m65 – 1m80, Dưới 75kg",
+    "link": "https://shopee.vn/CouleurStudio-Gray-T-Shirt-%C3%81o-Thun-X%C3%A1m-Local-Brand-Couleur-TS06-i.806308123.19563599859?sp_atk=15c022e9-7679-4d52-aa80-297405199d79&xptdk=15c022e9-7679-4d52-aa80-297405199d79",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+         "https://down-vn.img.susercontent.com/file/sg-11134201-23010-n9dfd7i9hwmved",
+        "https://down-vn.img.susercontent.com/file/sg-11134201-23010-5bz65ok7ktmv54_tn"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "GRAY"
+    ],
+    "hashtag": [
+        "COULEUR"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+{
+    "userID": "1",
+    "nameOfProduct": "COZOK Áo Thun Dệt Kim",
+    "typeOfClothes": "CROP_TOP",
+    "shape": "CIRCLE",
+    "description": "Vải / chất liệu: Len blend / acrylic, Hàm lượng thành phần: 51% (bao gồm) - 70% (bao gồm), Phong cách: Các tính năng thích hợp / mảnh khái niệm, Yếu tố phổ biến / Thủ công: Màu đồng nhất, Phiên bản quần áo: slim, Có hoặc không có nhung: Không có nhung",
+    "link": "https://shopee.vn/COZOK-%C3%81o-Thun-D%E1%BB%87t-Kim-Ng%E1%BA%AFn-Tay-H%E1%BB%9F-L%C6%B0ng-G%E1%BB%A3i-C%E1%BA%A3m-Th%E1%BB%9Di-Trang-i.433774617.18888470209?sp_atk=3491a8ae-cfd8-45a2-8480-19d2a281f567&xptdk=3491a8ae-cfd8-45a2-8480-19d2a281f567",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+"https://down-vn.img.susercontent.com/file/cn-11134207-7qukw-lghskrtch4zi76",
+        "https://down-vn.img.susercontent.com/file/sg-11134201-7qvdl-lggbl53ta88520"
+
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "white"
+    ],
+    "hashtag": [
+        "Sister Nancy-thời trang nữ"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+    "userID": "1",
+    "nameOfProduct": "CROPTOP JACKET RACE LINE",
+    "typeOfClothes": "CROP_TOP",
+    "shape": "SQUARE",
+    "description": "CROPTOP JACKET RACE LINE, Size: S/M/L/XL, Chất liệu da mềm có độ co giãn nhẹ tạo cảm giác thoải mái khi mặc, Phần vai độn, phối bo chun, giúp dễ dàng cử động, Vải lót bên trong được trần bông, đường line phản quang, chi tiết logo mác kim loại được khắc lazer chất lượng cao",
+    "link": "https://shopee.vn/CROPTOP-JACKET-RACE-LINE-i.1010669697.19995855340?sp_atk=a2b9b354-ef38-4adf-b88c-946996705dd2&xptdk=a2b9b354-ef38-4adf-b88c-946996705dd2",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+"https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lp6655uqgor2e8",
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lp6655uqi3bi4f"
+
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "GRAY"
+    ],
+    "hashtag": [
+        "DKILLMINATE SHOP"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Áo thun croptop",
+    "typeOfClothes": "CROP_TOP",
+    "shape": "SQUARE",
+    "description": "Áo croptop cho bé gái, phom rộng ngắn, tông màu trơn, đính túi rất mỹ thuật. Đây là mẫu áo luôn cần có trong tủ đồ của bé, áo phối với quần hay chân váy đều đẹp, phong cách hiện đại, năng động, cá tính. Chất vải thun cotton lụa xịn, mềm mượt, sờ mướt tay, rất mát và bền vải. Màu sắc tươi sáng, đơn giản mà không bao giờ lỗi mode, phối lên với quần nào cũng đẹp. Hàng VN xuất xịn.",
+    "link": "https://shopee.vn/-27kg-40kg-%C3%81o-thun-croptop-%C4%91%C3%ADnh-t%C3%BAi-v%E1%BA%A3i-thun-l%E1%BB%A5a-c%E1%BB%B1c-m%C6%B0%E1%BB%A3t-h%C3%A0ng-VN-xu%E1%BA%A5t-x%E1%BB%8Bn-m%C3%A0u-h%E1%BB%93ng-Neon-i.866508546.22544635557?sp_atk=4be1db29-9435-4f3e-ad35-50920dca69d0&xptdk=4be1db29-9435-4f3e-ad35-50920dca69d0",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+"https://down-vn.img.susercontent.com/file/vn-11134201-7qukw-lhofw0434zut3a",
+        "https://down-vn.img.susercontent.com/file/vn-11134201-7qukw-lhofvznzpqit36"
+
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "HỐNG_NEON"
+    ],
+    "hashtag": [
+        "BeSanhDieu"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "T-shirt cổ tròn tay ngắn",
+    "typeOfClothes": "T_SHIRT",
+    "shape": "OCTAGON",
+    "description": "Chất LIỆU CỦA ÁO THUN NẤM: Được làm bằng chất liệu mềm mượt (polyeste + thun) mịn, thoải mái, mềm mại, thoáng khí, dễ khô và bền, phù hợp với làn da của bạn. Vui lòng chấp nhận một số khác biệt nhỏ về màu sắc do các màn hình khác nhau và Đèn.",
+    "link": "https://shopee.vn/T-shirt-c%E1%BB%95-tr%C3%B2n-tay-ng%E1%BA%AFn-c%C3%B3-ch%E1%BB%AF-heineken-phong-c%C3%A1ch-hip-hop-th%E1%BB%9Di-trang-th%C3%ADch-h%E1%BB%A3p-cho-nam-gi%E1%BB%9Bi-i.898491132.22850234402?sp_atk=cb10d452-90fa-47a4-bd8e-b7d3f659dabd&xptdk=cb10d452-90fa-47a4-bd8e-b7d3f659dabd",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+	"https://down-vn.img.susercontent.com/file/sg-11134201-7qvex-ljzel92t9dw7cf",
+        "https://down-vn.img.susercontent.com/file/sg-11134201-7qvdi-ljzel99h11q661"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BURNING_RED"
+    ],
+    "hashtag": [
+        "fengteng"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Áo Khoác Bomber Thể Thao",
+    "typeOfClothes": "BOMBER",
+    "shape": "HEXAGON",
+    "description": "Truyền Thống Đẳng Cấp: Áo khoác VRCT tiếp nối truyền thống lâu dài của áo khoác letterman cổ điển, đem lại một chút nét hoài cổ cho phong cách hiện đại của bạn. Sự Kết Hợp Hoàn Hảo: Thiết kế form hiện đại của chúng tôi không chỉ làm cho áo khoác trở nên ấn tượng mà còn tạo nên sự thoải mái trong mọi chuyển động của bạn.",
+    "link": "https://shopee.vn/%C3%81o-Kho%C3%A1c-Bomber-Th%E1%BB%83-Thao-Unisex-Adidas-VRCT-Jacket-Navy-GK4874-i.67108217.23787341429?sp_atk=3ca17c1a-ce6b-428b-a96e-513c18a0f8d1&xptdk=3ca17c1a-ce6b-428b-a96e-513c18a0f8d1",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lonvaag3caj44f",
+        "https://down-vn.img.susercontent.com/file/sg-11134201-7rbkt-lonv8pf4sj9z88"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLUE_NAVY"
+    ],
+    "hashtag": [
+        "hineess"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Áo hoodie dáng rộng",
+    "typeOfClothes": "HOODIE",
+    "shape": "PENTAGON",
+    "description": "Chất lượng là hàng đầu với dịch vụ tốt nhất . Khách hàng đều là bạn của chúng tôi. Thiết kế thời trang,100",
+    "link": "https://shopee.vn/%C3%81o-hoodie-d%C3%A1ng-r%E1%BB%99ng-th%E1%BB%9Di-trang-cho-nam-size-M-8XL-%C3%81o-Hoodie-Tay-D%C3%A0i-In-Ch%E1%BB%AF-%C4%90%C6%A1n-Gi%E1%BA%A3n-Th%E1%BB%9Di-Trang-D%C3%A0nh-Cho-Nam-N%E1%BB%AF-i.82095709.17997985106?sp_atk=a343dd84-ecff-4b61-ae13-a5369342452b&xptdk=a343dd84-ecff-4b61-ae13-a5369342452b",
+    "rating": 0,
+    "materials": "FLEECE",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+          "https://down-vn.img.susercontent.com/file/sg-11134201-7qver-lio8j55tolc038"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "Shineess"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+    "userID": "1",
+    "nameOfProduct": "Quần jogger",
+    "typeOfClothes": "JOGGER",
+    "shape": "RECTANGLE",
+    "description": " Không giặt máy trong 2 lần giặt đầu. Không giặt chung quần túi hộp với quần áo trắng sáng màu. Không sử dụng thuốc tẩy",
+    "link": "https://shopee.vn/Qu%E1%BA%A7n-jogger-t%C3%BAi-h%E1%BB%99p-d%C3%A1ng-th%E1%BB%A5ng-%E1%BB%91ng-g%C3%BAt-Thun-tho%C3%A1ng-m%C3%A1t-tho%E1%BA%A3i-m%C3%A1i-chuy%C3%AAn-nh%E1%BA%A3y-zumba-dace-cho-%C4%91%E1%BB%99i-nh%C3%B3m-aerobic-A123-i.1139712003.24553710141?sp_atk=e5fc0e8d-cca9-4289-9c70-1b8dbdce3432&xptdk=e5fc0e8d-cca9-4289-9c70-1b8dbdce3432",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/vn-11134211-7r98o-lqgaz6znb842d1",
+        "https://down-vn.img.susercontent.com/file/vn-11134211-7r98o-lqgaz6zncmoie3"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BURNING_RED"
+    ],
+    "hashtag": [
+        "#aokhoacnu #aokhoac #aokhoaccroptop #aokhoaccroptop"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Jogger GymSharks LoGo Thêu",
+    "typeOfClothes": "JOGGER",
+    "shape": "TRIANGLE",
+    "description": "Jogger Gymshark Logo Thêu. Mặc Tập gym, chơi các môn thể thao đều ok. Chất liệu thun poly CỰC MÁT, co giãn 4 chiều, co giãn thoải mái.",
+    "link": "https://shopee.vn/Jogger-GymSharks-LoGo-Th%C3%AAu-ch%E1%BA%A5t-Thun-Poly-2-Da-T%C3%BAi-Kh%C3%B3a-i.1003032.20807396973?sp_atk=ee76d7ef-66d2-4d9a-a508-bd72b390c277&xptdk=ee76d7ef-66d2-4d9a-a508-bd72b390c277",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+          "https://down-vn.img.susercontent.com/file/ea57db9c3ed4eea198e3c4b90bfeb707",
+        "https://down-vn.img.susercontent.com/file/vn-11134207-7qukw-lhbhhr094s8jb5"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "Black"
+    ],
+    "hashtag": [
+        "#quần_tập #quần_đùi #quần_gym #thể_thao #quần_short"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+{
+    "userID": "1",
+    "nameOfProduct": "Quần Jean Bé Trai Cạp Chun Aqua",
+    "typeOfClothes": "JEANS",
+    "shape": "HEXAGON",
+    "description": "Về em jean này mềm dã man luôn ạ, co dãn mặc sướng lắm ấy. Màu Aqua mặc đẹp lắm, không kén đâu, gầy béo gì cũng mặc được tất, lên phom siêu đẹp nhé. Hàng xuất UK cứ 4-500k/chiếc bán tại store ạ. Jean Cạp Chun Aqua đủ size 3-6m 6-9m 9-12m 12-18m 18-24m 2-3y 3-4y 4-5y 5-6y. Giá cam kết siêu rẻ chỉ 185k/chiếc. Bảo đảm rẻ nhất quả đất nhá.",
+    "link": "https://shopee.vn/Qu%E1%BA%A7n-Jean-B%C3%A9-Trai-C%E1%BA%A1p-Chun-Aqua-i.60813915.5063611577?sp_atk=a96523d8-57a6-4ac5-8736-b378bc4249cf&xptdk=a96523d8-57a6-4ac5-8736-b378bc4249cf",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+"https://down-vn.img.susercontent.com/file/d6f75aed891289a0ba90e99cbf8a7c18"
+
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "AQUA_NEON"
+    ],
+    "hashtag": [
+        "bongkidsxx"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Quần Jogger Lót Lông Cừu Dày Dặn ",
+    "typeOfClothes": "JOGGER",
+    "shape": "PENTAGON",
+    "description": "Thương hiệu: INFLATION. Phong cách: Đường cao tốc, Mùa áp dụng: Thu Đông, Kiểu quần: Quần bó sát. Chất liệu: Polyester. Chất liệu: Bông .Xuất xứ: Trung Quốc. Phong cách phía trước: Phẳng",
+    "link": "https://shopee.vn/Qu%E1%BA%A7n-Jogger-L%C3%B3t-L%C3%B4ng-C%E1%BB%ABu-D%C3%A0y-D%E1%BA%B7n-Gi%E1%BB%AF-%E1%BA%A4m-Tho%E1%BA%A3i-M%C3%A1i-Th%E1%BB%9Di-Trang-M%C3%B9a-%C4%90%C3%B4ng-Cho-Nam-i.166570202.25906484037?sp_atk=562f8458-3d63-4a00-ae58-57912e67b658&xptdk=562f8458-3d63-4a00-ae58-57912e67b658",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+"https://down-vn.img.susercontent.com/file/53347f28f006da176629030c3720298d",
+        "https://down-vn.img.susercontent.com/file/a6db6eac38357bd25ae6edfe5a399557"
+
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLUE_NEON"
+    ],
+    "hashtag": [
+        "xinhai"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+    "userID": "1",
+    "nameOfProduct": "Quần Jogger Xanh Neon",
+    "typeOfClothes": "JOGGER",
+    "shape": "PENTAGON",
+    "description": "Ship COD hàng toàn quốc. Địa chỉ: 195/9 Nguyễn Văn Thương, P25, Q.Bình Thạnh, HCM. Hotline: 0934 907 714 hoặc 0935131510 (Call/Sms/Zalo/Viber). Sand Fashion bán và cho thuê trang phục nhảy biểu diễn - nhận biên đạo và cung cấp vũ đoàn - tư vấn lớp học nhảy tại TP.HCM",
+    "link": "https://shopee.vn/Qu%E1%BA%A7n-Jogger-Xanh-Neon-(h%C3%ACnh-th%E1%BA%ADt)-i.19773620.2535583476?sp_atk=30ae2425-bb8d-40b3-b998-9b72e67f3634&xptdk=30ae2425-bb8d-40b3-b998-9b72e67f3634",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+"https://down-vn.img.susercontent.com/file/462ef6b5e1daaa1122f53a4104106a16",
+        "https://down-vn.img.susercontent.com/file/e09941ca9e526df0eae28c44fe1299e5"
+
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "XANH_NEON"
+    ],
+    "hashtag": [
+        "Sand Outfit (Trang Phục Sand)"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Quần Jean Nam Skinny Gray Wash Paint",
+    "typeOfClothes": "SKINNY",
+    "shape": "HEXAGON",
+    "description": "Thông tin sản phẩm. Chất Liệu: Jean Cotton. Độ Dày: Vừa. Độ Co Giãn: Ít. Form Quần: Skinny. Loại Quần: Rách, Vẩy Sơn. Phong Cách: Street Style. Chi Tiết: Phối Túi",
+    "link": "https://shopee.vn/Qu%E1%BA%A7n-Jean-Nam-Skinny-Gray-Wash-Paint-Ch%E1%BA%A5t-V%E1%BA%A3i-Jean-Cotton-Tho%E1%BA%A3i-M%C3%A1i-QJ0028-SOMEHOW-i.251680430.23730543817?sp_atk=5e02d16f-7011-4b49-a894-f7c47b59b6d9&xptdk=5e02d16f-7011-4b49-a894-f7c47b59b6d9",
+    "rating": 0,
+    "materials": "DENIM",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+	"https://down-vn.img.susercontent.com/file/vn-11134201-23030-ohzg2vv1boov94",
+        "https://down-vn.img.susercontent.com/file/vn-11134201-23030-8vkgbwv1boovc0"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "GRAY"
+    ],
+    "hashtag": [
+        "SomeHow"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+    "userID": "1",
+    "nameOfProduct": "Bonnie Cathy Đen Giày Thể Thao",
+    "typeOfClothes": "SNEAKER",
+    "shape": "RECTANGLE",
+    "description": "Thông tin kích thước chính xác phía sau hình ảnh chính. Các vấn đề về chất lượng sẽ được giải quyết nghiêm túc và kịp thời. Hình ảnh giống nhau nhưng chất lượng của chúng tôi sẽ tốt hơn. Sản phẩm Wukong có thể đeo lâu và thoải mái. Sản phẩm Wukong còn hàng, bạn có thể yên tâm mua hàng",
+    "link": "https://shopee.vn/Bonnie-Cathy-%C4%90en-Gi%C3%A0y-Th%E1%BB%83-Thao-%C4%90%E1%BA%BF-D%C3%A0y-T%C4%83ng-Chi%E1%BB%81u-Cao-Tho%C3%A1ng-Kh%C3%AD-Th%E1%BB%9Di-Trang-i.984674959.22855116076?sp_atk=6679da13-ad78-4ba0-b0bc-cd229b695756&xptdk=6679da13-ad78-4ba0-b0bc-cd229b695756",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+        "https://down-vn.img.susercontent.com/file/cn-11134207-7r98o-lncics7553mj9c"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "#aokhoacnu #aokhoac #aokhoaccroptop #aokhoaccroptop"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Đèn led neon hình giày",
+    "typeOfClothes": "SNEAKER",
+    "shape": "TRIANGLE",
+    "description": "Đèn led neon hình giày. Sử dụng để trang trí, decor phòng siêu đẹp. Với ánh sáng sang trọng ấm áp, quý khách có thể lựa chọn màu sắc theo yêu cầu. Ngoài ra, quý khách có thể yêu cầu size khác nhau để phù hợp với căn phòng của mình",
+    "link": "https://shopee.vn/%C4%90%C3%A8n-led-neon-h%C3%ACnh-gi%C3%A0y-Neonchill97-35-x-20-cm-sneaker-neon-sign-trang-tr%C3%AD-c%E1%BB%ADa-h%C3%A0ng-i.291415124.18745429854?sp_atk=fb45e9cd-f899-4015-9268-77809bf72257&xptdk=fb45e9cd-f899-4015-9268-77809bf72257",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+          "https://down-vn.img.susercontent.com/file/12a198dddf146dc53e081b95e197db26",
+        "https://down-vn.img.susercontent.com/file/8a40c0e9a8818ebce6d052edf361c4f4"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "XANH_NEON"
+    ],
+    "hashtag": [
+        "NEONCHILL97"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+{
+    "userID": "1",
+    "nameOfProduct": "Giày Sneaker Vải Canvas",
+    "typeOfClothes": "SNEAKER",
+    "shape": "OCTAGON",
+    "description": "Giày Sneaker Vải Canvas Nữ E18 Black Chính Hãng Dincox trẻ trung, thời thượng với thiết kế đẹp, chất da bền bỉ và đặt biệt độ bền cực cao phù hợp với mọi hoạt động thường ngày như đi chơi, đi làm và cả dự tiệc. Lót giày sử dụng công nghệ Memory Foam mang rất êm và nhẹ chân, phù hợp sử dụng để đi chơi, đi làm hoặc dự tiệc. Chất liệu Vải canvas với đặc tính là độ bền, kháng nấm mốc ngoài ra còn có khả năng chống tia UV",
+    "link": "https://shopee.vn/Gi%C3%A0y-Sneaker-V%E1%BA%A3i-Canvas-Nam-N%E1%BB%AF-E18-Black-DIncox-i.151338284.18393116525?sp_atk=5bfc19fe-97d8-4f8f-8891-4bfb8031520d&xptdk=5bfc19fe-97d8-4f8f-8891-4bfb8031520d",
+    "rating": 0,
+    "materials": "COTTON",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+"https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llnrfkwbj3cs5d"
+
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "DINCOX SHOES OFFICIAL STORE"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+{
+    "userID": "1",
+    "nameOfProduct": "Giày tây nam dr martens",
+    "typeOfClothes": "DR_MARTENS",
+    "shape": "OCTAGON",
+    "description": "Giày da nam dr martens TUXULO da bò nguyên tấm cao cấp đế cao su đúc khâu đế siêu bền tăng chiều cao TX07. THÔNG TIN SẢN PHẨM. Chất liệu: Da bò nhập 100% . Đế cao su non đúc nguyên khối rất êm và nhẹ, dễ mang và dễ di chuyển không gây đau gót chân dù di chuyển liên tục hay vận động mạnh. Màu sắc: Màu đen. Kiểu dáng: Thiết kế bởi TUXULO theo hơi hướng lịch lãm nhưng vẫn rất trẻ trung và thời thượng. Xuất xứ: Sản xuất và phân phối độc quyền Tuxilo Việt Nam. Size : 38/39/40/41/42/43",
+    "link": "https://shopee.vn/Gi%C3%A0y-t%C3%A2y-nam-dr-martens-TUXULO-da-b%C3%B2-nguy%C3%AAn-t%E1%BA%A5m-cao-c%E1%BA%A5p-%C4%91%E1%BA%BF-cao-su-%C4%91%C3%BAc-kh%C3%A2u-%C4%91%E1%BA%BF-si%C3%AAu-b%E1%BB%81n-t%C4%83ng-chi%E1%BB%81u-cao-TX07-i.956781253.22930615266?sp_atk=629b237e-179b-4c78-9f7d-a09ffff694d8&xptdk=629b237e-179b-4c78-9f7d-a09ffff694d8",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+"https://down-vn.img.susercontent.com/file/vn-11134201-23030-zgxfuhtlcrov33",
+        "https://down-vn.img.susercontent.com/file/a6db6eac38357bd25ae6edfe5a399557"
+
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "Tuxulo Official"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "Giày da nam đốc dr martens chất liệu da sít",
+    "typeOfClothes": "DR_MARTENS",
+    "shape": "HEXAGON",
+    "description": "1. THÔNG TIN SẢN PHẨM: Tên sản phẩm: Giày da nam đốc dr martens chất liệu da sít chống nhăn cao cấp Hudadu khâu cạch chắc chắn giúp nâng chiều cao - mã 6828. Màu sắc: Đen. Chất liệu: da sít cao cấp. Phần đế giày đều được khâu đế xuyên gầm bảo đảm k thể nào bong đế. Đế cao su 4cm",
+    "link": "https://shopee.vn/Gi%C3%A0y-da-nam-%C4%91%E1%BB%91c-dr-martens-ch%E1%BA%A5t-li%E1%BB%87u-da-s%C3%ADt-ch%E1%BB%91ng-nh%C4%83n-cao-c%E1%BA%A5p-Hudadu-kh%C3%A2u-c%E1%BA%A1ch-ch%E1%BA%AFc-ch%E1%BA%AFn-gi%C3%BAp-n%C3%A2ng-chi%E1%BB%81u-cao-m%C3%A3-6828-i.1105525781.21095398360?sp_atk=b56954b0-4f9a-41d8-8240-d90b05324ac7&xptdk=b56954b0-4f9a-41d8-8240-d90b05324ac7",
+    "rating": 0,
+    "materials": "POLYESTER",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+"https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lodgrxnod62b08"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "YELLOW_NEON"
+    ],
+    "hashtag": [
+        "82r_arqn7x"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+{
+    "userID": "1",
+    "nameOfProduct": "GUDETU Giày Sneaker Thời Trang Cho Nam Vớ Và Giày Kéo Dài. Giày Lười Đen",
+    "typeOfClothes": "SNEAKER",
+    "shape": "HEXAGON",
+    "description": "Một vài lý do để chọn chúng tôiChúng tôi đã chuẩn bị một phiếu giảm giá bất ngờ cho bạn, bạn có thể tự nhận hoặc trò chuyện riêng với bộ phận chăm sóc khách hàng của chúng tôi để nhận hàng. Đó là một trải nghiệm thú vị từ khi nhìn thấy sản phẩm đến khi nhận sản phẩm, bạn sẽ thích shop của tôi",
+    "link": "https://shopee.vn/GUDETU-Gi%C3%A0y-Sneaker-Th%E1%BB%9Di-Trang-Cho-Nam-V%E1%BB%9B-V%C3%A0-Gi%C3%A0y-K%C3%A9o-D%C3%A0i.-Gi%C3%A0y-L%C6%B0%E1%BB%9Di-%C4%90en.-Gi%C3%A0y-Th%E1%BB%83-Thao-%C4%90%E1%BA%BF-D%C3%A0y-Th%E1%BB%9Di-Trang-N%C4%83ng-%C4%90%E1%BB%99ng-Cho-Nam-Gi%C3%A0y-%C4%90%C6%A1n-Tr%C3%AAn-B%C3%A0n-V%E1%BB%ABa.-Gi%C3%A0y-Th%E1%BB%83-Thao-Nam-Th%E1%BB%9Di-Trang-N%C4%83ng-%C4%90%E1%BB%99ng-i.946067865.22155314921?sp_atk=36a0146d-57eb-478f-99f8-5b0b28efdbc0&xptdk=36a0146d-57eb-478f-99f8-5b0b28efdbc0",
+    "rating": 0,
+    "materials": "DENIM",
+    "clothesSeasons": [
+        "Winter",
+        "Spring",
+        "Autumn"
+    ],
+    "clothesImages": [
+	"https://down-vn.img.susercontent.com/file/cn-11134207-7r98o-lpj557gadqpr05"
+    ],
+    "clothesSizes": [
+        "s",
+        "m",
+        "l",
+        "xL",
+        "xXL",
+        "XXXL"
+    ],
+    "clothesColors": [
+        "BLACK"
+    ],
+    "hashtag": [
+        "GUDETU"
+    ],
+    "clothesStyle":[
+        "CYBERPUNK"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------

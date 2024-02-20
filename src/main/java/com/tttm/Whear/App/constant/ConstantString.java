@@ -17,4 +17,6 @@ public class ConstantString {
     public static final Integer PREMIUM_HAVE_ONLY_ONE_STYLE = 1;
     public static final Integer SUGGEST_CLOTHES_FOR_PREMIUM_USER_AFTER_REJECT = 1;
     public static final Integer MAXIMUM_NUMBER_TIMES_CAN_UPDATE_STYLE_FOR_PREMIUM_USER = Integer.MAX_VALUE;
+    public static final String  CHANGE_TO_ANOTHER_STYLE = "CHANGE_TO_ANOTHER_STYLE";
+    public static final String  SUGGEST_OLD_OUTFITS_UNTIL_NEW_OUTFITS_ARRIVE = "SUGGEST_OLD_OUTFITS_UNTIL_NEW_OUTFITS_ARRIVE";
 }

@@ -7,6 +7,7 @@ import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
 import com.tttm.Whear.App.utils.request.MemoryRequest;
 import com.tttm.Whear.App.utils.request.RejectClothesRequest;
+import com.tttm.Whear.App.utils.request.SuggestChoiceForPremiumUser;
 import com.tttm.Whear.App.utils.response.AIStylishResponse;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.RuleMatchingClothesResponse;
@@ -613,5 +614,35 @@ public class AIStylishServiceImpl implements AIStylishService {
                 .outfits(outfitList)
                 .message(message)
                 .build();
+    }
+
+    @Override
+    public List<AIStylishResponse> selectChoiceWhenRunOutOfOutfitsForPremium(SuggestChoiceForPremiumUser suggestChoiceForPremiumUser) throws CustomException {
+        Style style = styleService.getStyleByStyleName(suggestChoiceForPremiumUser.getStyleName());
+        if(style == null)
+        {
+            throw new CustomException(ConstantMessage.STYLE_NAME_IS_NOT_EXISTED.getMessage());
+        }
+
+        BodyShape bodyShape = bodyShapeService.getBodyShapeByBodyShapeName(suggestChoiceForPremiumUser.getBodyShapeName());
+        if(bodyShape == null)
+        {
+            throw new CustomException(ConstantMessage.BODY_SHAPE_NAME_IS_NOT_EXISTED.getMessage());
+        }
+
+        // Check ID User or User Entity is exist or not
+        Optional.of(suggestChoiceForPremiumUser.getUserID())
+                .filter(id -> !id.isEmpty() && !id.isBlank())
+                .orElseThrow(() -> new CustomException(ConstantMessage.USERID_IS_EMPTY_OR_NOT_EXIST.getMessage()));
+
+        User user = Optional.ofNullable(userService.getUserEntityByUserID(suggestChoiceForPremiumUser.getUserID()))
+                .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
+
+        if(suggestChoiceForPremiumUser.getChoice().toUpperCase().replace(' ', '_').equals(ConstantString.CHANGE_TO_ANOTHER_STYLE))
+        {
+            return new ArrayList<>();
+        }
+
+        return null;
     }
 }

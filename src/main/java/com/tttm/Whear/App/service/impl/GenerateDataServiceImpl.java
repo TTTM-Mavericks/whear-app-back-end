@@ -9,9 +9,15 @@ import com.tttm.Whear.App.service.HistoryService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.HistoryRequest;
+import com.tttm.Whear.App.utils.request.UserRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -107,6 +113,26 @@ public class GenerateDataServiceImpl implements GenerateDataService {
             clothesRequestsList.add(clothesRequest);
         }
         return clothesRequestsList;
+    }
+
+    private Date getCurrentDate()
+    {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+    @Override
+    public void generateRandomCustomer() throws CustomException {
+        UserRequest userRequest = UserRequest
+                .builder()
+                .username("Sample")
+                .email("sample@gmail.com")
+                .phone("01234567890")
+                .password("12345")
+                .dateOfBirth(getCurrentDate())
+                .imgUrl(generateRandomNameBrand())
+                .build();
+
+        userService.createNewUsers(userRequest);
     }
 
     @Override
