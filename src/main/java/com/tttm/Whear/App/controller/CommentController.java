@@ -10,6 +10,7 @@ import com.tttm.Whear.App.utils.response.CommentsResponse;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,6 +70,26 @@ public class CommentController {
         respon.set("data", objectMapper.valueToTree(allComment));
         return respon;
       }
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
+  @DeleteMapping(CommentAPI.DELETE_BY_COMMENT_ID)
+  public ObjectNode deleteComment(@RequestParam(name = "postID") Integer postID,
+      @RequestParam(name = "commentID") Integer commentID) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      commentService.deleteComment(postID, commentID);
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("success", 200);
+      respon.put("message", "Delete Successfully");
+      respon.set("data", null);
+      return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("error", -1);

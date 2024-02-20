@@ -23,4 +23,5 @@ public class PostResponse {
   private String status;
   private List<ReactResponse> react;
   private List<CommentsResponse> comment;
+  private Boolean reacted;
 }

@@ -93,6 +93,11 @@ public class CommentServiceImpl implements CommentService {
     return commentsResponses;
   }
 
+  @Override
+  public void deleteComment(Integer postID, Integer commentID) throws CustomException {
+    commentsRepostitory.deleteComment(postID, commentID);
+  }
+
   private CommentsResponse convertToResponse(Comments comments) {
     User user = userRepository.getUserByUserID(comments.getUserID());
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
