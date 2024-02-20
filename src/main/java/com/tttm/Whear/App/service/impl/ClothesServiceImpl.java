@@ -291,7 +291,7 @@ public class ClothesServiceImpl implements ClothesService {
     clothesImageService.deleteByClothesID(clothesID);
     clothesSeasonService.deleteByClothesID(clothesID);
     clothesSizeService.deleteByClothesID(clothesID);
-
+    clothesStyleService.deleteByClothesID(clothesID);
     clothesRepository.deleteById(clothesID);
   }
 
