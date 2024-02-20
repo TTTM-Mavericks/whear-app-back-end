@@ -185,6 +185,7 @@ public class APIConstant {
     public static final String AI_STYLISH_API = APIConstant.API + "/ai-stylish";
     public static final String GET_SUGGEST_CLOTHES_FOR_USER = "/get-suggest-clothes-for-user";
     public static final String RENEW_CLOTHES_AFTER_REJECT_FOR_PREMIUM_USER = "/renew-clothes-after-reject-for-premium-user";
+    public static final String SELECT_CHOICE_WHEN_RUN_OUT_OF_OUTFITS_FOR_PREMIUM = "/select-choice-when-run-out-of-outfits-for-premium";
   }
 
   public class CommentAPI

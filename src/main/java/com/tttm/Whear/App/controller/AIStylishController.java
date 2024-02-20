@@ -6,6 +6,7 @@ import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.AIStylishService;
 import com.tttm.Whear.App.utils.request.RejectClothesRequest;
+import com.tttm.Whear.App.utils.request.SuggestChoiceForPremiumUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,24 @@ public class AIStylishController {
             respon.put("success", 200);
             respon.put("message", "Create Suggest Clothes for User Successfully");
             respon.set("data", objectMapper.valueToTree(stylishService.getSuggestClothesForUser(userID)));
+            return respon;
+        } catch (Exception ex) {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("error", -1);
+            respon.put("message", ex.getMessage());
+            respon.set("data", null);
+            return respon;
+        }
+    }
+
+    @GetMapping(APIConstant.AIStylishAPI.SELECT_CHOICE_WHEN_RUN_OUT_OF_OUTFITS_FOR_PREMIUM)
+    public ObjectNode selectChoiceWhenRunOutOfOutfitsForPremium(@RequestBody SuggestChoiceForPremiumUser suggestChoiceForPremiumUser) throws CustomException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("success", 200);
+            respon.put("message", "Select Choice When Run Out Of Outfits For Premium Successfully");
+            respon.set("data", objectMapper.valueToTree(stylishService.selectChoiceWhenRunOutOfOutfitsForPremium(suggestChoiceForPremiumUser)));
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();

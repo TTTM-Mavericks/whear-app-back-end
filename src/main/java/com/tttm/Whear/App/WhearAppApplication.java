@@ -1,5 +1,6 @@
 package com.tttm.Whear.App;
 
+import com.tttm.Whear.App.config.TextFileReader;
 import com.tttm.Whear.App.entity.BodyShape;
 import com.tttm.Whear.App.entity.RuleMatchingClothes;
 import com.tttm.Whear.App.entity.Style;
@@ -12,11 +13,19 @@ import com.tttm.Whear.App.repository.RuleMatchingClothesRepository;
 import com.tttm.Whear.App.repository.StyleRepository;
 import com.tttm.Whear.App.repository.SubRoleRepository;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -24,15 +33,22 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
+import java.io.*;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 @Controller
 @SpringBootApplication
 @EnableJpaAuditing()
 @EnableCaching
 public class WhearAppApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(WhearAppApplication.class, args);
+    public static void main(String[] args) throws FileNotFoundException {
+        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(WhearAppApplication.class, args);
 
+        TextFileReader textFileReader = configurableApplicationContext.getBean(TextFileReader.class);
+
+        textFileReader.onApplicationEvent(null);
     }
 
     @MessageMapping("/noti.sendMessage")

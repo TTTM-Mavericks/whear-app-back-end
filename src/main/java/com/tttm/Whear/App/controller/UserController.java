@@ -8,7 +8,6 @@ import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.FollowService;
 import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.LoginRequest;
-import com.tttm.Whear.App.utils.request.StyleAndBodyShapeRequest;
 import com.tttm.Whear.App.utils.request.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
