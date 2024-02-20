@@ -7,6 +7,7 @@ import com.tttm.Whear.App.utils.response.PaymentInformation;
 import com.tttm.Whear.App.utils.response.PaymentResponse;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public interface PaymentService {
 
@@ -15,4 +16,6 @@ public interface PaymentService {
 
   PaymentInformation getPaymentInfor(String paymentID)
       throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException;
+
+  List<PaymentInformation> getAllPayment() throws Exception;
 }

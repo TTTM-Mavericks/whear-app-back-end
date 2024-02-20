@@ -177,6 +177,7 @@ public class APIConstant {
     public static final String PAYMENT = APIConstant.API + "/payment";
     public static final String CREATE_PAYMENT = "/create-payment";
     public static final String GET_PAYMENT_BY_ID = "/get-payment-infor";
+    public static final String GET_ALL_PAYMENT = "/get-all-payment";
   }
 
   public class AIStylishAPI
