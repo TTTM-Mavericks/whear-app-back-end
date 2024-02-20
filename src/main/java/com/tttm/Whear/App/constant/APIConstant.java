@@ -194,4 +194,11 @@ public class APIConstant {
     public static final String GET_ALL_COMMENT_OF_A_POST = "/get-all-comment";
     public static final String DELETE_BY_COMMENT_ID = "/delete-comment";
   }
+
+  public class ChartAPI
+  {
+    public static final String CHART = APIConstant.API + "/chart";
+    public static final String LANGUAGE_CHART = "/language-chart";
+    public static final String PAYMENT_CHART = "/payment-chart";
+  }
 }
