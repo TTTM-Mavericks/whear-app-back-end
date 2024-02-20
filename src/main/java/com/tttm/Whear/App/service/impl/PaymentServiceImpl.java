@@ -256,6 +256,16 @@ public class PaymentServiceImpl implements PaymentService {
     return paymentInformation;
   }
 
+  @Override
+  public List<PaymentInformation> getAllPayment() throws Exception {
+    List<PaymentInformation> response = new ArrayList<>();
+    List<Payment> paymentList = paymentRepository.findAll();
+    for(Payment p : paymentList){
+      response.add(getPaymentInfor(p.getPaymentID().toString()));
+    }
+    return response;
+  }
+
   private static String convertObjToQueryStr(JsonNode object) {
     StringBuilder stringBuilder = new StringBuilder();
     ObjectMapper objectMapper = new ObjectMapper();
