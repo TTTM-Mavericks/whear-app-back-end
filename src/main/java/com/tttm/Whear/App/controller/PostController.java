@@ -82,16 +82,22 @@ public class PostController {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
 
-      ObjectNode responseObject = objectMapper.createObjectNode();
-      responseObject.put("post",
-          objectMapper.valueToTree(postService.getPostByPostID(postID)));
-      responseObject.put("react",
-          objectMapper.valueToTree(reactService.checkContain(postID, userID)));
+      PostResponse postResponse = postService.getPostByPostID(postID);
+      if (reactService.checkContain(postID, userID) != null) {
+        postResponse.setReacted(true);
+      } else {
+        postResponse.setReacted(false);
+      }
+
+//      responseObject.put("post",
+//          objectMapper.valueToTree(postResponse));
+//      responseObject.put("react",
+//          objectMapper.valueToTree(reactService.checkContain(postID, userID)));
 
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Get post Successfully");
-      respon.set("data", responseObject);
+      respon.set("data", objectMapper.valueToTree(postResponse));
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();

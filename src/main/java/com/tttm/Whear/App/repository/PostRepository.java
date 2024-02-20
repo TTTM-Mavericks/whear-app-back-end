@@ -15,7 +15,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 
   public List<Post> getAllByUserID(String userID);
 
-  @Query(value = "select * from posts p where p.userid in ( select f.following_userid from follower f where f.follower_userid = ?1 )  or p.userid = ?1 order by p.date desc ", nativeQuery = true)
+  @Query(value = "select * from posts p where p.userid in ( select f.following_userid from follower f where f.follower_userid = ?1 )  or p.userid = ?1 order by p.create_date desc ", nativeQuery = true)
   public List<Post> getAllPostForUser(String userID);
 
   @Modifying
