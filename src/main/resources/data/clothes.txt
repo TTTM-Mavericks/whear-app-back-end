@@ -1764,3 +1764,632 @@
         "CLASSIC"
     ]
 }
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+    "userID": "1",
+  "nameOfProduct": "Women's Handknitted Cardigan",
+  "typeOfClothes": "CARDIGAN",
+  "shape": "RECTANGLE",
+   "description": "Pachamama women's hand-knit cardigan, colorful pattern, fair trade and handmade in Nepal. With a classic preppy style with horizontal patterns, it gives an elegant and warm look.",
+    "link": "https://www.etsy.com/listing/1479371496/womens-handknitted-cardigan-100-wool?gpla=1&gao=1&",
+  "rating": 0,
+  "materials": "WOOL",
+  "clothesSeasons": ["WINTER"],
+  "clothesImages": [
+    "https://i.etsystatic.com/22722070/r/il/b8dae7/4957549996/il_794xN.4957549996_mf8r.jpg",
+    "https://i.etsystatic.com/22722070/r/il/3a3b4e/4484639876/il_794xN.4484639876_pnyr.jpg"
+  ],
+  "clothesSizes": ["XS", "S", "M", "L"],
+  "clothesColors": ["GRAY"],
+    "hashtag": [
+        "#ESTY"
+    ],
+    "clothesStyle":[
+        "PREPPY"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+    "userID":"1",
+  "nameOfProduct": "Proper Blazer",
+  "typeOfClothes": "BLAZER",
+  "shape": "RECTANGLE",
+  "clothesclothesSeasons": ["AUTUMN"],
+  "description": "Fine wool naturally holds its shape well and is also comfortably breathable. The lightly textured finish lends a more relaxed feel to the single-breasted blazer. If you prefer to pursue a smarter style, this blazer will suit you. The premium wool and midnight shade make it a great choice for more formal occasions. Inside, you'll find our exclusive lapwing lining with contrast piping.",
+  "link": "https://www.charlestyrwhitt.com/us/proper-blazer---navy/SEF0270NAV.html?pf=pdp_colour_swatch&dwvar_SEF0270NAV_variation-fit=slim_fit",
+  "rating": 0,
+  "materials": "WOOL",
+  "clothesImages": [
+    "https://www.charlestyrwhitt.com/dw/image/v2/AAWJ_PRD/on/demandware.static/-/Sites-ctshirts-master/default/dw83ad7d5d/hi-res/SEF0270NAV_MODEL_FRONT.jpg?sw=960&sh=1200",
+    "https://www.charlestyrwhitt.com/dw/image/v2/AAWJ_PRD/on/demandware.static/-/Sites-ctshirts-master/default/dw5f270fee/hi-res/SEF0270BLK_MODEL_FRONT.jpg?sw=960&sh=1200"
+  ],
+  "clothesSizes": ["S", "M", "L", "XL", "XXL"],
+  "clothesColors": ["DARK_BLUE", "BLACK"],
+    "hashtag": [
+        "H&M PRING 2024"
+    ],
+    "clothesStyle":[
+        "PREPPY"
+    ]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "CLASSIC SWEATER",
+  "typeOfClothes": "SWEATER",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["WINTER"],
+  "description": "Classic preppy style turtleneck sweater with solid pattern, giving an elegant and warm look.",
+  "link": "https://www.etsy.com/listing/1574384153/cashmere-wool-pullover-top-knitted?ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=classic+wool+sweater&ref=sr_gallery-3-31&pro=1&frs=1&organic_search_click=1",
+  "rating": 0,
+  "materials": "WOOL",
+  "clothesImages": [
+    "https://i.etsystatic.com/10866204/r/il/a37f44/4138557453/il_794xN.4138557453_q06h.jpg",
+    "https://i.etsystatic.com/10866204/r/il/130c88/5376916961/il_794xN.5376916961_qe3g.jpg",
+    "https://i.etsystatic.com/10866204/r/il/f35ba3/5376924017/il_794xN.5376924017_7b0v.jpg"
+  ],
+  "clothesSizes": ["XS", "S", "M", "L"],
+  "clothesColors": ["WHITE", "DARK_BLUE"],
+  "hashtag": ["#ActiveLifestyle"],
+  "clothesStyle": ["PREPPY"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Arizona Original Flex Chino Pants",
+  "typeOfClothes": "PANTS",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["AUTUMN"],
+  "description": "Preppy style chino pants with a simple design, suitable for all occasions from the office to weekend meetings. Featuring a sturdy 100% cotton twill, this more relaxed silhouette of the chino pant flows over the hips and thighs with a longer vintage-inspired waistband and wider leg opening.",
+  "link": "https://www.madewell.com/relaxed-straight-chino-pants-99105752522.html?slpfid=1",
+  "rating": 0,
+  "materials": "COTTON",
+  "clothesImages": [
+    "https://www.madewell.com/images/AH661_BR7119_m?wid=700&hei=889&fmt=jpeg&fit=crop&qlt=75,1&resMode=bisharp&op_usm=0.5,1,5,0",
+    "https://www.madewell.com/images/AH661_BR7119_d1?wid=700&hei=889&fmt=jpeg&fit=crop&qlt=75,1&resMode=bisharp&op_usm=0.5,1,5,0"
+  ],
+  "clothesSizes": ["M", "L", "XL", "XXL"],
+  "clothesColors": ["BEIGE"],
+  "hashtag": ["#ClassicChinos", "#PreppyStyle"],
+  "clothesStyle": ["PREPPY"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Mingzhu Oversized Plaid Flannel Shirts",
+  "typeOfClothes": "SHIRT",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["AUTUMN"],
+  "description": "Flannel shirt with checkered pattern, suitable for cold days. Fashionable loose striped flannel shirt, can be worn tied in the front like a crop top, can also be worn as an open front cardigan, sleeves can be rolled up to become a 3/4 sleeve shirt for women, oversized shirt, you can order one size down than usual if you want a slim look.",
+  "link": "https://www.amazon.com/Mingzhu-Flannel-Button-Oversized-0003-Brown-XXL/dp/B09XQR857L?source=ps-sl-shoppingads-lpcontext&ref_=bing_fplfs&psc=1",
+  "rating": 0,
+  "materials": "FLANNEL",
+  "clothesImages": [
+    "https://m.media-amazon.com/images/I/81sVyc9wzPL._AC_SY550_.jpg",
+    "https://m.media-amazon.com/images/I/81hJ3ORWa1L._AC_SY550_.jpg",
+    "https://m.media-amazon.com/images/I/81gLeBU7s+L._AC_SY550_.jpg",
+    "https://m.media-amazon.com/images/I/81J88LxYVGL._AC_SY550_.jpg"
+  ],
+  "clothesSizes": ["S", "M", "L", "XL", "XXL"],
+  "clothesColors": ["GREEN", "BLUE", "RED", "BLACK", "BROWN"],
+  "hashtag": ["#FlannelShirt", "#OversizedShirt"],
+  "clothesStyle": ["PREPPY"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "PLEATED SATIN EFFECT SKIRT",
+  "typeOfClothes": "SKIRT",
+  "shape": "CIRCLE",
+  "clothesSeasons": ["SPRING", "SUMMER"],
+  "description": "A stylish pleated skirt with a preppy vibe. Made from lightweight chiffon material, perfect for warm weather. High rise midi skirt with elastic waistband.",
+  "link": "https://www.zara.com/us/en/pleated-satin-effect-skirt-p09878052.html?v1=331789891&v2=2353231",
+  "rating": 0,
+  "materials": "CHIFFON",
+  "clothesImages": [
+    "https://static.zara.net/photos///2024/V/0/1/p/9878/052/800/12/w/563/9878052800_1_1_1.jpg?ts=1703666229357",
+    "https://static.zara.net/photos///2024/V/0/1/p/9878/052/800/12/w/563/9878052800_2_4_1.jpg?ts=1703666229330",
+    "https://static.zara.net/photos///2024/V/0/1/p/9878/052/307/17/w/563/9878052307_1_1_1.jpg?ts=1705403497439",
+    "https://static.zara.net/photos///2024/V/0/1/p/9878/052/307/17/w/563/9878052307_2_2_1.jpg?ts=1705403497171"
+  ],
+  "clothesSizes": ["XS", "S", "M", "L", "XL"],
+  "clothesColors": ["BLACK", "LIGHT_YELLOW"],
+  "hashtag": ["#PleatedSkirt", "#PreppyStyle"],
+  "clothesStyle": ["PREPPY"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Women's Striped Pullover Hoodie",
+  "typeOfClothes": "HOODIE",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["WINTER", "AUTUMN"],
+  "description": "Upgrade your casual look with this lounge-worthy striped pullover hoodie. Made from buttery-soft cotton, this comfortable style features a drawstring hood and ribbed cuffs.",
+  "link": "https://www.nautica.com/striped-pullover-hoodie/6842983.html?utm_source=connexity&utm_medium=cse&utm_campaign=tin_nau_shop_nb_connex_variousproducts_catchall",
+  "rating": 0,
+  "materials": "COTTON",
+  "clothesImages": [
+    "https://www.nautica.com/dw/image/v2/BDCV_PRD/on/demandware.static/-/Sites-nautica-master-catalog/default/dwcc19ca48/images/0731516000016_26K404_133_A.jpg?sw=2000&amp;sh=2000&amp;sm=fit"
+  ],
+  "clothesSizes": ["S", "M", "L"],
+  "clothesColors": ["WHITE", "GRAY"],
+  "hashtag": ["#StripedHoodie", "#CasualStyle"],
+  "clothesStyle": ["PREPPY"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Men's Cotton jacket with pockets",
+  "typeOfClothes": "JACKET",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["AUTUMN", "WINTER"],
+  "description": "Slightly elastic cotton fabric. Short design. Regular fit. Field jacket. Heavy structure. Shirt-style collar. Two patch pockets with flaps on the chest. Two patch and flap pockets on the hip. Front zip and snap button closure. Inner lining. Inner pocket. The model is 6'3\" and is wearing a size M.",
+  "link": "https://shop.mango.com/us/men/jackets-and-vests-jackets/cotton-jacket-with-pockets_57014390.html",
+  "rating": 0,
+  "materials": "POLYESTER",
+  "clothesImages": [
+    "https://st.mngbcn.com/rcs/pics/static/T5/fotos/S20/57014390_37.jpg?ts=1691587998295&imwidth=487&imdensity=2",
+    "https://st.mngbcn.com/rcs/pics/static/T5/fotos/outfit/S20/57014390_37-99999999_01.jpg?ts=1691587998295&imwidth=487&imdensity=2",
+    "https://st.mngbcn.com/rcs/pics/static/T5/fotos/S20/57014390_37_D1.jpg?ts=1691587998295&imwidth=487&imdensity=2",
+    "https://st.mngbcn.com/rcs/pics/static/T5/fotos/S20/57014390_37_R.jpg?ts=1691587998295&imwidth=487&imdensity=2"
+  ],
+  "clothesSizes": ["M", "L", "XL", "XXL"],
+  "clothesColors": ["DARK_BROWN"],
+  "hashtag": ["#FieldJacket", "#MensFashion"],
+  "clothesStyle": ["PREPPY"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Women's Knitted dress with polo neck",
+  "typeOfClothes": "DRESS",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SUMMER"],
+  "description": "Fine knit fabric. Short design. Tailored dress. Polo-neck with button closure. Short sleeve. Two front welt and flap pockets. Contrasting trims. Office looks.",
+  "link": "https://shop.mango.com/us/women/dresses-and-jumpsuits-dresses/knitted-dress-with-polo-neck_67040371.html",
+  "rating": 0,
+  "materials": "COTTON",
+  "clothesImages": [
+    "https://st.mngbcn.com/rcs/pics/static/T6/fotos/S20/67040371_99.jpg?ts=1702548193215&imwidth=487&imdensity=2",
+    "https://st.mngbcn.com/rcs/pics/static/T6/fotos/outfit/S20/67040371_99-99999999_01.jpg?ts=1702548193215&imwidth=487&imdensity=2",
+    "https://st.mngbcn.com/rcs/pics/static/T6/fotos/S20/67040371_99_R.jpg?ts=1702548193215&imwidth=487&imdensity=2",
+    "https://st.mngbcn.com/rcs/pics/static/T6/fotos/S20/67040371_99_D1.jpg?ts=1702548193215&imwidth=487&imdensity=2"
+  ],
+  "clothesSizes": ["XS", "S", "M", "L"],
+  "clothesColors": ["BLACK"],
+  "hashtag": ["#KnittedDress", "#OfficeFashion"],
+  "clothesStyle": ["PREPPY"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Men's Regular fit Oxford cotton shirt",
+  "typeOfClothes": "SHIRT",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SPRING", "SUMMER", "AUTUMN"],
+  "description": "Timeless Oxford shirt for men with a preppy style. Made from high-quality cotton fabric for a comfortable and stylish look. Slim fit. American button-down collar. Patch pocket on the chest. Front button closure. Long buttoned sleeve. Rounded hem. The model is 6'3\" and is wearing a size M.",
+  "link": "https://shop.mango.com/us/men/shirts-slim-fit/regular-fit-oxford-cotton-shirt_57094004.html",
+  "rating": 0,
+  "materials": "COTTON",
+  "clothesImages": [
+    "https://st.mngbcn.com/rcs/pics/static/T5/fotos/outfit/S20/57094004_08-99999999_01.jpg?ts=1688970779457&imwidth=487&imdensity=2",
+    "https://st.mngbcn.com/rcs/pics/static/T5/fotos/S20/57094004_08.jpg?ts=1688970779457&imwidth=487&imdensity=2",
+    "https://st.mngbcn.com/rcs/pics/static/T5/fotos/S20/57094004_08_D1.jpg?ts=1688970779457&imwidth=487&imdensity=2",
+    "https://st.mngbcn.com/rcs/pics/static/T5/fotos/outfit/S20/57094004_01-99999999_01.jpg?ts=1688720590294&imwidth=487&imdensity=2"
+  ],
+  "clothesSizes": ["S", "M", "L", "XL", "XXL"],
+  "clothesColors": ["BEIGE", "WHITE"],
+  "hashtag": ["#OxfordShirt", "#PreppyStyle"],
+  "clothesStyle": ["PREPPY"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Basic Crew Neck Cotton T-shirts",
+  "typeOfClothes": "T_SHIRT",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SUMMER"],
+  "description": "Stay comfortable and stylish with our Basic Crew Neck Cotton T-shirts. Made with soft, breathable cotton, these lightweight tees are perfect for lounging, running errands, or a night on the town. You'll always look your best.",
+  "link": "https://watereverysunday.com/products/basic-crew-neck-cotton-t-shirts?variant=44231846527195",
+  "rating": 0,
+  "materials": "COTTON",
+  "clothesImages": [
+    "https://watereverysunday.com/cdn/shop/files/Basic-Crew-Neck-Cotton-T-shirts-watereverysunday-6060_large.jpg?v=1698322745",
+    "https://watereverysunday.com/cdn/shop/files/Basic-Crew-Neck-Cotton-T-shirts-watereverysunday-6121_1024x1024.jpg?v=1698322574",
+    "https://watereverysunday.com/cdn/shop/files/Basic-Crew-Neck-Cotton-T-shirts-watereverysunday-4732_1024x1024.jpg?v=1698322750",
+    "https://watereverysunday.com/cdn/shop/files/Basic-Crew-Neck-Cotton-T-shirts-watereverysunday-534_1024x1024.jpg?v=1698322865"
+  ],
+  "clothesSizes": ["XS", "S", "M", "L", "XL"],
+  "clothesColors": ["BLACK", "WHITE", "PINK", "PURPLE"],
+  "hashtag": ["#CottonTShirt", "#CasualStyle"],
+  "clothesStyle": ["NORMCORE"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Women's Jeans Trousers Overalls Denim",
+  "typeOfClothes": "JEANS",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["AUTUMN"],
+  "description": "Provides a stylish and trendy look. Offers a comfortable and breathable fit. Perfect for creating a casual yet chic style.",
+  "link": "https://www.lightinthebox.com/en/p/women-s-basic-trousers-overalls-patchwork-full-length-pants-daily-work-micro-elastic-solid-color-outdoor-sports-mid-waist-black-",
+  "rating": 0,
+  "materials": "DENIM",
+  "clothesImages": [
+    "https://i.ebayimg.com/images/g/NuMAAOSw3iZkSynV/s-l960.jpg",
+    "https://i.ebayimg.com/images/g/I4MAAOSwBslkSynN/s-l960.png"
+  ],
+  "clothesSizes": ["S", "M", "L", "XL"],
+  "clothesColors": ["BLUE", "BLACK"],
+  "hashtag": ["#DenimOveralls", "#CasualChic"],
+  "clothesStyle": ["NORMCORE"]
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Casual Jacket Blazer",
+  "typeOfClothes": "BLAZER",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SPRING"],
+  "description": "If you're looking for a versatile and stylish blazer, this short-sleeved jacket blazer is a great choice. It's suitable for many occasions, such as daily wear, office, work, meetings, parties, nights out, going out, and more. You can pair it with a suit or jeans for a fashionable, modern, layered look. The blazer is soft and comfortable to wear, making it perfect for spring, summer, and autumn. With this blazer, you'll look and feel confident and stylish wherever you go.",
+  "link": "https://www.target.com/p/allegra-k-women-s-work-office-short-sleeve-one-button-casual-jacket-blazer/-/A-90976552?preselect=90976551#lnk=sametab",
+  "rating": 0,
+  "materials": "POLYESTER",
+  "clothesImages": [
+    "https://target.scene7.com/is/image/Target/GUEST_17947336-86dc-48de-b65e-b0482cfb8b68?wid=600&hei=600&qlt=80&fmt=webp",
+    "https://target.scene7.com/is/image/Target/GUEST_364bf1cf-2a70-4491-b1c7-29c19ff93af8?wid=600&hei=600&qlt=80&fmt=webp"
+  ],
+  "clothesSizes": ["M", "L", "XL", "XXL"],
+  "clothesColors": ["WHITE"],
+  "hashtag": ["#CasualBlazer", "#VersatileStyle"],
+  "clothesStyle": ["NORMCORE"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "UNISEX FLEECE SWEATSHIRT",
+  "typeOfClothes": "SWEATER",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["WINTER"],
+  "description": "A normcore-style sweatshirt, warm and comfortable.",
+  "link": "https://bitsygypsyboutique.com/products/unisex-fleece-sweatshirt-2?variant=47501158154551",
+  "rating": 0,
+  "materials": "FLEECE",
+  "clothesImages": [
+    "https://bitsygypsyboutique.com/cdn/shop/files/8051421_e3cb9fd5-dcbe-499c-abcf-16a64be9cc37.jpg?v=1698279365&width=1920",
+    "https://bitsygypsyboutique.com/cdn/shop/files/8051421_89b31366-39ea-4350-bf60-242ddf5983bc.jpg?v=1698279372&width=1920",
+    "https://bitsygypsyboutique.com/cdn/shop/files/8051421_d9647966-17e8-4e35-895c-e666647096e5.jpg?v=1698279371&width=1920"
+  ],
+  "clothesSizes": ["S", "M", "L"],
+  "clothesColors": ["BLACK", "RED", "ORANGE"],
+  "hashtag": ["#FleeceSweatshirt", "#NormcoreStyle"],
+  "clothesStyle": ["NORMCORE"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Miss Paris Button Down Shirt",
+  "typeOfClothes": "SHIRT",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SPRING"],
+  "description": "Classic normcore style shirt, easily coordinated with other outfits.",
+  "link": "https://thecommense.com/collections/Shirts/products/miss-paris-button-down-shirt?variant=44112136634625",
+  "rating": 0,
+  "materials": "POLYESTER",
+  "clothesImages": [
+    "https://thecommense.com/cdn/shop/products/B1698039648360_120x.jpg?v=1698039729",
+    "https://thecommense.com/cdn/shop/products/B1698039662049_120x.jpg?v=1698039729",
+    "https://thecommense.com/cdn/shop/products/B1698039655279_120x.jpg?v=1698039729"
+  ],
+  "clothesSizes": ["S", "M", "L", "XL", "XXL"],
+  "clothesColors": ["WHITE"],
+  "hashtag": ["#ButtonDownShirt", "#NormcoreFashion"],
+  "clothesStyle": ["NORMCORE"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Oversized Wool Coat",
+  "typeOfClothes": "COAT",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["WINTER"],
+  "description": "Casual jacket, keeps warm and has a smart look.",
+  "link": "https://thecommense.com/products/oversized-wool-coat?_pos=8&_sid=b022cf2fc&_ss=r",
+  "rating": 0,
+  "materials": "WOOL",
+  "clothesImages": [
+    "https://thecommense.com/cdn/shop/products/B1705041912704_120x.jpg?v=1705041973",
+    "https://thecommense.com/cdn/shop/products/B1705041863415_120x.jpg?v=1705041973",
+    "https://thecommense.com/cdn/shop/products/B1705041818788_120x.jpg?v=1705041973",
+    "https://thecommense.com/cdn/shop/products/B1705041840321_120x.jpg?v=1705041973"
+  ],
+  "clothesSizes": ["M", "L", "XL", "XXL"],
+  "clothesColors": ["BROWN"],
+  "hashtag": ["#WoolCoat", "#WinterFashion"],
+  "clothesStyle": ["NORMCORE"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Camille Knit Pleat Maxi Dress",
+  "typeOfClothes": "DRESS",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["AUTUMN"],
+  "description": "Normcore style knitted wool dress, comfortable and stylish.",
+  "link": "https://thecommense.com/products/camille-knit-pleat-midi-dress?_pos=2&_sid=c61795337&_ss=r",
+  "rating": 0,
+  "materials": "KNIT",
+  "clothesImages": [
+    "https://thecommense.com/cdn/shop/products/B1681197054016_120x.jpg?v=1699343773",
+    "https://thecommense.com/cdn/shop/products/B1681197042009_120x.jpg?v=1699343773",
+    "https://thecommense.com/cdn/shop/products/B1699343591936_120x.jpg?v=1699343773",
+    "https://thecommense.com/cdn/shop/products/B1699343602315_120x.jpg?v=1699343773"
+  ],
+  "clothesSizes": ["S", "M", "L"],
+  "clothesColors": ["BLACK", "WHITE"],
+  "hashtag": ["#KnitDress", "#NormcoreFashion"],
+  "clothesStyle": ["NORMCORE"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Worth A Million Contrast Trim Tank Top",
+  "typeOfClothes": "TANK_TOP",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SUMMER"],
+  "description": "Normcore style tank top, cool and convenient.",
+  "link": "https://thecommense.com/products/worth-a-million-contrast-trim-tank-top?variant=44034428272897",
+  "rating": 0,
+  "materials": "JERSEY",
+  "clothesImages": [
+    "https://thecommense.com/cdn/shop/products/B1694078448639_b7d13844-c297-4e49-8ea0-bae8b2cfa3eb_120x.jpg?v=1695613873",
+    "https://thecommense.com/cdn/shop/products/B1694434027927_120x.jpg?v=1695613873"
+  ],
+  "clothesSizes": ["XS", "S", "M", "L"],
+  "clothesColors": ["WHITE", "BLACK"],
+  "hashtag": ["#TankTop", "#NormcoreFashion"],
+  "clothesStyle": ["NORMCORE"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Athflow Sweatpants",
+  "typeOfClothes": "PANTS",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["AUTUMN"],
+  "description": "Loose normcore style sweatpants, minimalist and comfortable for autumn.",
+  "link": "https://thecommense.com/products/athflow-sweatpants?_pos=1&_sid=1c7df0928&_ss=r",
+  "rating": 0,
+  "materials": "COTTON",
+  "clothesImages": [
+    "https://thecommense.com/cdn/shop/products/B1694592972867_120x.jpg?v=1699436533",
+    "https://thecommense.com/cdn/shop/products/B1694592981277_120x.jpg?v=1699436533",
+    "https://thecommense.com/cdn/shop/products/B1699436455552_120x.jpg?v=1699436533",
+    "https://thecommense.com/cdn/shop/products/B1699436443107_120x.jpg?v=1699436533"
+  ],
+  "clothesSizes": ["M", "L", "XL", "XXL"],
+  "clothesColors": ["GRAY", "BLACK"],
+  "hashtag": ["#Sweatpants", "#Athflow", "#NormcoreStyle"],
+  "clothesStyle": ["NORMCORE"]
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Athleisure Drawstring Hoodie",
+  "typeOfClothes": "HOODIE",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["WINTER"],
+  "description": "Normcore style patternless hoodie, soft and warm for winter.",
+  "link": "https://thecommense.com/products/athleisure-drawstring-hoodie?_pos=5&_sid=c8e98146d&_ss=r",
+  "rating": 0,
+  "materials": "FLEECE",
+  "clothesImages": [
+    "https://thecommense.com/cdn/shop/products/B1698917480217_120x.jpg?v=1699867810",
+    "https://thecommense.com/cdn/shop/products/B1698917564141_120x.jpg?v=1699867810"
+  ],
+  "clothesSizes": ["S", "M", "L"],
+  "clothesColors": ["LIGHT_GRAY"],
+  "hashtag": ["#Hoodie", "#Athleisure", "#NormcoreStyle"],
+  "clothesStyle": ["NORMCORE"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "Gothic Lace Frill Vintage Pattern Underbust Corset",
+  "typeOfClothes": "FORMAL_WEAR",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["AUTUMN"],
+  "description": "Gothic lace corset with sophisticated design, creating a seductive and mysterious beauty.",
+  "link": "https://www.etsy.com/listing/1513978127/gothic-lace-frill-vintage-pattern?gpla=1&gao=1&",
+  "rating": 0,
+  "materials": "LACE",
+  "clothesImages": [
+    "https://i.etsystatic.com/41060022/r/il/17b7ff/5047327630/il_794xN.5047327630_mxpm.jpg",
+    "https://i.etsystatic.com/41060022/r/il/41ffe3/5047327624/il_794xN.5047327624_cvn9.jpg",
+    "https://i.etsystatic.com/41060022/r/il/d9da5c/5047327626/il_794xN.5047327626_mb7i.jpg"
+  ],
+  "clothesSizes": ["S", "M", "L"],
+  "clothesColors": ["BLACK"],
+  "hashtag": ["#Gothic", "#Corset", "#FormalWear"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{"userID": "1",
+  "nameOfProduct": "Scarlet Darkness Gothic Dresses for Women Velvet Off Shoulder Mini A Line Dress",
+  "typeOfClothes": "DRESS",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["WINTER"],
+  "description": "Material: gothic dress for women is well made of high-quality, not see-through, lightweight, stitching, skin friendly, soft and breathable fabrics, comfortable and beautiful to wear. Bodice is not elastic, skirt is medium stretchy.",
+  "link": "https://www.amazon.com/Scarlet-Darkness-Shoulder-Cocktail-Dresses/dp/B0CC9KPX1M?ref_=ast_sto_dp&th=1&psc=1",
+  "rating": 0,
+  "materials": "VELVET",
+  "clothesImages": [
+    "https://m.media-amazon.com/images/I/71AI8yrYF5L._AC_SY550_.jpg",
+    "https://m.media-amazon.com/images/I/71RXaMP-urL._AC_SY550_.jpg",
+    "https://m.media-amazon.com/images/I/81jSsY8S2kL._AC_SY550_.jpg"
+  ],
+  "clothesSizes": ["M", "L", "XL"],
+  "clothesColors": ["DARK_RED", "DARK_BLUE", "DARK_GREEN"],
+  "hashtag": ["#GothicDress", "#VelvetDress", "#WinterFashion"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{"userID": "1",
+  "nameOfProduct": "Gothic Leather Pants",
+  "typeOfClothes": "PANTS",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SPRING"],
+  "description": "Stylish Gothic leather pants, pair with a jacket and boots for a stylish look.",
+  "link": "https://www.ebay.com/itm/256276285366?itmmeta=01HQ34GHJF7C8T71RZ93DX1BQD&hash=item3bab41c7b6:g:1I8AAOSwCwZlO8MB&itmprp=enc%3AAQAIAAAA8MWUeSPJVZc9M5dfAIlfeIIsW8yj4qM0HU526Ou30073zOBiKGeKqtwq8eUjdilvSvETgomKg7rPujT7SF917gcZn75%2F%2BVJsycg41M1rLQyLJoNvExYls%2FUvihFnJTauOtK%2Fow3zNKdyLM43StPGMw6tfhKvvPkwvLP%2BjNlQLnyrswwigP8Rccc90YIVGsy5PKXuSWzHIilj5ncfKcr0Wpm8ALGu8RhIvEZOv86JQpyqm7fc77eC%2Futs2I34Ub5XLYX9wemBrUDP4XuwmqQPSFLIIHp0t0jUDbUYcJSTo%2FtgjaOoHd14Zkp3KbfI1wj7kw%3D%3D%7Ctkp%3ABFBMqpnC5Lhj",
+  "rating": 0,
+  "materials": "LEATHER",
+  "clothesImages": [
+    "https://i.ebayimg.com/images/g/1I8AAOSwCwZlO8MB/s-l140.jpg",
+    "https://i.ebayimg.com/images/g/DeMAAOSwhGllO8MH/s-l140.jpg"
+  ],
+  "clothesSizes": ["S", "M", "L", "XL"],
+  "clothesColors": ["BLACK"],
+  "hashtag": ["#GothicPants", "#LeatherPants", "#SpringFashion"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{"userID": "1",
+  "nameOfProduct": "Goth Chiffon Stand Collar Shirt",
+  "typeOfClothes": "SHIRT",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SUMMER"],
+  "description": "Elevate your gothic wardrobe with this stunning chiffon stand collar shirt. Crafted with intricate details and dark allure, this shirt exudes a mysterious charm perfect for the modern goth aesthetic. The stand collar adds a touch of sophistication, while the chiffon fabric drapes elegantly, creating a flowing silhouette. Whether paired with leather pants for a bold look or layered under a velvet blazer for a more refined ensemble, this shirt is sure to make a statement. Embrace your dark side and unleash your inner goth with this captivating piece.",
+  "link": "https://www.punkravestore.com/products/goth-chiffon-stand-collar-shirt?variant=45702594953495&utm_medium=cpc&utm_source=bing&utm_campaign=Bing%20Shopping#tab1551070915808",
+  "rating": 0,
+  "materials": "CHIFFON",
+  "clothesImages": [
+    "https://www.punkravestore.com/cdn/shop/files/WY-1486CCM-12_650x.jpg?v=1690877501",
+    "https://www.punkravestore.com/cdn/shop/files/WY-1486CCM-13_650x.jpg?v=1690877501",
+    "https://www.punkravestore.com/cdn/shop/files/WY-1486CCM-14_650x.jpg?v=1690877501"
+  ],
+  "clothesSizes": ["XS", "S", "M", "L"],
+  "clothesColors": ["BLACK"],
+  "hashtag": ["#GothicFashion", "#ChiffonShirt", "#SummerStyle"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{"userID": "1",
+  "nameOfProduct": "Gothic Ripped Jeans Pants for Men",
+  "typeOfClothes": "JEANS",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["AUTUMN"],
+  "description": "Gothic style ripped jeans, can show outstandingness and freedom.",
+  "link": "https://www.amazon.com/dp/B08312K7J5?th=1",
+  "rating": 0,
+  "materials": "DENIM",
+  "clothesImages": [
+    "https://m.media-amazon.com/images/I/515M3MgDvRL._AC_SX679_.jpg",
+    "https://m.media-amazon.com/images/I/31+h0oGFeqL._AC_.jpg"
+  ],
+  "clothesSizes": ["M", "L", "XL", "XXL"],
+  "clothesColors": ["BLACK"],
+  "hashtag": ["#GothicFashion", "#RippedJeans", "#AutumnStyle"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{"userID": "1",
+  "nameOfProduct": "Sexy Fishnet Gothic Blouse Long Sleeve Patchwork Mesh Tops Shirts",
+  "typeOfClothes": "SHIRT",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SUMMER"],
+  "description": "Gothic fishnet shirt, perfectly combined with punk accessories. Special fishnet patchwork mesh and pentagram zipper design. It is made of high quality materials, durable for your daily wearing! This is a great gift for your lovers or yourself.",
+  "link": "https://vi.aliexpress.com/item/1005003040617126.html?aff_platform=true&aff_short_key=UneMJZVf&isdl=y&src=bing&pdp_npi=3%40dis%21USD%2112.50%216.13%21%21%210%21%21%40%2112000025411427886%21ppc%21%21&gatewayAdapt=glo2vnm4itemAdapt",
+  "rating": 0,
+  "materials": "POLYESTER",
+  "clothesImages": [
+    "https://ae01.alicdn.com/kf/H29492a1160d144e0a497d497c4d6870fh/Sexy-Fishnet-Gothic-Blouse-Long-Sleeve-Patchwork-Mesh-Tops-Shirts-Women-Pentagram-Top-Femme-Zipper-O.jpg_80x80.jpg_.webp",
+    "https://ae01.alicdn.com/kf/H1f3d0addea2b4e19a2548c72acda75f9G/Sexy-Fishnet-Gothic-Blouse-Long-Sleeve-Patchwork-Mesh-Tops-Shirts-Women-Pentagram-Top-Femme-Zipper-O.jpg_80x80.jpg_.webp",
+    "https://ae01.alicdn.com/kf/H8591ed28229d460e9baf3bd3e1299f60q/Sexy-Fishnet-Gothic-Blouse-Long-Sleeve-Patchwork-Mesh-Tops-Shirts-Women-Pentagram-Top-Femme-Zipper-O.jpg_80x80.jpg_.webp"
+  ],
+  "clothesSizes": ["XS", "S", "M", "L"],
+  "clothesColors": ["BLACK"],
+  "hashtag": ["#GothicFashion", "#FishnetShirt", "#SummerStyle"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{"userID": "1",
+  "nameOfProduct": "Gothic Style Black Leather Platform Boots",
+  "typeOfClothes": "BOOTS",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["WINTER"],
+  "description": "Gothic high heel boots, creating a strong and outstanding style. These Gothic Style Black Leather Platform Boots are designed with a fashionable punk aesthetic, perfect for any woman seeking a bold and unique look.",
+  "link": "https://cosplayware.com/product/gothic-black-leather-platform-wedges-women/",
+  "rating": 0,
+  "materials": "LEATHER",
+  "clothesImages": [
+    "https://cosplayware.s3.amazonaws.com/wp-content/uploads/2023/12/23215336/Punk-Women-Boots-Ladies-Cosplay-High-Boots-Comfort-Long-Tube-Leather-Boots-Black-Platform-High-Wedges.webp",
+    "https://cosplayware.s3.amazonaws.com/wp-content/uploads/2023/12/23215354/Punk-Women-Boots-Ladies-Cosplay-High-Boots-Comfort-Long-Tube-Leather-Boots-Black-Platform-High-Wedges-3-150x150.webp",
+    "https://cosplayware.s3.amazonaws.com/wp-content/uploads/2023/12/23215401/Punk-Women-Boots-Ladies-Cosplay-High-Boots-Comfort-Long-Tube-Leather-Boots-Black-Platform-High-Wedges-4.webp"
+  ],
+  "clothesSizes": ["s", "m", "l", "xl"],
+  "clothesColors": ["BLACK", "PINK"],
+  "hashtag": ["#GothicFashion", "#PlatformBoots", "#WinterStyle"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{"userID": "1",
+  "nameOfProduct": "Ghost Band T-Shirt",
+  "typeOfClothes": "T_SHIRT",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["SPRING"],
+  "description": "T-shirts with Gothic band prints, expressing your love of music and personal style.",
+  "link": "https://www.etsy.com/listing/1473591551/ghost-band-t-shirt-ghost-bc-band-tshirt?gpla=1&gao=1&",
+  "rating": 0,
+  "materials": "COTTON",
+  "clothesImages": [
+    "https://i.etsystatic.com/41879304/r/il/43c5e5/4917862633/il_794xN.4917862633_ezz1.jpg",
+    "https://i.etsystatic.com/41879304/r/il/b5f36a/4869605212/il_794xN.4869605212_73b0.jpg"
+  ],
+  "clothesSizes": ["S", "M", "L", "XL"],
+  "clothesColors": ["BLACK"],
+  "hashtag": ["#BandTShirt", "#GothicFashion", "#SpringStyle"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{"userID": "1",
+  "nameOfProduct": "Victorian Gothic Steampunk Long Skirt",
+  "typeOfClothes": "SKIRT",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["AUTUMN"],
+  "description": "Evoke the elegance of the Victorian era with this exquisite Gothic Steampunk Long Skirt. Crafted with meticulous attention to detail, this skirt captures the essence of Victorian fashion while incorporating elements of the Steampunk aesthetic. The rich, dark fabric flows gracefully to the floor, enhancing the silhouette with its long, sweeping hemline. Intricate lace, ruffles, and embellishments adorn the skirt, adding a touch of opulence and mystery.",
+  "link": "https://vi.aliexpress.com/item/1005005352907279.html?aff_platform=true&aff_short_key=UneMJZVf&isdl=y&src=bing&pdp_npi=3%40dis%21USD%2151.98%2125.99%21%21%210%21%21%40%2112000032716741953%21ppc%21%21&gatewayAdapt=glo2vnm4itemAdapt",
+  "rating": 0,
+  "materials": "SATIN",
+  "clothesImages": [
+    "https://ae01.alicdn.com/kf/S395a91f91e554379b8760df099647b5dM/Victorian-Gothic-Steampunk-Long-Skirts-Women-Asymmetrical-Vintage-Ruffles-Maxi-Skirt-Female-Shows-Dance-Performance-Costume.jpg_80x80.jpg_.webp",
+    "https://ae01.alicdn.com/kf/Sfd92f9b74e104eada1b12f8edc15965aC/Victorian-Gothic-Steampunk-Long-Skirts-Women-Asymmetrical-Vintage-Ruffles-Maxi-Skirt-Female-Shows-Dance-Performance-Costume.jpg_80x80.jpg_.webp"
+  ],
+  "clothesSizes": ["M", "L", "XL"],
+  "clothesColors": ["BROWN"],
+  "hashtag": ["#SteampunkFashion", "#GothicSkirt", "#AutumnStyle"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "userID": "1",
+  "nameOfProduct": "GOTH GORGEOUS JACKET",
+  "typeOfClothes": "JACKET",
+  "shape": "RECTANGLE",
+  "clothesSeasons": ["WINTER"],
+  "description": "Introducing the epitome of gothic elegance - the Goth Gorgeous Jacket. Embrace your dark side with this stunning piece that seamlessly blends sophistication with a touch of edge. Crafted from high-quality materials, this jacket features intricate detailing such as lace accents, corset-inspired lacing, and ornate buttons.",
+  "link": "https://www.punkravestore.com/products/goth-gorgeous-jacket?variant=40214782345325&utm_medium=cpc&utm_source=bing&utm_campaign=Bing%20Shopping",
+  "rating": 0,
+  "materials": "LEATHER",
+  "clothesImages": [
+    "https://www.punkravestore.com/cdn/shop/products/WY-1385XDF-12_1800x1800.jpg?v=1658200739",
+    "https://www.punkravestore.com/cdn/shop/products/WY-1385XDF-13_1800x1800.jpg?v=1658200739",
+    "https://www.punkravestore.com/cdn/shop/products/WY-1385XDF-15_160x.jpg?v=1658200739"
+  ],
+  "clothesSizes": ["S", "M", "L", "XL"],
+  "clothesColors": ["BLACK"],
+  "hashtag": ["#GothicFashion", "#WinterStyle", "#GothicJacket"],
+  "clothesStyle": ["GOTHIC"]
+}
+------------------------------------------------------------------------------------------------------------------------------------------

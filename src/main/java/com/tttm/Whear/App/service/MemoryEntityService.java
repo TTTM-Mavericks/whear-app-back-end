@@ -15,4 +15,6 @@ public interface MemoryEntityService {
     Integer countMemoryByStyleAndBodyShape(String styleName, String bodyShapeName) throws CustomException;
 
     MemoryEntity getMemoryForRejectClothesRequest(RejectClothesRequest rejectClothesRequest) throws CustomException;
+
+    Integer countNumberOfOutfitsBaseOnStyleBodyShapeUserID(String styleName, String bodyShapeName, String userID) throws CustomException;
 }

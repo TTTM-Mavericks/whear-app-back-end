@@ -70,10 +70,10 @@ public class MemoryEntityServiceImpl implements MemoryEntityService {
 
         switch (keyword) {
             case "DISLIKE":
-                memoryEntityRepository.updateMemoryEntityForDislikeClothes(userID, memoryID);
+                memoryEntityRepository.updateMemoryEntityForDislikeClothes((memoryEntity.getDislikeClothesByUser() == null  ? "," : memoryEntity.getDislikeClothesByUser()) + userID, memoryID);
                 break;
             case "SUGGEST":
-                memoryEntityRepository.updateMemoryEntityForSuggestClothes(userID, memoryID);
+                memoryEntityRepository.updateMemoryEntityForSuggestClothes(memoryEntity.getSuggestClothesToUser() + userID, memoryID);
                 break;
             default:
                 throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
@@ -106,5 +106,16 @@ public class MemoryEntityServiceImpl implements MemoryEntityService {
                 rejectClothesRequest.getShoesTypeID(),
                 rejectClothesRequest.getAccessoryKindID()
         );
+    }
+
+    @Override
+    public Integer countNumberOfOutfitsBaseOnStyleBodyShapeUserID(String styleName, String bodyShapeName, String userID) throws CustomException {
+        Integer numberOfDislike = memoryEntityRepository.countDislikeOutfitByStyleBodyShapeAndUserID(styleName, bodyShapeName, userID);
+
+        Integer numberOfSuggest = memoryEntityRepository.countSuggestOutfitByStyleBodyShapeAndUserID(styleName, bodyShapeName, userID);
+
+        Integer numberOfDisLikeAndSuggest = memoryEntityRepository.countDislikeAndSuggestOutfitByStyleBodyShapeAndUserID(styleName, bodyShapeName, userID);
+
+        return  numberOfSuggest + numberOfDislike - numberOfDisLikeAndSuggest;
     }
 }
