@@ -49,4 +49,18 @@ public interface MemoryEntityRepository extends JpaRepository<MemoryEntity, Inte
             "(accessory_kindid = ?7 OR accessory_kindid IS NULL)", nativeQuery = true)
     MemoryEntity getMemoryForRejectClothesRequest(String styleName, String bodyShapeName, String topInsideID, String topOutsideID,
                                           String bottomKindID, String shoesTypeID, String accessoryKindID);
+
+    @Query(
+            value = "SELECT COUNT(*) FROM memory_entity WHERE style_name = ?1 AND body_shape_name = ?2 AND dislike_clothes_by_user LIKE %?3%", nativeQuery = true
+    )
+    Integer countDislikeOutfitByStyleBodyShapeAndUserID(String styleName, String bodyShapeName, String dislike_clothes_by_user);
+    @Query(
+            value = "SELECT COUNT(*) FROM memory_entity WHERE style_name = ?1 AND body_shape_name = ?2 AND suggest_clothes_to_user LIKE %?3%", nativeQuery = true
+    )
+    Integer countSuggestOutfitByStyleBodyShapeAndUserID(String styleName, String bodyShapeName, String suggest_clothes_to_user);
+
+    @Query(
+            value = "SELECT COUNT(*) FROM memory_entity WHERE style_name = ?1 AND body_shape_name = ?2 AND suggest_clothes_to_user LIKE %?3% AND dislike_clothes_by_user LIKE %?3%", nativeQuery = true
+    )
+    Integer countDislikeAndSuggestOutfitByStyleBodyShapeAndUserID(String styleName, String bodyShapeName, String userID);
 }

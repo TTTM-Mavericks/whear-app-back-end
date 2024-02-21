@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -197,9 +198,9 @@ public class AIStylishServiceImpl implements AIStylishService {
 
             List<ClothesResponse> outfit = new ArrayList<>();
             String topInsideID = null, topOutsideID = null, bottomKindID = null, shoesTypeID = null, accessoryKindID = null;
-            outfitInMemoryDB = memoryEntityService.countMemoryByStyleAndBodyShape(styleName, bodyShapeName);
-
+            outfitInMemoryDB = memoryEntityService.countNumberOfOutfitsBaseOnStyleBodyShapeUserID(styleName, bodyShapeName, "," + userID + ",");
             if (outfitInMemoryDB == maxOutFitCanGenerate) break;
+
             if (topInsideClothes.size() > 0) {
                 ClothesResponse topInside = selectRandomElement(topInsideClothes);
                 topInsideID = topInside.getClothesID().toString();
@@ -255,13 +256,13 @@ public class AIStylishServiceImpl implements AIStylishService {
             // Check Outfit which is dislike or suggest to that User or not
             if (!containsOutfit(selectedOutfits, outfit)) {
                 if (memoryEntity == null) {
-                    memoryRequest.setSuggestClothesToUser(userID + ",");
+                    memoryRequest.setSuggestClothesToUser("," + userID + ",");
                     memoryEntityService.createMemoryEntity(memoryRequest);
-                } else if (memoryEntity != null) {
-                    if (memoryEntity.getDislikeClothesByUser() != null && memoryEntity.getDislikeClothesByUser().contains(userID)) {
+                } else {
+                    if (memoryEntity.getDislikeClothesByUser() != null && memoryEntity.getDislikeClothesByUser().contains("," + userID + ",")) {
                         continue;
                     }
-                    if (memoryEntity.getSuggestClothesToUser() != null && memoryEntity.getSuggestClothesToUser().contains(userID)) {
+                    if (memoryEntity.getSuggestClothesToUser() != null && memoryEntity.getSuggestClothesToUser().contains("," + userID + ",")) {
                         continue;
                     }
                     memoryEntityService.updateMemoryEntityForDislikeAndSuggest(memoryEntity.getMemoryID(), userID + ",", "SUGGEST");
@@ -582,7 +583,15 @@ public class AIStylishServiceImpl implements AIStylishService {
         }
 
         MemoryEntity memoryEntity = memoryEntityService.getMemoryForRejectClothesRequest(rejectClothesRequest);
-        memoryEntityService.updateMemoryEntityForDislikeAndSuggest(memoryEntity.getMemoryID(), rejectClothesRequest.getUserID() + ",", "DISLIKE");
+        if(memoryEntity == null)
+        {
+            throw new CustomException("This Outfits is not existed.");
+        }
+
+        if(memoryEntity.getDislikeClothesByUser() != null && memoryEntity.getDislikeClothesByUser().contains("," + rejectClothesRequest.getUserID() + ","))
+        {
+            throw new CustomException("Dislike Clothes is already suggest to Customer");
+        }
 
         outfitList = selectUniqueOutfits(
                 topInsideClothes,
@@ -599,6 +608,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                 rejectClothesRequest.getUserID(),
                 ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_AFTER_REJECT,
                 userResponseStylish);
+
+        if(outfitList.size() > 0) memoryEntityService.updateMemoryEntityForDislikeAndSuggest(memoryEntity.getMemoryID(), rejectClothesRequest.getUserID() + ",", "DISLIKE");
 
         String message = "";
         if(outfitList.size() == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_AFTER_REJECT)
