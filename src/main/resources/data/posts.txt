@@ -1,0 +1,64 @@
+{
+    "content": "Những ngày thời tiết giao mùa thất thường, việc lựa chọn trang phục là điều khiến quý cô băn khoăn. Mặc ít áo thì sợ lạnh, nhưng mặc dày quá lại sợ nóng. Vậy đừng bỏ qua ngay gợi ý từ HeraDG này nhé!\n\nNhững chiếc áo phao kiểu dáng gile mới lạ, không quá dày nhưng vẫn đảm bảo giữ ấm cơ thể khi ra đường. Đặc biệt gam màu đỏ nổi bật chắc chắn sẽ đem đến vẻ ngoài thời thượng và sành điệu cho quý cô dù xuất hiện ở bất cứ đâu.\n\nCùng Ngọc Anh trải nghiệm BST Áo Phao mới nhất của HeraDG nhé!",
+    "date": "2024-02-19",
+    "hashtag": [
+        "#trending",
+        "#2024",
+        "#news"
+    ],
+    "image": [
+        "https://afamilycdn.com/150157425591193600/2022/12/29/1-1672309252279500485848-1672316104938-16723161058451909929284.jpg"
+    ],
+    "status": "ACTIVE",
+    "typeOfPosts": "POSTS",
+    "userID": "1"
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "content": "Khám phá phong cách mới cùng HeraDG! Bộ sưu tập thời trang mới nhất sẽ làm cho bạn tỏa sáng trong mọi bữa tiệc và sự kiện. Những chiếc váy thanh lịch, đầy phong cách cùng với phụ kiện thời trang độc đáo sẽ làm nổi bật vẻ đẹp và gu thẩm mỹ của bạn.\n\nHãy để chúng tôi đồng hành cùng bạn trên hành trình khám phá phong cách và tạo nên những khoảnh khắc thời trang đáng nhớ!",
+  "date": "2024-02-21",
+  "hashtag": [
+    "#fashionista",
+    "#styleinspiration",
+    "#newarrivals"
+  ],
+  "image": [
+    "https://i.pinimg.com/564x/59/bb/f7/59bbf7e80f5b2689a0d86cb6c6b90572.jpg"
+  ],
+  "status": "ACTIVE",
+  "typeOfPosts": "POSTS",
+  "userID": "3"
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "content": "Bước vào mùa thu với phong cách ấm áp và sang trọng! Bộ sưu tập mới mang đến cho bạn những chiếc áo len đẹp mắt và phụ kiện thời trang đa dạng. Hãy tận hưởng những ngày se lạnh với những bộ trang phục thu đầy phá cách, giúp bạn tỏa sáng giữa khung cảnh mùa thu lãng mạn.\n\nHãy cùng chúng tôi thả hồn vào không khí của mùa thu và tạo nên những bức tranh thời trang đẹp nhất!",
+  "date": "2024-02-24",
+  "hashtag": [
+    "#fallfashion",
+    "#cozyvibes",
+    "#autumnstyle"
+  ],
+  "image": [
+    "https://i.pinimg.com/564x/e6/dc/f2/e6dcf2344b5d9642fdc913bb45ec777f.jpg"
+  ],
+  "status": "ACTIVE",
+  "typeOfPosts": "POSTS",
+  "userID": "2"
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+{
+  "content": "Bước ra khỏi khuôn khổ với phong cách độc đáo từ bộ sưu tập mới của chúng tôi! Áo hoodie với họa tiết graffiti, quần ống rộng độc đáo và kính mát phong cách sẽ biến mỗi bước đi của bạn thành một tác phẩm nghệ thuật di động.\n\nHãy thách thức giới hạn và khám phá thế giới thú vị của thời trang với chúng tôi!",
+  "date": "2024-02-27",
+  "hashtag": [
+    "#streetartstyle",
+    "#urbanfashion",
+    "#creativeexpressions"
+  ],
+  "image": [
+    "https://i.pinimg.com/564x/10/6b/a5/106ba56e1955b91739eda1fa872e5786.jpg"
+  ],
+  "status": "ACTIVE",
+  "typeOfPosts": "POSTS",
+  "userID": "2"
+}
+------------------------------------------------------------------------------------------------------------------------------------------

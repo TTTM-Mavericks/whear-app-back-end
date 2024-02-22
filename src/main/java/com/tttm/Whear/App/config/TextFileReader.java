@@ -3,7 +3,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.ClothesService;
 import com.tttm.Whear.App.service.GenerateDataService;
+import com.tttm.Whear.App.service.PostService;
+import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
+import com.tttm.Whear.App.utils.request.PostRequest;
+import com.tttm.Whear.App.utils.request.UserRequest;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -32,21 +36,66 @@ public class TextFileReader {
 
     private final ClothesService clothesService;
     private final GenerateDataService generateDataService;
+    private final PostService postService;
+    private final UserService userService;
 
     public void onApplicationEvent(ApplicationStartedEvent event) {
         try {
 //            String run = null;
             String run = "run";
             if (run != null) {
-                generateDataService.generateRandomCustomer();
-                List<ClothesRequest> clothesRequests = readClothesRequests("classpath:data/clothes.txt");
-                for (ClothesRequest clothesRequest : clothesRequests) {
-                    clothesService.createClothes(clothesRequest);
-                    System.out.println(clothesRequest);
-                }
+                readUsersFromFile();
+                readPostFromFile();
+                readClothesFromFile();
             }
         } catch (IOException | CustomException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    private void readUsersFromFile() throws IOException, CustomException {
+        List<UserRequest> userRequests = readUsersRequests("classpath:data/users.txt");
+        for (UserRequest userRequest : userRequests) {
+            userService.registerNewUsers(userRequest);
+            System.out.println(userRequests);
+        }
+    }
+
+    private List<UserRequest> readUsersRequests(String filePath) throws IOException {
+        List<UserRequest> userRequests = new ArrayList<>();
+        Resource resource = resourceLoader.getResource(filePath);
+        try (InputStream inputStream = resource.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("--------------------------------------")) {
+                    if (stringBuilder.length() > 0) {
+                        userRequests.add(convertToUsersRequest(stringBuilder.toString()));
+                        stringBuilder.setLength(0);
+                    }
+                } else {
+                    stringBuilder.append(line);
+                }
+            }
+            // Add the last clothes request if there is any remaining data
+            if (stringBuilder.length() > 0) {
+                userRequests.add(convertToUsersRequest(stringBuilder.toString()));
+            }
+        }
+        return userRequests;
+    }
+
+    private UserRequest convertToUsersRequest(String json) throws IOException {
+        return objectMapper.readValue(json, UserRequest.class);
+    }
+
+    private void readClothesFromFile() throws IOException, CustomException {
+        List<ClothesRequest> clothesRequests = readClothesRequests("classpath:data/clothes.txt");
+        for (ClothesRequest clothesRequest : clothesRequests) {
+            clothesService.createClothes(clothesRequest);
+            System.out.println(clothesRequest);
         }
     }
 
@@ -77,5 +126,42 @@ public class TextFileReader {
 
     private ClothesRequest convertToClothesRequest(String json) throws IOException {
         return objectMapper.readValue(json, ClothesRequest.class);
+    }
+
+    private void readPostFromFile() throws IOException, CustomException {
+        List<PostRequest> postRequests = readPostRequests("classpath:data/posts.txt");
+        for (PostRequest postRequest : postRequests) {
+            postService.createPost(postRequest);
+            System.out.println(postRequests);
+        }
+    }
+
+    private List<PostRequest> readPostRequests(String filePath) throws IOException {
+        List<PostRequest> postRequests = new ArrayList<>();
+        Resource resource = resourceLoader.getResource(filePath);
+        try (InputStream inputStream = resource.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("--------------------------------------")) {
+                    if (stringBuilder.length() > 0) {
+                        postRequests.add(convertToPostsRequest(stringBuilder.toString()));
+                        stringBuilder.setLength(0);
+                    }
+                } else {
+                    stringBuilder.append(line);
+                }
+            }
+            // Add the last clothes request if there is any remaining data
+            if (stringBuilder.length() > 0) {
+                postRequests.add(convertToPostsRequest(stringBuilder.toString()));
+            }
+        }
+        return postRequests;
+    }
+
+    private PostRequest convertToPostsRequest(String json) throws IOException {
+        return objectMapper.readValue(json, PostRequest.class);
     }
 }
