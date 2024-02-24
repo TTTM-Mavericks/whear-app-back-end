@@ -1,10 +1,7 @@
 package com.tttm.Whear.App.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tttm.Whear.App.exception.CustomException;
-import com.tttm.Whear.App.service.ClothesService;
-import com.tttm.Whear.App.service.GenerateDataService;
-import com.tttm.Whear.App.service.PostService;
-import com.tttm.Whear.App.service.UserService;
+import com.tttm.Whear.App.service.*;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.PostRequest;
 import com.tttm.Whear.App.utils.request.UserRequest;
@@ -38,6 +35,7 @@ public class TextFileReader {
     private final GenerateDataService generateDataService;
     private final PostService postService;
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     public void onApplicationEvent(ApplicationStartedEvent event) {
         try {
@@ -57,7 +55,7 @@ public class TextFileReader {
     private void readUsersFromFile() throws IOException, CustomException {
         List<UserRequest> userRequests = readUsersRequests("classpath:data/users.txt");
         for (UserRequest userRequest : userRequests) {
-            userService.registerNewUsers(userRequest);
+            authenticationService.register(userRequest);
             System.out.println(userRequests);
         }
     }
