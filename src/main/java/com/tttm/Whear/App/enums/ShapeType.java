@@ -7,6 +7,7 @@ public enum ShapeType {
     RECTANGLE,  // Hình chữ nhật
     PENTAGON,   // Hình ngũ giác
     HEXAGON,    // Hình lục giác
-    OCTAGON     // Hình bát giác
+    OCTAGON,     // Hình bát giác
+    X,
 }
 

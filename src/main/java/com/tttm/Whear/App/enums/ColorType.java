@@ -58,4 +58,9 @@ public enum ColorType {
     VÀNG_NHATRANG,
     XANH_AQUA,
     CAM_PASTEL,
+
+    WHITE_CREAM,
+
+    X,
+    NUDE,
 }

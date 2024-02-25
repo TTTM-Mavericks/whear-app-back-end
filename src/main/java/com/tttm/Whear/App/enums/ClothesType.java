@@ -104,4 +104,10 @@ public enum ClothesType {
     BOHO_HEADBAND, // Băng đô phong cách boho
     BEADED_JEWELRY, // Trang sức được làm từ hạt đeo
     BERET_HAT, // Mũ béret
+    EARINGS,
+    X,
+    SUIT_PANTS,
+    SATIN_BLOUSE,
+    SPORT_BRA,
+    TROUSER,
 }

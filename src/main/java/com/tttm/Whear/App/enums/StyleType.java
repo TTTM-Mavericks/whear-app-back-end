@@ -17,5 +17,6 @@ public enum StyleType {
     INDIE,
     BOHEMIAN,
     NORMCORE,
-    E_GIRL
+    E_GIRL,
+    X,
 }

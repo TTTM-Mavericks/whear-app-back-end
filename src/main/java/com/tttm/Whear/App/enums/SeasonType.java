@@ -4,5 +4,6 @@ public enum SeasonType {
   SPRING,     // Mùa xuân
   SUMMER,     // Mùa hè
   AUTUMN,     // Mùa thu
-  WINTER      // Mùa đông
+  WINTER,    // Mùa đông
+  X,
 }
