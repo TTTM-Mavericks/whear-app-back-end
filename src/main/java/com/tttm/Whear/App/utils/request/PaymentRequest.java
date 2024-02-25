@@ -1,6 +1,5 @@
 package com.tttm.Whear.App.utils.request;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.List;
 import lombok.Data;
 
@@ -13,7 +12,7 @@ public class PaymentRequest {
   private String buyerName;
   private String buyerEmail;
   private String buyerPhone;
-  private String items;
+  private List<PaymentItem> items;
   private String cancelUrl;
   private String returnUrl;
   private Integer expiredAt;

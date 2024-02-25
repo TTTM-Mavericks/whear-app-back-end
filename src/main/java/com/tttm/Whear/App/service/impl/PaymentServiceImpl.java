@@ -14,6 +14,7 @@ import com.tttm.Whear.App.repository.PaymentRepository;
 import com.tttm.Whear.App.service.CustomerService;
 import com.tttm.Whear.App.service.PaymentService;
 import com.tttm.Whear.App.service.SubroleService;
+import com.tttm.Whear.App.utils.request.PaymentItem;
 import com.tttm.Whear.App.utils.request.PaymentRequest;
 import com.tttm.Whear.App.utils.response.PaymentData;
 import com.tttm.Whear.App.utils.response.PaymentInformation;
@@ -88,14 +89,24 @@ public class PaymentServiceImpl implements PaymentService {
       buyerPhone = customer.getUser().getPhone();
     }
 
-    String items = paymentRequest.getItems();
-    if (items == null || items.isBlank() || items.isEmpty()) {
+    List<PaymentItem> items = paymentRequest.getItems();
+    if (items == null || items.size() <= 0) {
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
-    SubRole subRole = subroleService.getSubroleBySubroleName(ESubRole.valueOf(items));
+    SubRole subRole = subroleService.getSubroleBySubroleName(
+        ESubRole.valueOf(items.get(0).getName()));
     if (subRole == null) {
       throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND + " for SUBROLE: " + items);
     }
+
+    PaymentItem item = items.get(0);
+    item.setQuantity(
+        1
+    );
+    item.setPrice(
+        subRole.getPrice()
+    );
+    items.set(0, item);
 
     Integer amount = subRole.getPrice();
 
@@ -110,6 +121,7 @@ public class PaymentServiceImpl implements PaymentService {
     paymentRequest.setBuyerPhone(buyerPhone);
     paymentRequest.setAmount(amount);
     paymentRequest.setOrderCode(orderCode);
+    paymentRequest.setItems(items);
 
     String bodyToSignature = createSignatureOfPaymentRequest(paymentRequest, checksumKey);
     paymentRequest.setSignature(bodyToSignature);
