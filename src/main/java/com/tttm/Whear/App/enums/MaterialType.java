@@ -28,5 +28,6 @@ public enum MaterialType {
     METAL,
     FABRIC,
     PENDANT,
-    BEADED
+    BEADED,
+    X,
 }

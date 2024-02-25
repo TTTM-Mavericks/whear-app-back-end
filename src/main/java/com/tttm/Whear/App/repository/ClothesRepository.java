@@ -26,14 +26,14 @@ public interface ClothesRepository extends JpaRepository<Clothes, Integer> {
   @Query(value = "SELECT c.* " +
           "FROM clothes c " +
           "JOIN clothes_color co ON c.clothesid = co.clothesid " +
-          "WHERE c.type_of_clothes LIKE %?1% " +
+          "WHERE c.type_of_clothes = ?1 " +
           "AND co.color LIKE %?2% " +
           "AND (c.materials LIKE %?3% OR c.materials != ?3)", nativeQuery = true)
   List<Clothes> getClothesBaseOnTypeOfClothesAndColorOrMaterials(String typeOfClothes, String color, String materials);
 
   @Query(value = "SELECT c.* " +
           "FROM clothes c " +
-          "WHERE c.type_of_clothes LIKE %?1% " +
+          "WHERE c.type_of_clothes = ?1 " +
           "AND (c.materials LIKE %?2% OR c.materials != ?2)", nativeQuery = true)
   List<Clothes> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes, String materials);
 }

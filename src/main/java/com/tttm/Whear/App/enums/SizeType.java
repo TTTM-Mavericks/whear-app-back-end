@@ -7,5 +7,6 @@ public enum SizeType {
   L,
   XL,
   XXL,
-  XXXL
+  XXXL,
+  X,
 }
