@@ -63,4 +63,6 @@ public enum ColorType {
 
     X,
     NUDE,
+
+    RUBY
 }
