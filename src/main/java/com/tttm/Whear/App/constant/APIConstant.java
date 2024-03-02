@@ -154,6 +154,7 @@ public class APIConstant {
   public class BrandAPI{
     public static final String BRAND = APIConstant.API + "/brand";
     public static final String CREATE_NEW_BRAND = "/create-new-brand";
+    public static final String UPDATE_TO_BRAND = "/update-to-brand";
     public static final String GET_HOT_BRAND = "/get-hot-brand";
   }
 

@@ -1,8 +1,11 @@
 package com.tttm.Whear.App.utils.request;
 
 import java.util.List;
+
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class PaymentRequest {
 

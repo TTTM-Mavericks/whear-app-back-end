@@ -3,33 +3,27 @@ package com.tttm.Whear.App.service.impl;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.BodyShape;
 import com.tttm.Whear.App.entity.Customer;
-import com.tttm.Whear.App.entity.Style;
 import com.tttm.Whear.App.entity.User;
 import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.StatusGeneral;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.SubRoleRepository;
 import com.tttm.Whear.App.repository.UserRepository;
-import com.tttm.Whear.App.service.*;
-import com.tttm.Whear.App.utils.request.StyleAndBodyShapeRequest;
+import com.tttm.Whear.App.service.BodyShapeService;
+import com.tttm.Whear.App.service.CustomerService;
+import com.tttm.Whear.App.service.UserService;
 import com.tttm.Whear.App.utils.request.UserRequest;
 import com.tttm.Whear.App.utils.response.CustomerResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -50,10 +44,12 @@ public class UserServiceImpl implements UserService {
                         userRequest.getUserID() != null &&
                         userRequest.getEmail() != null &&
                         userRequest.getPhone() != null &&
+                        userRequest.getRole() != null &&
 
                         !userRequest.getUserID().isEmpty() && !userRequest.getUserID().isBlank() &&
                         !userRequest.getEmail().isEmpty() && !userRequest.getEmail().isBlank() &&
-                        !userRequest.getPhone().isEmpty() && !userRequest.getPhone().isBlank();
+                        !userRequest.getPhone().isEmpty() && !userRequest.getPhone().isBlank() &&
+                        !userRequest.getRole().name().isEmpty() && !userRequest.getRole().name().isBlank();
     }
 
     @Override
@@ -232,7 +228,7 @@ public class UserServiceImpl implements UserService {
                 .phone(userRequest.getPhone())
                 .email(userRequest.getEmail())
                 .gender(userRequest.getGender())
-                .role(user.getRole())
+                .role(userRequest.getRole())
                 .imgUrl(userRequest.getImgUrl())
                 .status(user.getStatus())
                 .language(userRequest.getLanguage())
@@ -368,7 +364,7 @@ public class UserServiceImpl implements UserService {
         if (bodyShape != null) {
             user.setBodyShape(bodyShape);
             userRepository.save(user);
-        }
-        else throw new CustomException(ConstantMessage.CAN_NOT_FIND_BODY_SHAPE_NAME.getMessage() + " : " + bodyShapeName);
+        } else
+            throw new CustomException(ConstantMessage.CAN_NOT_FIND_BODY_SHAPE_NAME.getMessage() + " : " + bodyShapeName);
     }
 }

@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.utils.request;
 
+import com.tttm.Whear.App.enums.ERole;
 import com.tttm.Whear.App.enums.Language;
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,8 @@ public class UserRequest {
   private Boolean gender;
 
   private String imgUrl;
+
+  private ERole role;
 
   private Language language;
 }

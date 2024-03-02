@@ -20,6 +20,11 @@ public interface CollectionClothesRepository extends
 
   @Modifying
   @Transactional
+  @Query(value = "delete from collection_clothes where clothesid = ?1 and collectionid = ?2", nativeQuery = true)
+  void deleteClothesToCollection(Integer clothesID, Integer collectionID);
+
+  @Modifying
+  @Transactional
   @Query(value = "delete from collection_clothes where collectionid = ?1", nativeQuery = true)
   void deleteByCollectionID(Integer collectionID);
 

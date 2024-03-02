@@ -12,12 +12,11 @@ import com.tttm.Whear.App.utils.request.ClothesCollectionRequest;
 import com.tttm.Whear.App.utils.request.CollectionRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.CollectionResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -59,15 +58,21 @@ public class ClothesCollectionServiceImpl implements ClothesCollectionService {
             throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
         }
 
-        collectionClothesRepository.insertClothesToCollection(clothesCollectionRequest.getClothesID(),
-                clothesCollectionRequest.getCollectionID());
 
         CollectionClothes collectionClothes = collectionClothesRepository.checkContain(
                 clothesCollectionRequest.getClothesID(),
                 clothesCollectionRequest.getCollectionID());
         if (collectionClothes == null) {
+            collectionClothesRepository.insertClothesToCollection(clothesCollectionRequest.getClothesID(),
+                    clothesCollectionRequest.getCollectionID());
+        } else {
+            collectionClothesRepository.deleteClothesToCollection(clothesCollectionRequest.getClothesID(),
+                    clothesCollectionRequest.getCollectionID());
             return null;
         }
+        collectionClothes = collectionClothesRepository.checkContain(
+                clothesCollectionRequest.getClothesID(),
+                clothesCollectionRequest.getCollectionID());
         return mapToResponse(collectionClothes);
 
     }
