@@ -110,4 +110,7 @@ public enum ClothesType {
     SATIN_BLOUSE,
     SPORT_BRA,
     TROUSER,
+    MAXI_SKIRT,
+    LONG_SLEEVE_SHIRTS,
+    LONG_MAXI_DRESSED
 }
