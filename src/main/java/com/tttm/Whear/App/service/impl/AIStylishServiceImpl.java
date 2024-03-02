@@ -3,6 +3,7 @@ package com.tttm.Whear.App.service.impl;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.constant.ConstantString;
 import com.tttm.Whear.App.entity.*;
+import com.tttm.Whear.App.enums.ESubRole;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
 import com.tttm.Whear.App.utils.request.MemoryRequest;
@@ -12,6 +13,7 @@ import com.tttm.Whear.App.utils.response.AIStylishResponse;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.RuleMatchingClothesResponse;
 import com.tttm.Whear.App.utils.response.UserResponseStylish;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,16 +68,20 @@ public class AIStylishServiceImpl implements AIStylishService {
 
         switch (subroleService.getSubroleByID(customer.getSubRoleID()).getSubRoleName()) {
             case LV1:
-                outfitsForWeek = suggestClothesForFreeUser(user, bodyShape, styleList, userResponseStylish);
+                outfitsForWeek = suggestClothesForFreeUser(user, ESubRole.LV1.toString(), bodyShape, styleList, userResponseStylish);
                 break;
             case LV2:
-                outfitsForWeek = suggestClothesForPremiumUser(user, bodyShape, styleList, userResponseStylish);
+                outfitsForWeek = suggestClothesForPremiumUser(user, ESubRole.LV2.toString(), bodyShape, styleList, userResponseStylish);
                 break;
         }
         return outfitsForWeek;
     }
 
-    private List<AIStylishResponse> suggestClothesForFreeUser(User user, BodyShape bodyShape, List<Style> styleList,  UserResponseStylish userResponseStylish) throws CustomException {
+    private List<AIStylishResponse> suggestClothesForFreeUser(User user,
+                                                              String subRole,
+                                                              BodyShape bodyShape,
+                                                              List<Style> styleList,
+                                                              UserResponseStylish userResponseStylish) throws CustomException {
         List<RuleMatchingClothesResponse> ruleMatchingClothesResponses = styleList
                 .stream()
                 .map(style -> ruleMatchingClothesService.getRuleMatchingClothesByStyleAndBodyShape(style.getStyleID(), bodyShape.getBodyShapeID()))
@@ -138,6 +144,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                     rule.getStyleName(),
                     rule.getBodyShapeName(),
                     user.getUserID(),
+                    subRole,
+                    ConstantString.SUGGEST_OUTFITS_FOR_USER,
                     styleList.size() < 2 ? ConstantString.SUGGEST_CLOTHES_FOR_FREE_USER_A_WEEK : ConstantString.SUGGEST_CLOTHES_FOR_FREE_USER_A_DAY,
                     userResponseStylish);
 
@@ -187,6 +195,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                                                            String styleName,
                                                            String bodyShapeName,
                                                            String userID,
+                                                           String subRole,
+                                                           String choice,
                                                            int numberOfOutfits,
                                                            UserResponseStylish userResponseStylish) throws CustomException {
 
@@ -194,6 +204,60 @@ public class AIStylishServiceImpl implements AIStylishService {
         logger.error("This is size of maxOutFitCanGenerate : {}", maxOutFitCanGenerate);
         Integer outfitInMemoryDB = 0;
         List<List<ClothesResponse>> selectedOutfits = new ArrayList<>();
+        outfitInMemoryDB = memoryEntityService.countNumberOfOutfitsBaseOnStyleBodyShapeUserID(styleName, bodyShapeName, "," + userID + ",");
+        System.out.println(styleName + " " + bodyShapeName + " " + maxOutFitCanGenerate);
+        System.out.println(styleName + " " + bodyShapeName + " " + outfitInMemoryDB);
+        // Check User is Premium User or Free User
+        // If User is Premium Check User choose Suggest Old Outfits until New Outfits arrive
+        if (subRole.equals(ESubRole.LV2.toString()) && outfitInMemoryDB.equals(maxOutFitCanGenerate)) {
+            List<MemoryEntity> memoryEntityList = memoryEntityService.getAllMemoryEntityByStyleBodyShapeUserAcceptOldOutfit(styleName, bodyShapeName, userID);
+            logger.warn("The size of memoryEntityList is {}", memoryEntityList.size());
+            if (memoryEntityList.size() > 0 && memoryEntityList.size() == maxOutFitCanGenerate) {
+                while (selectedOutfits.size() < numberOfOutfits) {
+                    List<ClothesResponse> outfit = new ArrayList<>();
+                    String topInsideID = null, topOutsideID = null, bottomKindID = null, shoesTypeID = null, accessoryKindID = null;
+                    MemoryEntity memoryEntity = selectRandomMemoryEntity(memoryEntityList);
+
+                    if (checkStringIsNotEmptyOrBlank(memoryEntity.getTopInsideID())) {
+                        ClothesResponse topInside = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getTopInsideID()));
+                        topInsideID = topInside.getClothesID().toString();
+                        topInside.setUserResponseStylish(userResponseStylish);
+                        outfit.add(topInside);
+                    }
+
+                    if (checkStringIsNotEmptyOrBlank(memoryEntity.getTopOutsideID())) {
+                        ClothesResponse topOutside = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getTopOutsideID()));
+                        topInsideID = topOutside.getClothesID().toString();
+                        topOutside.setUserResponseStylish(userResponseStylish);
+                        outfit.add(topOutside);
+                    }
+
+                    if (checkStringIsNotEmptyOrBlank(memoryEntity.getBottomKindID())) {
+                        ClothesResponse bottomKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getBottomKindID()));
+                        bottomKindID = bottomKind.getClothesID().toString();
+                        bottomKind.setUserResponseStylish(userResponseStylish);
+                        outfit.add(bottomKind);
+                    }
+
+                    if (checkStringIsNotEmptyOrBlank(memoryEntity.getShoesTypeID())) {
+                        ClothesResponse shoesType = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getShoesTypeID()));
+                        shoesTypeID = shoesType.getClothesID().toString();
+                        shoesType.setUserResponseStylish(userResponseStylish);
+                        outfit.add(shoesType);
+                    }
+
+                    if (checkStringIsNotEmptyOrBlank(memoryEntity.getAccessoryKindID())) {
+                        ClothesResponse accessoriesKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getAccessoryKindID()));
+                        accessoryKindID = accessoriesKind.getClothesID().toString();
+                        accessoriesKind.setUserResponseStylish(userResponseStylish);
+                        outfit.add(accessoriesKind);
+                    }
+                    selectedOutfits.add(outfit);
+                }
+            }
+            return selectedOutfits;
+        }
+        logger.info("Inside Method 2 When User not choose Old Outfits");
         while (selectedOutfits.size() < numberOfOutfits) {
 
             List<ClothesResponse> outfit = new ArrayList<>();
@@ -270,6 +334,7 @@ public class AIStylishServiceImpl implements AIStylishService {
                 selectedOutfits.add(outfit);
             }
         }
+
         return selectedOutfits;
     }
 
@@ -291,6 +356,15 @@ public class AIStylishServiceImpl implements AIStylishService {
         if (accessoriesClothes.size() > 0) value *= accessoriesClothes.size();
 
         return value;
+    }
+
+    private boolean checkStringIsNotEmptyOrBlank(String str) {
+        return str != null;
+    }
+
+
+    private MemoryEntity selectRandomMemoryEntity(List<MemoryEntity> memoryEntityList) {
+        return memoryEntityList.get(random.nextInt(memoryEntityList.size()));
     }
 
     private ClothesResponse selectRandomElement(List<ClothesResponse> clothesList) {
@@ -315,38 +389,39 @@ public class AIStylishServiceImpl implements AIStylishService {
         return true;
     }
 
-    private List<Style> selectRandomPremiumStyle(List<Style> styleList)
-    {
+    private List<Style> selectRandomPremiumStyle(List<Style> styleList) {
         List<Style> styles = new ArrayList<>();
-        while(styles.size() < ConstantString.MAXIMUM_STYLE_FOR_PREMIUM_USER_PER_WEEK)
-        {
+        while (styles.size() < ConstantString.MAXIMUM_STYLE_FOR_PREMIUM_USER_PER_WEEK) {
             Style style = styleList.get(random.nextInt(styleList.size()));
-            if(!styles.contains(style)) styles.add(style);
+            if (!styles.contains(style)) styles.add(style);
         }
         return styles;
     }
 
-    private List<Integer> calculateNumberOfStyleAppearDuringWeek(List<Style> styleList)
-    {
+    private List<Integer> calculateNumberOfStyleAppearDuringWeek(List<Style> styleList) {
         List<Integer> list = new ArrayList<>();
         int days = ConstantString.MAXIMUM_STYLE_FOR_PREMIUM_USER_PER_WEEK;
         int style = styleList.size();
         int remainder = 0;
-        for(int i = 0; i < style; ++i)
-        {
+        for (int i = 0; i < style; ++i) {
             remainder = days / (style - i);
             days -= remainder;
             list.add(remainder);
         }
         return list;
     }
-    private List<AIStylishResponse> suggestClothesForPremiumUser(User user, BodyShape bodyShape, List<Style> styleList,  UserResponseStylish userResponseStylish) throws CustomException{
+
+    private List<AIStylishResponse> suggestClothesForPremiumUser(User user,
+                                                                 String subRole,
+                                                                 BodyShape bodyShape,
+                                                                 List<Style> styleList,
+                                                                 UserResponseStylish userResponseStylish) throws CustomException {
 
         List<Style> selectedStyle = null;
         List<Integer> calculateDaysForEachStyle = null;
-        if(styleList.size() > ConstantString.MAXIMUM_STYLE_FOR_PREMIUM_USER_PER_WEEK) selectedStyle = selectRandomPremiumStyle(styleList);
-        else
-        {
+        if (styleList.size() > ConstantString.MAXIMUM_STYLE_FOR_PREMIUM_USER_PER_WEEK)
+            selectedStyle = selectRandomPremiumStyle(styleList);
+        else {
             selectedStyle = new ArrayList<>(styleList);
             calculateDaysForEachStyle = calculateNumberOfStyleAppearDuringWeek(styleList);
         }
@@ -399,8 +474,7 @@ public class AIStylishServiceImpl implements AIStylishService {
                 logger.warn("This is Accessories Clothes {}", clothesResponse);
             }
             String message = "";
-            if(styleList.size() == ConstantString.PREMIUM_HAVE_ONLY_ONE_STYLE)
-            {
+            if (styleList.size() == ConstantString.PREMIUM_HAVE_ONLY_ONE_STYLE) {
                 outfitList = selectUniqueOutfits(
                         topInsideClothes,
                         topOutsideClothes,
@@ -414,17 +488,15 @@ public class AIStylishServiceImpl implements AIStylishService {
                         rule.getStyleName(),
                         rule.getBodyShapeName(),
                         user.getUserID(),
+                        subRole,
+                        ConstantString.SUGGEST_OUTFITS_FOR_USER,
                         ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_HAVING_ONE_STYLE,
                         userResponseStylish);
 
-                if(outfitList.size() == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_HAVING_ONE_STYLE)
-                {
+                if (outfitList.size() == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_HAVING_ONE_STYLE) {
                     message = ConstantMessage.SUGGEST_FULL_CLOTHES_FOR_PREMIUM_USER.getMessage();
-                }
-                else message = ConstantMessage.SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER.getMessage();
-            }
-            else if(styleList.size() > ConstantString.MAXIMUM_STYLE_FOR_PREMIUM_USER_PER_WEEK)
-            {
+                } else message = ConstantMessage.SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER.getMessage();
+            } else if (styleList.size() > ConstantString.MAXIMUM_STYLE_FOR_PREMIUM_USER_PER_WEEK) {
                 List<List<ClothesResponse>> outfits = selectUniqueOutfits(
                         topInsideClothes,
                         topOutsideClothes,
@@ -438,6 +510,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                         rule.getStyleName(),
                         rule.getBodyShapeName(),
                         user.getUserID(),
+                        subRole,
+                        ConstantString.SUGGEST_OUTFITS_FOR_USER,
                         ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY,
                         userResponseStylish);
 
@@ -453,16 +527,12 @@ public class AIStylishServiceImpl implements AIStylishService {
                         logger.warn("This is clothes from Outfit {}", clothes);
                     }
                 }
-                if(outfitList.size() == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY)
-                {
+                if (outfitList.size() == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY) {
                     message = ConstantMessage.SUGGEST_FULL_CLOTHES_FOR_PREMIUM_USER.getMessage();
-                }
-                else message = ConstantMessage.SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER.getMessage();
-            }
-            else {
+                } else message = ConstantMessage.SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER.getMessage();
+            } else {
                 int index = 0;
-                for(int j = 0; j < calculateDaysForEachStyle.get(i); j++)
-                {
+                for (int j = 0; j < calculateDaysForEachStyle.get(i); j++) {
                     List<List<ClothesResponse>> outfits = selectUniqueOutfits(
                             topInsideClothes,
                             topOutsideClothes,
@@ -476,6 +546,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                             rule.getStyleName(),
                             rule.getBodyShapeName(),
                             user.getUserID(),
+                            subRole,
+                            ConstantString.SUGGEST_OUTFITS_FOR_USER,
                             ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY,
                             userResponseStylish);
 
@@ -488,11 +560,9 @@ public class AIStylishServiceImpl implements AIStylishService {
                     }
                 }
 
-                if(index == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY * calculateDaysForEachStyle.get(i))
-                {
+                if (index == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_A_DAY * calculateDaysForEachStyle.get(i)) {
                     message = ConstantMessage.SUGGEST_FULL_CLOTHES_FOR_PREMIUM_USER.getMessage();
-                }
-                else message = ConstantMessage.SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER.getMessage();
+                } else message = ConstantMessage.SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER.getMessage();
 
                 for (List<ClothesResponse> outfit : outfitList) {
                     logger.error("This is Outfit: ");
@@ -518,14 +588,12 @@ public class AIStylishServiceImpl implements AIStylishService {
     @Override
     public AIStylishResponse createNewClothesAfterRejectClothesForPremiumUser(RejectClothesRequest rejectClothesRequest) throws CustomException {
         Style style = styleService.getStyleByStyleName(rejectClothesRequest.getStyleName());
-        if(style == null)
-        {
+        if (style == null) {
             throw new CustomException(ConstantMessage.STYLE_NAME_IS_NOT_EXISTED.getMessage());
         }
 
         BodyShape bodyShape = bodyShapeService.getBodyShapeByBodyShapeName(rejectClothesRequest.getBodyShapeName());
-        if(bodyShape == null)
-        {
+        if (bodyShape == null) {
             throw new CustomException(ConstantMessage.BODY_SHAPE_NAME_IS_NOT_EXISTED.getMessage());
         }
 
@@ -536,6 +604,9 @@ public class AIStylishServiceImpl implements AIStylishService {
 
         User user = Optional.ofNullable(userService.getUserEntityByUserID(rejectClothesRequest.getUserID()))
                 .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
+
+        Customer customer = customerService.getCustomerByID(rejectClothesRequest.getUserID());
+        String subRole = subroleService.getSubroleByID(customer.getSubRoleID()).getSubRoleName().toString();
 
         UserResponseStylish userResponseStylish = UserResponseStylish
                 .builder()
@@ -583,14 +654,17 @@ public class AIStylishServiceImpl implements AIStylishService {
         }
 
         MemoryEntity memoryEntity = memoryEntityService.getMemoryForRejectClothesRequest(rejectClothesRequest);
-        if(memoryEntity == null)
-        {
-            throw new CustomException("This Outfits is not existed.");
-        }
+        List<MemoryEntity> outfitInMemoryDB = memoryEntityService.getAllMemoryEntityByStyleBodyShapeUserAcceptOldOutfit(rejectClothesRequest.getStyleName(), rejectClothesRequest.getBodyShapeName(), "," + rejectClothesRequest.getUserID() + ",");
 
-        if(memoryEntity.getDislikeClothesByUser() != null && memoryEntity.getDislikeClothesByUser().contains("," + rejectClothesRequest.getUserID() + ","))
-        {
-            throw new CustomException("Dislike Clothes is already suggest to Customer");
+        // Condition if only use for Users don't want to suggest old Outfits
+        if (outfitInMemoryDB.size() == 0) {
+            if (memoryEntity == null) {
+                throw new CustomException("This Outfits is not existed.");
+            }
+
+            if (memoryEntity.getDislikeClothesByUser() != null && memoryEntity.getDislikeClothesByUser().contains("," + rejectClothesRequest.getUserID() + ",")) {
+                throw new CustomException("Dislike Clothes is already suggest to Customer");
+            }
         }
 
         outfitList = selectUniqueOutfits(
@@ -606,17 +680,18 @@ public class AIStylishServiceImpl implements AIStylishService {
                 rule.getStyleName(),
                 rule.getBodyShapeName(),
                 rejectClothesRequest.getUserID(),
+                subRole,
+                ConstantString.RENEW_OUTFITS_FOR_PREMIUM,
                 ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_AFTER_REJECT,
                 userResponseStylish);
 
-        if(outfitList.size() > 0) memoryEntityService.updateMemoryEntityForDislikeAndSuggest(memoryEntity.getMemoryID(), rejectClothesRequest.getUserID() + ",", "DISLIKE");
+        if (outfitList.size() > 0 && outfitInMemoryDB.size() == 0)
+            memoryEntityService.updateMemoryEntityForDislikeAndSuggest(memoryEntity.getMemoryID(), rejectClothesRequest.getUserID() + ",", "DISLIKE");
 
         String message = "";
-        if(outfitList.size() == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_AFTER_REJECT)
-        {
+        if (outfitList.size() == ConstantString.SUGGEST_CLOTHES_FOR_PREMIUM_USER_AFTER_REJECT) {
             message = ConstantMessage.SUGGEST_FULL_CLOTHES_FOR_PREMIUM_USER.getMessage();
-        }
-        else message = ConstantMessage.SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER.getMessage();
+        } else message = ConstantMessage.SUGGEST_MISSING_OR_RUN_OUT_OF_CLOTHES_FOR_PREMIUM_USER.getMessage();
 
         return AIStylishResponse
                 .builder()
@@ -630,14 +705,12 @@ public class AIStylishServiceImpl implements AIStylishService {
     @Override
     public List<AIStylishResponse> selectChoiceWhenRunOutOfOutfitsForPremium(SuggestChoiceForPremiumUser suggestChoiceForPremiumUser) throws CustomException {
         Style style = styleService.getStyleByStyleName(suggestChoiceForPremiumUser.getStyleName());
-        if(style == null)
-        {
+        if (style == null) {
             throw new CustomException(ConstantMessage.STYLE_NAME_IS_NOT_EXISTED.getMessage());
         }
 
         BodyShape bodyShape = bodyShapeService.getBodyShapeByBodyShapeName(suggestChoiceForPremiumUser.getBodyShapeName());
-        if(bodyShape == null)
-        {
+        if (bodyShape == null) {
             throw new CustomException(ConstantMessage.BODY_SHAPE_NAME_IS_NOT_EXISTED.getMessage());
         }
 
@@ -649,11 +722,18 @@ public class AIStylishServiceImpl implements AIStylishService {
         User user = Optional.ofNullable(userService.getUserEntityByUserID(suggestChoiceForPremiumUser.getUserID()))
                 .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
 
-        if(suggestChoiceForPremiumUser.getChoice().toUpperCase().replace(' ', '_').equals(ConstantString.CHANGE_TO_ANOTHER_STYLE))
+        Customer customer = customerService.getCustomerByID(suggestChoiceForPremiumUser.getUserID());
+        String subRole = subroleService.getSubroleByID(customer.getSubRoleID()).getSubRoleName().toString();
+
+        if(!subRole.equals(ESubRole.LV2.toString()))
         {
-            return new ArrayList<>();
+            throw new CustomException(ConstantString.SELECT_CHOICE_WHEN_RUN_OUT_OF_OUTFITS_ONLY_FOR_PREMIUM);
         }
 
-        return null;
+        if (suggestChoiceForPremiumUser.getChoice().toUpperCase().replace(' ', '_').equals(ConstantString.SUGGEST_OLD_OUTFITS_UNTIL_NEW_OUTFITS_ARRIVE)) {
+
+            memoryEntityService.updateAcceptOldOutfitsUntilNewOutfitArrive(suggestChoiceForPremiumUser.getStyleName(), suggestChoiceForPremiumUser.getBodyShapeName(), suggestChoiceForPremiumUser.getUserID() + ",");
+        }
+        return new ArrayList<>();
     }
 }

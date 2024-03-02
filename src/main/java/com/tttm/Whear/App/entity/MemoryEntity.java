@@ -1,6 +1,7 @@
 package com.tttm.Whear.App.entity;
 
 import com.tttm.Whear.App.entity.common.AuditEntity;
+import com.tttm.Whear.App.enums.StatusGeneral;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -67,4 +68,7 @@ public class MemoryEntity extends AuditEntity implements Serializable {
 
     @Column(name = "suggestClothesToUser", nullable = true)
     private String suggestClothesToUser;
+
+    @Column(name = "user_accepted_old_outfit", nullable = true)
+    private String userAcceptedOldOutfit;
 }

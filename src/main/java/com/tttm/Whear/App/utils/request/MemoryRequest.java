@@ -33,4 +33,6 @@ public class MemoryRequest {
     private String dislikeClothesByUser;
 
     private String suggestClothesToUser;
+
+    private boolean isAcceptedOldOutfit;
 }

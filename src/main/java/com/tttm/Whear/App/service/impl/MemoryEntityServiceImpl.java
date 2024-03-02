@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemoryEntityServiceImpl implements MemoryEntityService {
@@ -117,5 +119,29 @@ public class MemoryEntityServiceImpl implements MemoryEntityService {
         Integer numberOfDisLikeAndSuggest = memoryEntityRepository.countDislikeAndSuggestOutfitByStyleBodyShapeAndUserID(styleName, bodyShapeName, userID);
 
         return  numberOfSuggest + numberOfDislike - numberOfDisLikeAndSuggest;
+    }
+
+    @Override
+    public List<MemoryEntity> getAllMemoryEntityByStyleBodyShapeUserAcceptOldOutfit(String styleName, String bodyShapeName, String userID) throws CustomException {
+        return memoryEntityRepository.getAllMemoryEntityByStyleBodyShapeUserAcceptOldOutfit(styleName, bodyShapeName, userID);
+    }
+
+    @Override
+    public void updateAcceptOldOutfitsUntilNewOutfitArrive(String styleName, String bodyShapeName, String userID) throws CustomException {
+        List<MemoryEntity> ListMemoryEntityByStyleBodyShapeAndUser = memoryEntityRepository.getAllMemoryEntityByStyleBodyShapeAndUser(styleName, bodyShapeName, userID);
+
+        ListMemoryEntityByStyleBodyShapeAndUser.forEach(
+                memoryEntity ->
+                {
+                    if(memoryEntity.getUserAcceptedOldOutfit() == null)
+                    {
+                        memoryEntityRepository.updateMemoryEntitiesWhenAcceptOldOutfit("," + userID, memoryEntity.getMemoryID());
+                    }
+                    else if(!memoryEntity.getUserAcceptedOldOutfit().contains("," + userID))
+                    {
+                        memoryEntityRepository.updateMemoryEntitiesWhenAcceptOldOutfit(memoryEntity.getUserAcceptedOldOutfit()  + userID, memoryEntity.getMemoryID());
+                    }
+                }
+        );
     }
 }

@@ -43,7 +43,7 @@ public class TextFileReader {
 //            String run = "run";
             if (run != null) {
                 readUsersFromFile();
-                readPostFromFile();
+//                readPostFromFile();
                 readClothesFromFile();
             }
         } catch (IOException | CustomException e) {
