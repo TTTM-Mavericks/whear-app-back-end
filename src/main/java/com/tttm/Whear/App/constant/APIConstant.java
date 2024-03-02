@@ -203,4 +203,15 @@ public class APIConstant {
     public static final String LANGUAGE_CHART = "/language-chart";
     public static final String PAYMENT_CHART = "/payment-chart";
   }
+
+  public class NewsAPI
+  {
+    public static final String NEWS = APIConstant.API + "/news";
+    public static final String CREATE_NEWS = "/create-news";
+    public static final String UPDATE_NEWS = "/update-news";
+    public static final String DELETE_NEWS = "/delete-news";
+    public static final String GET_NEWS_BY_ID = "/get-news-by-id";
+    public static final String GET_NEWS_BY_BRAND_ID = "/get-news-by-brand_id";
+    public static final String GET_NEWS_BY_TYPE_OF_NEWS = "/get-news-by-type-of-news";
+  }
 }
