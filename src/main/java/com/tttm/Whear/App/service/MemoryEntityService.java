@@ -5,6 +5,8 @@ import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.utils.request.MemoryRequest;
 import com.tttm.Whear.App.utils.request.RejectClothesRequest;
 
+import java.util.List;
+
 public interface MemoryEntityService {
     void createMemoryEntity(MemoryRequest memoryRequest) throws CustomException;
 
@@ -17,4 +19,9 @@ public interface MemoryEntityService {
     MemoryEntity getMemoryForRejectClothesRequest(RejectClothesRequest rejectClothesRequest) throws CustomException;
 
     Integer countNumberOfOutfitsBaseOnStyleBodyShapeUserID(String styleName, String bodyShapeName, String userID) throws CustomException;
+
+   void updateAcceptOldOutfitsUntilNewOutfitArrive(String styleName, String bodyShapeName, String userID) throws CustomException;
+
+   List<MemoryEntity> getAllMemoryEntityByStyleBodyShapeUserAcceptOldOutfit(String styleName, String bodyShapeName, String userID) throws CustomException;
+
 }

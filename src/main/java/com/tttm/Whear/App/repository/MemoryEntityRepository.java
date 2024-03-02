@@ -2,10 +2,13 @@ package com.tttm.Whear.App.repository;
 
 import com.tttm.Whear.App.entity.MemoryEntity;
 import jakarta.transaction.Transactional;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface MemoryEntityRepository extends JpaRepository<MemoryEntity, Integer> {
@@ -63,4 +66,29 @@ public interface MemoryEntityRepository extends JpaRepository<MemoryEntity, Inte
             value = "SELECT COUNT(*) FROM memory_entity WHERE style_name = ?1 AND body_shape_name = ?2 AND suggest_clothes_to_user LIKE %?3% AND dislike_clothes_by_user LIKE %?3%", nativeQuery = true
     )
     Integer countDislikeAndSuggestOutfitByStyleBodyShapeAndUserID(String styleName, String bodyShapeName, String userID);
+
+    @Query(
+            value = "Select * from memory_entity where style_name = ?1 AND " +
+                    "body_shape_name = ?2 AND " +
+                    "(suggest_clothes_to_user LIKE %?3% OR " +
+                    "dislike_clothes_by_user LIKE %?3%)",
+            nativeQuery = true
+    )
+    List<MemoryEntity> getAllMemoryEntityByStyleBodyShapeAndUser(String styleName, String bodyShapeName, String userID);
+
+    @Query(
+            value = "Select * from memory_entity where style_name = ?1 AND " +
+                    "body_shape_name = ?2 AND " +
+                    "(suggest_clothes_to_user LIKE %?3% OR " +
+                    "dislike_clothes_by_user LIKE %?3%) AND " +
+                    "user_accepted_old_outfit LIKE %?3%",
+            nativeQuery = true
+    )
+    List<MemoryEntity> getAllMemoryEntityByStyleBodyShapeUserAcceptOldOutfit(String styleName, String bodyShapeName, String userID);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "update memory_entity set user_accepted_old_outfit = ?1, last_modified_date = current_timestamp where memoryid = ?2", nativeQuery = true)
+    void updateMemoryEntitiesWhenAcceptOldOutfit(String userID, Integer memoryEntityID);
 }
