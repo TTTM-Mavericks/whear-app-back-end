@@ -35,7 +35,7 @@ public class News extends AuditEntity implements Serializable {
   @Column(name = "title", columnDefinition = "nvarchar(550)")
   private String title;
 
-  @Column(name = "content", columnDefinition = "nvarchar(550)")
+  @Column(name = "content", columnDefinition = "TEXT")
   private String content;
 
   @Column(name = "typeOfNews")

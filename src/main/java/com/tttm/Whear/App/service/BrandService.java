@@ -11,6 +11,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public interface BrandService {
-   BrandResponse createNewBrand(BrandRequestDto brandRequestDto) throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException;
-   List<HotBrandResponse> getListHotBrand() throws CustomException;
+    BrandResponse createNewBrand(BrandRequestDto brandRequestDto) throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException;
+
+    BrandResponse getBrandByID(Integer brandID) throws CustomException;
+
+    List<HotBrandResponse> getListHotBrand() throws CustomException;
 }
