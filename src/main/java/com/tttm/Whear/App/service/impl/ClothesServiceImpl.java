@@ -222,7 +222,7 @@ public class ClothesServiceImpl implements ClothesService {
     clothes.setShape(
         ShapeType.valueOf(clothesRequest.getShape().trim().toUpperCase())
     );
-
+    clothes.setRating(clothesRequest.getRating());
     clothesRepository.save(clothes);
 
     clothesImageService.deleteByClothesID(clothes.getClothesID());
@@ -387,6 +387,7 @@ public class ClothesServiceImpl implements ClothesService {
         .typeOfClothes(clothes.getTypeOfClothes().name())
         .shape(clothes.getShape().name())
         .description(clothes.getDescription())
+        .reactPerClothes(reactService.getAllReactPerClothes(clothes.getClothesID()))
         .link(clothes.getLink())
         .rating(clothes.getRating())
         .materials(clothes.getMaterials().name())

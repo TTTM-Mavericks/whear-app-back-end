@@ -2,14 +2,13 @@ package com.tttm.Whear.App.entity;
 
 import com.tttm.Whear.App.entity.common.AuditEntity;
 import jakarta.persistence.*;
-
-import java.io.Serializable;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
@@ -19,21 +18,24 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "brand")
 @EntityListeners(AuditingEntityListener.class)
 public class Brand extends AuditEntity implements Serializable {
-  @Id
-  @Column(name = "brandID")
-  private String brandID;
+    @Id
+    @Column(name = "brandID")
+    private String brandID;
 
-  @OneToOne
-  @MapsId
-  @JoinColumn(name = "brandID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
-  private Customer customer;
+    @Column(name = "brandName")
+    private String brandName;
 
-  @Column(name = "description", columnDefinition = "nvarchar(550)")
-  private String description;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "brandID", referencedColumnName = "customerID", nullable = false, insertable = false, updatable = false)
+    private Customer customer;
 
-  @Column(name = "address", columnDefinition = "nvarchar(550)")
-  private String address;
+    @Column(name = "description", columnDefinition = "nvarchar(550)")
+    private String description;
 
-  @Column(name = "link")
-  private String link;
+    @Column(name = "address", columnDefinition = "nvarchar(550)")
+    private String address;
+
+    @Column(name = "link")
+    private String link;
 }

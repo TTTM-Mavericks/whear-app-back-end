@@ -11,6 +11,7 @@ import lombok.Data;
 public class CollectionResponse implements Serializable {
 
   private Integer collectionID;
+  private String userID;
   private String nameOfCollection;
   private Integer numberOfClothes;
   private String typeOfCollection;

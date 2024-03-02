@@ -1,24 +1,25 @@
 package com.tttm.Whear.App.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.entity.Brand;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.BrandRepository;
-import com.tttm.Whear.App.service.BrandService;
-import com.tttm.Whear.App.service.ClothesService;
-import com.tttm.Whear.App.service.ReactService;
-import com.tttm.Whear.App.service.UserService;
+import com.tttm.Whear.App.service.*;
 import com.tttm.Whear.App.utils.request.BrandRequestDto;
+import com.tttm.Whear.App.utils.request.PaymentItem;
+import com.tttm.Whear.App.utils.request.PaymentRequest;
 import com.tttm.Whear.App.utils.response.BrandResponse;
-import com.tttm.Whear.App.utils.response.HotBrandResponse;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
+import com.tttm.Whear.App.utils.response.HotBrandResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,29 +30,24 @@ public class BrandServiceImpl implements BrandService {
     private final ReactService reactService;
     private final ClothesService clothesService;
     private final BrandRepository brandRepository;
-    private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(BrandServiceImpl.class);
 
     @Override
-    public BrandResponse createNewBrand(BrandRequestDto brandRequestDto) throws CustomException {
+    public BrandResponse createNewBrand(BrandRequestDto brandRequestDto) throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
         if (brandRequestDto.getCustomerID().isEmpty() || brandRequestDto.getCustomerID().isBlank()) {
             throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
-        }
-
-        var user = userService.getUserEntityByUserID(brandRequestDto.getCustomerID());
-        if (user == null) {
-            throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
         }
 
         Brand brand = Brand
                 .builder()
                 .brandID(brandRequestDto.getCustomerID())
+                .brandName(brandRequestDto.getBrandName())
                 .address(brandRequestDto.getAddress())
                 .description(brandRequestDto.getDescription())
                 .link(brandRequestDto.getLink())
                 .build();
 
-        brandRepository.createNewBrand(brandRequestDto.getCustomerID(), brand.getDescription(),
+        brandRepository.createNewBrand(brandRequestDto.getCustomerID(), brand.getBrandName(), brand.getDescription(),
                 brand.getLink(), brand.getAddress());
         return convertToBrandResponse(brand);
     }
