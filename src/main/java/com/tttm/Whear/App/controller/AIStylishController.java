@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.AIStylishService;
+import com.tttm.Whear.App.service.UserBucketService;
 import com.tttm.Whear.App.utils.request.RejectClothesRequest;
 import com.tttm.Whear.App.utils.request.SuggestChoiceForPremiumUser;
 import lombok.RequiredArgsConstructor;
@@ -15,15 +16,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(APIConstant.AIStylishAPI.AI_STYLISH_API)
 public class AIStylishController {
     private final AIStylishService stylishService;
-
+    private final UserBucketService userBucketService;
     @GetMapping(APIConstant.AIStylishAPI.GET_SUGGEST_CLOTHES_FOR_USER)
     public ObjectNode createSuggestClothesForUSer(@RequestParam(name = "userID") String userID) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             ObjectNode respon = objectMapper.createObjectNode();
-            respon.put("success", 200);
-            respon.put("message", "Create Suggest Clothes for User Successfully");
-            respon.set("data", objectMapper.valueToTree(stylishService.getSuggestClothesForUser(userID)));
+            if (userBucketService.canCallAPI(userID)) {
+                Object apiData = stylishService.getSuggestClothesForUser(userID);
+                userBucketService.storeCallDataAndUser(userID, apiData);
+                respon.put("success", 200);
+                respon.put("message", "Create Suggest Clothes for UserID: " + userID + " Successfully");
+                respon.set("data", objectMapper.valueToTree(apiData));
+            } else {
+                Object userData = userBucketService.getOldDataByUserID(userID);
+                respon.put("success", 200);
+                respon.put("message", "Returning data from the first call made by UserID: " + userID + " in the current week.");
+                respon.set("data", objectMapper.valueToTree(userData));
+            }
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();
