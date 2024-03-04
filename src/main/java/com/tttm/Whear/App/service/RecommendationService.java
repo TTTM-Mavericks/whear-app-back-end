@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.service;
 
+import com.tttm.Whear.App.dto.ClothesItemDto;
 import com.tttm.Whear.App.dto.PairConsineSimilarity;
 import com.tttm.Whear.App.dto.Pairs;
 import com.tttm.Whear.App.exception.CustomException;
@@ -16,4 +17,6 @@ public interface RecommendationService {
 
       List<ClothesResponse> getListRecommendationByKeyword(String userID, String keyword) throws CustomException;
       List<UserResponse> getListRecommendationUserWhenUserFollowAnotherUser(FollowRequest followRequest) throws CustomException;
+      public List<Pairs> convertListClothesToListClothesPairs() throws CustomException;
+      public ClothesItemDto convertToClothesItemDto(ClothesResponse clothesResponse);
 }

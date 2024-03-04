@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.tttm.Whear.App.WhearAppApplication;
 import com.tttm.Whear.App.constant.APIConstant.ClothesAPI;
+import com.tttm.Whear.App.dto.ClothesItemDto;
+import com.tttm.Whear.App.dto.Pairs;
 import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
@@ -29,6 +32,7 @@ import java.util.List;
 @RequestMapping(ClothesAPI.CLOTHES)
 public class ClothesController {
 
+    private final RecommendationService recommendationService;
     private final ClothesCollectionService clothesCollectionService;
     private final CollectionService collectionService;
     private final ClothesService clothesService;
@@ -43,7 +47,7 @@ public class ClothesController {
     public ObjectNode getAllClothes() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            List<ClothesResponse> responseList = clothesService.getAllClothes();
+            List<ClothesResponse> responseList = WhearAppApplication.getClothesResponseList();
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
             respon.put("message", "Their are " + responseList.size() + " clothes");
@@ -95,7 +99,18 @@ public class ClothesController {
                         messagingTemplate.convertAndSend("/topic/public", notiRequest);
                     }
                 }
-
+                List<ClothesResponse> responseList = WhearAppApplication.getClothesResponseList();
+                responseList.add(
+                        response
+                );
+                WhearAppApplication.setClothesResponseList(responseList);
+                ClothesItemDto clothes = recommendationService.convertToClothesItemDto(response);
+                String clotheItems = clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " +
+                        clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString() + " " +
+                        clothes.styleToString();
+                List<Pairs> clothesItemList = WhearAppApplication.getClothesItemList();
+                clothesItemList.add(new Pairs(clothes.getClothesID(), clotheItems));
+                WhearAppApplication.setClothesItemList(clothesItemList);
                 return respon;
             }
         } catch (Exception ex) {

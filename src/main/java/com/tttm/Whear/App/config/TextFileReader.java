@@ -39,8 +39,8 @@ public class TextFileReader {
 
     public void onApplicationEvent(ApplicationStartedEvent event) {
         try {
-            String run = null;
-//            String run = "run";
+//            String run = null;
+            String run = "run";
             if (run != null) {
                 readUsersFromFile();
                 readPostFromFile();

@@ -1,6 +1,7 @@
 package com.tttm.Whear.App;
 
 import com.tttm.Whear.App.config.TextFileReader;
+import com.tttm.Whear.App.dto.Pairs;
 import com.tttm.Whear.App.entity.BodyShape;
 import com.tttm.Whear.App.entity.RuleMatchingClothes;
 import com.tttm.Whear.App.entity.Style;
@@ -8,24 +9,21 @@ import com.tttm.Whear.App.entity.SubRole;
 import com.tttm.Whear.App.enums.BodyShapeType;
 import com.tttm.Whear.App.enums.ESubRole;
 import com.tttm.Whear.App.enums.StyleType;
+import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.BodyShapeRepository;
 import com.tttm.Whear.App.repository.RuleMatchingClothesRepository;
 import com.tttm.Whear.App.repository.StyleRepository;
 import com.tttm.Whear.App.repository.SubRoleRepository;
+import com.tttm.Whear.App.service.ClothesService;
+import com.tttm.Whear.App.service.RecommendationService;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tttm.Whear.App.utils.response.ClothesResponse;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -33,22 +31,47 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
-import java.io.*;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @SpringBootApplication
 @EnableJpaAuditing()
 @EnableCaching
 public class WhearAppApplication {
+    private static List<Pairs> clothesItemList;
+    private static List<ClothesResponse> clothesResponseList = new ArrayList<>();
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, CustomException {
         ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(WhearAppApplication.class, args);
 
         TextFileReader textFileReader = configurableApplicationContext.getBean(TextFileReader.class);
 
         textFileReader.onApplicationEvent(null);
+        RecommendationService recommendationService = configurableApplicationContext.getBean(RecommendationService.class);
+        ClothesService clothesService = configurableApplicationContext.getBean(ClothesService.class);
+        clothesItemList = recommendationService.convertListClothesToListClothesPairs();
+        for (int i = 0; i <= 66; i++) {
+            clothesResponseList.add(new ClothesResponse());
+        }
+        clothesResponseList.addAll(clothesService.getAllClothes());
+    }
+
+    public static List<Pairs> getClothesItemList() {
+        return clothesItemList;
+    }
+
+    public static void setClothesItemList(List<Pairs> clothesList) {
+        clothesItemList = clothesList;
+    }
+
+    public static List<ClothesResponse> getClothesResponseList() {
+        return clothesResponseList;
+    }
+
+    public static void setClothesResponseList(List<ClothesResponse> responseList) {
+        clothesResponseList = responseList;
     }
 
     @MessageMapping("/noti.sendMessage")
@@ -198,7 +221,7 @@ public class WhearAppApplication {
                 bodyShapeRepository.save(LEAN_OR_SLIM_SHAPE);
                 bodyShapeRepository.save(ROUND_SHAPE);
             }
-            if(ruleMatchingClothesRepository.findAll().size() == 0){
+            if (ruleMatchingClothesRepository.findAll().size() == 0) {
                 RuleMatchingClothes rule2 = RuleMatchingClothes.builder()
                         .styleID(styleRepository.getStyleByStyleName("CYBERPUNK").getStyleID())
                         .bodyShapeID(

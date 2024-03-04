@@ -27,4 +27,6 @@ public interface ClothesService {
 
   List<ClothesResponse> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes,
       String materials) throws CustomException;
+
+  public ClothesResponse mapToClothesResponse(Clothes clothes) throws CustomException;
 }
