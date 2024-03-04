@@ -264,11 +264,21 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     public List<Pairs> convertListClothesToListClothesPairs() throws CustomException {
-        List<ClothesItemDto> ClothesItemDtoList = clothesService
-                .getAllClothes()
-                .stream()
-                .map(this::convertToClothesItemDto)
-                .toList();
+        List<ClothesItemDto> ClothesItemDtoList = new ArrayList<>();
+//        clothesService
+//                .getAllClothes()
+//                .stream()
+//                .map(this::convertToClothesItemDto)
+//                .toList();
+        List<ClothesResponse> responses = WhearAppApplication.getClothesResponseList();
+        for (ClothesResponse response : responses) {
+            if (responses.indexOf(response) > 66) {
+                System.out.println("-----------------------------");
+                System.out.println(response.getClothesID());
+                ClothesItemDtoList.add(convertToClothesItemDto(response));
+            }
+        }
+
 
         List<Pairs> clothesItemList = new ArrayList<>();
         for (int i = 0; i < ClothesItemDtoList.size(); i++) {

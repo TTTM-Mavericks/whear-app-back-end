@@ -46,17 +46,19 @@ public class HashtagServiceImpl implements HashtagService {
 
   @Override
   public List<Hashtag> getAllHashtagOfPost(Integer postID) {
-    List<PostHashtag> postHashtagList = postHashtagRepository.findAll().stream()
-        .filter(s -> s.getPostHashtagKey().getPostID() == postID).toList();
-    List<Hashtag> result = new ArrayList<>();
-    for (PostHashtag postHT : postHashtagList) {
-      if (result == null) {
-        result = new ArrayList<>();
-      }
-      result.addAll(hashtagRepository.findAll().stream()
-          .filter(hashtag -> hashtag.getHashtagID() == postHT.getPostHashtagKey().getHashtagID())
-          .toList());
-    }
+
+    List<Hashtag> result = hashtagRepository.findAllByPostID(postID);
+//    List<PostHashtag> postHashtagList = postHashtagRepository.findAll().stream()
+//        .filter(s -> s.getPostHashtagKey().getPostID() == postID).toList();
+//    List<Hashtag> result = new ArrayList<>();
+//    for (PostHashtag postHT : postHashtagList) {
+//      if (result == null) {
+//        result = new ArrayList<>();
+//      }
+//      result.addAll(hashtagRepository.findAll().stream()
+//          .filter(hashtag -> hashtag.getHashtagID() == postHT.getPostHashtagKey().getHashtagID())
+//          .toList());
+//    }
     return result;
   }
 }

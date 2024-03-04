@@ -18,6 +18,7 @@ public interface ClothesRepository extends JpaRepository<Clothes, Integer> {
   void insertClothes(Integer clothesid, String desctiption, String link, String materials,
       String name, Integer rating, String shape, String type);
 
+  @Query(value = "select clothesid, name_of_product, type_of_clothes, shape, description, link, rating, materials, create_date, last_modified_date from clothes where clothesid = ?1", nativeQuery = true)
   public Clothes getClothesByClothesID(Integer clothesID);
 
   @Query(value = "select c.* from clothes c JOIN posts p on c.clothesid = p.postid where p.userid = ?1", nativeQuery = true)

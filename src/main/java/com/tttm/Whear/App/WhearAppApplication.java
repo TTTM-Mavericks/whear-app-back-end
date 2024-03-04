@@ -42,6 +42,7 @@ import java.util.List;
 public class WhearAppApplication {
     private static List<Pairs> clothesItemList;
     private static List<ClothesResponse> clothesResponseList = new ArrayList<>();
+//    private static List<ClothesResponse> clothesResponseNonNullList = new ArrayList<>();
 
     public static void main(String[] args) throws FileNotFoundException, CustomException {
         ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(WhearAppApplication.class, args);
@@ -51,11 +52,12 @@ public class WhearAppApplication {
         textFileReader.onApplicationEvent(null);
         RecommendationService recommendationService = configurableApplicationContext.getBean(RecommendationService.class);
         ClothesService clothesService = configurableApplicationContext.getBean(ClothesService.class);
-        clothesItemList = recommendationService.convertListClothesToListClothesPairs();
         for (int i = 0; i <= 66; i++) {
             clothesResponseList.add(new ClothesResponse());
         }
         clothesResponseList.addAll(clothesService.getAllClothes());
+//        clothesResponseNonNullList.addAll(clothesService.getAllClothes());
+        clothesItemList = recommendationService.convertListClothesToListClothesPairs();
     }
 
     public static List<Pairs> getClothesItemList() {

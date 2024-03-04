@@ -399,9 +399,7 @@ public class PostServiceImpl implements PostService {
         .toList();
 
     List<React> reactList = reactService
-        .getPostReact(post.getPostID())
-        .stream()
-        .toList();
+        .getPostReact(post.getPostID());
     List<ReactResponse> reactResponses = new ArrayList<>();
     for (React react : reactList) {
       reactResponses.add(
@@ -419,9 +417,7 @@ public class PostServiceImpl implements PostService {
     }
 
     List<Comments> commentsList = commentService
-        .getAllByPostID(post.getPostID())
-        .stream()
-        .toList();
+        .getAllByPostID(post.getPostID());
 
     List<CommentsResponse> commentsResponses = new ArrayList<>();
     for (Comments comments : commentsList) {
