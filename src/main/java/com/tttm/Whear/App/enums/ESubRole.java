@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ESubRole {
-  LV1,
-  LV2,
-  LV3,
+    LV1,
+    LV2,
+    LV3,
 }

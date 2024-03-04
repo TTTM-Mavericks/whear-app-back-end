@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesService {
-    private final RuleMatchingClothesRepository repository;
+    private final RuleMatchingClothesRepository ruleMatchingClothesRepository;
     private final BodyShapeService bodyShapeService;
     private final StyleService styleService;
     private final Logger logger = LoggerFactory.getLogger(RuleMatchingClothesServiceImpl.class);
@@ -40,24 +40,24 @@ public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesServic
 
     @Override
     public RuleMatchingClothesRequest createNewRule(RuleMatchingClothesRequest request) throws CustomException{
-        Style style = styleService.getStyleByStyleName(request.getStyleName());
-        BodyShape bodyShape = bodyShapeService.getBodyShapeByBodyShapeName(request.getBodyShapeName());
-        repository.createNewRuleMatchingClothes(
-                style.getStyleID(),
-                bodyShape.getBodyShapeID(),
-                request.getTopInside().toUpperCase(),
-                request.getTopInsideColor().toUpperCase(),
-                request.getTopOutside().toUpperCase(),
-                request.getTopOutsideColor().toUpperCase(),
-                request.getTopMaterial().toUpperCase(),
-                request.getBottomKind().toUpperCase(),
-                request.getBottomColor().toUpperCase(),
-                request.getShoesType().toUpperCase(),
-                request.getShoesTypeColor().toUpperCase(),
-                request.getBottomMaterial().toUpperCase(),
-                request.getAccessoryKind().toUpperCase(),
-                request.getAccessoryMaterial().toUpperCase()
-        );
+        RuleMatchingClothes ruleMatchingClothes = RuleMatchingClothes.builder()
+                .styleID(styleService.getStyleByStyleName(request.getStyleName()).getStyleID())
+                .bodyShapeID(bodyShapeService.getBodyShapeByBodyShapeName(request.getBodyShapeName()).getBodyShapeID())
+                .topInside(request.getTopInside())
+                .topInsideColor(request.getTopInsideColor())
+                .topOutside(request.getTopOutside())
+                .topOutsideColor(request.getTopOutsideColor())
+                .topMaterial(request.getTopMaterial())
+                .bottomKind(request.getBottomKind())
+                .bottomColor(request.getBottomColor())
+                .bottomMaterial(request.getBottomMaterial())
+                .shoesType(request.getShoesType())
+                .shoesTypeColor(request.getShoesTypeColor())
+                .accessoryKind(request.getAccessoryKind())
+                .accessoryMaterial(request.getAccessoryMaterial())
+                .build();
+        ruleMatchingClothesRepository.save(ruleMatchingClothes);
+
 
         return RuleMatchingClothesRequest.builder()
                 .styleName(request.getStyleName().toUpperCase())
@@ -80,7 +80,7 @@ public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesServic
 
     @Override
     public List<RuleMatchingClothesResponse> getAllRuleMatchingClothes() {
-        return repository
+        return ruleMatchingClothesRepository
                 .findAll()
                 .stream()
                 .map(this::convertToRuleMatchingClothesResponse)
@@ -89,7 +89,7 @@ public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesServic
 
     @Override
     public RuleMatchingClothesResponse getRuleMatchingClothesByRuleID(Integer ruleID) throws CustomException {
-        return repository
+        return ruleMatchingClothesRepository
                 .findById(ruleID)
                 .filter(r -> ruleID >= 0)
                 .map(this::convertToRuleMatchingClothesResponse)
@@ -101,7 +101,7 @@ public class RuleMatchingClothesServiceImpl implements RuleMatchingClothesServic
 
     @Override
     public RuleMatchingClothesResponse getRuleMatchingClothesByStyleAndBodyShape(Integer styleID, Integer bodyShapeID) {
-        return convertToRuleMatchingClothesResponse(repository.getRuleMatchingClothesByStyleAndBodyShape(styleID, bodyShapeID));
+        return convertToRuleMatchingClothesResponse(ruleMatchingClothesRepository.getRuleMatchingClothesByStyleAndBodyShape(styleID, bodyShapeID));
     }
 
     private RuleMatchingClothesResponse convertToRuleMatchingClothesResponse(RuleMatchingClothes ruleMatchingClothes) {
