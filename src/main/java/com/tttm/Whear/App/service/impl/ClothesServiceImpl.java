@@ -161,6 +161,8 @@ public class ClothesServiceImpl implements ClothesService {
 
     List<ClothesResponse> responseList = new ArrayList<>();
     for (Clothes clothes : clothesList) {
+      System.out.println("=============================================");
+      System.out.println(clothes.getClothesID());
       ClothesResponse clothesResponse = mapToClothesResponse(clothes);
       responseList.add(clothesResponse);
     }

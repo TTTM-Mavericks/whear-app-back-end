@@ -25,6 +25,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -47,11 +48,15 @@ public class ClothesController {
     public ObjectNode getAllClothes() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
+            List<ClothesResponse> responseNonNullList = new ArrayList<>();
             List<ClothesResponse> responseList = WhearAppApplication.getClothesResponseList();
+            for(int i = 67; i < responseList.size(); i++){
+                responseNonNullList.add(responseList.get(i));
+            }
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
-            respon.put("message", "Their are " + responseList.size() + " clothes");
-            ArrayNode arrayNode = objectMapper.valueToTree(responseList);
+            respon.put("message", "Their are " + responseNonNullList.size() + " clothes");
+            ArrayNode arrayNode = objectMapper.valueToTree(responseNonNullList);
             respon.set("data", arrayNode);
             return respon;
         } catch (Exception ex) {
