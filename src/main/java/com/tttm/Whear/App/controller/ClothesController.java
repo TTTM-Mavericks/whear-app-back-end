@@ -8,7 +8,6 @@ import com.tttm.Whear.App.WhearAppApplication;
 import com.tttm.Whear.App.constant.APIConstant.ClothesAPI;
 import com.tttm.Whear.App.dto.ClothesItemDto;
 import com.tttm.Whear.App.dto.Pairs;
-import com.tttm.Whear.App.entity.Post;
 import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
@@ -50,7 +49,7 @@ public class ClothesController {
         try {
             List<ClothesResponse> responseNonNullList = new ArrayList<>();
             List<ClothesResponse> responseList = WhearAppApplication.getClothesResponseList();
-            for(int i = 67; i < responseList.size(); i++){
+            for (int i = 67; i < responseList.size(); i++) {
                 responseNonNullList.add(responseList.get(i));
             }
             ObjectNode respon = objectMapper.createObjectNode();
@@ -69,8 +68,7 @@ public class ClothesController {
     }
 
     @PostMapping(ClothesAPI.CREATE_CLOTHES)
-    public ObjectNode createClothes(@RequestBody ClothesRequest clothesRequest)
-            throws CustomException {
+    public ObjectNode createClothes(@RequestBody ClothesRequest clothesRequest) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             ClothesResponse response = clothesService.createClothes(clothesRequest);
@@ -90,29 +88,17 @@ public class ClothesController {
                 List<UserResponse> follwers = followService.getAllFollowerUser(clothesRequest.getUserID());
                 if (follwers != null && !follwers.isEmpty() && follwers.size() > 0) {
                     for (UserResponse user : follwers) {
-                        NotificationRequest notiRequest = NotificationRequest.builder()
-                                .action(ENotificationAction.CLOTHES.name())
-                                .actionID(response.getClothesID())
-                                .baseUserID(clothesRequest.getUserID())
-                                .targetUserID(user.getUserID())
-                                .dateTime(LocalDateTime.now())
-                                .message("New Clothes")
-                                .status(false)
-                                .build();
+                        NotificationRequest notiRequest = NotificationRequest.builder().action(ENotificationAction.CLOTHES.name()).actionID(response.getClothesID()).baseUserID(clothesRequest.getUserID()).targetUserID(user.getUserID()).dateTime(LocalDateTime.now()).message("New Clothes").status(false).build();
                         NotificationResponse notiresponse = notificationService.sendNotification(notiRequest);
                         notiRequest.setNotiID(notiresponse.getNotiID());
                         messagingTemplate.convertAndSend("/topic/public", notiRequest);
                     }
                 }
                 List<ClothesResponse> responseList = WhearAppApplication.getClothesResponseList();
-                responseList.add(
-                        response
-                );
+                responseList.add(response);
                 WhearAppApplication.setClothesResponseList(responseList);
                 ClothesItemDto clothes = recommendationService.convertToClothesItemDto(response);
-                String clotheItems = clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " +
-                        clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString() + " " +
-                        clothes.styleToString();
+                String clotheItems = clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " + clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString() + " " + clothes.styleToString();
                 List<Pairs> clothesItemList = WhearAppApplication.getClothesItemList();
                 clothesItemList.add(new Pairs(clothes.getClothesID(), clotheItems));
                 WhearAppApplication.setClothesItemList(clothesItemList);
@@ -128,11 +114,11 @@ public class ClothesController {
     }
 
     @GetMapping(ClothesAPI.GET_CLOTHES_BY_ID)
-    public ObjectNode getClothesByID(@RequestParam(name = "clothes_id") Integer clothesID,
-                                     @RequestParam("based_userid") String userID) throws CustomException {
+    public ObjectNode getClothesByID(@RequestParam(name = "clothes_id") Integer clothesID, @RequestParam("based_userid") String userID) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             ClothesResponse responseList = clothesService.getClothesByID(clothesID);
+            responseList.setReacted(reactService.checkContain(clothesID, userID) != null);
             if (responseList == null) {
                 ObjectNode respon = objectMapper.createObjectNode();
                 respon.put("success", 200);
@@ -140,21 +126,10 @@ public class ClothesController {
                 respon.set("data", null);
                 return respon;
             } else {
-
-                Post clothes = postService.getPostEntityByPostID(clothesID);
-
-                ObjectNode responseObject = objectMapper.createObjectNode();
-                responseObject.put("clothes",
-                        objectMapper.valueToTree(responseList));
-                responseObject.put("reacted",
-                        objectMapper.valueToTree(reactService.checkContain(clothesID, userID) != null));
-                responseObject.put("user",
-                        objectMapper.valueToTree(userService.getUserbyUserID(clothes.getUserID())));
-
                 ObjectNode respon = objectMapper.createObjectNode();
                 respon.put("success", 200);
                 respon.put("message", "Get Clothes Successfully!");
-                respon.set("data", responseObject);
+                respon.set("data", objectMapper.valueToTree(responseList));
                 return respon;
             }
         } catch (Exception ex) {
@@ -167,12 +142,10 @@ public class ClothesController {
     }
 
     @PostMapping(ClothesAPI.ADD_CLOTHES_TO_COLLECTION)
-    public ObjectNode addClothesToCollection(
-            @RequestBody ClothesCollectionRequest clothesCollectionRequest) throws CustomException {
+    public ObjectNode addClothesToCollection(@RequestBody ClothesCollectionRequest clothesCollectionRequest) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            CollectionResponse responseList = clothesCollectionService.addClothesToCollection(
-                    clothesCollectionRequest);
+            CollectionResponse responseList = clothesCollectionService.addClothesToCollection(clothesCollectionRequest);
 
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
@@ -180,17 +153,8 @@ public class ClothesController {
             /**
              * ADD SUCCESS THEN UPDATE NUMBER OF REACT PER CLOTHES
              */
-            CollectionResponse collection = collectionService.getCollectionByCollectionID(
-                    clothesCollectionRequest.getCollectionID()
-            );
-            reactService.unSendReact(
-                    ReactRequest
-                            .builder()
-                            .userID(collection.getUserID())
-                            .postID(clothesCollectionRequest.getClothesID())
-                            .react("ADDED: " + clothesCollectionRequest.getCollectionID())
-                            .build()
-            );
+            CollectionResponse collection = collectionService.getCollectionByCollectionID(clothesCollectionRequest.getCollectionID());
+            reactService.unSendReact(ReactRequest.builder().userID(collection.getUserID()).postID(clothesCollectionRequest.getClothesID()).react("ADDED: " + clothesCollectionRequest.getCollectionID()).build());
             responseList = collectionService.getCollectionByCollectionID(clothesCollectionRequest.getCollectionID());
             respon.set("data", objectMapper.valueToTree(responseList));
             return respon;
@@ -225,8 +189,7 @@ public class ClothesController {
     }
 
     @DeleteMapping(ClothesAPI.DELETE_CLOTHES)
-    public ObjectNode deleteCollectionByID(
-            @RequestParam(name = "clothes_id") Integer clothesID) {
+    public ObjectNode deleteCollectionByID(@RequestParam(name = "clothes_id") Integer clothesID) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             ObjectNode response = objectMapper.createObjectNode();

@@ -28,20 +28,20 @@ public class RecommendationController {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             List<ClothesResponse> clothesResponseList = recommendationService.getListRecommendationByUserHistoryItems(userID);
-            List<RecommendationResponse> responseList = new ArrayList<>();
-            for (ClothesResponse clothesResponse : clothesResponseList) {
-                responseList.add(
-                        RecommendationResponse
-                                .builder()
-                                .clothes(clothesResponse)
-                                .reacted(reactService.checkContain(clothesResponse.getClothesID(), userID) != null)
-                                .build()
-                );
-            }
+//            List<RecommendationResponse> responseList = new ArrayList<>();
+//            for (ClothesResponse clothesResponse : clothesResponseList) {
+//                responseList.add(
+//                        RecommendationResponse
+//                                .builder()
+//                                .clothes(clothesResponse)
+//                                .reacted(reactService.checkContain(clothesResponse.getClothesID(), userID) != null)
+//                                .build()
+//                );
+//            }
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
             respon.put("message", "GET LIST RECOMMMENDATION BY USER HISTORY ITEMS SUCCESSFULLY");
-            respon.set("data", objectMapper.valueToTree(responseList));
+            respon.set("data", objectMapper.valueToTree(clothesResponseList));
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();

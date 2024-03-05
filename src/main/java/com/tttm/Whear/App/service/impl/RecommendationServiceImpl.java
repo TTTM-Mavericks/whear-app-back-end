@@ -33,6 +33,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     private final FollowService followService;
     private final UserStyleService userStyleService;
+    private final ReactService reactService;
 
     @Override
     public List<ClothesResponse> getListRecommendationByUserHistoryItems(String userID) throws CustomException {
@@ -63,9 +64,14 @@ public class RecommendationServiceImpl implements RecommendationService {
         for (PairConsineSimilarity similarityPoint : listConsineSimilarity) {
             if (similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH) {
                 try {
+                    ClothesResponse response = clothesResponseList.get(similarityPoint.getClothesID());
+                    response.setReacted(
+                            reactService.checkContain(similarityPoint.getClothesID(), userID) != null
+                    );
                     clothesResponses.add(
+                            response
 //                            clothesService.getClothesByID(similarityPoint.getClothesID())
-                            clothesResponseList.get(similarityPoint.getClothesID())
+//                            )
                     );
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -110,9 +116,14 @@ public class RecommendationServiceImpl implements RecommendationService {
         for (PairConsineSimilarity similarityPoint : listConsineSimilarity) {
             if (similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH) {
                 try {
+                    ClothesResponse response = clothesResponseList.get(similarityPoint.getClothesID());
+                    response.setReacted(
+                            reactService.checkContain(similarityPoint.getClothesID(), userID) != null
+                    );
                     clothesResponses.add(
+                            response
 //                            clothesService.getClothesByID(similarityPoint.getClothesID())
-                            clothesResponseList.get(similarityPoint.getClothesID())
+//                            )
                     );
                 } catch (Exception e) {
                     throw new RuntimeException(e);
