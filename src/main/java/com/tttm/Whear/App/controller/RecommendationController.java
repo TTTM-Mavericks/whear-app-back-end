@@ -4,26 +4,44 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.exception.CustomException;
+import com.tttm.Whear.App.service.ReactService;
 import com.tttm.Whear.App.service.RecommendationService;
 import com.tttm.Whear.App.utils.request.FollowRequest;
+import com.tttm.Whear.App.utils.response.ClothesResponse;
+import com.tttm.Whear.App.utils.response.RecommendationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(APIConstant.RecommendationAPI.RECOMMENDATION)
 @RequiredArgsConstructor
 public class RecommendationController {
     private final RecommendationService recommendationService;
+    private final ReactService reactService;
 
     @GetMapping(APIConstant.RecommendationAPI.GET_LIST_RECOMMMENDATION_BY_USER_HISTORY_ITEMS)
     public ObjectNode getListRecommendationByUserHistoryItems(@RequestParam("userID") String userID)
             throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
+            List<ClothesResponse> clothesResponseList = recommendationService.getListRecommendationByUserHistoryItems(userID);
+            List<RecommendationResponse> responseList = new ArrayList<>();
+            for (ClothesResponse clothesResponse : clothesResponseList) {
+                responseList.add(
+                        RecommendationResponse
+                                .builder()
+                                .clothes(clothesResponse)
+                                .reacted(reactService.checkContain(clothesResponse.getClothesID(), userID) != null)
+                                .build()
+                );
+            }
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
             respon.put("message", "GET LIST RECOMMMENDATION BY USER HISTORY ITEMS SUCCESSFULLY");
-            respon.set("data", objectMapper.valueToTree(recommendationService.getListRecommendationByUserHistoryItems(userID)));
+            respon.set("data", objectMapper.valueToTree(responseList));
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();
@@ -59,10 +77,21 @@ public class RecommendationController {
             throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
+            List<ClothesResponse> clothesResponseList = recommendationService.getListRecommendationByKeyword(userID, keyword);
+            List<RecommendationResponse> responseList = new ArrayList<>();
+            for (ClothesResponse clothesResponse : clothesResponseList) {
+                responseList.add(
+                        RecommendationResponse
+                                .builder()
+                                .clothes(clothesResponse)
+                                .reacted(reactService.checkContain(clothesResponse.getClothesID(), userID) != null)
+                                .build()
+                );
+            }
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
             respon.put("message", "GET LIST RECOMMMENDATION BY KEYWORD SUCCESSFULLY");
-            respon.set("data", objectMapper.valueToTree(recommendationService.getListRecommendationByKeyword(userID, keyword)));
+            respon.set("data", objectMapper.valueToTree(responseList));
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();
