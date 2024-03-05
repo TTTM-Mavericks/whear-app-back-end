@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.service.impl;
 
+import com.tttm.Whear.App.WhearAppApplication;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.constant.ConstantString;
 import com.tttm.Whear.App.entity.*;
@@ -36,6 +37,8 @@ public class AIStylishServiceImpl implements AIStylishService {
     private final StyleService styleService;
     private final MemoryEntityService memoryEntityService;
     private final Random random = new Random();
+    private final ClothesDataService clothesDataService;
+    private List<ClothesResponse> clothesResponseList = WhearAppApplication.getClothesResponseList();
     private final Logger logger = LoggerFactory.getLogger(AIStylishServiceImpl.class);
 
 
@@ -93,36 +96,49 @@ public class AIStylishServiceImpl implements AIStylishService {
         for (RuleMatchingClothesResponse rule : ruleMatchingClothesResponses) {
             List<List<ClothesResponse>> outfitList = new ArrayList<>();
 
-            List<ClothesResponse> topInsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+            List<ClothesResponse> topInsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                     rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
+
+//            List<ClothesResponse> topInsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
 
             for (ClothesResponse clothesResponse : topInsideClothes) {
                 logger.warn("This is Top Inside Clothes {}", clothesResponse);
             }
 
-            List<ClothesResponse> topOutsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+            List<ClothesResponse> topOutsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                     rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
+//            List<ClothesResponse> topOutsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
 
             for (ClothesResponse clothesResponse : topOutsideClothes) {
                 logger.warn("This is Top Outside Clothes {}", clothesResponse);
             }
 
-            List<ClothesResponse> bottomClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+            List<ClothesResponse> bottomClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                     rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
+
+//            List<ClothesResponse> bottomClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
 
             for (ClothesResponse clothesResponse : bottomClothes) {
                 logger.warn("This is Bottom Clothes {}", clothesResponse);
             }
 
-            List<ClothesResponse> shoesClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+            List<ClothesResponse> shoesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                     rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
+
+//            List<ClothesResponse> shoesClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
 
             for (ClothesResponse clothesResponse : shoesClothes) {
                 logger.warn("This is Shoes Clothes {}", clothesResponse);
             }
 
-            List<ClothesResponse> accessoriesClothes = clothesService.getClothesBaseOnTypeOfClothesAndMaterial(
+            List<ClothesResponse> accessoriesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndMaterial(
                     rule.getAccessoryKind(), rule.getAccessoryMaterial());
+//            List<ClothesResponse> accessoriesClothes = clothesService.getClothesBaseOnTypeOfClothesAndMaterial(
+//                    rule.getAccessoryKind(), rule.getAccessoryMaterial());
 
             for (ClothesResponse clothesResponse : accessoriesClothes) {
                 logger.warn("This is Accessories Clothes {}", clothesResponse);
@@ -219,35 +235,40 @@ public class AIStylishServiceImpl implements AIStylishService {
                     MemoryEntity memoryEntity = selectRandomMemoryEntity(memoryEntityList);
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getTopInsideID())) {
-                        ClothesResponse topInside = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getTopInsideID()));
+//                        ClothesResponse topInside = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getTopInsideID()));
+                        ClothesResponse topInside = clothesResponseList.get(Integer.parseInt(memoryEntity.getTopInsideID()));
                         topInsideID = topInside.getClothesID().toString();
                         topInside.setUserResponseStylish(userResponseStylish);
                         outfit.add(topInside);
                     }
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getTopOutsideID())) {
-                        ClothesResponse topOutside = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getTopOutsideID()));
+//                        ClothesResponse topOutside = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getTopOutsideID()));
+                        ClothesResponse topOutside = clothesResponseList.get(Integer.parseInt(memoryEntity.getTopOutsideID()));
                         topInsideID = topOutside.getClothesID().toString();
                         topOutside.setUserResponseStylish(userResponseStylish);
                         outfit.add(topOutside);
                     }
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getBottomKindID())) {
-                        ClothesResponse bottomKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getBottomKindID()));
+//                        ClothesResponse bottomKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getBottomKindID()));
+                        ClothesResponse bottomKind = clothesResponseList.get(Integer.parseInt(memoryEntity.getBottomKindID()));
                         bottomKindID = bottomKind.getClothesID().toString();
                         bottomKind.setUserResponseStylish(userResponseStylish);
                         outfit.add(bottomKind);
                     }
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getShoesTypeID())) {
-                        ClothesResponse shoesType = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getShoesTypeID()));
+//                        ClothesResponse shoesType = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getShoesTypeID()));
+                        ClothesResponse shoesType = clothesResponseList.get(Integer.parseInt(memoryEntity.getShoesTypeID()));
                         shoesTypeID = shoesType.getClothesID().toString();
                         shoesType.setUserResponseStylish(userResponseStylish);
                         outfit.add(shoesType);
                     }
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getAccessoryKindID())) {
-                        ClothesResponse accessoriesKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getAccessoryKindID()));
+//                        ClothesResponse accessoriesKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getAccessoryKindID()));
+                        ClothesResponse accessoriesKind = clothesResponseList.get(Integer.parseInt(memoryEntity.getAccessoryKindID()));
                         accessoryKindID = accessoriesKind.getClothesID().toString();
                         accessoriesKind.setUserResponseStylish(userResponseStylish);
                         outfit.add(accessoriesKind);
@@ -262,7 +283,8 @@ public class AIStylishServiceImpl implements AIStylishService {
 
             List<ClothesResponse> outfit = new ArrayList<>();
             String topInsideID = null, topOutsideID = null, bottomKindID = null, shoesTypeID = null, accessoryKindID = null;
-            outfitInMemoryDB = memoryEntityService.countNumberOfOutfitsBaseOnStyleBodyShapeUserID(styleName, bodyShapeName, "," + userID + ",");
+//            outfitInMemoryDB = memoryEntityService.countNumberOfOutfitsBaseOnStyleBodyShapeUserID(styleName, bodyShapeName, "," + userID + ",");
+            // Outfit for User store in DB can not greater than max Outfit can Generate by Rule Matching Clothes
             if (outfitInMemoryDB == maxOutFitCanGenerate) break;
 
             if (topInsideClothes.size() > 0) {
@@ -332,6 +354,7 @@ public class AIStylishServiceImpl implements AIStylishService {
                     memoryEntityService.updateMemoryEntityForDislikeAndSuggest(memoryEntity.getMemoryID(), userID + ",", "SUGGEST");
                 }
                 selectedOutfits.add(outfit);
+                outfitInMemoryDB++; // Successful Choose outfit which doesn't appear to UserID
             }
         }
 
@@ -439,40 +462,54 @@ public class AIStylishServiceImpl implements AIStylishService {
 
             List<List<ClothesResponse>> outfitList = new ArrayList<>();
 
-            List<ClothesResponse> topInsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+            List<ClothesResponse> topInsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                     rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
+
+//            List<ClothesResponse> topInsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
 
             for (ClothesResponse clothesResponse : topInsideClothes) {
                 logger.warn("This is Top Inside Clothes {}", clothesResponse);
             }
 
-            List<ClothesResponse> topOutsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+            List<ClothesResponse> topOutsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                     rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
+//            List<ClothesResponse> topOutsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
 
             for (ClothesResponse clothesResponse : topOutsideClothes) {
                 logger.warn("This is Top Outside Clothes {}", clothesResponse);
             }
 
-            List<ClothesResponse> bottomClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+            List<ClothesResponse> bottomClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                     rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
+
+//            List<ClothesResponse> bottomClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
 
             for (ClothesResponse clothesResponse : bottomClothes) {
                 logger.warn("This is Bottom Clothes {}", clothesResponse);
             }
 
-            List<ClothesResponse> shoesClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+            List<ClothesResponse> shoesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                     rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
+
+//            List<ClothesResponse> shoesClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
 
             for (ClothesResponse clothesResponse : shoesClothes) {
                 logger.warn("This is Shoes Clothes {}", clothesResponse);
             }
 
-            List<ClothesResponse> accessoriesClothes = clothesService.getClothesBaseOnTypeOfClothesAndMaterial(
+            List<ClothesResponse> accessoriesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndMaterial(
                     rule.getAccessoryKind(), rule.getAccessoryMaterial());
+//            List<ClothesResponse> accessoriesClothes = clothesService.getClothesBaseOnTypeOfClothesAndMaterial(
+//                    rule.getAccessoryKind(), rule.getAccessoryMaterial());
 
             for (ClothesResponse clothesResponse : accessoriesClothes) {
                 logger.warn("This is Accessories Clothes {}", clothesResponse);
             }
+
             String message = "";
             if (styleList.size() == ConstantString.PREMIUM_HAVE_ONLY_ONE_STYLE) {
                 outfitList = selectUniqueOutfits(
@@ -618,36 +655,49 @@ public class AIStylishServiceImpl implements AIStylishService {
 
         List<List<ClothesResponse>> outfitList = new ArrayList<>();
 
-        List<ClothesResponse> topInsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+        List<ClothesResponse> topInsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                 rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
+
+//            List<ClothesResponse> topInsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
 
         for (ClothesResponse clothesResponse : topInsideClothes) {
             logger.warn("This is Top Inside Clothes {}", clothesResponse);
         }
 
-        List<ClothesResponse> topOutsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+        List<ClothesResponse> topOutsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                 rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
+//            List<ClothesResponse> topOutsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
 
         for (ClothesResponse clothesResponse : topOutsideClothes) {
             logger.warn("This is Top Outside Clothes {}", clothesResponse);
         }
 
-        List<ClothesResponse> bottomClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+        List<ClothesResponse> bottomClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                 rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
+
+//            List<ClothesResponse> bottomClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
 
         for (ClothesResponse clothesResponse : bottomClothes) {
             logger.warn("This is Bottom Clothes {}", clothesResponse);
         }
 
-        List<ClothesResponse> shoesClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+        List<ClothesResponse> shoesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
                 rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
+
+//            List<ClothesResponse> shoesClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+//                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
 
         for (ClothesResponse clothesResponse : shoesClothes) {
             logger.warn("This is Shoes Clothes {}", clothesResponse);
         }
 
-        List<ClothesResponse> accessoriesClothes = clothesService.getClothesBaseOnTypeOfClothesAndMaterial(
+        List<ClothesResponse> accessoriesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndMaterial(
                 rule.getAccessoryKind(), rule.getAccessoryMaterial());
+//            List<ClothesResponse> accessoriesClothes = clothesService.getClothesBaseOnTypeOfClothesAndMaterial(
+//                    rule.getAccessoryKind(), rule.getAccessoryMaterial());
 
         for (ClothesResponse clothesResponse : accessoriesClothes) {
             logger.warn("This is Accessories Clothes {}", clothesResponse);

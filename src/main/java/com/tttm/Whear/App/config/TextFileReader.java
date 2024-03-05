@@ -39,8 +39,8 @@ public class TextFileReader {
 
     public void onApplicationEvent(ApplicationStartedEvent event) {
         try {
-//            String run = null;
-            String run = "run";
+            String run = null;
+//            String run = "run";
             if (run != null) {
                 readSubRoleFromFile();
                 readStyleFromFile();
@@ -48,7 +48,7 @@ public class TextFileReader {
                 readRuleMatchingClothesFromFile();
                 readUsersFromFile();
                 readPostFromFile();
-//                readClothesFromFile();
+                readClothesFromFile();
             }
         } catch (IOException | CustomException e) {
             e.printStackTrace();
