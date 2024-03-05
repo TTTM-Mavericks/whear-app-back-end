@@ -29,4 +29,5 @@ public class ClothesResponse {
   private List<ReactResponse> react;
   private List<CommentsResponse> comment;
   private UserResponseStylish userResponseStylish;
+  private Boolean reacted;
 }
