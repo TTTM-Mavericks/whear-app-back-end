@@ -48,7 +48,7 @@ public class TextFileReader {
                 readRuleMatchingClothesFromFile();
                 readUsersFromFile();
                 readPostFromFile();
-//                readClothesFromFile();
+                readClothesFromFile();
             }
         } catch (IOException | CustomException e) {
             e.printStackTrace();

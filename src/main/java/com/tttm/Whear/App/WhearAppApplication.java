@@ -2,28 +2,18 @@ package com.tttm.Whear.App;
 
 import com.tttm.Whear.App.config.TextFileReader;
 import com.tttm.Whear.App.dto.Pairs;
-import com.tttm.Whear.App.entity.BodyShape;
-import com.tttm.Whear.App.entity.RuleMatchingClothes;
-import com.tttm.Whear.App.entity.Style;
-import com.tttm.Whear.App.entity.SubRole;
-import com.tttm.Whear.App.enums.BodyShapeType;
-import com.tttm.Whear.App.enums.ESubRole;
-import com.tttm.Whear.App.enums.StyleType;
 import com.tttm.Whear.App.exception.CustomException;
-import com.tttm.Whear.App.repository.BodyShapeRepository;
-import com.tttm.Whear.App.repository.RuleMatchingClothesRepository;
-import com.tttm.Whear.App.repository.StyleRepository;
-import com.tttm.Whear.App.repository.SubRoleRepository;
 import com.tttm.Whear.App.service.ClothesService;
 import com.tttm.Whear.App.service.RecommendationService;
+import com.tttm.Whear.App.service.impl.ClothesDataService;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
-import org.springframework.boot.CommandLineRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -42,7 +32,11 @@ import java.util.List;
 public class WhearAppApplication {
     private static List<Pairs> clothesItemList;
     private static List<ClothesResponse> clothesResponseList = new ArrayList<>();
+
+    public static Logger logger = LoggerFactory.getLogger(WhearAppApplication.class);
 //    private static List<ClothesResponse> clothesResponseNonNullList = new ArrayList<>();
+
+//     public static ClothesDataService clothesDataService;
 
     public static void main(String[] args) throws FileNotFoundException, CustomException {
         ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(WhearAppApplication.class, args);
@@ -52,12 +46,19 @@ public class WhearAppApplication {
         textFileReader.onApplicationEvent(null);
         RecommendationService recommendationService = configurableApplicationContext.getBean(RecommendationService.class);
         ClothesService clothesService = configurableApplicationContext.getBean(ClothesService.class);
+        ClothesDataService clothesDataService = configurableApplicationContext.getBean(ClothesDataService.class);
         for (int i = 0; i <= 66; i++) {
             clothesResponseList.add(new ClothesResponse());
         }
         clothesResponseList.addAll(clothesService.getAllClothes());
 //        clothesResponseNonNullList.addAll(clothesService.getAllClothes());
         clothesItemList = recommendationService.convertListClothesToListClothesPairs();
+
+        clothesDataService.setClothesItemList(clothesItemList);
+        clothesDataService.setClothesResponseList(clothesResponseList);
+
+        logger.warn("Check Size Clothes Item List {}", clothesDataService.getClothesItemList().size());
+        logger.warn("Check Size Clothes Response List {}", clothesDataService.getClothesResponseList().size());
     }
 
     public static List<Pairs> getClothesItemList() {
@@ -119,10 +120,10 @@ public class WhearAppApplication {
 //        };
 //    }
 
-    @Bean
-    public CommandLineRunner createRuleMatchingClothes(RuleMatchingClothesRepository ruleMatchingClothesRepository, StyleRepository styleRepository,
-                                                       BodyShapeRepository bodyShapeRepository) {
-        return arg -> {
+//    @Bean
+//    public CommandLineRunner createRuleMatchingClothes(RuleMatchingClothesRepository ruleMatchingClothesRepository, StyleRepository styleRepository,
+//                                                       BodyShapeRepository bodyShapeRepository) {
+//        return arg -> {
 //
 //            if (ruleMatchingClothesRepository.findAll().size() == 0) {
 //            RuleMatchingClothes rule1 = RuleMatchingClothes.builder()
@@ -1459,6 +1460,6 @@ public class WhearAppApplication {
 //                        .build();
 //                ruleMatchingClothesRepository.save(rule70);
 //            }
-        };
-    }
+//        };
+//    }
 }
