@@ -2,9 +2,7 @@ package com.tttm.Whear.App.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
-import com.tttm.Whear.App.utils.request.ClothesRequest;
-import com.tttm.Whear.App.utils.request.PostRequest;
-import com.tttm.Whear.App.utils.request.UserRequest;
+import com.tttm.Whear.App.utils.request.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -32,23 +30,140 @@ public class TextFileReader {
     private ObjectMapper objectMapper;
 
     private final ClothesService clothesService;
-    private final GenerateDataService generateDataService;
     private final PostService postService;
-    private final UserService userService;
+    private final SubroleService subroleService;
+    private final StyleService styleService;
+    private final BodyShapeService bodyShapeService;
     private final AuthenticationService authenticationService;
+    private final RuleMatchingClothesService ruleMatchingClothesService;
 
     public void onApplicationEvent(ApplicationStartedEvent event) {
         try {
-            String run = null;
-//            String run = "run";
+//            String run = null;
+            String run = "run";
             if (run != null) {
+                readSubRoleFromFile();
+                readStyleFromFile();
+                readBodyShapeFromFile();
+                readRuleMatchingClothesFromFile();
                 readUsersFromFile();
                 readPostFromFile();
-                readClothesFromFile();
+//                readClothesFromFile();
             }
         } catch (IOException | CustomException e) {
             e.printStackTrace();
         }
+    }
+
+    private void readStyleFromFile() throws IOException, CustomException {
+        List<StyleRequest> styleRequests = readStyleRequests("classpath:data/styles.txt");
+        for (StyleRequest styleRequest : styleRequests) {
+            styleService.createStyle(styleRequest);
+            System.out.println(styleRequest);
+        }
+    }
+
+    private List<StyleRequest> readStyleRequests(String filePath) throws IOException {
+        List<StyleRequest> styleRequests = new ArrayList<>();
+        Resource resource = resourceLoader.getResource(filePath);
+        try (InputStream inputStream = resource.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("--------------------------------------")) {
+                    if (stringBuilder.length() > 0) {
+                        styleRequests.add(convertToStyleRequest(stringBuilder.toString()));
+                        stringBuilder.setLength(0);
+                    }
+                } else {
+                    stringBuilder.append(line);
+                }
+            }
+            // Add the last clothes request if there is any remaining data
+            if (stringBuilder.length() > 0) {
+                styleRequests.add(convertToStyleRequest(stringBuilder.toString()));
+            }
+        }
+        return styleRequests;
+    }
+
+    private StyleRequest convertToStyleRequest(String json) throws IOException {
+        return objectMapper.readValue(json, StyleRequest.class);
+    }
+
+    private void readBodyShapeFromFile() throws IOException, CustomException {
+        List<BodyShapeRequest> bodyShapeRequests = readBodyShapeRequests("classpath:data/body_shapes.txt");
+        for (BodyShapeRequest bodyShapeRequest : bodyShapeRequests) {
+            bodyShapeService.createBodyShape(bodyShapeRequest);
+            System.out.println(bodyShapeRequest);
+        }
+    }
+
+    private List<BodyShapeRequest> readBodyShapeRequests(String filePath) throws IOException {
+        List<BodyShapeRequest> bodyShapeRequests = new ArrayList<>();
+        Resource resource = resourceLoader.getResource(filePath);
+        try (InputStream inputStream = resource.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("--------------------------------------")) {
+                    if (stringBuilder.length() > 0) {
+                        bodyShapeRequests.add(convertToBodyShapeRequest(stringBuilder.toString()));
+                        stringBuilder.setLength(0);
+                    }
+                } else {
+                    stringBuilder.append(line);
+                }
+            }
+            // Add the last body shape request if there is any remaining data
+            if (stringBuilder.length() > 0) {
+                bodyShapeRequests.add(convertToBodyShapeRequest(stringBuilder.toString()));
+            }
+        }
+        return bodyShapeRequests;
+    }
+
+    private BodyShapeRequest convertToBodyShapeRequest(String json) throws IOException {
+        return objectMapper.readValue(json, BodyShapeRequest.class);
+    }
+
+    private void readRuleMatchingClothesFromFile() throws IOException, CustomException {
+        List<RuleMatchingClothesRequest> ruleMatchingClothesRequests = readRuleMatchingClothesRequests("classpath:data/rule_matching_clothes.txt");
+        for (RuleMatchingClothesRequest ruleMatchingClothesRequest : ruleMatchingClothesRequests) {
+            ruleMatchingClothesService.createNewRule(ruleMatchingClothesRequest);
+            System.out.println(ruleMatchingClothesRequest);
+        }
+    }
+
+    private List<RuleMatchingClothesRequest> readRuleMatchingClothesRequests(String filePath) throws IOException {
+        List<RuleMatchingClothesRequest> ruleMatchingClothesRequests = new ArrayList<>();
+        Resource resource = resourceLoader.getResource(filePath);
+        try (InputStream inputStream = resource.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("--------------------------------------")) {
+                    if (stringBuilder.length() > 0) {
+                        ruleMatchingClothesRequests.add(convertToRuleMatchingClothesRequest(stringBuilder.toString()));
+                        stringBuilder.setLength(0);
+                    }
+                } else {
+                    stringBuilder.append(line);
+                }
+            }
+            // Add the last rule matching clothes request if there is any remaining data
+            if (stringBuilder.length() > 0) {
+                ruleMatchingClothesRequests.add(convertToRuleMatchingClothesRequest(stringBuilder.toString()));
+            }
+        }
+        return ruleMatchingClothesRequests;
+    }
+
+    private RuleMatchingClothesRequest convertToRuleMatchingClothesRequest(String json) throws IOException {
+        return objectMapper.readValue(json, RuleMatchingClothesRequest.class);
     }
 
 
@@ -87,6 +202,43 @@ public class TextFileReader {
 
     private UserRequest convertToUsersRequest(String json) throws IOException {
         return objectMapper.readValue(json, UserRequest.class);
+    }
+
+    private void readSubRoleFromFile() throws IOException, CustomException {
+        List<SubRoleRequest> subRoleRequests = readSubRoleRequests("classpath:data/sub_role.txt");
+        for (SubRoleRequest subRoleRequest : subRoleRequests) {
+            subroleService.createSubRole(subRoleRequest);
+            System.out.println(subRoleRequest);
+        }
+    }
+
+    private List<SubRoleRequest> readSubRoleRequests(String filePath) throws IOException {
+        List<SubRoleRequest> subRoleRequests = new ArrayList<>();
+        Resource resource = resourceLoader.getResource(filePath);
+        try (InputStream inputStream = resource.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("--------------------------------------")) {
+                    if (stringBuilder.length() > 0) {
+                        subRoleRequests.add(convertToSubRoleRequest(stringBuilder.toString()));
+                        stringBuilder.setLength(0);
+                    }
+                } else {
+                    stringBuilder.append(line);
+                }
+            }
+            // Add the last clothes request if there is any remaining data
+            if (stringBuilder.length() > 0) {
+                subRoleRequests.add(convertToSubRoleRequest(stringBuilder.toString()));
+            }
+        }
+        return subRoleRequests;
+    }
+
+    private SubRoleRequest convertToSubRoleRequest(String json) throws IOException {
+        return objectMapper.readValue(json, SubRoleRequest.class);
     }
 
     private void readClothesFromFile() throws IOException, CustomException {

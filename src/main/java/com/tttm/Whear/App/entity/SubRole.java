@@ -9,7 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,15 +26,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "subRole")
 @EntityListeners(AuditingEntityListener.class)
 public class SubRole extends AuditEntity implements Serializable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer subRoleID;
-  @Column(name = "subRoleName")
-  private ESubRole subRoleName;
-  @Column(name = "numberOfCollection")
-  private Integer numberOfCollection;
-  @Column(name = "numberOfClothes")
-  private Integer numberOfClothes;
-  @Column(name = "price")
-  private Integer price;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer subRoleID;
+    @Column(name = "subRoleName")
+    private ESubRole subRoleName;
+    @Column(name = "numberOfCollection")
+    private Integer numberOfCollection;
+    @Column(name = "numberOfClothes")
+    private Integer numberOfClothes;
+    @Column(name = "price")
+    private Integer price;
 }

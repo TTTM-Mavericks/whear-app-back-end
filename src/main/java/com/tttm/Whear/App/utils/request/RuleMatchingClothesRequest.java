@@ -1,16 +1,14 @@
 package com.tttm.Whear.App.utils.request;
 
 import com.tttm.Whear.App.enums.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.checkerframework.checker.units.qual.N;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class RuleMatchingClothesRequest {
     private String styleName;
 
