@@ -214,4 +214,10 @@ public class APIConstant {
     public static final String GET_NEWS_BY_BRAND_ID = "/get-news-by-brand_id";
     public static final String GET_NEWS_BY_TYPE_OF_NEWS = "/get-news-by-type-of-news";
   }
+
+  public class PagingAPI
+  {
+    public static final String PAGING = APIConstant.API + "/paging";
+    public static final String GET_PAGE = "/get-page";
+  }
 }
