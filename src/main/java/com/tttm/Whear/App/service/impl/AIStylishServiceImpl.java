@@ -1,6 +1,5 @@
 package com.tttm.Whear.App.service.impl;
 
-import com.tttm.Whear.App.WhearAppApplication;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.constant.ConstantString;
 import com.tttm.Whear.App.entity.*;
@@ -14,13 +13,11 @@ import com.tttm.Whear.App.utils.response.AIStylishResponse;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.RuleMatchingClothesResponse;
 import com.tttm.Whear.App.utils.response.UserResponseStylish;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,7 +35,6 @@ public class AIStylishServiceImpl implements AIStylishService {
     private final MemoryEntityService memoryEntityService;
     private final Random random = new Random();
     private final ClothesDataService clothesDataService;
-    private List<ClothesResponse> clothesResponseList = WhearAppApplication.getClothesResponseList();
     private final Logger logger = LoggerFactory.getLogger(AIStylishServiceImpl.class);
 
 
@@ -236,7 +232,7 @@ public class AIStylishServiceImpl implements AIStylishService {
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getTopInsideID())) {
 //                        ClothesResponse topInside = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getTopInsideID()));
-                        ClothesResponse topInside = clothesResponseList.get(Integer.parseInt(memoryEntity.getTopInsideID()));
+                        ClothesResponse topInside = clothesDataService.getClothesResponseList().get(Integer.parseInt(memoryEntity.getTopInsideID()));
                         topInsideID = topInside.getClothesID().toString();
                         topInside.setUserResponseStylish(userResponseStylish);
                         outfit.add(topInside);
@@ -244,7 +240,7 @@ public class AIStylishServiceImpl implements AIStylishService {
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getTopOutsideID())) {
 //                        ClothesResponse topOutside = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getTopOutsideID()));
-                        ClothesResponse topOutside = clothesResponseList.get(Integer.parseInt(memoryEntity.getTopOutsideID()));
+                        ClothesResponse topOutside = clothesDataService.getClothesResponseList().get(Integer.parseInt(memoryEntity.getTopOutsideID()));
                         topInsideID = topOutside.getClothesID().toString();
                         topOutside.setUserResponseStylish(userResponseStylish);
                         outfit.add(topOutside);
@@ -252,7 +248,7 @@ public class AIStylishServiceImpl implements AIStylishService {
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getBottomKindID())) {
 //                        ClothesResponse bottomKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getBottomKindID()));
-                        ClothesResponse bottomKind = clothesResponseList.get(Integer.parseInt(memoryEntity.getBottomKindID()));
+                        ClothesResponse bottomKind = clothesDataService.getClothesResponseList().get(Integer.parseInt(memoryEntity.getBottomKindID()));
                         bottomKindID = bottomKind.getClothesID().toString();
                         bottomKind.setUserResponseStylish(userResponseStylish);
                         outfit.add(bottomKind);
@@ -260,7 +256,7 @@ public class AIStylishServiceImpl implements AIStylishService {
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getShoesTypeID())) {
 //                        ClothesResponse shoesType = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getShoesTypeID()));
-                        ClothesResponse shoesType = clothesResponseList.get(Integer.parseInt(memoryEntity.getShoesTypeID()));
+                        ClothesResponse shoesType = clothesDataService.getClothesResponseList().get(Integer.parseInt(memoryEntity.getShoesTypeID()));
                         shoesTypeID = shoesType.getClothesID().toString();
                         shoesType.setUserResponseStylish(userResponseStylish);
                         outfit.add(shoesType);
@@ -268,7 +264,7 @@ public class AIStylishServiceImpl implements AIStylishService {
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getAccessoryKindID())) {
 //                        ClothesResponse accessoriesKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getAccessoryKindID()));
-                        ClothesResponse accessoriesKind = clothesResponseList.get(Integer.parseInt(memoryEntity.getAccessoryKindID()));
+                        ClothesResponse accessoriesKind = clothesDataService.getClothesResponseList().get(Integer.parseInt(memoryEntity.getAccessoryKindID()));
                         accessoryKindID = accessoriesKind.getClothesID().toString();
                         accessoriesKind.setUserResponseStylish(userResponseStylish);
                         outfit.add(accessoriesKind);

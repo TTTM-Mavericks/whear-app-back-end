@@ -1,6 +1,5 @@
 package com.tttm.Whear.App.service.impl;
 
-import com.tttm.Whear.App.WhearAppApplication;
 import com.tttm.Whear.App.constant.ConstantMessage;
 import com.tttm.Whear.App.dto.ClothesItemDto;
 import com.tttm.Whear.App.dto.PairConsineSimilarity;
@@ -34,6 +33,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     private final FollowService followService;
     private final UserStyleService userStyleService;
     private final ReactService reactService;
+    private final ClothesDataService clothesDataService;
 
     @Override
     public List<ClothesResponse> getListRecommendationByUserHistoryItems(String userID) throws CustomException {
@@ -45,45 +45,28 @@ public class RecommendationServiceImpl implements RecommendationService {
                 .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
 
         String userSearchText = convertListHistoryItemsToText(userID);
-        List<Pairs> clothesItemList = WhearAppApplication.getClothesItemList();
-        List<ClothesResponse> clothesResponseList = WhearAppApplication.getClothesResponseList();
+        List<Pairs> clothesItemList = clothesDataService.getClothesItemList();
         List<PairConsineSimilarity> listConsineSimilarity = calculateConsineSimilarities(userSearchText, clothesItemList);
-
         Collections.sort(listConsineSimilarity, Comparator.comparingDouble(PairConsineSimilarity::getConsineSimilarity).reversed());
-        List<ClothesResponse> clothesResponses = new ArrayList<>();
-//                = listConsineSimilarity.stream()
-//                .filter(similarityPoint -> similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH)
-//                .map(cloth -> {
-//                    try {
-//                        return clothesService.getClothesByID(cloth.getClothesID());
-//                    } catch (CustomException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                })
-//                .toList();
-        for (PairConsineSimilarity similarityPoint : listConsineSimilarity) {
-            if (similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH) {
-                try {
-                    ClothesResponse response = clothesResponseList.get(similarityPoint.getClothesID());
-                    response.setReacted(
-                            reactService.checkContain(similarityPoint.getClothesID(), userID) != null
-                    );
-                    clothesResponses.add(
-                            response
-//                            clothesService.getClothesByID(similarityPoint.getClothesID())
-//                            )
-                    );
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            } else {
-                break;
-            }
-        }
-//        for (PairConsineSimilarity pairs : listConsineSimilarity) {
+
+//             for (PairConsineSimilarity pairs : listConsineSimilarity) {
 //            System.out.println(clothesService.getClothesByID(pairs.getClothesID()) + " " + pairs.getConsineSimilarity());
 //        }
-        return clothesResponses;
+
+        return listConsineSimilarity.stream()
+                .filter(similarityPoint -> similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH)
+                .map(similarityPoint -> {
+                    try {
+                        ClothesResponse response = clothesDataService.getClothesResponseList().get(similarityPoint.getClothesID());
+                        response.setReacted(
+                                reactService.checkContain(similarityPoint.getClothesID(), userID) != null
+                        );
+                        return response;
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -96,46 +79,29 @@ public class RecommendationServiceImpl implements RecommendationService {
                 .orElseThrow(() -> new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage()));
 
         historyService.createHistoryItemByDefaultStyleOrKeyword(userID, keyword, "2");
-        List<Pairs> clothesItemList = WhearAppApplication.getClothesItemList();
-//                convertListClothesToListClothesPairs();
+        List<Pairs> clothesItemList = clothesDataService.getClothesItemList();
         List<PairConsineSimilarity> listConsineSimilarity = calculateConsineSimilarities(keyword, clothesItemList);
-
         Collections.sort(listConsineSimilarity, Comparator.comparingDouble(PairConsineSimilarity::getConsineSimilarity).reversed());
-//        List<ClothesResponse> clothesResponses = listConsineSimilarity.stream()
-//                .filter(similarityPoint -> similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH)
-//                .map(cloth -> {
-//                    try {
-//                        return clothesService.getClothesByID(cloth.getClothesID());
-//                    } catch (CustomException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                })
-//                .toList();
-        List<ClothesResponse> clothesResponseList = WhearAppApplication.getClothesResponseList();
-        List<ClothesResponse> clothesResponses = new ArrayList<>();
-        for (PairConsineSimilarity similarityPoint : listConsineSimilarity) {
-            if (similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH) {
-                try {
-                    ClothesResponse response = clothesResponseList.get(similarityPoint.getClothesID());
-                    response.setReacted(
-                            reactService.checkContain(similarityPoint.getClothesID(), userID) != null
-                    );
-                    clothesResponses.add(
-                            response
-//                            clothesService.getClothesByID(similarityPoint.getClothesID())
-//                            )
-                    );
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            } else {
-                break;
-            }
-        }
+
 //        for (PairConsineSimilarity pairs : listConsineSimilarity) {
 //            System.out.println(clothesService.getClothesByID(pairs.getClothesID()) + " " + pairs.getConsineSimilarity());
 //        }
-        return clothesResponses;
+
+        return listConsineSimilarity.stream()
+                .filter(similarityPoint -> similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH)
+                .map(similarityPoint -> {
+                    try {
+                        ClothesResponse response = clothesDataService.getClothesResponseList().get(similarityPoint.getClothesID());
+                        response.setReacted(
+                                reactService.checkContain(similarityPoint.getClothesID(), userID) != null
+                        );
+                        return response;
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
+
     }
 
     @Override
@@ -166,28 +132,32 @@ public class RecommendationServiceImpl implements RecommendationService {
 
         List<String> listBaseHistoryStyle = historyService.getAllHistoryItemByUserIDAnIndex(followRequest.getBaseUserID(), "1");
 
-        List<UserFollowDto> userFollowDtoList = new ArrayList<>();
+        List<UserFollowDto> userFollowDtoList = listFollowingUser.stream()
+                .map(user -> {
+                    try {
+                        List<String> listTargetHistoryStyle = historyService.getAllHistoryItemByUserIDAnIndex(user.getUserID(), "1");
+                        double consineSimilarityForStyle = calculateConsineSimilarityByTwoStyleFromTwoUser(listBaseHistoryStyle, listTargetHistoryStyle);
+                        System.out.println(consineSimilarityForStyle);
+                        if (consineSimilarityForStyle <= 0.0) return null;
 
-        for (UserResponse user : listFollowingUser) {
+                        String followingUserHistoryText = convertListHistoryItemsToText(user.getUserID());
+                        double consineSimilarity = calculateConsineSimilarityByTwoUserHistorySearch(baseUserHistoryText, followingUserHistoryText);
+                        Long totalOfFollowerOfTargetUserID = followService.calculateNumberOfFollowerByUserID(user.getUserID());
+                        Long totalOfFollowingOfTargetUserID = followService.calculateNumberOfFollowingByUserID(user.getUserID());
+                        return UserFollowDto
+                                .builder()
+                                .followingUserID(user.getUserID())
+                                .consineSimilarity(consineSimilarity)
+                                .totalOfFollowerOfTargetUserID(totalOfFollowerOfTargetUserID)
+                                .totalOfFollowingOfTargetUserID(totalOfFollowingOfTargetUserID)
+                                .build();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
 
-            List<String> listTargetHistoryStyle = historyService.getAllHistoryItemByUserIDAnIndex(user.getUserID(), "1");
-            double consineSimilarityForStyle = calculateConsineSimilarityByTwoStyleFromTwoUser(listBaseHistoryStyle, listTargetHistoryStyle);
-            System.out.println(consineSimilarityForStyle);
-            if (consineSimilarityForStyle <= 0.0) continue;
-
-            String followingUserHistoryText = convertListHistoryItemsToText(user.getUserID());
-            double consineSimilarity = calculateConsineSimilarityByTwoUserHistorySearch(baseUserHistoryText, followingUserHistoryText);
-            Long totalOfFollowerOfTargetUserID = followService.calculateNumberOfFollowerByUserID(user.getUserID());
-            Long totalOfFollowingOfTargetUserID = followService.calculateNumberOfFollowingByUserID(user.getUserID());
-
-            userFollowDtoList.add(UserFollowDto
-                    .builder()
-                    .followingUserID(user.getUserID())
-                    .consineSimilarity(consineSimilarity)
-                    .totalOfFollowerOfTargetUserID(totalOfFollowerOfTargetUserID)
-                    .totalOfFollowingOfTargetUserID(totalOfFollowingOfTargetUserID)
-                    .build());
-        }
         Collections.sort(userFollowDtoList, (u1, u2) -> {
             if (u1.getConsineSimilarity() < THRESHOLD_FOR_FOLLOW_FEATURE) {
                 return Long.compare(u2.getTotalOfFollowerOfTargetUserID(), u1.getTotalOfFollowerOfTargetUserID());
@@ -275,31 +245,26 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     public List<Pairs> convertListClothesToListClothesPairs() throws CustomException {
-        List<ClothesItemDto> ClothesItemDtoList = new ArrayList<>();
-//        clothesService
-//                .getAllClothes()
-//                .stream()
-//                .map(this::convertToClothesItemDto)
-//                .toList();
-        List<ClothesResponse> responses = WhearAppApplication.getClothesResponseList();
-        for (ClothesResponse response : responses) {
-            if (responses.indexOf(response) > 66) {
-                System.out.println("-----------------------------");
-                System.out.println(response.getClothesID());
-                ClothesItemDtoList.add(convertToClothesItemDto(response));
-            }
-        }
+        List<ClothesResponse> responses = clothesDataService.getClothesResponseList();
 
+        List<ClothesResponse> filterClothesResponse = responses
+                .stream()
+                .skip(67)
+                .collect(Collectors.toList());
 
-        List<Pairs> clothesItemList = new ArrayList<>();
-        for (int i = 0; i < ClothesItemDtoList.size(); i++) {
-            ClothesItemDto clothes = ClothesItemDtoList.get(i);
-            String ClotheItems = clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " +
-                    clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString() + " " +
-                    clothes.styleToString();
-            clothesItemList.add(new Pairs(ClothesItemDtoList.get(i).getClothesID(), ClotheItems));
-        }
-        return clothesItemList;
+        List<ClothesItemDto> ClothesItemDtoList = filterClothesResponse
+                .stream()
+                .map(this::convertToClothesItemDto)
+                .collect(Collectors.toList());
+
+        return ClothesItemDtoList.stream()
+                .map(clothes -> {
+                    String ClotheItems = clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " +
+                            clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString() + " " +
+                            clothes.styleToString();
+                    return new Pairs(clothes.getClothesID(), ClotheItems);
+                })
+                .collect(Collectors.toList());
     }
 
     public ClothesItemDto convertToClothesItemDto(ClothesResponse clothesResponse) {

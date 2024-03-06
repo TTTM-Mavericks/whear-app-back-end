@@ -30,8 +30,8 @@ import java.util.List;
 @EnableJpaAuditing()
 @EnableCaching
 public class WhearAppApplication {
-    private static List<Pairs> clothesItemList;
-    private static List<ClothesResponse> clothesResponseList = new ArrayList<>();
+//    private static List<Pairs> clothesItemList;
+//    private static List<ClothesResponse> clothesResponseList = new ArrayList<>();
 
     public static Logger logger = LoggerFactory.getLogger(WhearAppApplication.class);
 //    private static List<ClothesResponse> clothesResponseNonNullList = new ArrayList<>();
@@ -47,35 +47,38 @@ public class WhearAppApplication {
         RecommendationService recommendationService = configurableApplicationContext.getBean(RecommendationService.class);
         ClothesService clothesService = configurableApplicationContext.getBean(ClothesService.class);
         ClothesDataService clothesDataService = configurableApplicationContext.getBean(ClothesDataService.class);
+
+        // Store List Clothes when Running Project
+        List<ClothesResponse> clothesResponseList = new ArrayList<>();
         for (int i = 0; i <= 66; i++) {
             clothesResponseList.add(new ClothesResponse());
         }
         clothesResponseList.addAll(clothesService.getAllClothes());
 //        clothesResponseNonNullList.addAll(clothesService.getAllClothes());
-        clothesItemList = recommendationService.convertListClothesToListClothesPairs();
+//        clothesItemList = recommendationService.convertListClothesToListClothesPairs();
 
-        clothesDataService.setClothesItemList(clothesItemList);
         clothesDataService.setClothesResponseList(clothesResponseList);
+        clothesDataService.setClothesItemList(recommendationService.convertListClothesToListClothesPairs());
 
         logger.warn("Check Size Clothes Item List {}", clothesDataService.getClothesItemList().size());
         logger.warn("Check Size Clothes Response List {}", clothesDataService.getClothesResponseList().size());
     }
 
-    public static List<Pairs> getClothesItemList() {
-        return clothesItemList;
-    }
-
-    public static void setClothesItemList(List<Pairs> clothesList) {
-        clothesItemList = clothesList;
-    }
-
-    public static List<ClothesResponse> getClothesResponseList() {
-        return clothesResponseList;
-    }
-
-    public static void setClothesResponseList(List<ClothesResponse> responseList) {
-        clothesResponseList = responseList;
-    }
+//    public static List<Pairs> getClothesItemList() {
+//        return clothesItemList;
+//    }
+//
+//    public static void setClothesItemList(List<Pairs> clothesList) {
+//        clothesItemList = clothesList;
+//    }
+//
+//    public static List<ClothesResponse> getClothesResponseList() {
+//        return clothesResponseList;
+//    }
+//
+//    public static void setClothesResponseList(List<ClothesResponse> responseList) {
+//        clothesResponseList = responseList;
+//    }
 
     @MessageMapping("/noti.sendMessage")
     @SendToUser("/topic/public")

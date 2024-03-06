@@ -32,6 +32,7 @@ public class ClothesDataService {
         return clothesResponseList
                 .stream()
                 .skip(67)
+                .filter(clothesResponse -> clothesResponse != null)
                 .filter(clothesResponse -> clothesResponse.getTypeOfClothes().equals(typeOfClothes))
                 .filter(clothesResponse -> clothesResponse.getClothesColors().stream().anyMatch(COLOR -> COLOR.contains(color)))
                 .collect(Collectors.toList());
@@ -43,6 +44,7 @@ public class ClothesDataService {
         return clothesResponseList
                 .stream()
                 .skip(67)
+                .filter(clothesResponse -> clothesResponse != null)
                 .filter(clothesResponse -> clothesResponse.getTypeOfClothes().equals(typeOfClothes))
                 .collect(Collectors.toList());
     }
