@@ -180,6 +180,14 @@ public class ClothesController {
         try {
             ObjectNode response = objectMapper.createObjectNode();
             ClothesResponse clothesResponse = clothesService.updateClothes(clothesRequest);
+            List<ClothesResponse> clothesResponses = clothesDataService.getClothesResponseList();
+            clothesResponses.set(clothesRequest.getClothesID(), clothesResponse);
+            List<Pairs> pairsList = clothesDataService.getClothesItemList();
+            ClothesItemDto clothes = recommendationService.convertToClothesItemDto(clothesResponses.get(clothesRequest.getClothesID()));
+            String ClotheItems = clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " +
+                    clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString() + " " +
+                    clothes.styleToString();
+            pairsList.set(clothesRequest.getClothesID() - 67, new Pairs(clothesRequest.getClothesID() - 67, ClotheItems));
             if (clothesResponse != null) {
                 response.put("success", 200);
                 response.put("message", "Collection is updated!");
@@ -205,6 +213,10 @@ public class ClothesController {
             response.put("success", 200);
             response.put("message", "Clothes is deleted!");
             response.set("data", null);
+            List<ClothesResponse> clothesResponses = clothesDataService.getClothesResponseList();
+            clothesResponses.remove(clothesID);
+            List<Pairs> pairsList = clothesDataService.getClothesItemList();
+            pairsList.remove(clothesID-67);
 //      }
             return response;
         } catch (Exception ex) {

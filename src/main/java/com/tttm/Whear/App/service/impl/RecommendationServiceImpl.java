@@ -48,11 +48,6 @@ public class RecommendationServiceImpl implements RecommendationService {
         List<Pairs> clothesItemList = clothesDataService.getClothesItemList();
         List<PairConsineSimilarity> listConsineSimilarity = calculateConsineSimilarities(userSearchText, clothesItemList);
         Collections.sort(listConsineSimilarity, Comparator.comparingDouble(PairConsineSimilarity::getConsineSimilarity).reversed());
-
-//             for (PairConsineSimilarity pairs : listConsineSimilarity) {
-//            System.out.println(clothesService.getClothesByID(pairs.getClothesID()) + " " + pairs.getConsineSimilarity());
-//        }
-
         return listConsineSimilarity.stream()
                 .filter(similarityPoint -> similarityPoint.getConsineSimilarity() >= THRESHOLD_FOR_HISTORY_SEARCH)
                 .map(similarityPoint -> {

@@ -95,7 +95,7 @@ public class PostServiceImpl implements PostService {
         .content(postRequest.getContent())
         .date(new Date())
         .build();
-    post = postRepository.save(post);
+    postRepository.save(post);
 
     List<String> postImage = postRequest.getImage();
     if (postImage != null && !postImage.isEmpty() && postImage.size() > 0) {

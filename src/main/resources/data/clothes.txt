@@ -19909,8 +19909,7 @@
         "AUTUmn"
     ],
     "clothesImages": [
-        "https://scontent.fsgn5-12.fna.fbcdn.net/v/t39.30808-6/401564398_838487031613346_2731815767188674876_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=3635dc&_nc_ohc=VomG0EgScHcAX8Oew3m&_nc_ht=scontent.fsgn5-12.fna&oh=00_AfC3PYQIZZiQQ36mrYvxqtf0CNfCkwv6RT5vctr_Uaz34g&oe=65B576D1",
-        "https://scontent.fsgn5-2.fna.fbcdn.net/v/t39.30808-6/402891053_838487028280013_6107667657388766329_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=3635dc&_nc_ohc=TWYVbNqs2YgAX8RU_xV&_nc_ht=scontent.fsgn5-2.fna&oh=00_AfBTN_zc8v776qk37MuROU8EV187fRGP84HIJgz-7S-6bg&oe=65B6187A"
+        "https://i.pinimg.com/564x/6c/69/0d/6c690d7c0472f18601630422faca144a.jpg"
     ],
     "clothesSizes": [
         "s",

@@ -141,10 +141,10 @@ public class ReactServiceImpl implements ReactService {
       throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
     }
 
-    Post post = postService.getPostsByPostID(postID);
-    if (post == null) {
-      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
-    }
+//    Post post = postService.getPostsByPostID(postID);
+//    if (post == null) {
+//      throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+//    }
 
     React finded = reactRepository.findReact(userID, postID);
     return convertToReactResponse(finded);
