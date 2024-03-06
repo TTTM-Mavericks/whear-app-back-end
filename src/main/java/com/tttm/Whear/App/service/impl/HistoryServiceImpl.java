@@ -13,11 +13,14 @@ import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.HistoryResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,7 +32,7 @@ public class HistoryServiceImpl implements HistoryService {
     private final UserService userService;
 
     private final ClothesService clothesService;
-
+    private final Logger logger = LoggerFactory.getLogger(HistoryServiceImpl.class);
     @Override
     public void createHistoryItemBySearching(HistoryRequest historyRequest) throws CustomException {
         Optional.of(historyRequest.getCustomerID())
@@ -41,14 +44,23 @@ public class HistoryServiceImpl implements HistoryService {
             throw new CustomException(ConstantMessage.CANNOT_FIND_USER_BY_USERID.getMessage());
         }
 
+        Set<String> historiesSet = historyRepository.getAllHistoryItemsByCustomerID(historyRequest.getCustomerID())
+                .stream()
+                .map(history -> history.getHistoryItem().toString().toUpperCase())
+                .collect(Collectors.toSet());
+        
         historyRequest
                 .getHistoryItems()
-                .forEach(historyItem -> historyRepository
-                        .createHistoryItem(
-                                historyRequest.getCustomerID(),
-                                historyItem.toUpperCase(),
-                                "2"
-                        )
+                .forEach(historyItem -> {
+                        if (!historiesSet.contains(historyItem.toUpperCase())) {
+                            historiesSet.add(historyItem.toUpperCase());
+                            historyRepository.createHistoryItem(
+                                    historyRequest.getCustomerID(),
+                                    historyItem.toUpperCase(),
+                                    "2"
+                            );
+                        }
+                    }
                 );
     }
 
@@ -75,10 +87,10 @@ public class HistoryServiceImpl implements HistoryService {
         ClothesResponse clothesResponse = clothesService.getClothesByID(clothesID);
 
         List<String> historyReact = Stream.of(
-                clothesResponse.getNameOfProduct(),
-                clothesResponse.getTypeOfClothes(),
-                clothesResponse.getShape(),
-                clothesResponse.getMaterials())
+                        clothesResponse.getNameOfProduct(),
+                        clothesResponse.getTypeOfClothes(),
+                        clothesResponse.getShape(),
+                        clothesResponse.getMaterials())
                 .collect(Collectors.toList());
 
         clothesResponse.getClothesSeasons()
@@ -91,17 +103,16 @@ public class HistoryServiceImpl implements HistoryService {
                         color -> historyReact.add(color)
                 );
 
-        clothesResponse.getClothesSizes()
-                .forEach(
-                        size -> historyReact.add(size)
-                );
-
         clothesResponse.getClothesStyles()
                 .forEach(
                         style -> historyReact.add(style)
                 );
 
-        historyReact.forEach(history -> historyRepository.createHistoryItem(userID, history, "3_" + clothesResponse.getClothesID()));
+        historyReact.forEach(history -> {
+            if(!history.equals("X")){
+                historyRepository.createHistoryItem(userID, history, "3_" + clothesResponse.getClothesID());
+            }
+        });
 
         return historyReact;
     }
