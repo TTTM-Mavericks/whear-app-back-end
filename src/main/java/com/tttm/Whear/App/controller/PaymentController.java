@@ -2,7 +2,6 @@ package com.tttm.Whear.App.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.lib.payos.PayOS;
 import com.tttm.Whear.App.constant.APIConstant.PaymentAPI;
 import com.tttm.Whear.App.service.PaymentService;
 import com.tttm.Whear.App.utils.request.PaymentRequest;
@@ -16,17 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(PaymentAPI.PAYMENT)
 public class PaymentController {
-
-  @Value("${PAYOS_CLIENT_ID}")
-  private String clientId;
-
-  @Value("${PAYOS_API_KEY}")
-  private String apiKey;
-
-  @Value("${PAYOS_CHECKSUM_KEY}")
-  private String checksumKey;
   private final PaymentService paymentService;
-  private final PayOS payOS = new PayOS(clientId, apiKey, checksumKey);
 
   @PostMapping(PaymentAPI.CREATE_PAYMENT)
   public ObjectNode createPayment(@RequestBody PaymentRequest paymentRequest) {
@@ -62,25 +51,6 @@ public class PaymentController {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("error", -1);
       respon.put("message", ex.getMessage());
-      respon.set("data", null);
-      return respon;
-    }
-  }
-
-  @PostMapping(path = "/confirm-webhook")
-  public ObjectNode confirmWebhook(@RequestBody Map<String, String> requestBody) {
-    ObjectMapper objectMapper = new ObjectMapper();
-    ObjectNode respon = objectMapper.createObjectNode();
-    try {
-      String str = payOS.confirmWebhook(requestBody.get("webhookUrl"));
-      respon.set("data", null);
-      respon.put("error", 0);
-      respon.put("message", "ok");
-      return respon;
-    } catch (Exception e) {
-      e.printStackTrace();
-      respon.put("error", -1);
-      respon.put("message", e.getMessage());
       respon.set("data", null);
       return respon;
     }
