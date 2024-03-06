@@ -11,6 +11,7 @@ import com.tttm.Whear.App.dto.Pairs;
 import com.tttm.Whear.App.enums.ENotificationAction;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
+import com.tttm.Whear.App.service.impl.ClothesDataService;
 import com.tttm.Whear.App.utils.request.ClothesCollectionRequest;
 import com.tttm.Whear.App.utils.request.ClothesRequest;
 import com.tttm.Whear.App.utils.request.NotificationRequest;
@@ -40,6 +41,7 @@ public class ClothesController {
     private final NotificationService notificationService;
     private final SimpMessagingTemplate messagingTemplate;
     private final ReactService reactService;
+    private final ClothesDataService clothesDataService;
     private final UserService userService;
     private final PostService postService;
 
@@ -48,7 +50,8 @@ public class ClothesController {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             List<ClothesResponse> responseNonNullList = new ArrayList<>();
-            List<ClothesResponse> responseList = WhearAppApplication.getClothesResponseList();
+//            List<ClothesResponse> responseList = WhearAppApplication.getClothesResponseList();
+            List<ClothesResponse> responseList = clothesDataService.getClothesResponseList();
             for (int i = 67; i < responseList.size(); i++) {
                 responseNonNullList.add(responseList.get(i));
             }
@@ -94,14 +97,18 @@ public class ClothesController {
                         messagingTemplate.convertAndSend("/topic/public", notiRequest);
                     }
                 }
-                List<ClothesResponse> responseList = WhearAppApplication.getClothesResponseList();
+//                List<ClothesResponse> responseList = WhearAppApplication.getClothesResponseList();
+                List<ClothesResponse> responseList = clothesDataService.getClothesResponseList();
                 responseList.add(response);
-                WhearAppApplication.setClothesResponseList(responseList);
+//                WhearAppApplication.setClothesResponseList(responseList);
+                clothesDataService.setClothesResponseList(responseList);
                 ClothesItemDto clothes = recommendationService.convertToClothesItemDto(response);
                 String clotheItems = clothes.getNameOfProduct().toUpperCase() + " " + clothes.getTypeOfClothes() + " " + clothes.getShape() + " " + clothes.getMaterials() + " " + clothes.seasonToString() + " " + clothes.sizeToString() + " " + clothes.colorToString() + " " + clothes.styleToString();
-                List<Pairs> clothesItemList = WhearAppApplication.getClothesItemList();
+//                List<Pairs> clothesItemList = WhearAppApplication.getClothesItemList();
+                List<Pairs> clothesItemList = clothesDataService.getClothesItemList();
                 clothesItemList.add(new Pairs(clothes.getClothesID(), clotheItems));
-                WhearAppApplication.setClothesItemList(clothesItemList);
+//                WhearAppApplication.setClothesItemList(clothesItemList);
+                clothesDataService.setClothesItemList(clothesItemList);
                 return respon;
             }
         } catch (Exception ex) {
