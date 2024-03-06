@@ -401,6 +401,7 @@ public class ClothesServiceImpl implements ClothesService {
         .hashtag(hashtag)
         .react(reactResponses)
         .comment(commentsResponses)
+        .user(userService.getUserbyUserID(clothes.getPosts().getUserID()))
         .build();
     return response;
   }

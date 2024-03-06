@@ -30,4 +30,5 @@ public class ClothesResponse {
   private List<CommentsResponse> comment;
   private UserResponseStylish userResponseStylish;
   private Boolean reacted;
+  private UserResponse user;
 }
