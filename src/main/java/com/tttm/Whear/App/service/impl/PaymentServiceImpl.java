@@ -112,14 +112,17 @@ public class PaymentServiceImpl implements PaymentService {
 
         String status = "PENDING";
 
+
+        final String returnUrl = "https://whearapp.tech/payment-infor?payos=1&item="+items.get(0).getName().trim().toUpperCase();
+        final String cancelUrl = "https://whearapp.tech/payment-cancel";
         paymentRequest.setBuyerEmail(buyerEmail);
         paymentRequest.setBuyerName(buyerName);
         paymentRequest.setBuyerPhone(buyerPhone);
         paymentRequest.setAmount(amount);
         paymentRequest.setOrderCode(orderCode);
         paymentRequest.setItems(items);
-        paymentRequest.setReturnUrl("");
-        paymentRequest.setCancelUrl("");
+        paymentRequest.setReturnUrl(returnUrl);
+        paymentRequest.setCancelUrl(cancelUrl);
 
         String bodyToSignature = createSignatureOfPaymentRequest(paymentRequest, checksumKey);
         paymentRequest.setSignature(bodyToSignature);
@@ -275,6 +278,17 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public String getDateTime(Integer paymentID) {
         return paymentRepository.getDateTime(paymentID);
+    }
+
+    @Override
+    public void confirmUpdate(Integer orderCode, String item) throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
+        PaymentInformation paymentInformation = getPaymentInfor(orderCode.toString());
+        if(paymentInformation.getData().getStatus().equals("PAID")) {
+            Payment payment = paymentRepository.getByPaymentID(orderCode);
+            Customer customer = customerService.getReferenceById(payment.getCustomerID());
+            customer.setSubRoleID(subroleService.getSubroleBySubroleName(ESubRole.valueOf(item)).getSubRoleID());
+            customerService.save(customer);
+        }
     }
 
     private static String convertObjToQueryStr(JsonNode object) {

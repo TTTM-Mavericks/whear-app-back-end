@@ -21,4 +21,6 @@ public interface PaymentService {
   List<Payment> getAllPayment() throws Exception;
 
   String getDateTime(Integer paymentID);
+
+  void confirmUpdate(Integer orderCode, String item) throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException;
 }
