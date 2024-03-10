@@ -14,6 +14,7 @@ import com.tttm.Whear.App.repository.CustomerRepository;
 import com.tttm.Whear.App.repository.PaymentRepository;
 import com.tttm.Whear.App.service.PaymentService;
 import com.tttm.Whear.App.service.SubroleService;
+import com.tttm.Whear.App.service.UserBucketService;
 import com.tttm.Whear.App.utils.request.PaymentItem;
 import com.tttm.Whear.App.utils.request.PaymentRequest;
 import com.tttm.Whear.App.utils.response.*;
@@ -50,7 +51,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final CustomerRepository customerService;
     private final SubroleService subroleService;
     private final PaymentRepository paymentRepository;
-
+    private final UserBucketService userBucketService;
     @Override
     public PaymentResponse createPayment(PaymentRequest paymentRequest)
             throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
@@ -186,7 +187,6 @@ public class PaymentServiceImpl implements PaymentService {
                 )
                 .signature(paymentRequest.getSignature())
                 .build();
-
         Payment payment = Payment
                 .builder()
                 .paymentID(orderCode)
@@ -296,6 +296,9 @@ public class PaymentServiceImpl implements PaymentService {
         if(paymentInformation.getData().getStatus().equals("PAID")) {
             Payment payment = paymentRepository.getByPaymentID(orderCode);
             Customer customer = customerService.getReferenceById(payment.getCustomerID());
+            // Renew API Call Outfits when upgrade for Free User to Premium User
+            System.out.println("Before call storeCallDataWhenUpgradePremium");
+            userBucketService.storeCallDataWhenUpgradePremium(payment.getCustomerID());
             customer.setSubRoleID(subroleService.getSubroleBySubroleName(ESubRole.valueOf(item)).getSubRoleID());
             customerService.save(customer);
         }
