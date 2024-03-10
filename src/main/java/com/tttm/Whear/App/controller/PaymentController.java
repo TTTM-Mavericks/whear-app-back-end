@@ -37,15 +37,19 @@ public class PaymentController {
   }
 
   @GetMapping(PaymentAPI.GET_PAYMENT_BY_ID)
-  public ObjectNode getPaymentByID(@RequestBody PaymentRequest paymentRequest) {
+  public ObjectNode getPaymentByID(@RequestParam("orderCode") Integer orderCode) {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
       ObjectNode respon = objectMapper.createObjectNode();
       respon.put("success", 200);
       respon.put("message", "Create payment Successfully");
       respon.set("data",
-          objectMapper.valueToTree(
-              paymentService.getPaymentInfor(paymentRequest.getOrderCode().toString())));
+              objectMapper.valueToTree(
+                      paymentService.getPaymentInfor(
+                              orderCode.toString()
+                      )
+              )
+      );
       return respon;
     } catch (Exception ex) {
       ObjectNode respon = objectMapper.createObjectNode();
