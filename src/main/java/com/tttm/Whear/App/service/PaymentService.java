@@ -18,6 +18,8 @@ public interface PaymentService {
   PaymentInformation getPaymentInfor(String paymentID)
       throws CustomException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException;
 
+  List<PaymentInformation> getAllPayment(String userId) throws Exception;
+
   List<Payment> getAllPayment() throws Exception;
 
   String getDateTime(Integer paymentID);

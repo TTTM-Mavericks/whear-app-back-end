@@ -16,6 +16,8 @@ public interface NewsService {
 
     NewsResponse getNewsByID(Integer newsID) throws CustomException;
 
+    List<NewsResponse> getAllNews() throws CustomException;
+
     List<NewsResponse> getNewsByBrandID(Integer brandID) throws CustomException;
 
     List<NewsResponse> getNewsByTypeOfNews(NewsRequest newsRequest) throws CustomException;

@@ -85,6 +85,8 @@ public class APIConstant {
     public static final String CLOTHES = APIConstant.API + "/clothes";
     public static final String CREATE_CLOTHES = "/create-clothes";
     public static final String GET_ALL_CLOTHES = "/get-all-clothes";
+    public static final String GET_CLOTHES_BY_TYPE_OF_CLOTHES = "/get-clothes-by-type_of_clothes";
+    public static final String GET_CLOTHES_BY_USERID = "/get-clothes-by-user-id";
     public static final String GET_CLOTHES_BY_ID = "/get-clothes-by-id";
     public static final String ADD_CLOTHES_TO_COLLECTION = "/add-clothes-to-collection";
     public static final String UPDATE_CLOTHES = "/update-clothes";
@@ -213,6 +215,7 @@ public class APIConstant {
     public static final String GET_NEWS_BY_ID = "/get-news-by-id";
     public static final String GET_NEWS_BY_BRAND_ID = "/get-news-by-brand_id";
     public static final String GET_NEWS_BY_TYPE_OF_NEWS = "/get-news-by-type-of-news";
+    public static final String GET_ALL_NEWS = "/get-all-news";
   }
 
   public class PagingAPI

@@ -172,6 +172,16 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<NewsResponse> getAllNews() throws CustomException {
+        List<News> newsList = newsRepository.findAll();
+        List<NewsResponse> responseList = new ArrayList<>();
+        for (News n : newsList) {
+            responseList.add(convertToNewsResponse(n));
+        }
+        return responseList;
+    }
+
+    @Override
     public List<NewsResponse> getNewsByBrandID(Integer brandID) throws CustomException {
         if (brandID == null) {
             throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());

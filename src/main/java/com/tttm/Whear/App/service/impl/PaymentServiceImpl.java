@@ -276,6 +276,16 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    public List<PaymentInformation> getAllPayment(String userId) throws Exception {
+        List<Payment> paymentList = paymentRepository.getAllPayment(userId);
+        List<PaymentInformation> response = new ArrayList<>();
+        for(Payment p : paymentList){
+            response.add(getPaymentInfor(p.getPaymentID().toString()));
+        }
+        return response;
+    }
+
+    @Override
     public String getDateTime(Integer paymentID) {
         return paymentRepository.getDateTime(paymentID);
     }

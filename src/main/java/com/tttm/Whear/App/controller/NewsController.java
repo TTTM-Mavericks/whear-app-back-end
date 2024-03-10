@@ -88,6 +88,24 @@ public class NewsController {
         }
     }
 
+    @GetMapping(APIConstant.NewsAPI.GET_ALL_NEWS)
+    public ObjectNode getAllNews() throws CustomException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("success", 200);
+            respon.put("message", "GET News Successfully");
+            respon.put("data", objectMapper.valueToTree(newsService.getAllNews()));
+            return respon;
+        } catch (Exception ex) {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("error", -1);
+            respon.put("message", ex.getMessage());
+            respon.set("data", null);
+            return respon;
+        }
+    }
+
     @GetMapping(APIConstant.NewsAPI.GET_NEWS_BY_BRAND_ID)
     public ObjectNode getNewsByBrandID(@RequestParam("brandID") Integer brandID) throws CustomException {
         ObjectMapper objectMapper = new ObjectMapper();

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.tttm.Whear.App.WhearAppApplication;
 import com.tttm.Whear.App.constant.APIConstant.ClothesAPI;
 import com.tttm.Whear.App.dto.ClothesItemDto;
 import com.tttm.Whear.App.dto.Pairs;
@@ -54,6 +53,58 @@ public class ClothesController {
             List<ClothesResponse> responseList = clothesDataService.getClothesResponseList();
             for (int i = 67; i < responseList.size(); i++) {
                 responseNonNullList.add(responseList.get(i));
+            }
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("success", 200);
+            respon.put("message", "Their are " + responseNonNullList.size() + " clothes");
+            ArrayNode arrayNode = objectMapper.valueToTree(responseNonNullList);
+            respon.set("data", arrayNode);
+            return respon;
+        } catch (Exception ex) {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("error", -1);
+            respon.put("message", ex.getMessage());
+            respon.set("data", null);
+            return respon;
+        }
+    }
+
+    @GetMapping(ClothesAPI.GET_CLOTHES_BY_TYPE_OF_CLOTHES)
+    public ObjectNode getClothesByType(@RequestParam("typeOfClothes") String typeOfClothes) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            List<ClothesResponse> responseNonNullList = new ArrayList<>();
+            List<ClothesResponse> responseList = clothesDataService.getClothesResponseList();
+            for (int i = 67; i < responseList.size(); i++) {
+                if (responseList.get(i).getTypeOfClothes().equals(typeOfClothes)) {
+                    responseNonNullList.add(responseList.get(i));
+                }
+            }
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("success", 200);
+            respon.put("message", "Their are " + responseNonNullList.size() + " clothes");
+            ArrayNode arrayNode = objectMapper.valueToTree(responseNonNullList);
+            respon.set("data", arrayNode);
+            return respon;
+        } catch (Exception ex) {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("error", -1);
+            respon.put("message", ex.getMessage());
+            respon.set("data", null);
+            return respon;
+        }
+    }
+
+    @GetMapping(ClothesAPI.GET_CLOTHES_BY_USERID)
+    public ObjectNode getClothesByCreatorId(@RequestParam("userId") String userId) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            List<ClothesResponse> responseNonNullList = new ArrayList<>();
+            List<ClothesResponse> responseList = clothesDataService.getClothesResponseList();
+            for (int i = 67; i < responseList.size(); i++) {
+                if (responseList.get(i).getUser().getUserID().equals(userId)) {
+                    responseNonNullList.add(responseList.get(i));
+                }
             }
             ObjectNode respon = objectMapper.createObjectNode();
             respon.put("success", 200);
@@ -216,7 +267,7 @@ public class ClothesController {
             List<ClothesResponse> clothesResponses = clothesDataService.getClothesResponseList();
             clothesResponses.remove(clothesID);
             List<Pairs> pairsList = clothesDataService.getClothesItemList();
-            pairsList.remove(clothesID-67);
+            pairsList.remove(clothesID - 67);
 //      }
             return response;
         } catch (Exception ex) {

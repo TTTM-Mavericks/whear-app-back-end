@@ -56,6 +56,28 @@ public class PaymentController {
     }
   }
 
+  @GetMapping(PaymentAPI.GET_ALL_PAYMENT)
+  public ObjectNode getAllPayment(@RequestParam("userId") String userId) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("success", 200);
+      respon.put("message", "get payment Successfully");
+      respon.set("data",
+              objectMapper.valueToTree(
+                      paymentService.getAllPayment(userId)
+              )
+      );
+      return respon;
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
+
   @PutMapping(path = "/confirm-update")
   public ObjectNode confirmUpdate(@RequestParam("orderCode") Integer orderCode, @RequestParam("item") String item) {
     ObjectMapper objectMapper = new ObjectMapper();
