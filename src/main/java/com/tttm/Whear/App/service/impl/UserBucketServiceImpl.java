@@ -1,6 +1,10 @@
 package com.tttm.Whear.App.service.impl;
 
+import com.tttm.Whear.App.service.PaymentService;
 import com.tttm.Whear.App.service.UserBucketService;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -11,10 +15,12 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 @Service
+@RequiredArgsConstructor
 public class UserBucketServiceImpl implements UserBucketService {
     private Map<String, ZonedDateTime> userLastCallDate = new ConcurrentHashMap<>();
     private Map<String, Object> userCallData = new ConcurrentHashMap<>();
     private ZoneId utcZone = ZoneId.of("UTC");
+    private final Logger logger = LoggerFactory.getLogger(UserBucketServiceImpl.class);
 
 //    private final Map<String, Map<LocalDate, Object>> userCallData = new ConcurrentHashMap<>();
 
@@ -70,5 +76,18 @@ public class UserBucketServiceImpl implements UserBucketService {
     @Override
     public Object getOldDataByUserID(String userID) {
         return userCallData.get(userID);
+    }
+
+    @Override
+    public void storeCallDataWhenUpgradePremium(String userID) {
+        if(userCallData.containsKey(userID)) {
+            logger.warn("userCallData with UpgradePremium : {}", userID);
+            userCallData.remove(userID);
+
+        }
+        if(userLastCallDate.containsKey(userID)) {
+            logger.warn("userLastCallDate with UpgradePremium : {}", userID);
+            userLastCallDate.remove(userID);
+        }
     }
 }

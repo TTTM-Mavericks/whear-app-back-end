@@ -5,4 +5,5 @@ public interface UserBucketService {
 
     void storeCallDataAndUser(String userID, Object apiData);
     Object getOldDataByUserID(String userID);
+    void storeCallDataWhenUpgradePremium(String userID);
 }
