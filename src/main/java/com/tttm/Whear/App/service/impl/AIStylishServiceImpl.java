@@ -6,13 +6,11 @@ import com.tttm.Whear.App.entity.*;
 import com.tttm.Whear.App.enums.ESubRole;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.*;
+import com.tttm.Whear.App.utils.request.CalculateOutfitsRequest;
 import com.tttm.Whear.App.utils.request.MemoryRequest;
 import com.tttm.Whear.App.utils.request.RejectClothesRequest;
 import com.tttm.Whear.App.utils.request.SuggestChoiceForPremiumUser;
-import com.tttm.Whear.App.utils.response.AIStylishResponse;
-import com.tttm.Whear.App.utils.response.ClothesResponse;
-import com.tttm.Whear.App.utils.response.RuleMatchingClothesResponse;
-import com.tttm.Whear.App.utils.response.UserResponseStylish;
+import com.tttm.Whear.App.utils.response.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -784,5 +782,70 @@ public class AIStylishServiceImpl implements AIStylishService {
             memoryEntityService.updateAcceptOldOutfitsUntilNewOutfitArrive(suggestChoiceForPremiumUser.getStyleName(), suggestChoiceForPremiumUser.getBodyShapeName(), suggestChoiceForPremiumUser.getUserID() + ",");
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public CalculateOutfitsResponse calculateMaximumOutfitsCanGenerate(CalculateOutfitsRequest calculateOutfitsRequest) throws CustomException {
+        Style style = styleService.getStyleByStyleName(calculateOutfitsRequest.getStyleName());
+        if (style == null) {
+            throw new CustomException(ConstantMessage.STYLE_NAME_IS_NOT_EXISTED.getMessage());
+        }
+
+        BodyShape bodyShape = bodyShapeService.getBodyShapeByBodyShapeName(calculateOutfitsRequest.getBodyShapeName());
+        if (bodyShape == null) {
+            throw new CustomException(ConstantMessage.BODY_SHAPE_NAME_IS_NOT_EXISTED.getMessage());
+        }
+
+        RuleMatchingClothesResponse rule = ruleMatchingClothesService.getRuleMatchingClothesByStyleAndBodyShape(style.getStyleID(), bodyShape.getBodyShapeID());
+
+        String userGender = calculateOutfitsRequest.getGenderType();
+
+        List<ClothesResponse> topInsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+                rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial(), userGender);
+
+
+        for (ClothesResponse clothesResponse : topInsideClothes) {
+            logger.warn("This is Top Inside Clothes {}", clothesResponse);
+        }
+
+        List<ClothesResponse> topOutsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+                rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial(), userGender);
+
+        for (ClothesResponse clothesResponse : topOutsideClothes) {
+            logger.warn("This is Top Outside Clothes {}", clothesResponse);
+        }
+
+        List<ClothesResponse> bottomClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+                rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial(), userGender);
+
+
+        for (ClothesResponse clothesResponse : bottomClothes) {
+            logger.warn("This is Bottom Clothes {}", clothesResponse);
+        }
+
+        List<ClothesResponse> shoesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
+                rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial(), userGender);
+
+
+        for (ClothesResponse clothesResponse : shoesClothes) {
+            logger.warn("This is Shoes Clothes {}", clothesResponse);
+        }
+
+        List<ClothesResponse> accessoriesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndMaterial(
+                rule.getAccessoryKind(), rule.getAccessoryMaterial(), userGender);
+
+        for (ClothesResponse clothesResponse : accessoriesClothes) {
+            logger.warn("This is Accessories Clothes {}", clothesResponse);
+        }
+
+        Integer maxOutFitCanGenerate = calculateMaxOutfitsCanGenerate(topInsideClothes, topOutsideClothes, bottomClothes, shoesClothes, accessoriesClothes);
+
+        return CalculateOutfitsResponse
+                .builder()
+                .styleName(calculateOutfitsRequest.getStyleName())
+                .bodyShapeName(calculateOutfitsRequest.getBodyShapeName())
+                .genderType(calculateOutfitsRequest.getGenderType())
+                .maximumOutfits(maxOutFitCanGenerate)
+                .build();
     }
 }

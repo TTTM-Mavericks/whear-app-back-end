@@ -6,6 +6,7 @@ import com.tttm.Whear.App.constant.APIConstant;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.service.AIStylishService;
 import com.tttm.Whear.App.service.UserBucketService;
+import com.tttm.Whear.App.utils.request.CalculateOutfitsRequest;
 import com.tttm.Whear.App.utils.request.RejectClothesRequest;
 import com.tttm.Whear.App.utils.request.SuggestChoiceForPremiumUser;
 import lombok.RequiredArgsConstructor;
@@ -70,6 +71,24 @@ public class AIStylishController {
             respon.put("success", 200);
             respon.put("message", "Create New Clothes After Reject for Premium User Successfully");
             respon.set("data", objectMapper.valueToTree(stylishService.createNewClothesAfterRejectClothesForPremiumUser(rejectClothesRequest)));
+            return respon;
+        } catch (Exception ex) {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("error", -1);
+            respon.put("message", ex.getMessage());
+            respon.set("data", null);
+            return respon;
+        }
+    }
+
+    @PostMapping(APIConstant.AIStylishAPI.CALCULATE_MAXIMUM_OUTFITS_CAN_GENERATE)
+    public ObjectNode calculateMaximumOutfitsCanGenerate(@RequestBody CalculateOutfitsRequest calculateOutfitsRequest) throws CustomException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("success", 200);
+            respon.put("message", "Calculate Maximum Outfits Successfully");
+            respon.set("data", objectMapper.valueToTree(stylishService.calculateMaximumOutfitsCanGenerate(calculateOutfitsRequest)));
             return respon;
         } catch (Exception ex) {
             ObjectNode respon = objectMapper.createObjectNode();
