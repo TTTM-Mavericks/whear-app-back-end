@@ -27,7 +27,8 @@ public class ClothesDataService {
 
     public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndColorOrMaterials(String typeOfClothes,
                                                                                   String color,
-                                                                                  String materials) throws CustomException {
+                                                                                  String materials,
+                                                                                  String userGender) throws CustomException {
         logger.warn("Check Data {} {} {}", typeOfClothes, color, materials);
         return clothesResponseList
                 .stream()
@@ -35,17 +36,20 @@ public class ClothesDataService {
                 .filter(clothesResponse -> clothesResponse != null)
                 .filter(clothesResponse -> clothesResponse.getTypeOfClothes().equals(typeOfClothes))
                 .filter(clothesResponse -> clothesResponse.getClothesColors().stream().anyMatch(COLOR -> COLOR.contains(color)))
+                .filter(clothesResponse -> clothesResponse.getClothesGender().stream().anyMatch(GENDER -> GENDER.toUpperCase().equals(userGender.toUpperCase())))
                 .collect(Collectors.toList());
     }
 
     public List<ClothesResponse> getClothesBaseOnTypeOfClothesAndMaterial(String typeOfClothes,
-                                                                          String materials) throws CustomException {
+                                                                          String materials,
+                                                                          String userGender) throws CustomException {
         logger.warn("Check Data {} {}", typeOfClothes, materials);
         return clothesResponseList
                 .stream()
                 .skip(67)
                 .filter(clothesResponse -> clothesResponse != null)
                 .filter(clothesResponse -> clothesResponse.getTypeOfClothes().equals(typeOfClothes))
+                .filter(clothesResponse -> clothesResponse.getClothesGender().stream().anyMatch(GENDER -> GENDER.toUpperCase().equals(userGender.toUpperCase())))
                 .collect(Collectors.toList());
     }
 }
