@@ -49,7 +49,7 @@ public class User extends AuditEntity implements Serializable, UserDetails {
   private String email;
 
   @Column(name = "gender", unique = false, nullable = true)
-  private Boolean gender;
+  private Boolean gender;    // 1 Male 0 Female
 
   @Column(name = "role", unique = false, nullable = true)
   @Enumerated(EnumType.STRING)

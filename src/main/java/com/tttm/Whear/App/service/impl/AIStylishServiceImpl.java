@@ -86,6 +86,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                 .map(style -> ruleMatchingClothesService.getRuleMatchingClothesByStyleAndBodyShape(style.getStyleID(), bodyShape.getBodyShapeID()))
                 .collect(Collectors.toList());
 
+        String userGender = (user.getGender() == true) ? "MALE" : "FEMALE";
+
         List<AIStylishResponse> aiStylishResponses = new ArrayList<>();
         int index = 0;
 
@@ -93,7 +95,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             List<List<ClothesResponse>> outfitList = new ArrayList<>();
 
             List<ClothesResponse> topInsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
+                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial(), userGender);
 
 //            List<ClothesResponse> topInsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
@@ -103,7 +105,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             }
 
             List<ClothesResponse> topOutsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
+                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial(), userGender);
 //            List<ClothesResponse> topOutsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
 
@@ -112,7 +114,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             }
 
             List<ClothesResponse> bottomClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
+                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial(), userGender);
 
 //            List<ClothesResponse> bottomClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
@@ -122,7 +124,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             }
 
             List<ClothesResponse> shoesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
+                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial(), userGender);
 
 //            List<ClothesResponse> shoesClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
@@ -132,7 +134,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             }
 
             List<ClothesResponse> accessoriesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndMaterial(
-                    rule.getAccessoryKind(), rule.getAccessoryMaterial());
+                    rule.getAccessoryKind(), rule.getAccessoryMaterial(), userGender);
 //            List<ClothesResponse> accessoriesClothes = clothesService.getClothesBaseOnTypeOfClothesAndMaterial(
 //                    rule.getAccessoryKind(), rule.getAccessoryMaterial());
 
@@ -247,7 +249,6 @@ public class AIStylishServiceImpl implements AIStylishService {
                     }
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getBottomKindID())) {
-//                        ClothesResponse bottomKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getBottomKindID()));
                         ClothesResponse bottomKind = clothesDataService.getClothesResponseList().get(Integer.parseInt(memoryEntity.getBottomKindID()));
                         bottomKindID = bottomKind.getClothesID().toString();
                         bottomKind.setUserResponseStylish(userResponseStylish);
@@ -255,7 +256,6 @@ public class AIStylishServiceImpl implements AIStylishService {
                     }
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getShoesTypeID())) {
-//                        ClothesResponse shoesType = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getShoesTypeID()));
                         ClothesResponse shoesType = clothesDataService.getClothesResponseList().get(Integer.parseInt(memoryEntity.getShoesTypeID()));
                         shoesTypeID = shoesType.getClothesID().toString();
                         shoesType.setUserResponseStylish(userResponseStylish);
@@ -263,7 +263,6 @@ public class AIStylishServiceImpl implements AIStylishService {
                     }
 
                     if (checkStringIsNotEmptyOrBlank(memoryEntity.getAccessoryKindID())) {
-//                        ClothesResponse accessoriesKind = clothesService.getClothesByID(Integer.parseInt(memoryEntity.getAccessoryKindID()));
                         ClothesResponse accessoriesKind = clothesDataService.getClothesResponseList().get(Integer.parseInt(memoryEntity.getAccessoryKindID()));
                         accessoryKindID = accessoriesKind.getClothesID().toString();
                         accessoriesKind.setUserResponseStylish(userResponseStylish);
@@ -450,6 +449,8 @@ public class AIStylishServiceImpl implements AIStylishService {
                 .map(style -> ruleMatchingClothesService.getRuleMatchingClothesByStyleAndBodyShape(style.getStyleID(), bodyShape.getBodyShapeID()))
                 .collect(Collectors.toList());
 
+        String userGender = (user.getGender() == true) ? "MALE" : "FEMALE";
+
         List<AIStylishResponse> aiStylishResponses = new ArrayList<>();
 
         for (int i = 0; i < ruleMatchingClothesResponses.size(); ++i) {
@@ -459,7 +460,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             List<List<ClothesResponse>> outfitList = new ArrayList<>();
 
             List<ClothesResponse> topInsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
+                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial(), userGender);
 
 //            List<ClothesResponse> topInsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
@@ -469,7 +470,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             }
 
             List<ClothesResponse> topOutsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
+                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial(), userGender);
 //            List<ClothesResponse> topOutsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
 
@@ -478,7 +479,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             }
 
             List<ClothesResponse> bottomClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
+                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial(), userGender);
 
 //            List<ClothesResponse> bottomClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
@@ -488,7 +489,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             }
 
             List<ClothesResponse> shoesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
+                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial(), userGender);
 
 //            List<ClothesResponse> shoesClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
@@ -498,7 +499,7 @@ public class AIStylishServiceImpl implements AIStylishService {
             }
 
             List<ClothesResponse> accessoriesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndMaterial(
-                    rule.getAccessoryKind(), rule.getAccessoryMaterial());
+                    rule.getAccessoryKind(), rule.getAccessoryMaterial(), userGender);
 //            List<ClothesResponse> accessoriesClothes = clothesService.getClothesBaseOnTypeOfClothesAndMaterial(
 //                    rule.getAccessoryKind(), rule.getAccessoryMaterial());
 
@@ -641,6 +642,8 @@ public class AIStylishServiceImpl implements AIStylishService {
         Customer customer = customerService.getCustomerByID(rejectClothesRequest.getUserID());
         String subRole = subroleService.getSubroleByID(customer.getSubRoleID()).getSubRoleName().toString();
 
+        String userGender = (user.getGender() == true) ? "MALE" : "FEMALE";
+
         UserResponseStylish userResponseStylish = UserResponseStylish
                 .builder()
                 .userID(user.getUserID())
@@ -652,7 +655,7 @@ public class AIStylishServiceImpl implements AIStylishService {
         List<List<ClothesResponse>> outfitList = new ArrayList<>();
 
         List<ClothesResponse> topInsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
+                rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial(), userGender);
 
 //            List<ClothesResponse> topInsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getTopInside(), rule.getTopInsideColor(), rule.getTopMaterial());
@@ -662,7 +665,7 @@ public class AIStylishServiceImpl implements AIStylishService {
         }
 
         List<ClothesResponse> topOutsideClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
+                rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial(), userGender);
 //            List<ClothesResponse> topOutsideClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getTopOutside(), rule.getTopOutsideColor(), rule.getTopMaterial());
 
@@ -671,7 +674,7 @@ public class AIStylishServiceImpl implements AIStylishService {
         }
 
         List<ClothesResponse> bottomClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
+                rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial(), userGender);
 
 //            List<ClothesResponse> bottomClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getBottomKind(), rule.getBottomColor(), rule.getBottomMaterial());
@@ -681,7 +684,7 @@ public class AIStylishServiceImpl implements AIStylishService {
         }
 
         List<ClothesResponse> shoesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
-                rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
+                rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial(), userGender);
 
 //            List<ClothesResponse> shoesClothes = clothesService.getClothesBaseOnTypeOfClothesAndColorOrMaterials(
 //                    rule.getShoesType(), rule.getShoesTypeColor(), rule.getBottomMaterial());
@@ -691,7 +694,7 @@ public class AIStylishServiceImpl implements AIStylishService {
         }
 
         List<ClothesResponse> accessoriesClothes = clothesDataService.getClothesBaseOnTypeOfClothesAndMaterial(
-                rule.getAccessoryKind(), rule.getAccessoryMaterial());
+                rule.getAccessoryKind(), rule.getAccessoryMaterial(), userGender);
 //            List<ClothesResponse> accessoriesClothes = clothesService.getClothesBaseOnTypeOfClothesAndMaterial(
 //                    rule.getAccessoryKind(), rule.getAccessoryMaterial());
 
