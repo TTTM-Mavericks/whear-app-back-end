@@ -95,6 +95,32 @@ public class ClothesController {
         }
     }
 
+    @GetMapping(ClothesAPI.GET_CLOTHES_BY_STYLE)
+    public ObjectNode getClothesByStyle(@RequestParam("style") String style) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            List<ClothesResponse> responseNonNullList = new ArrayList<>();
+            List<ClothesResponse> responseList = clothesDataService.getClothesResponseList();
+            for (int i = 67; i < responseList.size(); i++) {
+                if (responseList.get(i).getClothesStyles().contains(style)) {
+                    responseNonNullList.add(responseList.get(i));
+                }
+            }
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("success", 200);
+            respon.put("message", "Their are " + responseNonNullList.size() + " clothes");
+            ArrayNode arrayNode = objectMapper.valueToTree(responseNonNullList);
+            respon.set("data", arrayNode);
+            return respon;
+        } catch (Exception ex) {
+            ObjectNode respon = objectMapper.createObjectNode();
+            respon.put("error", -1);
+            respon.put("message", ex.getMessage());
+            respon.set("data", null);
+            return respon;
+        }
+    }
+
     @GetMapping(ClothesAPI.GET_CLOTHES_BY_USERID)
     public ObjectNode getClothesByCreatorId(@RequestParam("userId") String userId) {
         ObjectMapper objectMapper = new ObjectMapper();
