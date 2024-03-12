@@ -9,12 +9,18 @@ import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.NewsImageRepository;
 import com.tttm.Whear.App.repository.NewsRepository;
 import com.tttm.Whear.App.service.BrandService;
+import com.tttm.Whear.App.service.NewsImageService;
 import com.tttm.Whear.App.service.NewsService;
 import com.tttm.Whear.App.utils.request.NewsRequest;
 import com.tttm.Whear.App.utils.response.NewsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.DateFormatter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsRepository;
-    private final NewsImageRepository newsImageRepository;
+    private final NewsImageService newsImageService;
     private final BrandService brandService;
 
     @Override
@@ -68,33 +74,15 @@ public class NewsServiceImpl implements NewsService {
             throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
         }
 
-        Integer newsID = Integer.parseInt(String.valueOf(newsRepository.count() + 1));
+        newsRepository.saveNews(brandID, typeOfNews, title, content, Boolean.parseBoolean(newsRequest.getStatus()));
 
-        newsRepository.save(
-                News
-                        .builder()
-                        .newsID(newsID)
-                        .brandID(brandID.toString())
-                        .title(title)
-                        .content(content)
-                        .typeOfNews(TypeOfNews.valueOf(typeOfNews))
-                        .status(StatusGeneral.INACTIVE)
-                        .build()
-        );
-
-        News news = newsRepository.getNewsByNewsIDIs(newsID);
+        News news = newsRepository.getNewsByNewsDetails(brandID, typeOfNews, title, content, Boolean.parseBoolean(newsRequest.getStatus()));
         if (news != null) {
             for (String img : image) {
-                newsImageRepository.save(
-                        NewsImages
-                                .builder()
-                                .newsID(newsID)
-                                .imageUrl(img)
-                                .build()
-                );
+                newsImageService.createNewImages(news.getNewsID(), img);
             }
         }
-        return convertToNewsResponse(news);
+        return convertToNewsResponse(news.getNewsID());
     }
 
     @Override
@@ -129,21 +117,9 @@ public class NewsServiceImpl implements NewsService {
         String content = newsRequest.getContent().trim();
         String typeOfNews = newsRequest.getTypeOfNews().trim();
 
-        newsRepository.save(
-                News
-                        .builder()
-                        .newsID(newsID)
-                        .brandID(brandID.toString())
-                        .title(title)
-                        .content(content)
-                        .typeOfNews(TypeOfNews.valueOf(typeOfNews))
-                        .status(StatusGeneral.valueOf(newsRequest.getStatus()))
-                        .build()
-        );
+        newsRepository.updateNews(brandID, typeOfNews, title, content, Boolean.parseBoolean(newsRequest.getStatus()), newsID);
 
-        news = newsRepository.getNewsByNewsIDIs(newsID);
-
-        return convertToNewsResponse(news);
+        return convertToNewsResponse(newsID);
     }
 
     @Override
@@ -160,6 +136,7 @@ public class NewsServiceImpl implements NewsService {
         if (news == null) {
             throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
         }
+        newsImageService.deleteNewsImages(newsID);
         newsRepository.deleteByNewsID(newsRequest.getNewsID());
     }
 
@@ -168,15 +145,19 @@ public class NewsServiceImpl implements NewsService {
         if (newsID == null) {
             throw new CustomException(ConstantMessage.MISSING_ARGUMENT.getMessage());
         }
-        return convertToNewsResponse(newsRepository.getNewsByNewsIDIs(newsID));
+        News news = newsRepository.getNewsByNewsIDIs(newsID);
+        if (news == null) {
+            throw new CustomException(ConstantMessage.RESOURCE_NOT_FOUND.getMessage());
+        }
+        return convertToNewsResponse(news.getNewsID());
     }
 
     @Override
     public List<NewsResponse> getAllNews() throws CustomException {
         List<News> newsList = newsRepository.findAll();
         List<NewsResponse> responseList = new ArrayList<>();
-        for (News n : newsList) {
-            responseList.add(convertToNewsResponse(n));
+        for (News news : newsList) {
+            responseList.add(convertToNewsResponse(news.getNewsID()));
         }
         return responseList;
     }
@@ -192,8 +173,8 @@ public class NewsServiceImpl implements NewsService {
 
         List<News> newsList = newsRepository.getNewsByBrandID(brandID);
         List<NewsResponse> responseList = new ArrayList<>();
-        for (News n : newsList) {
-            responseList.add(convertToNewsResponse(n));
+        for (News news : newsList) {
+            responseList.add(convertToNewsResponse(news.getNewsID()));
         }
         return responseList;
     }
@@ -209,21 +190,24 @@ public class NewsServiceImpl implements NewsService {
 
         List<News> newsList = newsRepository.getNewsByTypeOfNews(newsRequest.getTypeOfNews());
         List<NewsResponse> responseList = new ArrayList<>();
-        for (News n : newsList) {
-            responseList.add(convertToNewsResponse(n));
+        for (News news : newsList) {
+            responseList.add(convertToNewsResponse(news.getNewsID()));
         }
         return responseList;
     }
 
-    private NewsResponse convertToNewsResponse(News news) throws CustomException {
+    private NewsResponse convertToNewsResponse(Integer newsID) throws CustomException {
+        News news = newsRepository.getNewsByNewsIDIs(newsID);
         if (news == null) {
             return null;
         }
-        List<NewsImages> img = newsImageRepository.getNewsImagesByNewsID(news.getNewsID());
+        List<NewsImages> img = newsImageService.getNewsImagesByNewsID(news.getNewsID());
         List<String> imgList = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (NewsImages i : img) {
             imgList.add(i.getImageUrl());
         }
+        LocalDateTime dateTime = (news.getLastModifiedDate() == null) ? news.getCreateDate() : news.getLastModifiedDate();
         return NewsResponse
                 .builder()
                 .brand(
@@ -235,7 +219,7 @@ public class NewsServiceImpl implements NewsService {
                 .content(news.getContent())
                 .status(news.getStatus().name())
                 .image(imgList)
-                .date(news.getCreateDate().toString())
+                .date(dateTime.format(formatter))
                 .build();
     }
 }
