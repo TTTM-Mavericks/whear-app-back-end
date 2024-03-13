@@ -64,6 +64,7 @@ public class APIConstant {
     public static final String USER_FOLLOW_OR_UNFOLLOW_ANOTHER_USER = "/un-follow";
     public static final String GET_ALL_FOLLOWER_USER = "/get-all-follower-user";
     public static final String GET_ALL_FOLLOWING_USER = "/get-all-following-user";
+    public static final String GET_ALL_NOT_YET_FOLLOWING_USER = "/get-all-notyet-following-user";
 
     public static final String GET_NUMBER_OF_FOLLOWER_BY_USER_ID = "/get-number-of-follower-by-userid";
     public static final String GET_NUMBER_OF_FOLLOWING_BY_USER_ID = "/get-number-of-following-by-userid";
