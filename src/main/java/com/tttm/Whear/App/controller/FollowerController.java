@@ -169,4 +169,24 @@ public class FollowerController {
       return respon;
     }
   }
+
+  @GetMapping(APIConstant.FollowAPI.GET_ALL_NOT_YET_FOLLOWING_USER)
+  public ObjectNode getAllNotyetFollowingUser(@RequestParam("userid") String userid)
+          throws CustomException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("success", 200);
+      respon.put("message", "Get All Notyet Following Users Successfully");
+      ArrayNode arr = objectMapper.valueToTree(followService.getAllNotyetFollowingUser(userid));
+      respon.set("data", arr);
+      return respon;
+    } catch (Exception ex) {
+      ObjectNode respon = objectMapper.createObjectNode();
+      respon.put("error", -1);
+      respon.put("message", ex.getMessage());
+      respon.set("data", null);
+      return respon;
+    }
+  }
 }

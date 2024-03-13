@@ -14,6 +14,7 @@ public interface FollowService {
   List<UserResponse> getAllFollowerUser(String userID) throws CustomException;
 
   List<UserResponse> getAllFollowingUser(String userID) throws CustomException;
+  List<UserResponse> getAllNotyetFollowingUser(String userID) throws CustomException;
   List<UserResponse> getAllFollowingUserExceptCurrentUser(String userID, String currentUserID) throws CustomException;
   Follower checkContain(String baseUserID, String targetUserID) throws CustomException;
   Long calculateNumberOfFollowerByUserID(String userID) throws CustomException;
