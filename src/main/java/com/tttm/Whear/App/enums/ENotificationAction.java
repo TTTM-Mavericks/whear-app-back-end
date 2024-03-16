@@ -5,4 +5,5 @@ public enum ENotificationAction {
   REACT,
   POST,
   CLOTHES,
+  COMMENT,
 }

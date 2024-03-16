@@ -145,6 +145,15 @@ public class NotificationServiceImpl implements NotificationService {
       }
       noti.setAction(ENotificationAction.REACT);
       noti.setActionID(postID);
+    } else if (action.equals(ENotificationAction.COMMENT.toString())) {
+      Integer postID = notification.getActionID();
+      PostResponse post = postService.getPostByPostID(postID);
+      if (post == null) {
+        throw new CustomException(
+                ConstantMessage.RESOURCE_NOT_FOUND.getMessage() + " for post: " + postID);
+      }
+      noti.setAction(ENotificationAction.COMMENT);
+      noti.setActionID(postID);
     }
     noti.setStatus(false);
     noti.setDateTime(notification.getDateTime());
@@ -216,13 +225,13 @@ public class NotificationServiceImpl implements NotificationService {
     return true;
   }
 
-  private NotificationResponse mapToNotificationRespons(Notification notification) {
+  private NotificationResponse mapToNotificationRespons(Notification notification) throws CustomException {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String formattedDateTime = notification.getDateTime().format(formatter);
     NotificationResponse response = NotificationResponse.builder()
         .notiID(notification.getNotiID())
-        .baseUserID(notification.getBaseUserID())
-        .targetUserID(notification.getTargetUserID())
+        .baseUserID(userService.getUserbyUserID(notification.getBaseUserID()))
+        .targetUserID(userService.getUserbyUserID(notification.getTargetUserID()))
         .action(notification.getAction().toString())
         .actionID(notification.getActionID())
         .status(notification.getStatus())

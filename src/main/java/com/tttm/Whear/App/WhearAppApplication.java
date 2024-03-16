@@ -44,24 +44,24 @@ public class WhearAppApplication {
         TextFileReader textFileReader = configurableApplicationContext.getBean(TextFileReader.class);
 
         textFileReader.onApplicationEvent(null);
-        RecommendationService recommendationService = configurableApplicationContext.getBean(RecommendationService.class);
-        ClothesService clothesService = configurableApplicationContext.getBean(ClothesService.class);
-        ClothesDataService clothesDataService = configurableApplicationContext.getBean(ClothesDataService.class);
-
-        // Store List Clothes when Running Project
-        List<ClothesResponse> clothesResponseList = new ArrayList<>();
-        for (int i = 0; i <= 66; i++) {
-            clothesResponseList.add(new ClothesResponse());
-        }
-        clothesResponseList.addAll(clothesService.getAllClothes());
-//        clothesResponseNonNullList.addAll(clothesService.getAllClothes());
-//        clothesItemList = recommendationService.convertListClothesToListClothesPairs();
-
-        clothesDataService.setClothesResponseList(clothesResponseList);
-        clothesDataService.setClothesItemList(recommendationService.convertListClothesToListClothesPairs());
-
-        logger.warn("Check Size Clothes Item List {}", clothesDataService.getClothesItemList().size());
-        logger.warn("Check Size Clothes Response List {}", clothesDataService.getClothesResponseList().size());
+//        RecommendationService recommendationService = configurableApplicationContext.getBean(RecommendationService.class);
+//        ClothesService clothesService = configurableApplicationContext.getBean(ClothesService.class);
+//        ClothesDataService clothesDataService = configurableApplicationContext.getBean(ClothesDataService.class);
+//
+//        // Store List Clothes when Running Project
+//        List<ClothesResponse> clothesResponseList = new ArrayList<>();
+//        for (int i = 0; i <= 66; i++) {
+//            clothesResponseList.add(new ClothesResponse());
+//        }
+//        clothesResponseList.addAll(clothesService.getAllClothes());
+////        clothesResponseNonNullList.addAll(clothesService.getAllClothes());
+////        clothesItemList = recommendationService.convertListClothesToListClothesPairs();
+//
+//        clothesDataService.setClothesResponseList(clothesResponseList);
+//        clothesDataService.setClothesItemList(recommendationService.convertListClothesToListClothesPairs());
+//
+//        logger.warn("Check Size Clothes Item List {}", clothesDataService.getClothesItemList().size());
+//        logger.warn("Check Size Clothes Response List {}", clothesDataService.getClothesResponseList().size());
     }
 
 //    public static List<Pairs> getClothesItemList() {
