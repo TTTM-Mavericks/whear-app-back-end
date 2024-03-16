@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,8 +50,7 @@ public class Post extends AuditEntity implements Serializable {
   private TypeOfPosts typeOfPosts;
 
   @Column(name = "date")
-  @Temporal(TemporalType.DATE)
-  private Date date;
+  private LocalDateTime date;
 
   @Column(name = "status")
   private String status;

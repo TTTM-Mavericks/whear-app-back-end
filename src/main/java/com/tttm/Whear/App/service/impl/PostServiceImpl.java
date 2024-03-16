@@ -23,6 +23,7 @@ import com.tttm.Whear.App.utils.response.PostResponse;
 import com.tttm.Whear.App.utils.response.ReactResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -93,7 +94,7 @@ public class PostServiceImpl implements PostService {
         .typeOfPosts(postRequest.getTypeOfPosts() != null ? postRequest.getTypeOfPosts() : null)
         .status(postRequest.getStatus())
         .content(postRequest.getContent())
-        .date(new Date())
+        .date(LocalDateTime.now())
         .build();
     postRepository.save(post);
 
@@ -191,11 +192,11 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public List<PostResponse> getAllPostInRange(Date startDate, Date endDate) throws
+  public List<PostResponse> getAllPostInRange(LocalDateTime startDate, LocalDateTime endDate) throws
       CustomException {
     List<Post> postList = postRepository.findAll()
         .stream()
-        .filter(c -> c.getDate().after(startDate) && c.getDate().before(endDate))
+        .filter(c -> c.getDate().isAfter(startDate) && c.getDate().isBefore(endDate))
         .toList();
     List<PostResponse> responseList = new ArrayList<>();
     if (postList != null && !postList.isEmpty() && postList.size() > 0) {

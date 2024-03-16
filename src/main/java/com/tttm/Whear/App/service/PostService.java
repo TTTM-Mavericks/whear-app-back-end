@@ -5,6 +5,8 @@ import com.tttm.Whear.App.enums.TypeOfPosts;
 import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.utils.request.PostRequest;
 import com.tttm.Whear.App.utils.response.PostResponse;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public interface PostService {
 
   public List<PostResponse> getAllPostByHashtag(String hashtag) throws CustomException;
 
-  public List<PostResponse> getAllPostInRange(Date startDate, Date endDate) throws CustomException;
+  public List<PostResponse> getAllPostInRange(LocalDateTime startDate, LocalDateTime endDate) throws CustomException;
 
   public Boolean deletePostByPostID(Integer postID) throws CustomException;
 

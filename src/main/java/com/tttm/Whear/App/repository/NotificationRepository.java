@@ -15,9 +15,10 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
   @Query(value = "update notification set status = ?1 where notiid = ?2", nativeQuery = true)
   void un_readNotification(Boolean status, Integer notiID);
 
+  @Query(value = "select * from notification where target_userid = ?1 order by date_time desc", nativeQuery = true)
   List<Notification> getAllByTargetUserID(String targetUserID);
 
-  @Query(value = "select * from notification where target_userid = ?1 and status = false;", nativeQuery = true)
+  @Query(value = "select * from notification where target_userid = ?1 and status = false order by date_time desc", nativeQuery = true)
   List<Notification> getUnreadNotification(String targetUserID);
 
   @Modifying

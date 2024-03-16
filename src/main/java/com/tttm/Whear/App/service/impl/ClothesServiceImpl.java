@@ -20,6 +20,7 @@ import com.tttm.Whear.App.utils.response.ReactResponse;
 import com.tttm.Whear.App.utils.response.UserResponse;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +58,7 @@ public class ClothesServiceImpl implements ClothesService {
         try {
             PostRequest postRequest = PostRequest.builder()
                     .userID(clothesRequest.getUserID())
-                    .date(new Date())
+                    .date(LocalDateTime.now())
                     .hashtag(clothesRequest.getHashtag())
                     .typeOfPosts(TypeOfPosts.CLOTHES)
                     .status("PUCLIC")

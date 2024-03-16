@@ -1,5 +1,6 @@
 package com.tttm.Whear.App.utils.request;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +9,6 @@ import lombok.Data;
 @Builder
 public class DateTimeRequest {
 
-  private Date startDate;
-  private Date endDate;
+  private LocalDateTime startDate;
+  private LocalDateTime endDate;
 }
