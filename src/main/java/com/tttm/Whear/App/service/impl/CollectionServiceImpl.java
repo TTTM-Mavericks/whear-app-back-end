@@ -10,10 +10,7 @@ import com.tttm.Whear.App.exception.CustomException;
 import com.tttm.Whear.App.repository.CollectionClothesRepository;
 import com.tttm.Whear.App.repository.CollectionRepository;
 import com.tttm.Whear.App.repository.SubRoleRepository;
-import com.tttm.Whear.App.service.ClothesService;
-import com.tttm.Whear.App.service.CollectionService;
-import com.tttm.Whear.App.service.CustomerService;
-import com.tttm.Whear.App.service.UserService;
+import com.tttm.Whear.App.service.*;
 import com.tttm.Whear.App.utils.request.CollectionRequest;
 import com.tttm.Whear.App.utils.response.ClothesResponse;
 import com.tttm.Whear.App.utils.response.CollectionResponse;
@@ -40,6 +37,7 @@ public class CollectionServiceImpl implements CollectionService {
     private final SubRoleRepository subRoleRepository;
     private final CollectionClothesRepository collectionClothesRepository;
     private final ClothesService clothesService;
+    private final ReactService reactService;
 
     @Override
 //  @Cacheable(cacheNames = "collections", key = "#username", unless = "#result == null")
@@ -88,10 +86,17 @@ public class CollectionServiceImpl implements CollectionService {
                     if (clothesList == null) {
                         clothesList = new ArrayList<>();
                     }
+                    ClothesResponse response = clothesService.getClothesByID(
+                            cc.getCollectionClothesKey().getClothesID()
+                    );
+                    response.setReacted(
+                            reactService.checkContain(
+                                    response.getClothesID(),
+                                    collection.getUserID()
+                            ) != null
+                    );
                     clothesList.add(
-                            clothesService.getClothesByID(
-                                    cc.getCollectionClothesKey().getClothesID()
-                            )
+                            response
                     );
                 }
             }
