@@ -88,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
                 PaymentItem
                         .builder()
                         .quantity(1)
-                        .price(10000)
+                        .price(159000)
                         .name("BRAND")
                         .build()
         );
